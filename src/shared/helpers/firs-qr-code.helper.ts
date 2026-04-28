@@ -1,4 +1,4 @@
-import * as crypto from 'crypto';
+import * as crypto from "crypto";
 
 /**
  * Decode Base64 → PEM public key
@@ -6,9 +6,9 @@ import * as crypto from 'crypto';
 function getPublicKeyPem(): string {
   const base64Key = process.env.FIRS_PUBLIC_KEY_BASE64;
   if (!base64Key) {
-    throw new Error('Missing FIRS_PUBLIC_KEY_BASE64 env variable');
+    throw new Error("Missing FIRS_PUBLIC_KEY_BASE64 env variable");
   }
-  return Buffer.from(base64Key, 'base64').toString('utf-8');
+  return Buffer.from(base64Key, "base64").toString("utf-8");
 }
 
 /**
@@ -23,7 +23,7 @@ function encryptPayload(payload: object): string {
     },
     Buffer.from(JSON.stringify(payload)),
   );
-  return encryptedBuffer.toString('base64');
+  return encryptedBuffer.toString("base64");
 }
 
 /**
@@ -34,7 +34,7 @@ function encryptPayload(payload: object): string {
 export function generateFirsQrCode(irn: string): string {
   const certificate = process.env.FIRS_CERTIFICATE_BASE64;
   if (!certificate) {
-    throw new Error('Missing FIRS_CERTIFICATE_BASE64 env variable');
+    throw new Error("Missing FIRS_CERTIFICATE_BASE64 env variable");
   }
   const payload = {
     irn,
@@ -43,4 +43,3 @@ export function generateFirsQrCode(irn: string): string {
   const encryptedBase64 = encryptPayload(payload);
   return encryptedBase64;
 }
-

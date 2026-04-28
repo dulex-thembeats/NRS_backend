@@ -370,7 +370,7 @@ exports.Prisma.BusinessScalarFieldEnum = {
   entityId: 'entityId'
 };
 
-exports.Prisma.PartnerApiCredentialScalarFieldEnum = {
+exports.Prisma.ClientApiCredentialScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   apiKey: 'apiKey',
@@ -380,7 +380,7 @@ exports.Prisma.PartnerApiCredentialScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PartnerApiLogScalarFieldEnum = {
+exports.Prisma.ClientApiLogScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   method: 'method',
@@ -489,7 +489,7 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN',
-  PARTNER: 'PARTNER'
+  CLIENT: 'CLIENT'
 };
 
 exports.Prisma.ModelName = {
@@ -518,8 +518,8 @@ exports.Prisma.ModelName = {
   WebhookEvent: 'WebhookEvent',
   Entity: 'Entity',
   Business: 'Business',
-  PartnerApiCredential: 'PartnerApiCredential',
-  PartnerApiLog: 'PartnerApiLog',
+  ClientApiCredential: 'ClientApiCredential',
+  ClientApiLog: 'ClientApiLog',
   ConfigurationInvoiceType: 'ConfigurationInvoiceType',
   ConfigurationPaymentMean: 'ConfigurationPaymentMean',
   ConfigurationTaxCategory: 'ConfigurationTaxCategory',

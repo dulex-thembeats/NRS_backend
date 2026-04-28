@@ -14,8 +14,8 @@ import {
   MaxLength,
   ValidateNested,
   ValidateIf,
-} from 'class-validator';
-import { Type } from 'class-transformer';
+} from "class-validator";
+import { Type } from "class-transformer";
 
 /**
  * Address details for a party.
@@ -58,7 +58,7 @@ class PartyDto {
   @IsOptional()
   @IsString()
   @Matches(/^\+\d+$/, {
-    message: 'telephone must start with + and contain only digits',
+    message: "telephone must start with + and contain only digits",
   })
   readonly telephone?: string;
 
@@ -290,7 +290,7 @@ export class FirsValidateInvoiceDto {
   @IsOptional()
   @IsString()
   @Matches(/^\d{2}:\d{2}:\d{2}$/, {
-    message: 'issue_time must be in HH:mm:ss format',
+    message: "issue_time must be in HH:mm:ss format",
   })
   readonly issue_time?: string;
 
@@ -300,7 +300,7 @@ export class FirsValidateInvoiceDto {
 
   @IsOptional()
   @IsString()
-  readonly payment_status?: string = 'PENDING';
+  readonly payment_status?: string = "PENDING";
 
   @IsOptional()
   @IsString()

@@ -2,14 +2,13 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from 'src/database';
-import { EmailService } from 'src/shared/email/mail.service';
-import { CreateUserDto, UpdateUserDto, RegisterUserDto } from './dtos';
-import * as bcrypt from 'bcryptjs';
-import { User } from './entities/user.entity';
-import * as crypto from 'crypto';
-
+} from "@nestjs/common";
+import { PrismaService } from "src/database";
+import { EmailService } from "src/shared/email/mail.service";
+import { CreateUserDto, UpdateUserDto, RegisterUserDto } from "./dtos";
+import * as bcrypt from "bcryptjs";
+import { User } from "./entities/user.entity";
+import * as crypto from "crypto";
 
 @Injectable()
 export class UsersService {
@@ -27,7 +26,7 @@ export class UsersService {
     });
 
     if (existingUserByEmail) {
-      throw new ConflictException('User with this email already exists');
+      throw new ConflictException("User with this email already exists");
     }
 
     // Check if user already exists with the same entityId
@@ -42,11 +41,11 @@ export class UsersService {
     // }
 
     // Generate random password and hash it
-    const randomPassword = crypto.randomBytes(12).toString('hex');
+    const randomPassword = crypto.randomBytes(12).toString("hex");
     const hashedPassword = await bcrypt.hash(randomPassword, 10);
 
     // Generate email verification token
-    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationToken = crypto.randomBytes(32).toString("hex");
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     // Create new user
@@ -82,7 +81,9 @@ export class UsersService {
     };
   }
 
-  async createUserWithDirectors(registerUserDto: RegisterUserDto): Promise<User> {
+  async createUserWithDirectors(
+    registerUserDto: RegisterUserDto,
+  ): Promise<User> {
     // Check if user already exists with the same email
     const existingUserByEmail = await this.prisma.user.findUnique({
       where: {
@@ -91,7 +92,7 @@ export class UsersService {
     });
 
     if (existingUserByEmail) {
-      throw new ConflictException('User with this email already exists');
+      throw new ConflictException("User with this email already exists");
     }
 
     // Check if user already exists with the same entityId
@@ -102,14 +103,14 @@ export class UsersService {
     });
 
     if (existingUserByEntityId) {
-      throw new ConflictException('User with this entity ID already exists');
+      throw new ConflictException("User with this entity ID already exists");
     }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
 
     // Generate email verification token
-    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationToken = crypto.randomBytes(32).toString("hex");
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     // Create new user with directors
@@ -121,15 +122,15 @@ export class UsersService {
         businessName: registerUserDto.businessName,
         businessAddress: registerUserDto.businessAddress,
         rcNumber: registerUserDto.rcNumber,
-        role: (registerUserDto.role || 'USER') as any,
-        dateOfIncorporation: registerUserDto.dateOfIncorporation 
-          ? new Date(registerUserDto.dateOfIncorporation) 
+        role: (registerUserDto.role || "USER") as any,
+        dateOfIncorporation: registerUserDto.dateOfIncorporation
+          ? new Date(registerUserDto.dateOfIncorporation)
           : new Date(),
         isEmailVerified: true,
         emailVerificationToken: verificationToken,
         emailVerificationExpires: verificationExpires,
         directors: {
-          create: registerUserDto.directors.map(director => ({
+          create: registerUserDto.directors.map((director) => ({
             firstName: director.firstName,
             lastName: director.lastName,
             email: director.email,
@@ -192,7 +193,7 @@ export class UsersService {
     });
 
     if (!existingUser) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     const updatedUser = await this.prisma.user.update({
@@ -212,7 +213,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     await this.prisma.user.update({
@@ -241,7 +242,7 @@ export class UsersService {
     const user = await this.findByVerificationToken(token);
 
     if (!user) {
-      throw new NotFoundException('Invalid or expired verification token');
+      throw new NotFoundException("Invalid or expired verification token");
     }
 
     const updatedUser = await this.prisma.user.update({
@@ -260,14 +261,14 @@ export class UsersService {
     const user = await this.findUserByEmail(email);
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     if (user.isEmailVerified) {
-      throw new ConflictException('Email is already verified');
+      throw new ConflictException("Email is already verified");
     }
 
-    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationToken = crypto.randomBytes(32).toString("hex");
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     await this.prisma.user.update({

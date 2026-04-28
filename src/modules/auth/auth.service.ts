@@ -4,24 +4,24 @@ import {
   ConflictException,
   BadRequestException,
   Logger,
-} from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
-import { JwtPayload } from './interface/jwt-payload.interface';
-import { compare, hash } from 'bcryptjs';
-import { RegisterUserDto } from '../users/dtos';
-import { LoginDto, ResendVerificationDto, VerifyEmailDto } from './dtos';
-import * as bcrypt from 'bcryptjs';
-import { EmailService } from '../../shared/email/mail.service';
-import { PrismaService } from '../../database';
-import axios from 'axios';
+} from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { UsersService } from "../users/users.service";
+import { JwtPayload } from "./interface/jwt-payload.interface";
+import { compare, hash } from "bcryptjs";
+import { RegisterUserDto } from "../users/dtos";
+import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
+import * as bcrypt from "bcryptjs";
+import { EmailService } from "../../shared/email/mail.service";
+import { PrismaService } from "../../database";
+import axios from "axios";
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
-  private readonly firsApiUrl: string = process.env.FIRS_API_URL ?? '';
-  private readonly firsApiKey: string = process.env.FIRS_API_KEY ?? '';
-  private readonly firsApiSecret: string = process.env.FIRS_API_SECRET ?? '';
+  private readonly firsApiUrl: string = process.env.FIRS_API_URL ?? "";
+  private readonly firsApiKey: string = process.env.FIRS_API_KEY ?? "";
+  private readonly firsApiSecret: string = process.env.FIRS_API_SECRET ?? "";
 
   constructor(
     private userService: UsersService,
@@ -33,7 +33,12 @@ export class AuthService {
   private async buildBusinessContext(userId: number): Promise<{
     entityId: string | null;
     business_id: string | null;
-    businesses: Array<{ business_id: string; name: string; tin: string; is_active: boolean }>;
+    businesses: Array<{
+      business_id: string;
+      name: string;
+      tin: string;
+      is_active: boolean;
+    }>;
   }> {
     const entity = await this.prisma.entity.findFirst({
       where: { userId },
@@ -71,7 +76,7 @@ export class AuthService {
    */
   private extractIrnTemplate(irnTemplate: string): string {
     if (!irnTemplate) return irnTemplate;
-    
+
     // Pattern to match: {{...}}-MIDDLE_PART-{{...}}
     const match = irnTemplate.match(/\{\{.*?\}\}-([A-Z0-9]+)-\{\{.*?\}\}/);
     return match ? match[1] : irnTemplate;
@@ -84,25 +89,28 @@ export class AuthService {
         registerUserDto.email,
       );
       if (existingUser) {
-        throw new UnauthorizedException('User already exists');
+        throw new UnauthorizedException("User already exists");
       }
 
       // Create new user with directors
-      const user = await this.userService.createUserWithDirectors(registerUserDto);
+      const user =
+        await this.userService.createUserWithDirectors(registerUserDto);
 
       // Generate JWT token
       const payload: JwtPayload = {
         sub: user.id,
         email: user.email,
-        entityId: user.entityId ?? '',
-        businessName: user.businessName ?? '',
+        entityId: user.entityId ?? "",
+        businessName: user.businessName ?? "",
       };
 
       if (user.entityId) {
         try {
           await this.fetchAndSaveEntityData(user.entityId, user.id);
         } catch (fetchError) {
-          this.logger.warn(`Could not sync entity data with FIRS during registration: ${fetchError.message}. Proceeding with registration anyway.`);
+          this.logger.warn(
+            `Could not sync entity data with FIRS during registration: ${fetchError.message}. Proceeding with registration anyway.`,
+          );
         }
       }
 
@@ -134,17 +142,17 @@ export class AuthService {
       // Find user
       const user = await this.userService.findUserByEmail(loginDto.email);
       if (!user) {
-        throw new UnauthorizedException('Invalid credentials');
+        throw new UnauthorizedException("Invalid credentials");
       }
 
       // Check if user is active
       if (!user.isActive) {
-        throw new UnauthorizedException('Account is deactivated');
+        throw new UnauthorizedException("Account is deactivated");
       }
 
       // Check if user is email verified
       if (!user.isEmailVerified) {
-        throw new UnauthorizedException('Email is not verified');
+        throw new UnauthorizedException("Email is not verified");
       }
 
       // Verify password
@@ -154,15 +162,15 @@ export class AuthService {
       );
 
       if (!isPasswordValid) {
-        throw new UnauthorizedException('Invalid email or password');
+        throw new UnauthorizedException("Invalid email or password");
       }
 
       // Generate JWT token
       const payload: JwtPayload = {
         sub: user.id,
         email: user.email,
-        entityId: user.entityId ?? '',
-        businessName: user.businessName ?? '',
+        entityId: user.entityId ?? "",
+        businessName: user.businessName ?? "",
       };
 
       if (user.entityId) {
@@ -205,12 +213,12 @@ export class AuthService {
     const user = await this.userService.verifyEmail(verifyEmailDto.token);
     try {
       await this.emailService.sendWelcomeEmail(user.email, {
-        businessName: user?.businessName ?? '',
-        email: user.email ?? '',
-        loginUrl: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/login`,
+        businessName: user?.businessName ?? "",
+        email: user.email ?? "",
+        loginUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/login`,
       });
     } catch (emailError) {
-      console.error('Failed to send welcome email:', emailError);
+      console.error("Failed to send welcome email:", emailError);
     }
     return user;
   }
@@ -228,23 +236,23 @@ export class AuthService {
       );
 
       if (!user) {
-        throw new BadRequestException('User not found');
+        throw new BadRequestException("User not found");
       }
 
       await this.emailService.sendVerificationEmail(user.email, {
-        businessName: user.businessName ?? '',
+        businessName: user.businessName ?? "",
         verificationToken,
-        verificationUrl: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/verify-email?token=${verificationToken}`,
+        verificationUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/verify-email?token=${verificationToken}`,
       });
 
       return {
-        message: 'Verification email sent! Please check your inbox.',
+        message: "Verification email sent! Please check your inbox.",
       };
     } catch (error) {
       if (error instanceof ConflictException) {
         throw error;
       }
-      throw new BadRequestException('Failed to resend verification email');
+      throw new BadRequestException("Failed to resend verification email");
     }
   }
 
@@ -256,7 +264,7 @@ export class AuthService {
   async getProfile(userId: number): Promise<any> {
     const user = await this.userService.findUserById(userId);
     if (!user) {
-      throw new UnauthorizedException('User not found');
+      throw new UnauthorizedException("User not found");
     }
 
     const businessContext = await this.buildBusinessContext(userId);
@@ -273,11 +281,11 @@ export class AuthService {
   async syncEntityBusinesses(userId: number): Promise<any> {
     const user = await this.userService.findUserById(userId);
     if (!user) {
-      throw new UnauthorizedException('User not found');
+      throw new UnauthorizedException("User not found");
     }
     if (!user.entityId) {
       throw new BadRequestException(
-        'No entity ID is linked to this user. Register an entity first.',
+        "No entity ID is linked to this user. Register an entity first.",
       );
     }
 
@@ -285,7 +293,7 @@ export class AuthService {
     const businessContext = await this.buildBusinessContext(userId);
 
     return {
-      message: 'Entity businesses synced successfully.',
+      message: "Entity businesses synced successfully.",
       entity_id: businessContext.entityId ?? user.entityId,
       business_id: businessContext.business_id,
       businesses: businessContext.businesses,
@@ -298,32 +306,32 @@ export class AuthService {
       // Don't reveal if email exists
       return {
         message:
-          'If an account with that email exists, a password reset link has been sent.',
+          "If an account with that email exists, a password reset link has been sent.",
       };
     }
 
     // Generate reset token (in a real app, store this in database with expiration)
     const resetToken = this.jwtService.sign(
-      { sub: user.id, type: 'password-reset' },
-      { expiresIn: '1h' },
+      { sub: user.id, type: "password-reset" },
+      { expiresIn: "1h" },
     );
 
     // Send password reset email
     try {
       await this.emailService.sendPasswordResetEmail(user.email, {
-        businessName: user.businessName ?? '',
+        businessName: user.businessName ?? "",
         resetToken,
-        resetUrl: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`,
-        expiresIn: '1 hour',
+        resetUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/reset-password?token=${resetToken}`,
+        expiresIn: "1 hour",
       });
     } catch (emailError) {
-      console.error('Failed to send password reset email:', emailError);
-      throw new Error('Failed to send password reset email');
+      console.error("Failed to send password reset email:", emailError);
+      throw new Error("Failed to send password reset email");
     }
 
     return {
       message:
-        'If an account with that email exists, a password reset link has been sent.',
+        "If an account with that email exists, a password reset link has been sent.",
     };
   }
 
@@ -336,30 +344,34 @@ export class AuthService {
   async fetchAndSaveEntityData(entityId: string, userId: number): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
 
     const url = `${this.firsApiUrl}/api/v1/entity/${entityId}`;
 
     try {
-      this.logger.log(`Fetching entity data from FIRS for entityId: ${entityId}`);
+      this.logger.log(
+        `Fetching entity data from FIRS for entityId: ${entityId}`,
+      );
 
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
 
       const entityData = response.data.data;
 
       if (!entityData) {
-        throw new Error('No entity data received from FIRS API');
+        throw new Error("No entity data received from FIRS API");
       }
 
-      this.logger.log(`Successfully fetched entity data for entityId: ${entityId}`);
+      this.logger.log(
+        `Successfully fetched entity data for entityId: ${entityId}`,
+      );
 
       // Check if entity already exists for this user
       const existingEntity = await this.prisma.entity.findFirst({
@@ -367,14 +379,18 @@ export class AuthService {
       });
 
       if (existingEntity) {
-        this.logger.log(`Entity already exists for user ${userId}, updating...`);
-        
+        this.logger.log(
+          `Entity already exists for user ${userId}, updating...`,
+        );
+
         // Update existing entity
         const updatedEntity = await this.prisma.entity.update({
           where: { id: existingEntity.id },
           data: {
             reference: entityData.reference,
-            customSettings: entityData.custom_settings ? JSON.stringify(entityData.custom_settings) : null,
+            customSettings: entityData.custom_settings
+              ? JSON.stringify(entityData.custom_settings)
+              : null,
             isActive: entityData.is_active,
             appReference: entityData.app_reference,
             updatedAt: new Date(),
@@ -396,7 +412,9 @@ export class AuthService {
               id: business.id,
               reference: business.reference,
               name: business.name,
-              customSettings: business.custom_settings ? JSON.stringify(business.custom_settings) : null,
+              customSettings: business.custom_settings
+                ? JSON.stringify(business.custom_settings)
+                : null,
               tin: business.tin,
               sector: business.sector,
               annualTurnover: business.annual_turnover,
@@ -416,36 +434,41 @@ export class AuthService {
         return updatedEntity;
       } else {
         this.logger.log(`Creating new entity for user ${userId}`);
-        
+
         // Create new entity with businesses
         const newEntity = await this.prisma.entity.create({
           data: {
             id: entityData.id,
             reference: entityData.reference,
-            customSettings: entityData.custom_settings ? JSON.stringify(entityData.custom_settings) : null,
+            customSettings: entityData.custom_settings
+              ? JSON.stringify(entityData.custom_settings)
+              : null,
             isActive: entityData.is_active,
             appReference: entityData.app_reference,
             createdAt: new Date(entityData.created_at),
             updatedAt: new Date(entityData.updated_at),
             userId: userId,
             businesses: {
-              create: entityData.businesses?.map((business: any) => ({
-                id: business.id,
-                reference: business.reference,
-                name: business.name,
-                customSettings: business.custom_settings ? JSON.stringify(business.custom_settings) : null,
-                tin: business.tin,
-                sector: business.sector,
-                annualTurnover: business.annual_turnover,
-                supportPeppol: business.support_peppol,
-                isRealtimeReporting: business.is_realtime_reporting,
-                notificationChannels: business.notification_channels,
-                erpSystem: business.erp_system,
-                irnTemplate: this.extractIrnTemplate(business.irn_template),
-                isActive: business.is_active,
-                createdAt: new Date(business.created_at),
-                updatedAt: new Date(business.updated_at),
-              })) || [],
+              create:
+                entityData.businesses?.map((business: any) => ({
+                  id: business.id,
+                  reference: business.reference,
+                  name: business.name,
+                  customSettings: business.custom_settings
+                    ? JSON.stringify(business.custom_settings)
+                    : null,
+                  tin: business.tin,
+                  sector: business.sector,
+                  annualTurnover: business.annual_turnover,
+                  supportPeppol: business.support_peppol,
+                  isRealtimeReporting: business.is_realtime_reporting,
+                  notificationChannels: business.notification_channels,
+                  erpSystem: business.erp_system,
+                  irnTemplate: this.extractIrnTemplate(business.irn_template),
+                  isActive: business.is_active,
+                  createdAt: new Date(business.created_at),
+                  updatedAt: new Date(business.updated_at),
+                })) || [],
             },
           },
           include: {
@@ -453,12 +476,17 @@ export class AuthService {
           },
         });
 
-        this.logger.log(`Successfully created entity with ID: ${newEntity.id} for user ${userId}`);
+        this.logger.log(
+          `Successfully created entity with ID: ${newEntity.id} for user ${userId}`,
+        );
         return newEntity;
       }
     } catch (error) {
-      this.logger.error(`Failed to fetch and save entity data for entityId: ${entityId}`, error.stack);
-      
+      this.logger.error(
+        `Failed to fetch and save entity data for entityId: ${entityId}`,
+        error.stack,
+      );
+
       if (error.response) {
         throw new Error(
           `Failed to fetch entity from FIRS: ${error.response.status} ${JSON.stringify(error.response.data)}`,

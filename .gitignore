@@ -86,3 +86,5 @@ src/scripts/
 
 test-auth.js
 NRS_e-invoice-_cryptographic_key.txt
+
+docs/

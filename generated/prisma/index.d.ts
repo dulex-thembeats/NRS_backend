@@ -139,15 +139,15 @@ export type Entity = $Result.DefaultSelection<Prisma.$EntityPayload>
  */
 export type Business = $Result.DefaultSelection<Prisma.$BusinessPayload>
 /**
- * Model PartnerApiCredential
+ * Model ClientApiCredential
  * 
  */
-export type PartnerApiCredential = $Result.DefaultSelection<Prisma.$PartnerApiCredentialPayload>
+export type ClientApiCredential = $Result.DefaultSelection<Prisma.$ClientApiCredentialPayload>
 /**
- * Model PartnerApiLog
+ * Model ClientApiLog
  * 
  */
-export type PartnerApiLog = $Result.DefaultSelection<Prisma.$PartnerApiLogPayload>
+export type ClientApiLog = $Result.DefaultSelection<Prisma.$ClientApiLogPayload>
 /**
  * Model ConfigurationInvoiceType
  * 
@@ -206,7 +206,7 @@ export namespace $Enums {
   export const Role: {
   USER: 'USER',
   ADMIN: 'ADMIN',
-  PARTNER: 'PARTNER'
+  CLIENT: 'CLIENT'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -593,24 +593,24 @@ export class PrismaClient<
   get business(): Prisma.BusinessDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.partnerApiCredential`: Exposes CRUD operations for the **PartnerApiCredential** model.
+   * `prisma.clientApiCredential`: Exposes CRUD operations for the **ClientApiCredential** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more PartnerApiCredentials
-    * const partnerApiCredentials = await prisma.partnerApiCredential.findMany()
+    * // Fetch zero or more ClientApiCredentials
+    * const clientApiCredentials = await prisma.clientApiCredential.findMany()
     * ```
     */
-  get partnerApiCredential(): Prisma.PartnerApiCredentialDelegate<ExtArgs, ClientOptions>;
+  get clientApiCredential(): Prisma.ClientApiCredentialDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.partnerApiLog`: Exposes CRUD operations for the **PartnerApiLog** model.
+   * `prisma.clientApiLog`: Exposes CRUD operations for the **ClientApiLog** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more PartnerApiLogs
-    * const partnerApiLogs = await prisma.partnerApiLog.findMany()
+    * // Fetch zero or more ClientApiLogs
+    * const clientApiLogs = await prisma.clientApiLog.findMany()
     * ```
     */
-  get partnerApiLog(): Prisma.PartnerApiLogDelegate<ExtArgs, ClientOptions>;
+  get clientApiLog(): Prisma.ClientApiLogDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.configurationInvoiceType`: Exposes CRUD operations for the **ConfigurationInvoiceType** model.
@@ -1176,8 +1176,8 @@ export namespace Prisma {
     WebhookEvent: 'WebhookEvent',
     Entity: 'Entity',
     Business: 'Business',
-    PartnerApiCredential: 'PartnerApiCredential',
-    PartnerApiLog: 'PartnerApiLog',
+    ClientApiCredential: 'ClientApiCredential',
+    ClientApiLog: 'ClientApiLog',
     ConfigurationInvoiceType: 'ConfigurationInvoiceType',
     ConfigurationPaymentMean: 'ConfigurationPaymentMean',
     ConfigurationTaxCategory: 'ConfigurationTaxCategory',
@@ -1206,7 +1206,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "director" | "invoice" | "invoiceDeliveryPeriod" | "accountingSupplierParty" | "accountingCustomerParty" | "postalAddress" | "billingReference" | "documentReference" | "dispatchDocumentReference" | "receiptDocumentReference" | "originatorDocumentReference" | "contractDocumentReference" | "paymentMeans" | "allowanceCharge" | "taxTotal" | "taxSubtotal" | "taxCategory" | "legalMonetaryTotal" | "invoiceLine" | "item" | "price" | "webhookEvent" | "entity" | "business" | "partnerApiCredential" | "partnerApiLog" | "configurationInvoiceType" | "configurationPaymentMean" | "configurationTaxCategory" | "configurationCurrency" | "configurationVatExemption" | "configurationProductCode" | "configurationServiceCode" | "configurationLocalGovernment" | "configurationState" | "systemIntegratorFirsSettings"
+      modelProps: "user" | "director" | "invoice" | "invoiceDeliveryPeriod" | "accountingSupplierParty" | "accountingCustomerParty" | "postalAddress" | "billingReference" | "documentReference" | "dispatchDocumentReference" | "receiptDocumentReference" | "originatorDocumentReference" | "contractDocumentReference" | "paymentMeans" | "allowanceCharge" | "taxTotal" | "taxSubtotal" | "taxCategory" | "legalMonetaryTotal" | "invoiceLine" | "item" | "price" | "webhookEvent" | "entity" | "business" | "clientApiCredential" | "clientApiLog" | "configurationInvoiceType" | "configurationPaymentMean" | "configurationTaxCategory" | "configurationCurrency" | "configurationVatExemption" | "configurationProductCode" | "configurationServiceCode" | "configurationLocalGovernment" | "configurationState" | "systemIntegratorFirsSettings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3060,151 +3060,151 @@ export namespace Prisma {
           }
         }
       }
-      PartnerApiCredential: {
-        payload: Prisma.$PartnerApiCredentialPayload<ExtArgs>
-        fields: Prisma.PartnerApiCredentialFieldRefs
+      ClientApiCredential: {
+        payload: Prisma.$ClientApiCredentialPayload<ExtArgs>
+        fields: Prisma.ClientApiCredentialFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PartnerApiCredentialFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload> | null
+            args: Prisma.ClientApiCredentialFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PartnerApiCredentialFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>
+            args: Prisma.ClientApiCredentialFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
           }
           findFirst: {
-            args: Prisma.PartnerApiCredentialFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload> | null
+            args: Prisma.ClientApiCredentialFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PartnerApiCredentialFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>
+            args: Prisma.ClientApiCredentialFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
           }
           findMany: {
-            args: Prisma.PartnerApiCredentialFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>[]
+            args: Prisma.ClientApiCredentialFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>[]
           }
           create: {
-            args: Prisma.PartnerApiCredentialCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>
+            args: Prisma.ClientApiCredentialCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
           }
           createMany: {
-            args: Prisma.PartnerApiCredentialCreateManyArgs<ExtArgs>
+            args: Prisma.ClientApiCredentialCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.PartnerApiCredentialCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>[]
+            args: Prisma.ClientApiCredentialCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>[]
           }
           delete: {
-            args: Prisma.PartnerApiCredentialDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>
+            args: Prisma.ClientApiCredentialDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
           }
           update: {
-            args: Prisma.PartnerApiCredentialUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>
+            args: Prisma.ClientApiCredentialUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
           }
           deleteMany: {
-            args: Prisma.PartnerApiCredentialDeleteManyArgs<ExtArgs>
+            args: Prisma.ClientApiCredentialDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PartnerApiCredentialUpdateManyArgs<ExtArgs>
+            args: Prisma.ClientApiCredentialUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.PartnerApiCredentialUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>[]
+            args: Prisma.ClientApiCredentialUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>[]
           }
           upsert: {
-            args: Prisma.PartnerApiCredentialUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiCredentialPayload>
+            args: Prisma.ClientApiCredentialUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
           }
           aggregate: {
-            args: Prisma.PartnerApiCredentialAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePartnerApiCredential>
+            args: Prisma.ClientApiCredentialAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClientApiCredential>
           }
           groupBy: {
-            args: Prisma.PartnerApiCredentialGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PartnerApiCredentialGroupByOutputType>[]
+            args: Prisma.ClientApiCredentialGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClientApiCredentialGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PartnerApiCredentialCountArgs<ExtArgs>
-            result: $Utils.Optional<PartnerApiCredentialCountAggregateOutputType> | number
+            args: Prisma.ClientApiCredentialCountArgs<ExtArgs>
+            result: $Utils.Optional<ClientApiCredentialCountAggregateOutputType> | number
           }
         }
       }
-      PartnerApiLog: {
-        payload: Prisma.$PartnerApiLogPayload<ExtArgs>
-        fields: Prisma.PartnerApiLogFieldRefs
+      ClientApiLog: {
+        payload: Prisma.$ClientApiLogPayload<ExtArgs>
+        fields: Prisma.ClientApiLogFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PartnerApiLogFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload> | null
+            args: Prisma.ClientApiLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PartnerApiLogFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>
+            args: Prisma.ClientApiLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
           }
           findFirst: {
-            args: Prisma.PartnerApiLogFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload> | null
+            args: Prisma.ClientApiLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PartnerApiLogFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>
+            args: Prisma.ClientApiLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
           }
           findMany: {
-            args: Prisma.PartnerApiLogFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>[]
+            args: Prisma.ClientApiLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>[]
           }
           create: {
-            args: Prisma.PartnerApiLogCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>
+            args: Prisma.ClientApiLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
           }
           createMany: {
-            args: Prisma.PartnerApiLogCreateManyArgs<ExtArgs>
+            args: Prisma.ClientApiLogCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.PartnerApiLogCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>[]
+            args: Prisma.ClientApiLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>[]
           }
           delete: {
-            args: Prisma.PartnerApiLogDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>
+            args: Prisma.ClientApiLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
           }
           update: {
-            args: Prisma.PartnerApiLogUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>
+            args: Prisma.ClientApiLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
           }
           deleteMany: {
-            args: Prisma.PartnerApiLogDeleteManyArgs<ExtArgs>
+            args: Prisma.ClientApiLogDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PartnerApiLogUpdateManyArgs<ExtArgs>
+            args: Prisma.ClientApiLogUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.PartnerApiLogUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>[]
+            args: Prisma.ClientApiLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>[]
           }
           upsert: {
-            args: Prisma.PartnerApiLogUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PartnerApiLogPayload>
+            args: Prisma.ClientApiLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
           }
           aggregate: {
-            args: Prisma.PartnerApiLogAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePartnerApiLog>
+            args: Prisma.ClientApiLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClientApiLog>
           }
           groupBy: {
-            args: Prisma.PartnerApiLogGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PartnerApiLogGroupByOutputType>[]
+            args: Prisma.ClientApiLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClientApiLogGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PartnerApiLogCountArgs<ExtArgs>
-            result: $Utils.Optional<PartnerApiLogCountAggregateOutputType> | number
+            args: Prisma.ClientApiLogCountArgs<ExtArgs>
+            result: $Utils.Optional<ClientApiLogCountAggregateOutputType> | number
           }
         }
       }
@@ -4065,8 +4065,8 @@ export namespace Prisma {
     webhookEvent?: WebhookEventOmit
     entity?: EntityOmit
     business?: BusinessOmit
-    partnerApiCredential?: PartnerApiCredentialOmit
-    partnerApiLog?: PartnerApiLogOmit
+    clientApiCredential?: ClientApiCredentialOmit
+    clientApiLog?: ClientApiLogOmit
     configurationInvoiceType?: ConfigurationInvoiceTypeOmit
     configurationPaymentMean?: ConfigurationPaymentMeanOmit
     configurationTaxCategory?: ConfigurationTaxCategoryOmit
@@ -4178,13 +4178,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     invoices: number
     directors: number
-    partnerApiLog: number
+    clientApiLog: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoices?: boolean | UserCountOutputTypeCountInvoicesArgs
     directors?: boolean | UserCountOutputTypeCountDirectorsArgs
-    partnerApiLog?: boolean | UserCountOutputTypeCountPartnerApiLogArgs
+    clientApiLog?: boolean | UserCountOutputTypeCountClientApiLogArgs
   }
 
   // Custom InputTypes
@@ -4215,8 +4215,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPartnerApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PartnerApiLogWhereInput
+  export type UserCountOutputTypeCountClientApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientApiLogWhereInput
   }
 
 
@@ -4643,8 +4643,8 @@ export namespace Prisma {
     invoices?: boolean | User$invoicesArgs<ExtArgs>
     directors?: boolean | User$directorsArgs<ExtArgs>
     entity?: boolean | User$entityArgs<ExtArgs>
-    partnerApiLog?: boolean | User$partnerApiLogArgs<ExtArgs>
-    PartnerApiCredential?: boolean | User$PartnerApiCredentialArgs<ExtArgs>
+    clientApiLog?: boolean | User$clientApiLogArgs<ExtArgs>
+    clientApiCredential?: boolean | User$clientApiCredentialArgs<ExtArgs>
     systemIntegratorFirsSettings?: boolean | User$systemIntegratorFirsSettingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -4708,8 +4708,8 @@ export namespace Prisma {
     invoices?: boolean | User$invoicesArgs<ExtArgs>
     directors?: boolean | User$directorsArgs<ExtArgs>
     entity?: boolean | User$entityArgs<ExtArgs>
-    partnerApiLog?: boolean | User$partnerApiLogArgs<ExtArgs>
-    PartnerApiCredential?: boolean | User$PartnerApiCredentialArgs<ExtArgs>
+    clientApiLog?: boolean | User$clientApiLogArgs<ExtArgs>
+    clientApiCredential?: boolean | User$clientApiCredentialArgs<ExtArgs>
     systemIntegratorFirsSettings?: boolean | User$systemIntegratorFirsSettingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4722,8 +4722,8 @@ export namespace Prisma {
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
       directors: Prisma.$DirectorPayload<ExtArgs>[]
       entity: Prisma.$EntityPayload<ExtArgs> | null
-      partnerApiLog: Prisma.$PartnerApiLogPayload<ExtArgs>[]
-      PartnerApiCredential: Prisma.$PartnerApiCredentialPayload<ExtArgs> | null
+      clientApiLog: Prisma.$ClientApiLogPayload<ExtArgs>[]
+      clientApiCredential: Prisma.$ClientApiCredentialPayload<ExtArgs> | null
       systemIntegratorFirsSettings: Prisma.$SystemIntegratorFirsSettingsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5139,8 +5139,8 @@ export namespace Prisma {
     invoices<T extends User$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, User$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     directors<T extends User$directorsArgs<ExtArgs> = {}>(args?: Subset<T, User$directorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     entity<T extends User$entityArgs<ExtArgs> = {}>(args?: Subset<T, User$entityArgs<ExtArgs>>): Prisma__EntityClient<$Result.GetResult<Prisma.$EntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    partnerApiLog<T extends User$partnerApiLogArgs<ExtArgs> = {}>(args?: Subset<T, User$partnerApiLogArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    PartnerApiCredential<T extends User$PartnerApiCredentialArgs<ExtArgs> = {}>(args?: Subset<T, User$PartnerApiCredentialArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    clientApiLog<T extends User$clientApiLogArgs<ExtArgs> = {}>(args?: Subset<T, User$clientApiLogArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    clientApiCredential<T extends User$clientApiCredentialArgs<ExtArgs> = {}>(args?: Subset<T, User$clientApiCredentialArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     systemIntegratorFirsSettings<T extends User$systemIntegratorFirsSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$systemIntegratorFirsSettingsArgs<ExtArgs>>): Prisma__SystemIntegratorFirsSettingsClient<$Result.GetResult<Prisma.$SystemIntegratorFirsSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5641,46 +5641,46 @@ export namespace Prisma {
   }
 
   /**
-   * User.partnerApiLog
+   * User.clientApiLog
    */
-  export type User$partnerApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$clientApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
-    where?: PartnerApiLogWhereInput
-    orderBy?: PartnerApiLogOrderByWithRelationInput | PartnerApiLogOrderByWithRelationInput[]
-    cursor?: PartnerApiLogWhereUniqueInput
+    include?: ClientApiLogInclude<ExtArgs> | null
+    where?: ClientApiLogWhereInput
+    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
+    cursor?: ClientApiLogWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PartnerApiLogScalarFieldEnum | PartnerApiLogScalarFieldEnum[]
+    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
   }
 
   /**
-   * User.PartnerApiCredential
+   * User.clientApiCredential
    */
-  export type User$PartnerApiCredentialArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$clientApiCredentialArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
-    where?: PartnerApiCredentialWhereInput
+    include?: ClientApiCredentialInclude<ExtArgs> | null
+    where?: ClientApiCredentialWhereInput
   }
 
   /**
@@ -33088,38 +33088,28 @@ export namespace Prisma {
 
 
   /**
-   * Model PartnerApiCredential
+   * Model ClientApiCredential
    */
 
-  export type AggregatePartnerApiCredential = {
-    _count: PartnerApiCredentialCountAggregateOutputType | null
-    _avg: PartnerApiCredentialAvgAggregateOutputType | null
-    _sum: PartnerApiCredentialSumAggregateOutputType | null
-    _min: PartnerApiCredentialMinAggregateOutputType | null
-    _max: PartnerApiCredentialMaxAggregateOutputType | null
+  export type AggregateClientApiCredential = {
+    _count: ClientApiCredentialCountAggregateOutputType | null
+    _avg: ClientApiCredentialAvgAggregateOutputType | null
+    _sum: ClientApiCredentialSumAggregateOutputType | null
+    _min: ClientApiCredentialMinAggregateOutputType | null
+    _max: ClientApiCredentialMaxAggregateOutputType | null
   }
 
-  export type PartnerApiCredentialAvgAggregateOutputType = {
+  export type ClientApiCredentialAvgAggregateOutputType = {
     id: number | null
     userId: number | null
   }
 
-  export type PartnerApiCredentialSumAggregateOutputType = {
+  export type ClientApiCredentialSumAggregateOutputType = {
     id: number | null
     userId: number | null
   }
 
-  export type PartnerApiCredentialMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    apiKey: string | null
-    apiSecret: string | null
-    isActive: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type PartnerApiCredentialMaxAggregateOutputType = {
+  export type ClientApiCredentialMinAggregateOutputType = {
     id: number | null
     userId: number | null
     apiKey: string | null
@@ -33129,7 +33119,17 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type PartnerApiCredentialCountAggregateOutputType = {
+  export type ClientApiCredentialMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    apiKey: string | null
+    apiSecret: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClientApiCredentialCountAggregateOutputType = {
     id: number
     userId: number
     apiKey: number
@@ -33141,27 +33141,17 @@ export namespace Prisma {
   }
 
 
-  export type PartnerApiCredentialAvgAggregateInputType = {
+  export type ClientApiCredentialAvgAggregateInputType = {
     id?: true
     userId?: true
   }
 
-  export type PartnerApiCredentialSumAggregateInputType = {
+  export type ClientApiCredentialSumAggregateInputType = {
     id?: true
     userId?: true
   }
 
-  export type PartnerApiCredentialMinAggregateInputType = {
-    id?: true
-    userId?: true
-    apiKey?: true
-    apiSecret?: true
-    isActive?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type PartnerApiCredentialMaxAggregateInputType = {
+  export type ClientApiCredentialMinAggregateInputType = {
     id?: true
     userId?: true
     apiKey?: true
@@ -33171,7 +33161,17 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type PartnerApiCredentialCountAggregateInputType = {
+  export type ClientApiCredentialMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    apiKey?: true
+    apiSecret?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClientApiCredentialCountAggregateInputType = {
     id?: true
     userId?: true
     apiKey?: true
@@ -33182,93 +33182,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type PartnerApiCredentialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which PartnerApiCredential to aggregate.
+     * Filter which ClientApiCredential to aggregate.
      */
-    where?: PartnerApiCredentialWhereInput
+    where?: ClientApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiCredentials to fetch.
+     * Determine the order of ClientApiCredentials to fetch.
      */
-    orderBy?: PartnerApiCredentialOrderByWithRelationInput | PartnerApiCredentialOrderByWithRelationInput[]
+    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PartnerApiCredentialWhereUniqueInput
+    cursor?: ClientApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiCredentials from the position of the cursor.
+     * Take `±n` ClientApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiCredentials.
+     * Skip the first `n` ClientApiCredentials.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned PartnerApiCredentials
+     * Count returned ClientApiCredentials
     **/
-    _count?: true | PartnerApiCredentialCountAggregateInputType
+    _count?: true | ClientApiCredentialCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: PartnerApiCredentialAvgAggregateInputType
+    _avg?: ClientApiCredentialAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: PartnerApiCredentialSumAggregateInputType
+    _sum?: ClientApiCredentialSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PartnerApiCredentialMinAggregateInputType
+    _min?: ClientApiCredentialMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PartnerApiCredentialMaxAggregateInputType
+    _max?: ClientApiCredentialMaxAggregateInputType
   }
 
-  export type GetPartnerApiCredentialAggregateType<T extends PartnerApiCredentialAggregateArgs> = {
-        [P in keyof T & keyof AggregatePartnerApiCredential]: P extends '_count' | 'count'
+  export type GetClientApiCredentialAggregateType<T extends ClientApiCredentialAggregateArgs> = {
+        [P in keyof T & keyof AggregateClientApiCredential]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePartnerApiCredential[P]>
-      : GetScalarType<T[P], AggregatePartnerApiCredential[P]>
+        : GetScalarType<T[P], AggregateClientApiCredential[P]>
+      : GetScalarType<T[P], AggregateClientApiCredential[P]>
   }
 
 
 
 
-  export type PartnerApiCredentialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PartnerApiCredentialWhereInput
-    orderBy?: PartnerApiCredentialOrderByWithAggregationInput | PartnerApiCredentialOrderByWithAggregationInput[]
-    by: PartnerApiCredentialScalarFieldEnum[] | PartnerApiCredentialScalarFieldEnum
-    having?: PartnerApiCredentialScalarWhereWithAggregatesInput
+  export type ClientApiCredentialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientApiCredentialWhereInput
+    orderBy?: ClientApiCredentialOrderByWithAggregationInput | ClientApiCredentialOrderByWithAggregationInput[]
+    by: ClientApiCredentialScalarFieldEnum[] | ClientApiCredentialScalarFieldEnum
+    having?: ClientApiCredentialScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PartnerApiCredentialCountAggregateInputType | true
-    _avg?: PartnerApiCredentialAvgAggregateInputType
-    _sum?: PartnerApiCredentialSumAggregateInputType
-    _min?: PartnerApiCredentialMinAggregateInputType
-    _max?: PartnerApiCredentialMaxAggregateInputType
+    _count?: ClientApiCredentialCountAggregateInputType | true
+    _avg?: ClientApiCredentialAvgAggregateInputType
+    _sum?: ClientApiCredentialSumAggregateInputType
+    _min?: ClientApiCredentialMinAggregateInputType
+    _max?: ClientApiCredentialMaxAggregateInputType
   }
 
-  export type PartnerApiCredentialGroupByOutputType = {
+  export type ClientApiCredentialGroupByOutputType = {
     id: number
     userId: number
     apiKey: string
@@ -33276,28 +33276,28 @@ export namespace Prisma {
     isActive: boolean
     createdAt: Date
     updatedAt: Date
-    _count: PartnerApiCredentialCountAggregateOutputType | null
-    _avg: PartnerApiCredentialAvgAggregateOutputType | null
-    _sum: PartnerApiCredentialSumAggregateOutputType | null
-    _min: PartnerApiCredentialMinAggregateOutputType | null
-    _max: PartnerApiCredentialMaxAggregateOutputType | null
+    _count: ClientApiCredentialCountAggregateOutputType | null
+    _avg: ClientApiCredentialAvgAggregateOutputType | null
+    _sum: ClientApiCredentialSumAggregateOutputType | null
+    _min: ClientApiCredentialMinAggregateOutputType | null
+    _max: ClientApiCredentialMaxAggregateOutputType | null
   }
 
-  type GetPartnerApiCredentialGroupByPayload<T extends PartnerApiCredentialGroupByArgs> = Prisma.PrismaPromise<
+  type GetClientApiCredentialGroupByPayload<T extends ClientApiCredentialGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PartnerApiCredentialGroupByOutputType, T['by']> &
+      PickEnumerable<ClientApiCredentialGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PartnerApiCredentialGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ClientApiCredentialGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PartnerApiCredentialGroupByOutputType[P]>
-            : GetScalarType<T[P], PartnerApiCredentialGroupByOutputType[P]>
+              : GetScalarType<T[P], ClientApiCredentialGroupByOutputType[P]>
+            : GetScalarType<T[P], ClientApiCredentialGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PartnerApiCredentialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClientApiCredentialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33306,9 +33306,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["partnerApiCredential"]>
+  }, ExtArgs["result"]["clientApiCredential"]>
 
-  export type PartnerApiCredentialSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClientApiCredentialSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33317,9 +33317,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["partnerApiCredential"]>
+  }, ExtArgs["result"]["clientApiCredential"]>
 
-  export type PartnerApiCredentialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClientApiCredentialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33328,9 +33328,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["partnerApiCredential"]>
+  }, ExtArgs["result"]["clientApiCredential"]>
 
-  export type PartnerApiCredentialSelectScalar = {
+  export type ClientApiCredentialSelectScalar = {
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33340,19 +33340,19 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PartnerApiCredentialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "apiKey" | "apiSecret" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["partnerApiCredential"]>
-  export type PartnerApiCredentialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "apiKey" | "apiSecret" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["clientApiCredential"]>
+  export type ClientApiCredentialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type PartnerApiCredentialIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type PartnerApiCredentialIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $PartnerApiCredentialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "PartnerApiCredential"
+  export type $ClientApiCredentialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClientApiCredential"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
     }
@@ -33364,136 +33364,136 @@ export namespace Prisma {
       isActive: boolean
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["partnerApiCredential"]>
+    }, ExtArgs["result"]["clientApiCredential"]>
     composites: {}
   }
 
-  type PartnerApiCredentialGetPayload<S extends boolean | null | undefined | PartnerApiCredentialDefaultArgs> = $Result.GetResult<Prisma.$PartnerApiCredentialPayload, S>
+  type ClientApiCredentialGetPayload<S extends boolean | null | undefined | ClientApiCredentialDefaultArgs> = $Result.GetResult<Prisma.$ClientApiCredentialPayload, S>
 
-  type PartnerApiCredentialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PartnerApiCredentialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PartnerApiCredentialCountAggregateInputType | true
+  type ClientApiCredentialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClientApiCredentialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClientApiCredentialCountAggregateInputType | true
     }
 
-  export interface PartnerApiCredentialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PartnerApiCredential'], meta: { name: 'PartnerApiCredential' } }
+  export interface ClientApiCredentialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClientApiCredential'], meta: { name: 'ClientApiCredential' } }
     /**
-     * Find zero or one PartnerApiCredential that matches the filter.
-     * @param {PartnerApiCredentialFindUniqueArgs} args - Arguments to find a PartnerApiCredential
+     * Find zero or one ClientApiCredential that matches the filter.
+     * @param {ClientApiCredentialFindUniqueArgs} args - Arguments to find a ClientApiCredential
      * @example
-     * // Get one PartnerApiCredential
-     * const partnerApiCredential = await prisma.partnerApiCredential.findUnique({
+     * // Get one ClientApiCredential
+     * const clientApiCredential = await prisma.clientApiCredential.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PartnerApiCredentialFindUniqueArgs>(args: SelectSubset<T, PartnerApiCredentialFindUniqueArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ClientApiCredentialFindUniqueArgs>(args: SelectSubset<T, ClientApiCredentialFindUniqueArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one PartnerApiCredential that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ClientApiCredential that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PartnerApiCredentialFindUniqueOrThrowArgs} args - Arguments to find a PartnerApiCredential
+     * @param {ClientApiCredentialFindUniqueOrThrowArgs} args - Arguments to find a ClientApiCredential
      * @example
-     * // Get one PartnerApiCredential
-     * const partnerApiCredential = await prisma.partnerApiCredential.findUniqueOrThrow({
+     * // Get one ClientApiCredential
+     * const clientApiCredential = await prisma.clientApiCredential.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PartnerApiCredentialFindUniqueOrThrowArgs>(args: SelectSubset<T, PartnerApiCredentialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ClientApiCredentialFindUniqueOrThrowArgs>(args: SelectSubset<T, ClientApiCredentialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first PartnerApiCredential that matches the filter.
+     * Find the first ClientApiCredential that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiCredentialFindFirstArgs} args - Arguments to find a PartnerApiCredential
+     * @param {ClientApiCredentialFindFirstArgs} args - Arguments to find a ClientApiCredential
      * @example
-     * // Get one PartnerApiCredential
-     * const partnerApiCredential = await prisma.partnerApiCredential.findFirst({
+     * // Get one ClientApiCredential
+     * const clientApiCredential = await prisma.clientApiCredential.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PartnerApiCredentialFindFirstArgs>(args?: SelectSubset<T, PartnerApiCredentialFindFirstArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ClientApiCredentialFindFirstArgs>(args?: SelectSubset<T, ClientApiCredentialFindFirstArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first PartnerApiCredential that matches the filter or
+     * Find the first ClientApiCredential that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiCredentialFindFirstOrThrowArgs} args - Arguments to find a PartnerApiCredential
+     * @param {ClientApiCredentialFindFirstOrThrowArgs} args - Arguments to find a ClientApiCredential
      * @example
-     * // Get one PartnerApiCredential
-     * const partnerApiCredential = await prisma.partnerApiCredential.findFirstOrThrow({
+     * // Get one ClientApiCredential
+     * const clientApiCredential = await prisma.clientApiCredential.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PartnerApiCredentialFindFirstOrThrowArgs>(args?: SelectSubset<T, PartnerApiCredentialFindFirstOrThrowArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ClientApiCredentialFindFirstOrThrowArgs>(args?: SelectSubset<T, ClientApiCredentialFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more PartnerApiCredentials that matches the filter.
+     * Find zero or more ClientApiCredentials that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiCredentialFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ClientApiCredentialFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all PartnerApiCredentials
-     * const partnerApiCredentials = await prisma.partnerApiCredential.findMany()
+     * // Get all ClientApiCredentials
+     * const clientApiCredentials = await prisma.clientApiCredential.findMany()
      * 
-     * // Get first 10 PartnerApiCredentials
-     * const partnerApiCredentials = await prisma.partnerApiCredential.findMany({ take: 10 })
+     * // Get first 10 ClientApiCredentials
+     * const clientApiCredentials = await prisma.clientApiCredential.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const partnerApiCredentialWithIdOnly = await prisma.partnerApiCredential.findMany({ select: { id: true } })
+     * const clientApiCredentialWithIdOnly = await prisma.clientApiCredential.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PartnerApiCredentialFindManyArgs>(args?: SelectSubset<T, PartnerApiCredentialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ClientApiCredentialFindManyArgs>(args?: SelectSubset<T, ClientApiCredentialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a PartnerApiCredential.
-     * @param {PartnerApiCredentialCreateArgs} args - Arguments to create a PartnerApiCredential.
+     * Create a ClientApiCredential.
+     * @param {ClientApiCredentialCreateArgs} args - Arguments to create a ClientApiCredential.
      * @example
-     * // Create one PartnerApiCredential
-     * const PartnerApiCredential = await prisma.partnerApiCredential.create({
+     * // Create one ClientApiCredential
+     * const ClientApiCredential = await prisma.clientApiCredential.create({
      *   data: {
-     *     // ... data to create a PartnerApiCredential
+     *     // ... data to create a ClientApiCredential
      *   }
      * })
      * 
      */
-    create<T extends PartnerApiCredentialCreateArgs>(args: SelectSubset<T, PartnerApiCredentialCreateArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ClientApiCredentialCreateArgs>(args: SelectSubset<T, ClientApiCredentialCreateArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many PartnerApiCredentials.
-     * @param {PartnerApiCredentialCreateManyArgs} args - Arguments to create many PartnerApiCredentials.
+     * Create many ClientApiCredentials.
+     * @param {ClientApiCredentialCreateManyArgs} args - Arguments to create many ClientApiCredentials.
      * @example
-     * // Create many PartnerApiCredentials
-     * const partnerApiCredential = await prisma.partnerApiCredential.createMany({
+     * // Create many ClientApiCredentials
+     * const clientApiCredential = await prisma.clientApiCredential.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PartnerApiCredentialCreateManyArgs>(args?: SelectSubset<T, PartnerApiCredentialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ClientApiCredentialCreateManyArgs>(args?: SelectSubset<T, ClientApiCredentialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many PartnerApiCredentials and returns the data saved in the database.
-     * @param {PartnerApiCredentialCreateManyAndReturnArgs} args - Arguments to create many PartnerApiCredentials.
+     * Create many ClientApiCredentials and returns the data saved in the database.
+     * @param {ClientApiCredentialCreateManyAndReturnArgs} args - Arguments to create many ClientApiCredentials.
      * @example
-     * // Create many PartnerApiCredentials
-     * const partnerApiCredential = await prisma.partnerApiCredential.createManyAndReturn({
+     * // Create many ClientApiCredentials
+     * const clientApiCredential = await prisma.clientApiCredential.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many PartnerApiCredentials and only return the `id`
-     * const partnerApiCredentialWithIdOnly = await prisma.partnerApiCredential.createManyAndReturn({
+     * // Create many ClientApiCredentials and only return the `id`
+     * const clientApiCredentialWithIdOnly = await prisma.clientApiCredential.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -33503,28 +33503,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PartnerApiCredentialCreateManyAndReturnArgs>(args?: SelectSubset<T, PartnerApiCredentialCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends ClientApiCredentialCreateManyAndReturnArgs>(args?: SelectSubset<T, ClientApiCredentialCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a PartnerApiCredential.
-     * @param {PartnerApiCredentialDeleteArgs} args - Arguments to delete one PartnerApiCredential.
+     * Delete a ClientApiCredential.
+     * @param {ClientApiCredentialDeleteArgs} args - Arguments to delete one ClientApiCredential.
      * @example
-     * // Delete one PartnerApiCredential
-     * const PartnerApiCredential = await prisma.partnerApiCredential.delete({
+     * // Delete one ClientApiCredential
+     * const ClientApiCredential = await prisma.clientApiCredential.delete({
      *   where: {
-     *     // ... filter to delete one PartnerApiCredential
+     *     // ... filter to delete one ClientApiCredential
      *   }
      * })
      * 
      */
-    delete<T extends PartnerApiCredentialDeleteArgs>(args: SelectSubset<T, PartnerApiCredentialDeleteArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ClientApiCredentialDeleteArgs>(args: SelectSubset<T, ClientApiCredentialDeleteArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one PartnerApiCredential.
-     * @param {PartnerApiCredentialUpdateArgs} args - Arguments to update one PartnerApiCredential.
+     * Update one ClientApiCredential.
+     * @param {ClientApiCredentialUpdateArgs} args - Arguments to update one ClientApiCredential.
      * @example
-     * // Update one PartnerApiCredential
-     * const partnerApiCredential = await prisma.partnerApiCredential.update({
+     * // Update one ClientApiCredential
+     * const clientApiCredential = await prisma.clientApiCredential.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -33534,30 +33534,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PartnerApiCredentialUpdateArgs>(args: SelectSubset<T, PartnerApiCredentialUpdateArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ClientApiCredentialUpdateArgs>(args: SelectSubset<T, ClientApiCredentialUpdateArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more PartnerApiCredentials.
-     * @param {PartnerApiCredentialDeleteManyArgs} args - Arguments to filter PartnerApiCredentials to delete.
+     * Delete zero or more ClientApiCredentials.
+     * @param {ClientApiCredentialDeleteManyArgs} args - Arguments to filter ClientApiCredentials to delete.
      * @example
-     * // Delete a few PartnerApiCredentials
-     * const { count } = await prisma.partnerApiCredential.deleteMany({
+     * // Delete a few ClientApiCredentials
+     * const { count } = await prisma.clientApiCredential.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PartnerApiCredentialDeleteManyArgs>(args?: SelectSubset<T, PartnerApiCredentialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ClientApiCredentialDeleteManyArgs>(args?: SelectSubset<T, ClientApiCredentialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more PartnerApiCredentials.
+     * Update zero or more ClientApiCredentials.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiCredentialUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ClientApiCredentialUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many PartnerApiCredentials
-     * const partnerApiCredential = await prisma.partnerApiCredential.updateMany({
+     * // Update many ClientApiCredentials
+     * const clientApiCredential = await prisma.clientApiCredential.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -33567,14 +33567,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PartnerApiCredentialUpdateManyArgs>(args: SelectSubset<T, PartnerApiCredentialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ClientApiCredentialUpdateManyArgs>(args: SelectSubset<T, ClientApiCredentialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more PartnerApiCredentials and returns the data updated in the database.
-     * @param {PartnerApiCredentialUpdateManyAndReturnArgs} args - Arguments to update many PartnerApiCredentials.
+     * Update zero or more ClientApiCredentials and returns the data updated in the database.
+     * @param {ClientApiCredentialUpdateManyAndReturnArgs} args - Arguments to update many ClientApiCredentials.
      * @example
-     * // Update many PartnerApiCredentials
-     * const partnerApiCredential = await prisma.partnerApiCredential.updateManyAndReturn({
+     * // Update many ClientApiCredentials
+     * const clientApiCredential = await prisma.clientApiCredential.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -33583,8 +33583,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more PartnerApiCredentials and only return the `id`
-     * const partnerApiCredentialWithIdOnly = await prisma.partnerApiCredential.updateManyAndReturn({
+     * // Update zero or more ClientApiCredentials and only return the `id`
+     * const clientApiCredentialWithIdOnly = await prisma.clientApiCredential.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -33597,56 +33597,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PartnerApiCredentialUpdateManyAndReturnArgs>(args: SelectSubset<T, PartnerApiCredentialUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends ClientApiCredentialUpdateManyAndReturnArgs>(args: SelectSubset<T, ClientApiCredentialUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one PartnerApiCredential.
-     * @param {PartnerApiCredentialUpsertArgs} args - Arguments to update or create a PartnerApiCredential.
+     * Create or update one ClientApiCredential.
+     * @param {ClientApiCredentialUpsertArgs} args - Arguments to update or create a ClientApiCredential.
      * @example
-     * // Update or create a PartnerApiCredential
-     * const partnerApiCredential = await prisma.partnerApiCredential.upsert({
+     * // Update or create a ClientApiCredential
+     * const clientApiCredential = await prisma.clientApiCredential.upsert({
      *   create: {
-     *     // ... data to create a PartnerApiCredential
+     *     // ... data to create a ClientApiCredential
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the PartnerApiCredential we want to update
+     *     // ... the filter for the ClientApiCredential we want to update
      *   }
      * })
      */
-    upsert<T extends PartnerApiCredentialUpsertArgs>(args: SelectSubset<T, PartnerApiCredentialUpsertArgs<ExtArgs>>): Prisma__PartnerApiCredentialClient<$Result.GetResult<Prisma.$PartnerApiCredentialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ClientApiCredentialUpsertArgs>(args: SelectSubset<T, ClientApiCredentialUpsertArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of PartnerApiCredentials.
+     * Count the number of ClientApiCredentials.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiCredentialCountArgs} args - Arguments to filter PartnerApiCredentials to count.
+     * @param {ClientApiCredentialCountArgs} args - Arguments to filter ClientApiCredentials to count.
      * @example
-     * // Count the number of PartnerApiCredentials
-     * const count = await prisma.partnerApiCredential.count({
+     * // Count the number of ClientApiCredentials
+     * const count = await prisma.clientApiCredential.count({
      *   where: {
-     *     // ... the filter for the PartnerApiCredentials we want to count
+     *     // ... the filter for the ClientApiCredentials we want to count
      *   }
      * })
     **/
-    count<T extends PartnerApiCredentialCountArgs>(
-      args?: Subset<T, PartnerApiCredentialCountArgs>,
+    count<T extends ClientApiCredentialCountArgs>(
+      args?: Subset<T, ClientApiCredentialCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PartnerApiCredentialCountAggregateOutputType>
+          : GetScalarType<T['select'], ClientApiCredentialCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a PartnerApiCredential.
+     * Allows you to perform aggregations operations on a ClientApiCredential.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiCredentialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ClientApiCredentialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -33666,13 +33666,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PartnerApiCredentialAggregateArgs>(args: Subset<T, PartnerApiCredentialAggregateArgs>): Prisma.PrismaPromise<GetPartnerApiCredentialAggregateType<T>>
+    aggregate<T extends ClientApiCredentialAggregateArgs>(args: Subset<T, ClientApiCredentialAggregateArgs>): Prisma.PrismaPromise<GetClientApiCredentialAggregateType<T>>
 
     /**
-     * Group by PartnerApiCredential.
+     * Group by ClientApiCredential.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiCredentialGroupByArgs} args - Group by arguments.
+     * @param {ClientApiCredentialGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -33687,14 +33687,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PartnerApiCredentialGroupByArgs,
+      T extends ClientApiCredentialGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PartnerApiCredentialGroupByArgs['orderBy'] }
-        : { orderBy?: PartnerApiCredentialGroupByArgs['orderBy'] },
+        ? { orderBy: ClientApiCredentialGroupByArgs['orderBy'] }
+        : { orderBy?: ClientApiCredentialGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -33743,20 +33743,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PartnerApiCredentialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPartnerApiCredentialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ClientApiCredentialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClientApiCredentialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the PartnerApiCredential model
+   * Fields of the ClientApiCredential model
    */
-  readonly fields: PartnerApiCredentialFieldRefs;
+  readonly fields: ClientApiCredentialFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for PartnerApiCredential.
+   * The delegate class that acts as a "Promise-like" for ClientApiCredential.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PartnerApiCredentialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ClientApiCredentialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -33785,455 +33785,455 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the PartnerApiCredential model
+   * Fields of the ClientApiCredential model
    */
-  interface PartnerApiCredentialFieldRefs {
-    readonly id: FieldRef<"PartnerApiCredential", 'Int'>
-    readonly userId: FieldRef<"PartnerApiCredential", 'Int'>
-    readonly apiKey: FieldRef<"PartnerApiCredential", 'String'>
-    readonly apiSecret: FieldRef<"PartnerApiCredential", 'String'>
-    readonly isActive: FieldRef<"PartnerApiCredential", 'Boolean'>
-    readonly createdAt: FieldRef<"PartnerApiCredential", 'DateTime'>
-    readonly updatedAt: FieldRef<"PartnerApiCredential", 'DateTime'>
+  interface ClientApiCredentialFieldRefs {
+    readonly id: FieldRef<"ClientApiCredential", 'Int'>
+    readonly userId: FieldRef<"ClientApiCredential", 'Int'>
+    readonly apiKey: FieldRef<"ClientApiCredential", 'String'>
+    readonly apiSecret: FieldRef<"ClientApiCredential", 'String'>
+    readonly isActive: FieldRef<"ClientApiCredential", 'Boolean'>
+    readonly createdAt: FieldRef<"ClientApiCredential", 'DateTime'>
+    readonly updatedAt: FieldRef<"ClientApiCredential", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * PartnerApiCredential findUnique
+   * ClientApiCredential findUnique
    */
-  export type PartnerApiCredentialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiCredential to fetch.
+     * Filter, which ClientApiCredential to fetch.
      */
-    where: PartnerApiCredentialWhereUniqueInput
+    where: ClientApiCredentialWhereUniqueInput
   }
 
   /**
-   * PartnerApiCredential findUniqueOrThrow
+   * ClientApiCredential findUniqueOrThrow
    */
-  export type PartnerApiCredentialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiCredential to fetch.
+     * Filter, which ClientApiCredential to fetch.
      */
-    where: PartnerApiCredentialWhereUniqueInput
+    where: ClientApiCredentialWhereUniqueInput
   }
 
   /**
-   * PartnerApiCredential findFirst
+   * ClientApiCredential findFirst
    */
-  export type PartnerApiCredentialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiCredential to fetch.
+     * Filter, which ClientApiCredential to fetch.
      */
-    where?: PartnerApiCredentialWhereInput
+    where?: ClientApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiCredentials to fetch.
+     * Determine the order of ClientApiCredentials to fetch.
      */
-    orderBy?: PartnerApiCredentialOrderByWithRelationInput | PartnerApiCredentialOrderByWithRelationInput[]
+    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for PartnerApiCredentials.
+     * Sets the position for searching for ClientApiCredentials.
      */
-    cursor?: PartnerApiCredentialWhereUniqueInput
+    cursor?: ClientApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiCredentials from the position of the cursor.
+     * Take `±n` ClientApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiCredentials.
+     * Skip the first `n` ClientApiCredentials.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of PartnerApiCredentials.
+     * Filter by unique combinations of ClientApiCredentials.
      */
-    distinct?: PartnerApiCredentialScalarFieldEnum | PartnerApiCredentialScalarFieldEnum[]
+    distinct?: ClientApiCredentialScalarFieldEnum | ClientApiCredentialScalarFieldEnum[]
   }
 
   /**
-   * PartnerApiCredential findFirstOrThrow
+   * ClientApiCredential findFirstOrThrow
    */
-  export type PartnerApiCredentialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiCredential to fetch.
+     * Filter, which ClientApiCredential to fetch.
      */
-    where?: PartnerApiCredentialWhereInput
+    where?: ClientApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiCredentials to fetch.
+     * Determine the order of ClientApiCredentials to fetch.
      */
-    orderBy?: PartnerApiCredentialOrderByWithRelationInput | PartnerApiCredentialOrderByWithRelationInput[]
+    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for PartnerApiCredentials.
+     * Sets the position for searching for ClientApiCredentials.
      */
-    cursor?: PartnerApiCredentialWhereUniqueInput
+    cursor?: ClientApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiCredentials from the position of the cursor.
+     * Take `±n` ClientApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiCredentials.
+     * Skip the first `n` ClientApiCredentials.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of PartnerApiCredentials.
+     * Filter by unique combinations of ClientApiCredentials.
      */
-    distinct?: PartnerApiCredentialScalarFieldEnum | PartnerApiCredentialScalarFieldEnum[]
+    distinct?: ClientApiCredentialScalarFieldEnum | ClientApiCredentialScalarFieldEnum[]
   }
 
   /**
-   * PartnerApiCredential findMany
+   * ClientApiCredential findMany
    */
-  export type PartnerApiCredentialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiCredentials to fetch.
+     * Filter, which ClientApiCredentials to fetch.
      */
-    where?: PartnerApiCredentialWhereInput
+    where?: ClientApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiCredentials to fetch.
+     * Determine the order of ClientApiCredentials to fetch.
      */
-    orderBy?: PartnerApiCredentialOrderByWithRelationInput | PartnerApiCredentialOrderByWithRelationInput[]
+    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing PartnerApiCredentials.
+     * Sets the position for listing ClientApiCredentials.
      */
-    cursor?: PartnerApiCredentialWhereUniqueInput
+    cursor?: ClientApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiCredentials from the position of the cursor.
+     * Take `±n` ClientApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiCredentials.
+     * Skip the first `n` ClientApiCredentials.
      */
     skip?: number
-    distinct?: PartnerApiCredentialScalarFieldEnum | PartnerApiCredentialScalarFieldEnum[]
+    distinct?: ClientApiCredentialScalarFieldEnum | ClientApiCredentialScalarFieldEnum[]
   }
 
   /**
-   * PartnerApiCredential create
+   * ClientApiCredential create
    */
-  export type PartnerApiCredentialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * The data needed to create a PartnerApiCredential.
+     * The data needed to create a ClientApiCredential.
      */
-    data: XOR<PartnerApiCredentialCreateInput, PartnerApiCredentialUncheckedCreateInput>
+    data: XOR<ClientApiCredentialCreateInput, ClientApiCredentialUncheckedCreateInput>
   }
 
   /**
-   * PartnerApiCredential createMany
+   * ClientApiCredential createMany
    */
-  export type PartnerApiCredentialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many PartnerApiCredentials.
+     * The data used to create many ClientApiCredentials.
      */
-    data: PartnerApiCredentialCreateManyInput | PartnerApiCredentialCreateManyInput[]
+    data: ClientApiCredentialCreateManyInput | ClientApiCredentialCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * PartnerApiCredential createManyAndReturn
+   * ClientApiCredential createManyAndReturn
    */
-  export type PartnerApiCredentialCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ClientApiCredentialSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
-     * The data used to create many PartnerApiCredentials.
+     * The data used to create many ClientApiCredentials.
      */
-    data: PartnerApiCredentialCreateManyInput | PartnerApiCredentialCreateManyInput[]
+    data: ClientApiCredentialCreateManyInput | ClientApiCredentialCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: ClientApiCredentialIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * PartnerApiCredential update
+   * ClientApiCredential update
    */
-  export type PartnerApiCredentialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * The data needed to update a PartnerApiCredential.
+     * The data needed to update a ClientApiCredential.
      */
-    data: XOR<PartnerApiCredentialUpdateInput, PartnerApiCredentialUncheckedUpdateInput>
+    data: XOR<ClientApiCredentialUpdateInput, ClientApiCredentialUncheckedUpdateInput>
     /**
-     * Choose, which PartnerApiCredential to update.
+     * Choose, which ClientApiCredential to update.
      */
-    where: PartnerApiCredentialWhereUniqueInput
+    where: ClientApiCredentialWhereUniqueInput
   }
 
   /**
-   * PartnerApiCredential updateMany
+   * ClientApiCredential updateMany
    */
-  export type PartnerApiCredentialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update PartnerApiCredentials.
+     * The data used to update ClientApiCredentials.
      */
-    data: XOR<PartnerApiCredentialUpdateManyMutationInput, PartnerApiCredentialUncheckedUpdateManyInput>
+    data: XOR<ClientApiCredentialUpdateManyMutationInput, ClientApiCredentialUncheckedUpdateManyInput>
     /**
-     * Filter which PartnerApiCredentials to update
+     * Filter which ClientApiCredentials to update
      */
-    where?: PartnerApiCredentialWhereInput
+    where?: ClientApiCredentialWhereInput
     /**
-     * Limit how many PartnerApiCredentials to update.
+     * Limit how many ClientApiCredentials to update.
      */
     limit?: number
   }
 
   /**
-   * PartnerApiCredential updateManyAndReturn
+   * ClientApiCredential updateManyAndReturn
    */
-  export type PartnerApiCredentialUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ClientApiCredentialSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
-     * The data used to update PartnerApiCredentials.
+     * The data used to update ClientApiCredentials.
      */
-    data: XOR<PartnerApiCredentialUpdateManyMutationInput, PartnerApiCredentialUncheckedUpdateManyInput>
+    data: XOR<ClientApiCredentialUpdateManyMutationInput, ClientApiCredentialUncheckedUpdateManyInput>
     /**
-     * Filter which PartnerApiCredentials to update
+     * Filter which ClientApiCredentials to update
      */
-    where?: PartnerApiCredentialWhereInput
+    where?: ClientApiCredentialWhereInput
     /**
-     * Limit how many PartnerApiCredentials to update.
+     * Limit how many ClientApiCredentials to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: ClientApiCredentialIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * PartnerApiCredential upsert
+   * ClientApiCredential upsert
    */
-  export type PartnerApiCredentialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * The filter to search for the PartnerApiCredential to update in case it exists.
+     * The filter to search for the ClientApiCredential to update in case it exists.
      */
-    where: PartnerApiCredentialWhereUniqueInput
+    where: ClientApiCredentialWhereUniqueInput
     /**
-     * In case the PartnerApiCredential found by the `where` argument doesn't exist, create a new PartnerApiCredential with this data.
+     * In case the ClientApiCredential found by the `where` argument doesn't exist, create a new ClientApiCredential with this data.
      */
-    create: XOR<PartnerApiCredentialCreateInput, PartnerApiCredentialUncheckedCreateInput>
+    create: XOR<ClientApiCredentialCreateInput, ClientApiCredentialUncheckedCreateInput>
     /**
-     * In case the PartnerApiCredential was found with the provided `where` argument, update it with this data.
+     * In case the ClientApiCredential was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PartnerApiCredentialUpdateInput, PartnerApiCredentialUncheckedUpdateInput>
+    update: XOR<ClientApiCredentialUpdateInput, ClientApiCredentialUncheckedUpdateInput>
   }
 
   /**
-   * PartnerApiCredential delete
+   * ClientApiCredential delete
    */
-  export type PartnerApiCredentialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter which PartnerApiCredential to delete.
+     * Filter which ClientApiCredential to delete.
      */
-    where: PartnerApiCredentialWhereUniqueInput
+    where: ClientApiCredentialWhereUniqueInput
   }
 
   /**
-   * PartnerApiCredential deleteMany
+   * ClientApiCredential deleteMany
    */
-  export type PartnerApiCredentialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which PartnerApiCredentials to delete
+     * Filter which ClientApiCredentials to delete
      */
-    where?: PartnerApiCredentialWhereInput
+    where?: ClientApiCredentialWhereInput
     /**
-     * Limit how many PartnerApiCredentials to delete.
+     * Limit how many ClientApiCredentials to delete.
      */
     limit?: number
   }
 
   /**
-   * PartnerApiCredential without action
+   * ClientApiCredential without action
    */
-  export type PartnerApiCredentialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiCredentialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiCredential
+     * Select specific fields to fetch from the ClientApiCredential
      */
-    select?: PartnerApiCredentialSelect<ExtArgs> | null
+    select?: ClientApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiCredential
+     * Omit specific fields from the ClientApiCredential
      */
-    omit?: PartnerApiCredentialOmit<ExtArgs> | null
+    omit?: ClientApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiCredentialInclude<ExtArgs> | null
+    include?: ClientApiCredentialInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model PartnerApiLog
+   * Model ClientApiLog
    */
 
-  export type AggregatePartnerApiLog = {
-    _count: PartnerApiLogCountAggregateOutputType | null
-    _avg: PartnerApiLogAvgAggregateOutputType | null
-    _sum: PartnerApiLogSumAggregateOutputType | null
-    _min: PartnerApiLogMinAggregateOutputType | null
-    _max: PartnerApiLogMaxAggregateOutputType | null
+  export type AggregateClientApiLog = {
+    _count: ClientApiLogCountAggregateOutputType | null
+    _avg: ClientApiLogAvgAggregateOutputType | null
+    _sum: ClientApiLogSumAggregateOutputType | null
+    _min: ClientApiLogMinAggregateOutputType | null
+    _max: ClientApiLogMaxAggregateOutputType | null
   }
 
-  export type PartnerApiLogAvgAggregateOutputType = {
+  export type ClientApiLogAvgAggregateOutputType = {
     id: number | null
     userId: number | null
     responseStatus: number | null
   }
 
-  export type PartnerApiLogSumAggregateOutputType = {
+  export type ClientApiLogSumAggregateOutputType = {
     id: number | null
     userId: number | null
     responseStatus: number | null
   }
 
-  export type PartnerApiLogMinAggregateOutputType = {
+  export type ClientApiLogMinAggregateOutputType = {
     id: number | null
     userId: number | null
     method: string | null
@@ -34244,7 +34244,7 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type PartnerApiLogMaxAggregateOutputType = {
+  export type ClientApiLogMaxAggregateOutputType = {
     id: number | null
     userId: number | null
     method: string | null
@@ -34255,7 +34255,7 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type PartnerApiLogCountAggregateOutputType = {
+  export type ClientApiLogCountAggregateOutputType = {
     id: number
     userId: number
     method: number
@@ -34268,30 +34268,19 @@ export namespace Prisma {
   }
 
 
-  export type PartnerApiLogAvgAggregateInputType = {
+  export type ClientApiLogAvgAggregateInputType = {
     id?: true
     userId?: true
     responseStatus?: true
   }
 
-  export type PartnerApiLogSumAggregateInputType = {
+  export type ClientApiLogSumAggregateInputType = {
     id?: true
     userId?: true
     responseStatus?: true
   }
 
-  export type PartnerApiLogMinAggregateInputType = {
-    id?: true
-    userId?: true
-    method?: true
-    endpoint?: true
-    requestBody?: true
-    responseStatus?: true
-    responseBody?: true
-    createdAt?: true
-  }
-
-  export type PartnerApiLogMaxAggregateInputType = {
+  export type ClientApiLogMinAggregateInputType = {
     id?: true
     userId?: true
     method?: true
@@ -34302,7 +34291,18 @@ export namespace Prisma {
     createdAt?: true
   }
 
-  export type PartnerApiLogCountAggregateInputType = {
+  export type ClientApiLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    method?: true
+    endpoint?: true
+    requestBody?: true
+    responseStatus?: true
+    responseBody?: true
+    createdAt?: true
+  }
+
+  export type ClientApiLogCountAggregateInputType = {
     id?: true
     userId?: true
     method?: true
@@ -34314,93 +34314,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type PartnerApiLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which PartnerApiLog to aggregate.
+     * Filter which ClientApiLog to aggregate.
      */
-    where?: PartnerApiLogWhereInput
+    where?: ClientApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiLogs to fetch.
+     * Determine the order of ClientApiLogs to fetch.
      */
-    orderBy?: PartnerApiLogOrderByWithRelationInput | PartnerApiLogOrderByWithRelationInput[]
+    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PartnerApiLogWhereUniqueInput
+    cursor?: ClientApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiLogs from the position of the cursor.
+     * Take `±n` ClientApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiLogs.
+     * Skip the first `n` ClientApiLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned PartnerApiLogs
+     * Count returned ClientApiLogs
     **/
-    _count?: true | PartnerApiLogCountAggregateInputType
+    _count?: true | ClientApiLogCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: PartnerApiLogAvgAggregateInputType
+    _avg?: ClientApiLogAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: PartnerApiLogSumAggregateInputType
+    _sum?: ClientApiLogSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PartnerApiLogMinAggregateInputType
+    _min?: ClientApiLogMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PartnerApiLogMaxAggregateInputType
+    _max?: ClientApiLogMaxAggregateInputType
   }
 
-  export type GetPartnerApiLogAggregateType<T extends PartnerApiLogAggregateArgs> = {
-        [P in keyof T & keyof AggregatePartnerApiLog]: P extends '_count' | 'count'
+  export type GetClientApiLogAggregateType<T extends ClientApiLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateClientApiLog]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePartnerApiLog[P]>
-      : GetScalarType<T[P], AggregatePartnerApiLog[P]>
+        : GetScalarType<T[P], AggregateClientApiLog[P]>
+      : GetScalarType<T[P], AggregateClientApiLog[P]>
   }
 
 
 
 
-  export type PartnerApiLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PartnerApiLogWhereInput
-    orderBy?: PartnerApiLogOrderByWithAggregationInput | PartnerApiLogOrderByWithAggregationInput[]
-    by: PartnerApiLogScalarFieldEnum[] | PartnerApiLogScalarFieldEnum
-    having?: PartnerApiLogScalarWhereWithAggregatesInput
+  export type ClientApiLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientApiLogWhereInput
+    orderBy?: ClientApiLogOrderByWithAggregationInput | ClientApiLogOrderByWithAggregationInput[]
+    by: ClientApiLogScalarFieldEnum[] | ClientApiLogScalarFieldEnum
+    having?: ClientApiLogScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PartnerApiLogCountAggregateInputType | true
-    _avg?: PartnerApiLogAvgAggregateInputType
-    _sum?: PartnerApiLogSumAggregateInputType
-    _min?: PartnerApiLogMinAggregateInputType
-    _max?: PartnerApiLogMaxAggregateInputType
+    _count?: ClientApiLogCountAggregateInputType | true
+    _avg?: ClientApiLogAvgAggregateInputType
+    _sum?: ClientApiLogSumAggregateInputType
+    _min?: ClientApiLogMinAggregateInputType
+    _max?: ClientApiLogMaxAggregateInputType
   }
 
-  export type PartnerApiLogGroupByOutputType = {
+  export type ClientApiLogGroupByOutputType = {
     id: number
     userId: number
     method: string
@@ -34409,28 +34409,28 @@ export namespace Prisma {
     responseStatus: number
     responseBody: string | null
     createdAt: Date
-    _count: PartnerApiLogCountAggregateOutputType | null
-    _avg: PartnerApiLogAvgAggregateOutputType | null
-    _sum: PartnerApiLogSumAggregateOutputType | null
-    _min: PartnerApiLogMinAggregateOutputType | null
-    _max: PartnerApiLogMaxAggregateOutputType | null
+    _count: ClientApiLogCountAggregateOutputType | null
+    _avg: ClientApiLogAvgAggregateOutputType | null
+    _sum: ClientApiLogSumAggregateOutputType | null
+    _min: ClientApiLogMinAggregateOutputType | null
+    _max: ClientApiLogMaxAggregateOutputType | null
   }
 
-  type GetPartnerApiLogGroupByPayload<T extends PartnerApiLogGroupByArgs> = Prisma.PrismaPromise<
+  type GetClientApiLogGroupByPayload<T extends ClientApiLogGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PartnerApiLogGroupByOutputType, T['by']> &
+      PickEnumerable<ClientApiLogGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PartnerApiLogGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ClientApiLogGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PartnerApiLogGroupByOutputType[P]>
-            : GetScalarType<T[P], PartnerApiLogGroupByOutputType[P]>
+              : GetScalarType<T[P], ClientApiLogGroupByOutputType[P]>
+            : GetScalarType<T[P], ClientApiLogGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PartnerApiLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClientApiLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34440,9 +34440,9 @@ export namespace Prisma {
     responseBody?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["partnerApiLog"]>
+  }, ExtArgs["result"]["clientApiLog"]>
 
-  export type PartnerApiLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClientApiLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34452,9 +34452,9 @@ export namespace Prisma {
     responseBody?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["partnerApiLog"]>
+  }, ExtArgs["result"]["clientApiLog"]>
 
-  export type PartnerApiLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ClientApiLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34464,9 +34464,9 @@ export namespace Prisma {
     responseBody?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["partnerApiLog"]>
+  }, ExtArgs["result"]["clientApiLog"]>
 
-  export type PartnerApiLogSelectScalar = {
+  export type ClientApiLogSelectScalar = {
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34477,19 +34477,19 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type PartnerApiLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "method" | "endpoint" | "requestBody" | "responseStatus" | "responseBody" | "createdAt", ExtArgs["result"]["partnerApiLog"]>
-  export type PartnerApiLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "method" | "endpoint" | "requestBody" | "responseStatus" | "responseBody" | "createdAt", ExtArgs["result"]["clientApiLog"]>
+  export type ClientApiLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type PartnerApiLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type PartnerApiLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $PartnerApiLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "PartnerApiLog"
+  export type $ClientApiLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClientApiLog"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
     }
@@ -34502,136 +34502,136 @@ export namespace Prisma {
       responseStatus: number
       responseBody: string | null
       createdAt: Date
-    }, ExtArgs["result"]["partnerApiLog"]>
+    }, ExtArgs["result"]["clientApiLog"]>
     composites: {}
   }
 
-  type PartnerApiLogGetPayload<S extends boolean | null | undefined | PartnerApiLogDefaultArgs> = $Result.GetResult<Prisma.$PartnerApiLogPayload, S>
+  type ClientApiLogGetPayload<S extends boolean | null | undefined | ClientApiLogDefaultArgs> = $Result.GetResult<Prisma.$ClientApiLogPayload, S>
 
-  type PartnerApiLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PartnerApiLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PartnerApiLogCountAggregateInputType | true
+  type ClientApiLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClientApiLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClientApiLogCountAggregateInputType | true
     }
 
-  export interface PartnerApiLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PartnerApiLog'], meta: { name: 'PartnerApiLog' } }
+  export interface ClientApiLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClientApiLog'], meta: { name: 'ClientApiLog' } }
     /**
-     * Find zero or one PartnerApiLog that matches the filter.
-     * @param {PartnerApiLogFindUniqueArgs} args - Arguments to find a PartnerApiLog
+     * Find zero or one ClientApiLog that matches the filter.
+     * @param {ClientApiLogFindUniqueArgs} args - Arguments to find a ClientApiLog
      * @example
-     * // Get one PartnerApiLog
-     * const partnerApiLog = await prisma.partnerApiLog.findUnique({
+     * // Get one ClientApiLog
+     * const clientApiLog = await prisma.clientApiLog.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PartnerApiLogFindUniqueArgs>(args: SelectSubset<T, PartnerApiLogFindUniqueArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ClientApiLogFindUniqueArgs>(args: SelectSubset<T, ClientApiLogFindUniqueArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one PartnerApiLog that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ClientApiLog that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PartnerApiLogFindUniqueOrThrowArgs} args - Arguments to find a PartnerApiLog
+     * @param {ClientApiLogFindUniqueOrThrowArgs} args - Arguments to find a ClientApiLog
      * @example
-     * // Get one PartnerApiLog
-     * const partnerApiLog = await prisma.partnerApiLog.findUniqueOrThrow({
+     * // Get one ClientApiLog
+     * const clientApiLog = await prisma.clientApiLog.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PartnerApiLogFindUniqueOrThrowArgs>(args: SelectSubset<T, PartnerApiLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ClientApiLogFindUniqueOrThrowArgs>(args: SelectSubset<T, ClientApiLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first PartnerApiLog that matches the filter.
+     * Find the first ClientApiLog that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiLogFindFirstArgs} args - Arguments to find a PartnerApiLog
+     * @param {ClientApiLogFindFirstArgs} args - Arguments to find a ClientApiLog
      * @example
-     * // Get one PartnerApiLog
-     * const partnerApiLog = await prisma.partnerApiLog.findFirst({
+     * // Get one ClientApiLog
+     * const clientApiLog = await prisma.clientApiLog.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PartnerApiLogFindFirstArgs>(args?: SelectSubset<T, PartnerApiLogFindFirstArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ClientApiLogFindFirstArgs>(args?: SelectSubset<T, ClientApiLogFindFirstArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first PartnerApiLog that matches the filter or
+     * Find the first ClientApiLog that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiLogFindFirstOrThrowArgs} args - Arguments to find a PartnerApiLog
+     * @param {ClientApiLogFindFirstOrThrowArgs} args - Arguments to find a ClientApiLog
      * @example
-     * // Get one PartnerApiLog
-     * const partnerApiLog = await prisma.partnerApiLog.findFirstOrThrow({
+     * // Get one ClientApiLog
+     * const clientApiLog = await prisma.clientApiLog.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PartnerApiLogFindFirstOrThrowArgs>(args?: SelectSubset<T, PartnerApiLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ClientApiLogFindFirstOrThrowArgs>(args?: SelectSubset<T, ClientApiLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more PartnerApiLogs that matches the filter.
+     * Find zero or more ClientApiLogs that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ClientApiLogFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all PartnerApiLogs
-     * const partnerApiLogs = await prisma.partnerApiLog.findMany()
+     * // Get all ClientApiLogs
+     * const clientApiLogs = await prisma.clientApiLog.findMany()
      * 
-     * // Get first 10 PartnerApiLogs
-     * const partnerApiLogs = await prisma.partnerApiLog.findMany({ take: 10 })
+     * // Get first 10 ClientApiLogs
+     * const clientApiLogs = await prisma.clientApiLog.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const partnerApiLogWithIdOnly = await prisma.partnerApiLog.findMany({ select: { id: true } })
+     * const clientApiLogWithIdOnly = await prisma.clientApiLog.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PartnerApiLogFindManyArgs>(args?: SelectSubset<T, PartnerApiLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ClientApiLogFindManyArgs>(args?: SelectSubset<T, ClientApiLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a PartnerApiLog.
-     * @param {PartnerApiLogCreateArgs} args - Arguments to create a PartnerApiLog.
+     * Create a ClientApiLog.
+     * @param {ClientApiLogCreateArgs} args - Arguments to create a ClientApiLog.
      * @example
-     * // Create one PartnerApiLog
-     * const PartnerApiLog = await prisma.partnerApiLog.create({
+     * // Create one ClientApiLog
+     * const ClientApiLog = await prisma.clientApiLog.create({
      *   data: {
-     *     // ... data to create a PartnerApiLog
+     *     // ... data to create a ClientApiLog
      *   }
      * })
      * 
      */
-    create<T extends PartnerApiLogCreateArgs>(args: SelectSubset<T, PartnerApiLogCreateArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ClientApiLogCreateArgs>(args: SelectSubset<T, ClientApiLogCreateArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many PartnerApiLogs.
-     * @param {PartnerApiLogCreateManyArgs} args - Arguments to create many PartnerApiLogs.
+     * Create many ClientApiLogs.
+     * @param {ClientApiLogCreateManyArgs} args - Arguments to create many ClientApiLogs.
      * @example
-     * // Create many PartnerApiLogs
-     * const partnerApiLog = await prisma.partnerApiLog.createMany({
+     * // Create many ClientApiLogs
+     * const clientApiLog = await prisma.clientApiLog.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PartnerApiLogCreateManyArgs>(args?: SelectSubset<T, PartnerApiLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ClientApiLogCreateManyArgs>(args?: SelectSubset<T, ClientApiLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many PartnerApiLogs and returns the data saved in the database.
-     * @param {PartnerApiLogCreateManyAndReturnArgs} args - Arguments to create many PartnerApiLogs.
+     * Create many ClientApiLogs and returns the data saved in the database.
+     * @param {ClientApiLogCreateManyAndReturnArgs} args - Arguments to create many ClientApiLogs.
      * @example
-     * // Create many PartnerApiLogs
-     * const partnerApiLog = await prisma.partnerApiLog.createManyAndReturn({
+     * // Create many ClientApiLogs
+     * const clientApiLog = await prisma.clientApiLog.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many PartnerApiLogs and only return the `id`
-     * const partnerApiLogWithIdOnly = await prisma.partnerApiLog.createManyAndReturn({
+     * // Create many ClientApiLogs and only return the `id`
+     * const clientApiLogWithIdOnly = await prisma.clientApiLog.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -34641,28 +34641,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PartnerApiLogCreateManyAndReturnArgs>(args?: SelectSubset<T, PartnerApiLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends ClientApiLogCreateManyAndReturnArgs>(args?: SelectSubset<T, ClientApiLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a PartnerApiLog.
-     * @param {PartnerApiLogDeleteArgs} args - Arguments to delete one PartnerApiLog.
+     * Delete a ClientApiLog.
+     * @param {ClientApiLogDeleteArgs} args - Arguments to delete one ClientApiLog.
      * @example
-     * // Delete one PartnerApiLog
-     * const PartnerApiLog = await prisma.partnerApiLog.delete({
+     * // Delete one ClientApiLog
+     * const ClientApiLog = await prisma.clientApiLog.delete({
      *   where: {
-     *     // ... filter to delete one PartnerApiLog
+     *     // ... filter to delete one ClientApiLog
      *   }
      * })
      * 
      */
-    delete<T extends PartnerApiLogDeleteArgs>(args: SelectSubset<T, PartnerApiLogDeleteArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ClientApiLogDeleteArgs>(args: SelectSubset<T, ClientApiLogDeleteArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one PartnerApiLog.
-     * @param {PartnerApiLogUpdateArgs} args - Arguments to update one PartnerApiLog.
+     * Update one ClientApiLog.
+     * @param {ClientApiLogUpdateArgs} args - Arguments to update one ClientApiLog.
      * @example
-     * // Update one PartnerApiLog
-     * const partnerApiLog = await prisma.partnerApiLog.update({
+     * // Update one ClientApiLog
+     * const clientApiLog = await prisma.clientApiLog.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -34672,30 +34672,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PartnerApiLogUpdateArgs>(args: SelectSubset<T, PartnerApiLogUpdateArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ClientApiLogUpdateArgs>(args: SelectSubset<T, ClientApiLogUpdateArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more PartnerApiLogs.
-     * @param {PartnerApiLogDeleteManyArgs} args - Arguments to filter PartnerApiLogs to delete.
+     * Delete zero or more ClientApiLogs.
+     * @param {ClientApiLogDeleteManyArgs} args - Arguments to filter ClientApiLogs to delete.
      * @example
-     * // Delete a few PartnerApiLogs
-     * const { count } = await prisma.partnerApiLog.deleteMany({
+     * // Delete a few ClientApiLogs
+     * const { count } = await prisma.clientApiLog.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PartnerApiLogDeleteManyArgs>(args?: SelectSubset<T, PartnerApiLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ClientApiLogDeleteManyArgs>(args?: SelectSubset<T, ClientApiLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more PartnerApiLogs.
+     * Update zero or more ClientApiLogs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ClientApiLogUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many PartnerApiLogs
-     * const partnerApiLog = await prisma.partnerApiLog.updateMany({
+     * // Update many ClientApiLogs
+     * const clientApiLog = await prisma.clientApiLog.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -34705,14 +34705,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PartnerApiLogUpdateManyArgs>(args: SelectSubset<T, PartnerApiLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ClientApiLogUpdateManyArgs>(args: SelectSubset<T, ClientApiLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more PartnerApiLogs and returns the data updated in the database.
-     * @param {PartnerApiLogUpdateManyAndReturnArgs} args - Arguments to update many PartnerApiLogs.
+     * Update zero or more ClientApiLogs and returns the data updated in the database.
+     * @param {ClientApiLogUpdateManyAndReturnArgs} args - Arguments to update many ClientApiLogs.
      * @example
-     * // Update many PartnerApiLogs
-     * const partnerApiLog = await prisma.partnerApiLog.updateManyAndReturn({
+     * // Update many ClientApiLogs
+     * const clientApiLog = await prisma.clientApiLog.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -34721,8 +34721,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more PartnerApiLogs and only return the `id`
-     * const partnerApiLogWithIdOnly = await prisma.partnerApiLog.updateManyAndReturn({
+     * // Update zero or more ClientApiLogs and only return the `id`
+     * const clientApiLogWithIdOnly = await prisma.clientApiLog.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -34735,56 +34735,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PartnerApiLogUpdateManyAndReturnArgs>(args: SelectSubset<T, PartnerApiLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends ClientApiLogUpdateManyAndReturnArgs>(args: SelectSubset<T, ClientApiLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one PartnerApiLog.
-     * @param {PartnerApiLogUpsertArgs} args - Arguments to update or create a PartnerApiLog.
+     * Create or update one ClientApiLog.
+     * @param {ClientApiLogUpsertArgs} args - Arguments to update or create a ClientApiLog.
      * @example
-     * // Update or create a PartnerApiLog
-     * const partnerApiLog = await prisma.partnerApiLog.upsert({
+     * // Update or create a ClientApiLog
+     * const clientApiLog = await prisma.clientApiLog.upsert({
      *   create: {
-     *     // ... data to create a PartnerApiLog
+     *     // ... data to create a ClientApiLog
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the PartnerApiLog we want to update
+     *     // ... the filter for the ClientApiLog we want to update
      *   }
      * })
      */
-    upsert<T extends PartnerApiLogUpsertArgs>(args: SelectSubset<T, PartnerApiLogUpsertArgs<ExtArgs>>): Prisma__PartnerApiLogClient<$Result.GetResult<Prisma.$PartnerApiLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ClientApiLogUpsertArgs>(args: SelectSubset<T, ClientApiLogUpsertArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of PartnerApiLogs.
+     * Count the number of ClientApiLogs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiLogCountArgs} args - Arguments to filter PartnerApiLogs to count.
+     * @param {ClientApiLogCountArgs} args - Arguments to filter ClientApiLogs to count.
      * @example
-     * // Count the number of PartnerApiLogs
-     * const count = await prisma.partnerApiLog.count({
+     * // Count the number of ClientApiLogs
+     * const count = await prisma.clientApiLog.count({
      *   where: {
-     *     // ... the filter for the PartnerApiLogs we want to count
+     *     // ... the filter for the ClientApiLogs we want to count
      *   }
      * })
     **/
-    count<T extends PartnerApiLogCountArgs>(
-      args?: Subset<T, PartnerApiLogCountArgs>,
+    count<T extends ClientApiLogCountArgs>(
+      args?: Subset<T, ClientApiLogCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PartnerApiLogCountAggregateOutputType>
+          : GetScalarType<T['select'], ClientApiLogCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a PartnerApiLog.
+     * Allows you to perform aggregations operations on a ClientApiLog.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ClientApiLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -34804,13 +34804,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PartnerApiLogAggregateArgs>(args: Subset<T, PartnerApiLogAggregateArgs>): Prisma.PrismaPromise<GetPartnerApiLogAggregateType<T>>
+    aggregate<T extends ClientApiLogAggregateArgs>(args: Subset<T, ClientApiLogAggregateArgs>): Prisma.PrismaPromise<GetClientApiLogAggregateType<T>>
 
     /**
-     * Group by PartnerApiLog.
+     * Group by ClientApiLog.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PartnerApiLogGroupByArgs} args - Group by arguments.
+     * @param {ClientApiLogGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -34825,14 +34825,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PartnerApiLogGroupByArgs,
+      T extends ClientApiLogGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PartnerApiLogGroupByArgs['orderBy'] }
-        : { orderBy?: PartnerApiLogGroupByArgs['orderBy'] },
+        ? { orderBy: ClientApiLogGroupByArgs['orderBy'] }
+        : { orderBy?: ClientApiLogGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -34881,20 +34881,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PartnerApiLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPartnerApiLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ClientApiLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClientApiLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the PartnerApiLog model
+   * Fields of the ClientApiLog model
    */
-  readonly fields: PartnerApiLogFieldRefs;
+  readonly fields: ClientApiLogFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for PartnerApiLog.
+   * The delegate class that acts as a "Promise-like" for ClientApiLog.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PartnerApiLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ClientApiLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -34923,428 +34923,428 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the PartnerApiLog model
+   * Fields of the ClientApiLog model
    */
-  interface PartnerApiLogFieldRefs {
-    readonly id: FieldRef<"PartnerApiLog", 'Int'>
-    readonly userId: FieldRef<"PartnerApiLog", 'Int'>
-    readonly method: FieldRef<"PartnerApiLog", 'String'>
-    readonly endpoint: FieldRef<"PartnerApiLog", 'String'>
-    readonly requestBody: FieldRef<"PartnerApiLog", 'String'>
-    readonly responseStatus: FieldRef<"PartnerApiLog", 'Int'>
-    readonly responseBody: FieldRef<"PartnerApiLog", 'String'>
-    readonly createdAt: FieldRef<"PartnerApiLog", 'DateTime'>
+  interface ClientApiLogFieldRefs {
+    readonly id: FieldRef<"ClientApiLog", 'Int'>
+    readonly userId: FieldRef<"ClientApiLog", 'Int'>
+    readonly method: FieldRef<"ClientApiLog", 'String'>
+    readonly endpoint: FieldRef<"ClientApiLog", 'String'>
+    readonly requestBody: FieldRef<"ClientApiLog", 'String'>
+    readonly responseStatus: FieldRef<"ClientApiLog", 'Int'>
+    readonly responseBody: FieldRef<"ClientApiLog", 'String'>
+    readonly createdAt: FieldRef<"ClientApiLog", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * PartnerApiLog findUnique
+   * ClientApiLog findUnique
    */
-  export type PartnerApiLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiLog to fetch.
+     * Filter, which ClientApiLog to fetch.
      */
-    where: PartnerApiLogWhereUniqueInput
+    where: ClientApiLogWhereUniqueInput
   }
 
   /**
-   * PartnerApiLog findUniqueOrThrow
+   * ClientApiLog findUniqueOrThrow
    */
-  export type PartnerApiLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiLog to fetch.
+     * Filter, which ClientApiLog to fetch.
      */
-    where: PartnerApiLogWhereUniqueInput
+    where: ClientApiLogWhereUniqueInput
   }
 
   /**
-   * PartnerApiLog findFirst
+   * ClientApiLog findFirst
    */
-  export type PartnerApiLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiLog to fetch.
+     * Filter, which ClientApiLog to fetch.
      */
-    where?: PartnerApiLogWhereInput
+    where?: ClientApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiLogs to fetch.
+     * Determine the order of ClientApiLogs to fetch.
      */
-    orderBy?: PartnerApiLogOrderByWithRelationInput | PartnerApiLogOrderByWithRelationInput[]
+    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for PartnerApiLogs.
+     * Sets the position for searching for ClientApiLogs.
      */
-    cursor?: PartnerApiLogWhereUniqueInput
+    cursor?: ClientApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiLogs from the position of the cursor.
+     * Take `±n` ClientApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiLogs.
+     * Skip the first `n` ClientApiLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of PartnerApiLogs.
+     * Filter by unique combinations of ClientApiLogs.
      */
-    distinct?: PartnerApiLogScalarFieldEnum | PartnerApiLogScalarFieldEnum[]
+    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
   }
 
   /**
-   * PartnerApiLog findFirstOrThrow
+   * ClientApiLog findFirstOrThrow
    */
-  export type PartnerApiLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiLog to fetch.
+     * Filter, which ClientApiLog to fetch.
      */
-    where?: PartnerApiLogWhereInput
+    where?: ClientApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiLogs to fetch.
+     * Determine the order of ClientApiLogs to fetch.
      */
-    orderBy?: PartnerApiLogOrderByWithRelationInput | PartnerApiLogOrderByWithRelationInput[]
+    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for PartnerApiLogs.
+     * Sets the position for searching for ClientApiLogs.
      */
-    cursor?: PartnerApiLogWhereUniqueInput
+    cursor?: ClientApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiLogs from the position of the cursor.
+     * Take `±n` ClientApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiLogs.
+     * Skip the first `n` ClientApiLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of PartnerApiLogs.
+     * Filter by unique combinations of ClientApiLogs.
      */
-    distinct?: PartnerApiLogScalarFieldEnum | PartnerApiLogScalarFieldEnum[]
+    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
   }
 
   /**
-   * PartnerApiLog findMany
+   * ClientApiLog findMany
    */
-  export type PartnerApiLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which PartnerApiLogs to fetch.
+     * Filter, which ClientApiLogs to fetch.
      */
-    where?: PartnerApiLogWhereInput
+    where?: ClientApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PartnerApiLogs to fetch.
+     * Determine the order of ClientApiLogs to fetch.
      */
-    orderBy?: PartnerApiLogOrderByWithRelationInput | PartnerApiLogOrderByWithRelationInput[]
+    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing PartnerApiLogs.
+     * Sets the position for listing ClientApiLogs.
      */
-    cursor?: PartnerApiLogWhereUniqueInput
+    cursor?: ClientApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PartnerApiLogs from the position of the cursor.
+     * Take `±n` ClientApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PartnerApiLogs.
+     * Skip the first `n` ClientApiLogs.
      */
     skip?: number
-    distinct?: PartnerApiLogScalarFieldEnum | PartnerApiLogScalarFieldEnum[]
+    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
   }
 
   /**
-   * PartnerApiLog create
+   * ClientApiLog create
    */
-  export type PartnerApiLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * The data needed to create a PartnerApiLog.
+     * The data needed to create a ClientApiLog.
      */
-    data: XOR<PartnerApiLogCreateInput, PartnerApiLogUncheckedCreateInput>
+    data: XOR<ClientApiLogCreateInput, ClientApiLogUncheckedCreateInput>
   }
 
   /**
-   * PartnerApiLog createMany
+   * ClientApiLog createMany
    */
-  export type PartnerApiLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many PartnerApiLogs.
+     * The data used to create many ClientApiLogs.
      */
-    data: PartnerApiLogCreateManyInput | PartnerApiLogCreateManyInput[]
+    data: ClientApiLogCreateManyInput | ClientApiLogCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * PartnerApiLog createManyAndReturn
+   * ClientApiLog createManyAndReturn
    */
-  export type PartnerApiLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ClientApiLogSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
-     * The data used to create many PartnerApiLogs.
+     * The data used to create many ClientApiLogs.
      */
-    data: PartnerApiLogCreateManyInput | PartnerApiLogCreateManyInput[]
+    data: ClientApiLogCreateManyInput | ClientApiLogCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: ClientApiLogIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * PartnerApiLog update
+   * ClientApiLog update
    */
-  export type PartnerApiLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * The data needed to update a PartnerApiLog.
+     * The data needed to update a ClientApiLog.
      */
-    data: XOR<PartnerApiLogUpdateInput, PartnerApiLogUncheckedUpdateInput>
+    data: XOR<ClientApiLogUpdateInput, ClientApiLogUncheckedUpdateInput>
     /**
-     * Choose, which PartnerApiLog to update.
+     * Choose, which ClientApiLog to update.
      */
-    where: PartnerApiLogWhereUniqueInput
+    where: ClientApiLogWhereUniqueInput
   }
 
   /**
-   * PartnerApiLog updateMany
+   * ClientApiLog updateMany
    */
-  export type PartnerApiLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update PartnerApiLogs.
+     * The data used to update ClientApiLogs.
      */
-    data: XOR<PartnerApiLogUpdateManyMutationInput, PartnerApiLogUncheckedUpdateManyInput>
+    data: XOR<ClientApiLogUpdateManyMutationInput, ClientApiLogUncheckedUpdateManyInput>
     /**
-     * Filter which PartnerApiLogs to update
+     * Filter which ClientApiLogs to update
      */
-    where?: PartnerApiLogWhereInput
+    where?: ClientApiLogWhereInput
     /**
-     * Limit how many PartnerApiLogs to update.
+     * Limit how many ClientApiLogs to update.
      */
     limit?: number
   }
 
   /**
-   * PartnerApiLog updateManyAndReturn
+   * ClientApiLog updateManyAndReturn
    */
-  export type PartnerApiLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ClientApiLogSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
-     * The data used to update PartnerApiLogs.
+     * The data used to update ClientApiLogs.
      */
-    data: XOR<PartnerApiLogUpdateManyMutationInput, PartnerApiLogUncheckedUpdateManyInput>
+    data: XOR<ClientApiLogUpdateManyMutationInput, ClientApiLogUncheckedUpdateManyInput>
     /**
-     * Filter which PartnerApiLogs to update
+     * Filter which ClientApiLogs to update
      */
-    where?: PartnerApiLogWhereInput
+    where?: ClientApiLogWhereInput
     /**
-     * Limit how many PartnerApiLogs to update.
+     * Limit how many ClientApiLogs to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: ClientApiLogIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * PartnerApiLog upsert
+   * ClientApiLog upsert
    */
-  export type PartnerApiLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * The filter to search for the PartnerApiLog to update in case it exists.
+     * The filter to search for the ClientApiLog to update in case it exists.
      */
-    where: PartnerApiLogWhereUniqueInput
+    where: ClientApiLogWhereUniqueInput
     /**
-     * In case the PartnerApiLog found by the `where` argument doesn't exist, create a new PartnerApiLog with this data.
+     * In case the ClientApiLog found by the `where` argument doesn't exist, create a new ClientApiLog with this data.
      */
-    create: XOR<PartnerApiLogCreateInput, PartnerApiLogUncheckedCreateInput>
+    create: XOR<ClientApiLogCreateInput, ClientApiLogUncheckedCreateInput>
     /**
-     * In case the PartnerApiLog was found with the provided `where` argument, update it with this data.
+     * In case the ClientApiLog was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PartnerApiLogUpdateInput, PartnerApiLogUncheckedUpdateInput>
+    update: XOR<ClientApiLogUpdateInput, ClientApiLogUncheckedUpdateInput>
   }
 
   /**
-   * PartnerApiLog delete
+   * ClientApiLog delete
    */
-  export type PartnerApiLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
     /**
-     * Filter which PartnerApiLog to delete.
+     * Filter which ClientApiLog to delete.
      */
-    where: PartnerApiLogWhereUniqueInput
+    where: ClientApiLogWhereUniqueInput
   }
 
   /**
-   * PartnerApiLog deleteMany
+   * ClientApiLog deleteMany
    */
-  export type PartnerApiLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which PartnerApiLogs to delete
+     * Filter which ClientApiLogs to delete
      */
-    where?: PartnerApiLogWhereInput
+    where?: ClientApiLogWhereInput
     /**
-     * Limit how many PartnerApiLogs to delete.
+     * Limit how many ClientApiLogs to delete.
      */
     limit?: number
   }
 
   /**
-   * PartnerApiLog without action
+   * ClientApiLog without action
    */
-  export type PartnerApiLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClientApiLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PartnerApiLog
+     * Select specific fields to fetch from the ClientApiLog
      */
-    select?: PartnerApiLogSelect<ExtArgs> | null
+    select?: ClientApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PartnerApiLog
+     * Omit specific fields from the ClientApiLog
      */
-    omit?: PartnerApiLogOmit<ExtArgs> | null
+    omit?: ClientApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PartnerApiLogInclude<ExtArgs> | null
+    include?: ClientApiLogInclude<ExtArgs> | null
   }
 
 
@@ -45789,7 +45789,7 @@ export namespace Prisma {
   export type BusinessScalarFieldEnum = (typeof BusinessScalarFieldEnum)[keyof typeof BusinessScalarFieldEnum]
 
 
-  export const PartnerApiCredentialScalarFieldEnum: {
+  export const ClientApiCredentialScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     apiKey: 'apiKey',
@@ -45799,10 +45799,10 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type PartnerApiCredentialScalarFieldEnum = (typeof PartnerApiCredentialScalarFieldEnum)[keyof typeof PartnerApiCredentialScalarFieldEnum]
+  export type ClientApiCredentialScalarFieldEnum = (typeof ClientApiCredentialScalarFieldEnum)[keyof typeof ClientApiCredentialScalarFieldEnum]
 
 
-  export const PartnerApiLogScalarFieldEnum: {
+  export const ClientApiLogScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     method: 'method',
@@ -45813,7 +45813,7 @@ export namespace Prisma {
     createdAt: 'createdAt'
   };
 
-  export type PartnerApiLogScalarFieldEnum = (typeof PartnerApiLogScalarFieldEnum)[keyof typeof PartnerApiLogScalarFieldEnum]
+  export type ClientApiLogScalarFieldEnum = (typeof ClientApiLogScalarFieldEnum)[keyof typeof ClientApiLogScalarFieldEnum]
 
 
   export const ConfigurationInvoiceTypeScalarFieldEnum: {
@@ -46058,8 +46058,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     directors?: DirectorListRelationFilter
     entity?: XOR<EntityNullableScalarRelationFilter, EntityWhereInput> | null
-    partnerApiLog?: PartnerApiLogListRelationFilter
-    PartnerApiCredential?: XOR<PartnerApiCredentialNullableScalarRelationFilter, PartnerApiCredentialWhereInput> | null
+    clientApiLog?: ClientApiLogListRelationFilter
+    clientApiCredential?: XOR<ClientApiCredentialNullableScalarRelationFilter, ClientApiCredentialWhereInput> | null
     systemIntegratorFirsSettings?: XOR<SystemIntegratorFirsSettingsNullableScalarRelationFilter, SystemIntegratorFirsSettingsWhereInput> | null
   }
 
@@ -46082,8 +46082,8 @@ export namespace Prisma {
     invoices?: InvoiceOrderByRelationAggregateInput
     directors?: DirectorOrderByRelationAggregateInput
     entity?: EntityOrderByWithRelationInput
-    partnerApiLog?: PartnerApiLogOrderByRelationAggregateInput
-    PartnerApiCredential?: PartnerApiCredentialOrderByWithRelationInput
+    clientApiLog?: ClientApiLogOrderByRelationAggregateInput
+    clientApiCredential?: ClientApiCredentialOrderByWithRelationInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsOrderByWithRelationInput
   }
 
@@ -46109,8 +46109,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     directors?: DirectorListRelationFilter
     entity?: XOR<EntityNullableScalarRelationFilter, EntityWhereInput> | null
-    partnerApiLog?: PartnerApiLogListRelationFilter
-    PartnerApiCredential?: XOR<PartnerApiCredentialNullableScalarRelationFilter, PartnerApiCredentialWhereInput> | null
+    clientApiLog?: ClientApiLogListRelationFilter
+    clientApiCredential?: XOR<ClientApiCredentialNullableScalarRelationFilter, ClientApiCredentialWhereInput> | null
     systemIntegratorFirsSettings?: XOR<SystemIntegratorFirsSettingsNullableScalarRelationFilter, SystemIntegratorFirsSettingsWhereInput> | null
   }, "id" | "entityId" | "email">
 
@@ -47787,21 +47787,21 @@ export namespace Prisma {
     entityId?: StringWithAggregatesFilter<"Business"> | string
   }
 
-  export type PartnerApiCredentialWhereInput = {
-    AND?: PartnerApiCredentialWhereInput | PartnerApiCredentialWhereInput[]
-    OR?: PartnerApiCredentialWhereInput[]
-    NOT?: PartnerApiCredentialWhereInput | PartnerApiCredentialWhereInput[]
-    id?: IntFilter<"PartnerApiCredential"> | number
-    userId?: IntFilter<"PartnerApiCredential"> | number
-    apiKey?: StringFilter<"PartnerApiCredential"> | string
-    apiSecret?: StringFilter<"PartnerApiCredential"> | string
-    isActive?: BoolFilter<"PartnerApiCredential"> | boolean
-    createdAt?: DateTimeFilter<"PartnerApiCredential"> | Date | string
-    updatedAt?: DateTimeFilter<"PartnerApiCredential"> | Date | string
+  export type ClientApiCredentialWhereInput = {
+    AND?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
+    OR?: ClientApiCredentialWhereInput[]
+    NOT?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
+    id?: IntFilter<"ClientApiCredential"> | number
+    userId?: IntFilter<"ClientApiCredential"> | number
+    apiKey?: StringFilter<"ClientApiCredential"> | string
+    apiSecret?: StringFilter<"ClientApiCredential"> | string
+    isActive?: BoolFilter<"ClientApiCredential"> | boolean
+    createdAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
+    updatedAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type PartnerApiCredentialOrderByWithRelationInput = {
+  export type ClientApiCredentialOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -47812,21 +47812,21 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
   }
 
-  export type PartnerApiCredentialWhereUniqueInput = Prisma.AtLeast<{
+  export type ClientApiCredentialWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     userId?: number
-    AND?: PartnerApiCredentialWhereInput | PartnerApiCredentialWhereInput[]
-    OR?: PartnerApiCredentialWhereInput[]
-    NOT?: PartnerApiCredentialWhereInput | PartnerApiCredentialWhereInput[]
-    apiKey?: StringFilter<"PartnerApiCredential"> | string
-    apiSecret?: StringFilter<"PartnerApiCredential"> | string
-    isActive?: BoolFilter<"PartnerApiCredential"> | boolean
-    createdAt?: DateTimeFilter<"PartnerApiCredential"> | Date | string
-    updatedAt?: DateTimeFilter<"PartnerApiCredential"> | Date | string
+    AND?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
+    OR?: ClientApiCredentialWhereInput[]
+    NOT?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
+    apiKey?: StringFilter<"ClientApiCredential"> | string
+    apiSecret?: StringFilter<"ClientApiCredential"> | string
+    isActive?: BoolFilter<"ClientApiCredential"> | boolean
+    createdAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
+    updatedAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
-  export type PartnerApiCredentialOrderByWithAggregationInput = {
+  export type ClientApiCredentialOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -47834,42 +47834,42 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: PartnerApiCredentialCountOrderByAggregateInput
-    _avg?: PartnerApiCredentialAvgOrderByAggregateInput
-    _max?: PartnerApiCredentialMaxOrderByAggregateInput
-    _min?: PartnerApiCredentialMinOrderByAggregateInput
-    _sum?: PartnerApiCredentialSumOrderByAggregateInput
+    _count?: ClientApiCredentialCountOrderByAggregateInput
+    _avg?: ClientApiCredentialAvgOrderByAggregateInput
+    _max?: ClientApiCredentialMaxOrderByAggregateInput
+    _min?: ClientApiCredentialMinOrderByAggregateInput
+    _sum?: ClientApiCredentialSumOrderByAggregateInput
   }
 
-  export type PartnerApiCredentialScalarWhereWithAggregatesInput = {
-    AND?: PartnerApiCredentialScalarWhereWithAggregatesInput | PartnerApiCredentialScalarWhereWithAggregatesInput[]
-    OR?: PartnerApiCredentialScalarWhereWithAggregatesInput[]
-    NOT?: PartnerApiCredentialScalarWhereWithAggregatesInput | PartnerApiCredentialScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"PartnerApiCredential"> | number
-    userId?: IntWithAggregatesFilter<"PartnerApiCredential"> | number
-    apiKey?: StringWithAggregatesFilter<"PartnerApiCredential"> | string
-    apiSecret?: StringWithAggregatesFilter<"PartnerApiCredential"> | string
-    isActive?: BoolWithAggregatesFilter<"PartnerApiCredential"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"PartnerApiCredential"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"PartnerApiCredential"> | Date | string
+  export type ClientApiCredentialScalarWhereWithAggregatesInput = {
+    AND?: ClientApiCredentialScalarWhereWithAggregatesInput | ClientApiCredentialScalarWhereWithAggregatesInput[]
+    OR?: ClientApiCredentialScalarWhereWithAggregatesInput[]
+    NOT?: ClientApiCredentialScalarWhereWithAggregatesInput | ClientApiCredentialScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ClientApiCredential"> | number
+    userId?: IntWithAggregatesFilter<"ClientApiCredential"> | number
+    apiKey?: StringWithAggregatesFilter<"ClientApiCredential"> | string
+    apiSecret?: StringWithAggregatesFilter<"ClientApiCredential"> | string
+    isActive?: BoolWithAggregatesFilter<"ClientApiCredential"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ClientApiCredential"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ClientApiCredential"> | Date | string
   }
 
-  export type PartnerApiLogWhereInput = {
-    AND?: PartnerApiLogWhereInput | PartnerApiLogWhereInput[]
-    OR?: PartnerApiLogWhereInput[]
-    NOT?: PartnerApiLogWhereInput | PartnerApiLogWhereInput[]
-    id?: IntFilter<"PartnerApiLog"> | number
-    userId?: IntFilter<"PartnerApiLog"> | number
-    method?: StringFilter<"PartnerApiLog"> | string
-    endpoint?: StringFilter<"PartnerApiLog"> | string
-    requestBody?: StringNullableFilter<"PartnerApiLog"> | string | null
-    responseStatus?: IntFilter<"PartnerApiLog"> | number
-    responseBody?: StringNullableFilter<"PartnerApiLog"> | string | null
-    createdAt?: DateTimeFilter<"PartnerApiLog"> | Date | string
+  export type ClientApiLogWhereInput = {
+    AND?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
+    OR?: ClientApiLogWhereInput[]
+    NOT?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
+    id?: IntFilter<"ClientApiLog"> | number
+    userId?: IntFilter<"ClientApiLog"> | number
+    method?: StringFilter<"ClientApiLog"> | string
+    endpoint?: StringFilter<"ClientApiLog"> | string
+    requestBody?: StringNullableFilter<"ClientApiLog"> | string | null
+    responseStatus?: IntFilter<"ClientApiLog"> | number
+    responseBody?: StringNullableFilter<"ClientApiLog"> | string | null
+    createdAt?: DateTimeFilter<"ClientApiLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type PartnerApiLogOrderByWithRelationInput = {
+  export type ClientApiLogOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -47881,22 +47881,22 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
   }
 
-  export type PartnerApiLogWhereUniqueInput = Prisma.AtLeast<{
+  export type ClientApiLogWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: PartnerApiLogWhereInput | PartnerApiLogWhereInput[]
-    OR?: PartnerApiLogWhereInput[]
-    NOT?: PartnerApiLogWhereInput | PartnerApiLogWhereInput[]
-    userId?: IntFilter<"PartnerApiLog"> | number
-    method?: StringFilter<"PartnerApiLog"> | string
-    endpoint?: StringFilter<"PartnerApiLog"> | string
-    requestBody?: StringNullableFilter<"PartnerApiLog"> | string | null
-    responseStatus?: IntFilter<"PartnerApiLog"> | number
-    responseBody?: StringNullableFilter<"PartnerApiLog"> | string | null
-    createdAt?: DateTimeFilter<"PartnerApiLog"> | Date | string
+    AND?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
+    OR?: ClientApiLogWhereInput[]
+    NOT?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
+    userId?: IntFilter<"ClientApiLog"> | number
+    method?: StringFilter<"ClientApiLog"> | string
+    endpoint?: StringFilter<"ClientApiLog"> | string
+    requestBody?: StringNullableFilter<"ClientApiLog"> | string | null
+    responseStatus?: IntFilter<"ClientApiLog"> | number
+    responseBody?: StringNullableFilter<"ClientApiLog"> | string | null
+    createdAt?: DateTimeFilter<"ClientApiLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
-  export type PartnerApiLogOrderByWithAggregationInput = {
+  export type ClientApiLogOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -47905,25 +47905,25 @@ export namespace Prisma {
     responseStatus?: SortOrder
     responseBody?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    _count?: PartnerApiLogCountOrderByAggregateInput
-    _avg?: PartnerApiLogAvgOrderByAggregateInput
-    _max?: PartnerApiLogMaxOrderByAggregateInput
-    _min?: PartnerApiLogMinOrderByAggregateInput
-    _sum?: PartnerApiLogSumOrderByAggregateInput
+    _count?: ClientApiLogCountOrderByAggregateInput
+    _avg?: ClientApiLogAvgOrderByAggregateInput
+    _max?: ClientApiLogMaxOrderByAggregateInput
+    _min?: ClientApiLogMinOrderByAggregateInput
+    _sum?: ClientApiLogSumOrderByAggregateInput
   }
 
-  export type PartnerApiLogScalarWhereWithAggregatesInput = {
-    AND?: PartnerApiLogScalarWhereWithAggregatesInput | PartnerApiLogScalarWhereWithAggregatesInput[]
-    OR?: PartnerApiLogScalarWhereWithAggregatesInput[]
-    NOT?: PartnerApiLogScalarWhereWithAggregatesInput | PartnerApiLogScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"PartnerApiLog"> | number
-    userId?: IntWithAggregatesFilter<"PartnerApiLog"> | number
-    method?: StringWithAggregatesFilter<"PartnerApiLog"> | string
-    endpoint?: StringWithAggregatesFilter<"PartnerApiLog"> | string
-    requestBody?: StringNullableWithAggregatesFilter<"PartnerApiLog"> | string | null
-    responseStatus?: IntWithAggregatesFilter<"PartnerApiLog"> | number
-    responseBody?: StringNullableWithAggregatesFilter<"PartnerApiLog"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"PartnerApiLog"> | Date | string
+  export type ClientApiLogScalarWhereWithAggregatesInput = {
+    AND?: ClientApiLogScalarWhereWithAggregatesInput | ClientApiLogScalarWhereWithAggregatesInput[]
+    OR?: ClientApiLogScalarWhereWithAggregatesInput[]
+    NOT?: ClientApiLogScalarWhereWithAggregatesInput | ClientApiLogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ClientApiLog"> | number
+    userId?: IntWithAggregatesFilter<"ClientApiLog"> | number
+    method?: StringWithAggregatesFilter<"ClientApiLog"> | string
+    endpoint?: StringWithAggregatesFilter<"ClientApiLog"> | string
+    requestBody?: StringNullableWithAggregatesFilter<"ClientApiLog"> | string | null
+    responseStatus?: IntWithAggregatesFilter<"ClientApiLog"> | number
+    responseBody?: StringNullableWithAggregatesFilter<"ClientApiLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ClientApiLog"> | Date | string
   }
 
   export type ConfigurationInvoiceTypeWhereInput = {
@@ -48476,8 +48476,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -48500,8 +48500,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogUncheckedCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -48523,8 +48523,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -48547,8 +48547,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUncheckedUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -50223,16 +50223,16 @@ export namespace Prisma {
     entityId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PartnerApiCredentialCreateInput = {
+  export type ClientApiCredentialCreateInput = {
     apiKey: string
     apiSecret: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutPartnerApiCredentialInput
+    user: UserCreateNestedOneWithoutClientApiCredentialInput
   }
 
-  export type PartnerApiCredentialUncheckedCreateInput = {
+  export type ClientApiCredentialUncheckedCreateInput = {
     id?: number
     userId: number
     apiKey: string
@@ -50242,16 +50242,16 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PartnerApiCredentialUpdateInput = {
+  export type ClientApiCredentialUpdateInput = {
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutPartnerApiCredentialNestedInput
+    user?: UserUpdateOneRequiredWithoutClientApiCredentialNestedInput
   }
 
-  export type PartnerApiCredentialUncheckedUpdateInput = {
+  export type ClientApiCredentialUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     apiKey?: StringFieldUpdateOperationsInput | string
@@ -50261,7 +50261,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiCredentialCreateManyInput = {
+  export type ClientApiCredentialCreateManyInput = {
     id?: number
     userId: number
     apiKey: string
@@ -50271,7 +50271,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PartnerApiCredentialUpdateManyMutationInput = {
+  export type ClientApiCredentialUpdateManyMutationInput = {
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -50279,7 +50279,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiCredentialUncheckedUpdateManyInput = {
+  export type ClientApiCredentialUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     apiKey?: StringFieldUpdateOperationsInput | string
@@ -50289,49 +50289,17 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiLogCreateInput = {
+  export type ClientApiLogCreateInput = {
     method: string
     endpoint: string
     requestBody?: string | null
     responseStatus: number
     responseBody?: string | null
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutPartnerApiLogInput
+    user: UserCreateNestedOneWithoutClientApiLogInput
   }
 
-  export type PartnerApiLogUncheckedCreateInput = {
-    id?: number
-    userId: number
-    method: string
-    endpoint: string
-    requestBody?: string | null
-    responseStatus: number
-    responseBody?: string | null
-    createdAt?: Date | string
-  }
-
-  export type PartnerApiLogUpdateInput = {
-    method?: StringFieldUpdateOperationsInput | string
-    endpoint?: StringFieldUpdateOperationsInput | string
-    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
-    responseStatus?: IntFieldUpdateOperationsInput | number
-    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutPartnerApiLogNestedInput
-  }
-
-  export type PartnerApiLogUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    method?: StringFieldUpdateOperationsInput | string
-    endpoint?: StringFieldUpdateOperationsInput | string
-    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
-    responseStatus?: IntFieldUpdateOperationsInput | number
-    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PartnerApiLogCreateManyInput = {
+  export type ClientApiLogUncheckedCreateInput = {
     id?: number
     userId: number
     method: string
@@ -50342,7 +50310,19 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type PartnerApiLogUpdateManyMutationInput = {
+  export type ClientApiLogUpdateInput = {
+    method?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
+    responseStatus?: IntFieldUpdateOperationsInput | number
+    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutClientApiLogNestedInput
+  }
+
+  export type ClientApiLogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     requestBody?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50351,7 +50331,27 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiLogUncheckedUpdateManyInput = {
+  export type ClientApiLogCreateManyInput = {
+    id?: number
+    userId: number
+    method: string
+    endpoint: string
+    requestBody?: string | null
+    responseStatus: number
+    responseBody?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ClientApiLogUpdateManyMutationInput = {
+    method?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
+    responseStatus?: IntFieldUpdateOperationsInput | number
+    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClientApiLogUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
@@ -51017,15 +51017,15 @@ export namespace Prisma {
     isNot?: EntityWhereInput | null
   }
 
-  export type PartnerApiLogListRelationFilter = {
-    every?: PartnerApiLogWhereInput
-    some?: PartnerApiLogWhereInput
-    none?: PartnerApiLogWhereInput
+  export type ClientApiLogListRelationFilter = {
+    every?: ClientApiLogWhereInput
+    some?: ClientApiLogWhereInput
+    none?: ClientApiLogWhereInput
   }
 
-  export type PartnerApiCredentialNullableScalarRelationFilter = {
-    is?: PartnerApiCredentialWhereInput | null
-    isNot?: PartnerApiCredentialWhereInput | null
+  export type ClientApiCredentialNullableScalarRelationFilter = {
+    is?: ClientApiCredentialWhereInput | null
+    isNot?: ClientApiCredentialWhereInput | null
   }
 
   export type SystemIntegratorFirsSettingsNullableScalarRelationFilter = {
@@ -51046,7 +51046,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type PartnerApiLogOrderByRelationAggregateInput = {
+  export type ClientApiLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -52394,7 +52394,7 @@ export namespace Prisma {
     entityId?: SortOrder
   }
 
-  export type PartnerApiCredentialCountOrderByAggregateInput = {
+  export type ClientApiCredentialCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -52404,22 +52404,12 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type PartnerApiCredentialAvgOrderByAggregateInput = {
+  export type ClientApiCredentialAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
   }
 
-  export type PartnerApiCredentialMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    apiKey?: SortOrder
-    apiSecret?: SortOrder
-    isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type PartnerApiCredentialMinOrderByAggregateInput = {
+  export type ClientApiCredentialMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -52429,12 +52419,22 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type PartnerApiCredentialSumOrderByAggregateInput = {
+  export type ClientApiCredentialMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    apiKey?: SortOrder
+    apiSecret?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClientApiCredentialSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
   }
 
-  export type PartnerApiLogCountOrderByAggregateInput = {
+  export type ClientApiLogCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -52445,24 +52445,13 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type PartnerApiLogAvgOrderByAggregateInput = {
+  export type ClientApiLogAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     responseStatus?: SortOrder
   }
 
-  export type PartnerApiLogMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    method?: SortOrder
-    endpoint?: SortOrder
-    requestBody?: SortOrder
-    responseStatus?: SortOrder
-    responseBody?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type PartnerApiLogMinOrderByAggregateInput = {
+  export type ClientApiLogMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -52473,7 +52462,18 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type PartnerApiLogSumOrderByAggregateInput = {
+  export type ClientApiLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    method?: SortOrder
+    endpoint?: SortOrder
+    requestBody?: SortOrder
+    responseStatus?: SortOrder
+    responseBody?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ClientApiLogSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     responseStatus?: SortOrder
@@ -52762,17 +52762,17 @@ export namespace Prisma {
     connect?: EntityWhereUniqueInput
   }
 
-  export type PartnerApiLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<PartnerApiLogCreateWithoutUserInput, PartnerApiLogUncheckedCreateWithoutUserInput> | PartnerApiLogCreateWithoutUserInput[] | PartnerApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PartnerApiLogCreateOrConnectWithoutUserInput | PartnerApiLogCreateOrConnectWithoutUserInput[]
-    createMany?: PartnerApiLogCreateManyUserInputEnvelope
-    connect?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
+  export type ClientApiLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
+    createMany?: ClientApiLogCreateManyUserInputEnvelope
+    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
   }
 
-  export type PartnerApiCredentialCreateNestedOneWithoutUserInput = {
-    create?: XOR<PartnerApiCredentialCreateWithoutUserInput, PartnerApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: PartnerApiCredentialCreateOrConnectWithoutUserInput
-    connect?: PartnerApiCredentialWhereUniqueInput
+  export type ClientApiCredentialCreateNestedOneWithoutUserInput = {
+    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
+    connect?: ClientApiCredentialWhereUniqueInput
   }
 
   export type SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput = {
@@ -52801,17 +52801,17 @@ export namespace Prisma {
     connect?: EntityWhereUniqueInput
   }
 
-  export type PartnerApiLogUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<PartnerApiLogCreateWithoutUserInput, PartnerApiLogUncheckedCreateWithoutUserInput> | PartnerApiLogCreateWithoutUserInput[] | PartnerApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PartnerApiLogCreateOrConnectWithoutUserInput | PartnerApiLogCreateOrConnectWithoutUserInput[]
-    createMany?: PartnerApiLogCreateManyUserInputEnvelope
-    connect?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
+  export type ClientApiLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
+    createMany?: ClientApiLogCreateManyUserInputEnvelope
+    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
   }
 
-  export type PartnerApiCredentialUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<PartnerApiCredentialCreateWithoutUserInput, PartnerApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: PartnerApiCredentialCreateOrConnectWithoutUserInput
-    connect?: PartnerApiCredentialWhereUniqueInput
+  export type ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
+    connect?: ClientApiCredentialWhereUniqueInput
   }
 
   export type SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput = {
@@ -52882,28 +52882,28 @@ export namespace Prisma {
     update?: XOR<XOR<EntityUpdateToOneWithWhereWithoutUserInput, EntityUpdateWithoutUserInput>, EntityUncheckedUpdateWithoutUserInput>
   }
 
-  export type PartnerApiLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PartnerApiLogCreateWithoutUserInput, PartnerApiLogUncheckedCreateWithoutUserInput> | PartnerApiLogCreateWithoutUserInput[] | PartnerApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PartnerApiLogCreateOrConnectWithoutUserInput | PartnerApiLogCreateOrConnectWithoutUserInput[]
-    upsert?: PartnerApiLogUpsertWithWhereUniqueWithoutUserInput | PartnerApiLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PartnerApiLogCreateManyUserInputEnvelope
-    set?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    disconnect?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    delete?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    connect?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    update?: PartnerApiLogUpdateWithWhereUniqueWithoutUserInput | PartnerApiLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PartnerApiLogUpdateManyWithWhereWithoutUserInput | PartnerApiLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PartnerApiLogScalarWhereInput | PartnerApiLogScalarWhereInput[]
+  export type ClientApiLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
+    upsert?: ClientApiLogUpsertWithWhereUniqueWithoutUserInput | ClientApiLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ClientApiLogCreateManyUserInputEnvelope
+    set?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    disconnect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    delete?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    update?: ClientApiLogUpdateWithWhereUniqueWithoutUserInput | ClientApiLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ClientApiLogUpdateManyWithWhereWithoutUserInput | ClientApiLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
   }
 
-  export type PartnerApiCredentialUpdateOneWithoutUserNestedInput = {
-    create?: XOR<PartnerApiCredentialCreateWithoutUserInput, PartnerApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: PartnerApiCredentialCreateOrConnectWithoutUserInput
-    upsert?: PartnerApiCredentialUpsertWithoutUserInput
-    disconnect?: PartnerApiCredentialWhereInput | boolean
-    delete?: PartnerApiCredentialWhereInput | boolean
-    connect?: PartnerApiCredentialWhereUniqueInput
-    update?: XOR<XOR<PartnerApiCredentialUpdateToOneWithWhereWithoutUserInput, PartnerApiCredentialUpdateWithoutUserInput>, PartnerApiCredentialUncheckedUpdateWithoutUserInput>
+  export type ClientApiCredentialUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
+    upsert?: ClientApiCredentialUpsertWithoutUserInput
+    disconnect?: ClientApiCredentialWhereInput | boolean
+    delete?: ClientApiCredentialWhereInput | boolean
+    connect?: ClientApiCredentialWhereUniqueInput
+    update?: XOR<XOR<ClientApiCredentialUpdateToOneWithWhereWithoutUserInput, ClientApiCredentialUpdateWithoutUserInput>, ClientApiCredentialUncheckedUpdateWithoutUserInput>
   }
 
   export type SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput = {
@@ -52962,28 +52962,28 @@ export namespace Prisma {
     update?: XOR<XOR<EntityUpdateToOneWithWhereWithoutUserInput, EntityUpdateWithoutUserInput>, EntityUncheckedUpdateWithoutUserInput>
   }
 
-  export type PartnerApiLogUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PartnerApiLogCreateWithoutUserInput, PartnerApiLogUncheckedCreateWithoutUserInput> | PartnerApiLogCreateWithoutUserInput[] | PartnerApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PartnerApiLogCreateOrConnectWithoutUserInput | PartnerApiLogCreateOrConnectWithoutUserInput[]
-    upsert?: PartnerApiLogUpsertWithWhereUniqueWithoutUserInput | PartnerApiLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PartnerApiLogCreateManyUserInputEnvelope
-    set?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    disconnect?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    delete?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    connect?: PartnerApiLogWhereUniqueInput | PartnerApiLogWhereUniqueInput[]
-    update?: PartnerApiLogUpdateWithWhereUniqueWithoutUserInput | PartnerApiLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PartnerApiLogUpdateManyWithWhereWithoutUserInput | PartnerApiLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PartnerApiLogScalarWhereInput | PartnerApiLogScalarWhereInput[]
+  export type ClientApiLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
+    upsert?: ClientApiLogUpsertWithWhereUniqueWithoutUserInput | ClientApiLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ClientApiLogCreateManyUserInputEnvelope
+    set?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    disconnect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    delete?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+    update?: ClientApiLogUpdateWithWhereUniqueWithoutUserInput | ClientApiLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ClientApiLogUpdateManyWithWhereWithoutUserInput | ClientApiLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
   }
 
-  export type PartnerApiCredentialUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<PartnerApiCredentialCreateWithoutUserInput, PartnerApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: PartnerApiCredentialCreateOrConnectWithoutUserInput
-    upsert?: PartnerApiCredentialUpsertWithoutUserInput
-    disconnect?: PartnerApiCredentialWhereInput | boolean
-    delete?: PartnerApiCredentialWhereInput | boolean
-    connect?: PartnerApiCredentialWhereUniqueInput
-    update?: XOR<XOR<PartnerApiCredentialUpdateToOneWithWhereWithoutUserInput, PartnerApiCredentialUpdateWithoutUserInput>, PartnerApiCredentialUncheckedUpdateWithoutUserInput>
+  export type ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
+    upsert?: ClientApiCredentialUpsertWithoutUserInput
+    disconnect?: ClientApiCredentialWhereInput | boolean
+    delete?: ClientApiCredentialWhereInput | boolean
+    connect?: ClientApiCredentialWhereUniqueInput
+    update?: XOR<XOR<ClientApiCredentialUpdateToOneWithWhereWithoutUserInput, ClientApiCredentialUpdateWithoutUserInput>, ClientApiCredentialUncheckedUpdateWithoutUserInput>
   }
 
   export type SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput = {
@@ -54104,32 +54104,32 @@ export namespace Prisma {
     update?: XOR<XOR<EntityUpdateToOneWithWhereWithoutBusinessesInput, EntityUpdateWithoutBusinessesInput>, EntityUncheckedUpdateWithoutBusinessesInput>
   }
 
-  export type UserCreateNestedOneWithoutPartnerApiCredentialInput = {
-    create?: XOR<UserCreateWithoutPartnerApiCredentialInput, UserUncheckedCreateWithoutPartnerApiCredentialInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPartnerApiCredentialInput
+  export type UserCreateNestedOneWithoutClientApiCredentialInput = {
+    create?: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientApiCredentialInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutPartnerApiCredentialNestedInput = {
-    create?: XOR<UserCreateWithoutPartnerApiCredentialInput, UserUncheckedCreateWithoutPartnerApiCredentialInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPartnerApiCredentialInput
-    upsert?: UserUpsertWithoutPartnerApiCredentialInput
+  export type UserUpdateOneRequiredWithoutClientApiCredentialNestedInput = {
+    create?: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientApiCredentialInput
+    upsert?: UserUpsertWithoutClientApiCredentialInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPartnerApiCredentialInput, UserUpdateWithoutPartnerApiCredentialInput>, UserUncheckedUpdateWithoutPartnerApiCredentialInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClientApiCredentialInput, UserUpdateWithoutClientApiCredentialInput>, UserUncheckedUpdateWithoutClientApiCredentialInput>
   }
 
-  export type UserCreateNestedOneWithoutPartnerApiLogInput = {
-    create?: XOR<UserCreateWithoutPartnerApiLogInput, UserUncheckedCreateWithoutPartnerApiLogInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPartnerApiLogInput
+  export type UserCreateNestedOneWithoutClientApiLogInput = {
+    create?: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientApiLogInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutPartnerApiLogNestedInput = {
-    create?: XOR<UserCreateWithoutPartnerApiLogInput, UserUncheckedCreateWithoutPartnerApiLogInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPartnerApiLogInput
-    upsert?: UserUpsertWithoutPartnerApiLogInput
+  export type UserUpdateOneRequiredWithoutClientApiLogNestedInput = {
+    create?: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClientApiLogInput
+    upsert?: UserUpsertWithoutClientApiLogInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPartnerApiLogInput, UserUpdateWithoutPartnerApiLogInput>, UserUncheckedUpdateWithoutPartnerApiLogInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClientApiLogInput, UserUpdateWithoutClientApiLogInput>, UserUncheckedUpdateWithoutClientApiLogInput>
   }
 
   export type UserCreateNestedOneWithoutSystemIntegratorFirsSettingsInput = {
@@ -54527,7 +54527,7 @@ export namespace Prisma {
     create: XOR<EntityCreateWithoutUserInput, EntityUncheckedCreateWithoutUserInput>
   }
 
-  export type PartnerApiLogCreateWithoutUserInput = {
+  export type ClientApiLogCreateWithoutUserInput = {
     method: string
     endpoint: string
     requestBody?: string | null
@@ -54536,7 +54536,7 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type PartnerApiLogUncheckedCreateWithoutUserInput = {
+  export type ClientApiLogUncheckedCreateWithoutUserInput = {
     id?: number
     method: string
     endpoint: string
@@ -54546,17 +54546,17 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type PartnerApiLogCreateOrConnectWithoutUserInput = {
-    where: PartnerApiLogWhereUniqueInput
-    create: XOR<PartnerApiLogCreateWithoutUserInput, PartnerApiLogUncheckedCreateWithoutUserInput>
+  export type ClientApiLogCreateOrConnectWithoutUserInput = {
+    where: ClientApiLogWhereUniqueInput
+    create: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput>
   }
 
-  export type PartnerApiLogCreateManyUserInputEnvelope = {
-    data: PartnerApiLogCreateManyUserInput | PartnerApiLogCreateManyUserInput[]
+  export type ClientApiLogCreateManyUserInputEnvelope = {
+    data: ClientApiLogCreateManyUserInput | ClientApiLogCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type PartnerApiCredentialCreateWithoutUserInput = {
+  export type ClientApiCredentialCreateWithoutUserInput = {
     apiKey: string
     apiSecret: string
     isActive?: boolean
@@ -54564,7 +54564,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PartnerApiCredentialUncheckedCreateWithoutUserInput = {
+  export type ClientApiCredentialUncheckedCreateWithoutUserInput = {
     id?: number
     apiKey: string
     apiSecret: string
@@ -54573,9 +54573,9 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PartnerApiCredentialCreateOrConnectWithoutUserInput = {
-    where: PartnerApiCredentialWhereUniqueInput
-    create: XOR<PartnerApiCredentialCreateWithoutUserInput, PartnerApiCredentialUncheckedCreateWithoutUserInput>
+  export type ClientApiCredentialCreateOrConnectWithoutUserInput = {
+    where: ClientApiCredentialWhereUniqueInput
+    create: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
   }
 
   export type SystemIntegratorFirsSettingsCreateWithoutUserInput = {
@@ -54708,48 +54708,48 @@ export namespace Prisma {
     businesses?: BusinessUncheckedUpdateManyWithoutEntityNestedInput
   }
 
-  export type PartnerApiLogUpsertWithWhereUniqueWithoutUserInput = {
-    where: PartnerApiLogWhereUniqueInput
-    update: XOR<PartnerApiLogUpdateWithoutUserInput, PartnerApiLogUncheckedUpdateWithoutUserInput>
-    create: XOR<PartnerApiLogCreateWithoutUserInput, PartnerApiLogUncheckedCreateWithoutUserInput>
+  export type ClientApiLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: ClientApiLogWhereUniqueInput
+    update: XOR<ClientApiLogUpdateWithoutUserInput, ClientApiLogUncheckedUpdateWithoutUserInput>
+    create: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput>
   }
 
-  export type PartnerApiLogUpdateWithWhereUniqueWithoutUserInput = {
-    where: PartnerApiLogWhereUniqueInput
-    data: XOR<PartnerApiLogUpdateWithoutUserInput, PartnerApiLogUncheckedUpdateWithoutUserInput>
+  export type ClientApiLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: ClientApiLogWhereUniqueInput
+    data: XOR<ClientApiLogUpdateWithoutUserInput, ClientApiLogUncheckedUpdateWithoutUserInput>
   }
 
-  export type PartnerApiLogUpdateManyWithWhereWithoutUserInput = {
-    where: PartnerApiLogScalarWhereInput
-    data: XOR<PartnerApiLogUpdateManyMutationInput, PartnerApiLogUncheckedUpdateManyWithoutUserInput>
+  export type ClientApiLogUpdateManyWithWhereWithoutUserInput = {
+    where: ClientApiLogScalarWhereInput
+    data: XOR<ClientApiLogUpdateManyMutationInput, ClientApiLogUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type PartnerApiLogScalarWhereInput = {
-    AND?: PartnerApiLogScalarWhereInput | PartnerApiLogScalarWhereInput[]
-    OR?: PartnerApiLogScalarWhereInput[]
-    NOT?: PartnerApiLogScalarWhereInput | PartnerApiLogScalarWhereInput[]
-    id?: IntFilter<"PartnerApiLog"> | number
-    userId?: IntFilter<"PartnerApiLog"> | number
-    method?: StringFilter<"PartnerApiLog"> | string
-    endpoint?: StringFilter<"PartnerApiLog"> | string
-    requestBody?: StringNullableFilter<"PartnerApiLog"> | string | null
-    responseStatus?: IntFilter<"PartnerApiLog"> | number
-    responseBody?: StringNullableFilter<"PartnerApiLog"> | string | null
-    createdAt?: DateTimeFilter<"PartnerApiLog"> | Date | string
+  export type ClientApiLogScalarWhereInput = {
+    AND?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
+    OR?: ClientApiLogScalarWhereInput[]
+    NOT?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
+    id?: IntFilter<"ClientApiLog"> | number
+    userId?: IntFilter<"ClientApiLog"> | number
+    method?: StringFilter<"ClientApiLog"> | string
+    endpoint?: StringFilter<"ClientApiLog"> | string
+    requestBody?: StringNullableFilter<"ClientApiLog"> | string | null
+    responseStatus?: IntFilter<"ClientApiLog"> | number
+    responseBody?: StringNullableFilter<"ClientApiLog"> | string | null
+    createdAt?: DateTimeFilter<"ClientApiLog"> | Date | string
   }
 
-  export type PartnerApiCredentialUpsertWithoutUserInput = {
-    update: XOR<PartnerApiCredentialUpdateWithoutUserInput, PartnerApiCredentialUncheckedUpdateWithoutUserInput>
-    create: XOR<PartnerApiCredentialCreateWithoutUserInput, PartnerApiCredentialUncheckedCreateWithoutUserInput>
-    where?: PartnerApiCredentialWhereInput
+  export type ClientApiCredentialUpsertWithoutUserInput = {
+    update: XOR<ClientApiCredentialUpdateWithoutUserInput, ClientApiCredentialUncheckedUpdateWithoutUserInput>
+    create: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
+    where?: ClientApiCredentialWhereInput
   }
 
-  export type PartnerApiCredentialUpdateToOneWithWhereWithoutUserInput = {
-    where?: PartnerApiCredentialWhereInput
-    data: XOR<PartnerApiCredentialUpdateWithoutUserInput, PartnerApiCredentialUncheckedUpdateWithoutUserInput>
+  export type ClientApiCredentialUpdateToOneWithWhereWithoutUserInput = {
+    where?: ClientApiCredentialWhereInput
+    data: XOR<ClientApiCredentialUpdateWithoutUserInput, ClientApiCredentialUncheckedUpdateWithoutUserInput>
   }
 
-  export type PartnerApiCredentialUpdateWithoutUserInput = {
+  export type ClientApiCredentialUpdateWithoutUserInput = {
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -54757,7 +54757,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiCredentialUncheckedUpdateWithoutUserInput = {
+  export type ClientApiCredentialUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
@@ -54809,8 +54809,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -54832,8 +54832,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogUncheckedCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -54870,8 +54870,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -54893,8 +54893,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUncheckedUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -54915,8 +54915,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -54938,8 +54938,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogUncheckedCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -55266,8 +55266,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -55289,8 +55289,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUncheckedUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -58703,8 +58703,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
-    partnerApiLog?: PartnerApiLogCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -58726,8 +58726,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
-    partnerApiLog?: PartnerApiLogUncheckedCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -58810,8 +58810,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -58833,8 +58833,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUncheckedUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -58936,7 +58936,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UserCreateWithoutPartnerApiCredentialInput = {
+  export type UserCreateWithoutClientApiCredentialInput = {
     entityId?: string | null
     email: string
     password: string
@@ -58954,11 +58954,11 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogCreateNestedManyWithoutUserInput
+    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutPartnerApiCredentialInput = {
+  export type UserUncheckedCreateWithoutClientApiCredentialInput = {
     id?: number
     entityId?: string | null
     email: string
@@ -58977,27 +58977,27 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogUncheckedCreateNestedManyWithoutUserInput
+    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutPartnerApiCredentialInput = {
+  export type UserCreateOrConnectWithoutClientApiCredentialInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPartnerApiCredentialInput, UserUncheckedCreateWithoutPartnerApiCredentialInput>
+    create: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
   }
 
-  export type UserUpsertWithoutPartnerApiCredentialInput = {
-    update: XOR<UserUpdateWithoutPartnerApiCredentialInput, UserUncheckedUpdateWithoutPartnerApiCredentialInput>
-    create: XOR<UserCreateWithoutPartnerApiCredentialInput, UserUncheckedCreateWithoutPartnerApiCredentialInput>
+  export type UserUpsertWithoutClientApiCredentialInput = {
+    update: XOR<UserUpdateWithoutClientApiCredentialInput, UserUncheckedUpdateWithoutClientApiCredentialInput>
+    create: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutPartnerApiCredentialInput = {
+  export type UserUpdateToOneWithWhereWithoutClientApiCredentialInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPartnerApiCredentialInput, UserUncheckedUpdateWithoutPartnerApiCredentialInput>
+    data: XOR<UserUpdateWithoutClientApiCredentialInput, UserUncheckedUpdateWithoutClientApiCredentialInput>
   }
 
-  export type UserUpdateWithoutPartnerApiCredentialInput = {
+  export type UserUpdateWithoutClientApiCredentialInput = {
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -59015,11 +59015,11 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUpdateManyWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutPartnerApiCredentialInput = {
+  export type UserUncheckedUpdateWithoutClientApiCredentialInput = {
     id?: IntFieldUpdateOperationsInput | number
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
@@ -59038,11 +59038,11 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUncheckedUpdateManyWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutPartnerApiLogInput = {
+  export type UserCreateWithoutClientApiLogInput = {
     entityId?: string | null
     email: string
     password: string
@@ -59060,11 +59060,11 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialCreateNestedOneWithoutUserInput
+    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutPartnerApiLogInput = {
+  export type UserUncheckedCreateWithoutClientApiLogInput = {
     id?: number
     entityId?: string | null
     email: string
@@ -59083,27 +59083,27 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutPartnerApiLogInput = {
+  export type UserCreateOrConnectWithoutClientApiLogInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPartnerApiLogInput, UserUncheckedCreateWithoutPartnerApiLogInput>
+    create: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
   }
 
-  export type UserUpsertWithoutPartnerApiLogInput = {
-    update: XOR<UserUpdateWithoutPartnerApiLogInput, UserUncheckedUpdateWithoutPartnerApiLogInput>
-    create: XOR<UserCreateWithoutPartnerApiLogInput, UserUncheckedCreateWithoutPartnerApiLogInput>
+  export type UserUpsertWithoutClientApiLogInput = {
+    update: XOR<UserUpdateWithoutClientApiLogInput, UserUncheckedUpdateWithoutClientApiLogInput>
+    create: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutPartnerApiLogInput = {
+  export type UserUpdateToOneWithWhereWithoutClientApiLogInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPartnerApiLogInput, UserUncheckedUpdateWithoutPartnerApiLogInput>
+    data: XOR<UserUpdateWithoutClientApiLogInput, UserUncheckedUpdateWithoutClientApiLogInput>
   }
 
-  export type UserUpdateWithoutPartnerApiLogInput = {
+  export type UserUpdateWithoutClientApiLogInput = {
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -59121,11 +59121,11 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUpdateOneWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutPartnerApiLogInput = {
+  export type UserUncheckedUpdateWithoutClientApiLogInput = {
     id?: IntFieldUpdateOperationsInput | number
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
@@ -59144,7 +59144,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -59166,8 +59166,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSystemIntegratorFirsSettingsInput = {
@@ -59189,8 +59189,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    partnerApiLog?: PartnerApiLogUncheckedCreateNestedManyWithoutUserInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
+    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSystemIntegratorFirsSettingsInput = {
@@ -59227,8 +59227,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystemIntegratorFirsSettingsInput = {
@@ -59250,8 +59250,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    partnerApiLog?: PartnerApiLogUncheckedUpdateManyWithoutUserNestedInput
-    PartnerApiCredential?: PartnerApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
+    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InvoiceCreateManyUserInput = {
@@ -59291,7 +59291,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PartnerApiLogCreateManyUserInput = {
+  export type ClientApiLogCreateManyUserInput = {
     id?: number
     method: string
     endpoint: string
@@ -59438,7 +59438,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiLogUpdateWithoutUserInput = {
+  export type ClientApiLogUpdateWithoutUserInput = {
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     requestBody?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59447,7 +59447,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiLogUncheckedUpdateWithoutUserInput = {
+  export type ClientApiLogUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
@@ -59457,7 +59457,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PartnerApiLogUncheckedUpdateManyWithoutUserInput = {
+  export type ClientApiLogUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string

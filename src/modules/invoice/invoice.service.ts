@@ -1,18 +1,24 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from 'src/database';
-import axios from 'axios';
-import { GetEntityDto, ValidateIrnDto, ValidateInvoiceDto, CreateInvoiceDto, UpdateInvoiceDto } from './dtos';
-import { generateFirsQrCode } from 'src/shared/helpers/firs-qr-code.helper';
+import { Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "src/database";
+import axios from "axios";
+import {
+  GetEntityDto,
+  ValidateIrnDto,
+  ValidateInvoiceDto,
+  CreateInvoiceDto,
+  UpdateInvoiceDto,
+} from "./dtos";
+import { generateFirsQrCode } from "src/shared/helpers/firs-qr-code.helper";
 
 @Injectable()
 export class InvoiceService {
   private readonly logger = new Logger(InvoiceService.name);
 
   constructor(private readonly prisma: PrismaService) {}
-  
-  private readonly firsApiUrl: string = process.env.FIRS_API_URL ?? '';
-  private readonly firsApiKey: string = process.env.FIRS_API_KEY ?? '';
-  private readonly firsApiSecret: string = process.env.FIRS_API_SECRET ?? '';
+
+  private readonly firsApiUrl: string = process.env.FIRS_API_URL ?? "";
+  private readonly firsApiKey: string = process.env.FIRS_API_KEY ?? "";
+  private readonly firsApiSecret: string = process.env.FIRS_API_SECRET ?? "";
 
   /**
    * Retrieves entity information by entity ID from the FIRS API.
@@ -22,7 +28,7 @@ export class InvoiceService {
   async getEntityById(entityId: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
 
@@ -30,20 +36,23 @@ export class InvoiceService {
 
     try {
       this.logger.log(`Fetching entity with ID: ${entityId}`);
-      
+
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
-      
+
       this.logger.log(`Successfully fetched entity with ID: ${entityId}`);
       return response.data;
     } catch (error) {
-      this.logger.error(`Failed to fetch entity with ID: ${entityId}`, error.stack);
-      
+      this.logger.error(
+        `Failed to fetch entity with ID: ${entityId}`,
+        error.stack,
+      );
+
       if (error.response) {
         throw new Error(
           `Failed to fetch entity: ${error.response.status} ${JSON.stringify(error.response.data)}`,
@@ -61,7 +70,7 @@ export class InvoiceService {
   async validateIrn(params: ValidateIrnDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
 
@@ -73,29 +82,31 @@ export class InvoiceService {
     };
 
     try {
-      this.logger.log(`Validating IRN: ${params.irn} for invoice: ${params.invoice_reference}`);
-      
+      this.logger.log(
+        `Validating IRN: ${params.irn} for invoice: ${params.invoice_reference}`,
+      );
+
       const response = await axios.post(url, body, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
-      
+
       this.logger.log(`Successfully validated IRN: ${params.irn}`);
-      
+
       if (
         response.data &&
         response.data.data &&
-        typeof response.data.data.ok === 'boolean'
+        typeof response.data.data.ok === "boolean"
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error('Invalid response from FIRS API');
+      throw new Error("Invalid response from FIRS API");
     } catch (error) {
       this.logger.error(`Failed to validate IRN: ${params.irn}`, error.stack);
-      
+
       if (error.response) {
         throw new Error(
           `Failed to validate IRN: ${error.response.status} ${JSON.stringify(error.response.data)}`,
@@ -113,7 +124,7 @@ export class InvoiceService {
   async validateInvoice(params: ValidateInvoiceDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
 
@@ -121,28 +132,31 @@ export class InvoiceService {
 
     try {
       this.logger.log(`Validating invoice with IRN: ${params.irn}`);
-      
+
       const response = await axios.post(url, params, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
-      
+
       this.logger.log(`Successfully validated invoice with IRN: ${params.irn}`);
-      
+
       if (
         response.data &&
         response.data.data &&
-        typeof response.data.data.ok === 'boolean'
+        typeof response.data.data.ok === "boolean"
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error('Invalid response from FIRS API');
+      throw new Error("Invalid response from FIRS API");
     } catch (error) {
-      this.logger.error(`Failed to validate invoice with IRN: ${params.irn}`, error.stack);
-      
+      this.logger.error(
+        `Failed to validate invoice with IRN: ${params.irn}`,
+        error.stack,
+      );
+
       if (error.response) {
         throw new Error(
           `Failed to validate invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
@@ -160,7 +174,7 @@ export class InvoiceService {
   async signInvoice(params: ValidateInvoiceDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
 
@@ -168,28 +182,31 @@ export class InvoiceService {
 
     try {
       this.logger.log(`Signing invoice with IRN: ${params.irn}`);
-      
+
       const response = await axios.post(url, params, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
-      
+
       this.logger.log(`Successfully signed invoice with IRN: ${params.irn}`);
-      
+
       if (
         response.data &&
         response.data.data &&
-        typeof response.data.data.ok === 'boolean'
+        typeof response.data.data.ok === "boolean"
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error('Invalid response from FIRS API');
+      throw new Error("Invalid response from FIRS API");
     } catch (error) {
-      this.logger.error(`Failed to sign invoice with IRN: ${params.irn}`, error.stack);
-      
+      this.logger.error(
+        `Failed to sign invoice with IRN: ${params.irn}`,
+        error.stack,
+      );
+
       if (error.response) {
         throw new Error(
           `Failed to sign invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
@@ -207,23 +224,23 @@ export class InvoiceService {
   async transmitSelfHealthCheck(): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
     const url = `${this.firsApiUrl}/api/v1/invoice/transmit/self-health-check`;
     try {
-      this.logger.log('Running transmit self health check');
+      this.logger.log("Running transmit self health check");
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
-      this.logger.log('Transmit self health check successful');
+      this.logger.log("Transmit self health check successful");
       return response.data;
     } catch (error) {
-      this.logger.error('Transmit self health check failed', error.stack);
+      this.logger.error("Transmit self health check failed", error.stack);
       if (error.response) {
         throw new Error(
           `Transmit self health check failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
@@ -241,7 +258,7 @@ export class InvoiceService {
   async transmitLookupIrn(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
     const url = `${this.firsApiUrl}/api/v1/invoice/transmit/lookup/${encodeURIComponent(irn)}`;
@@ -249,9 +266,9 @@ export class InvoiceService {
       this.logger.log(`Transmit lookup IRN: ${irn}`);
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
       this.logger.log(`Transmit lookup IRN successful: ${irn}`);
@@ -275,7 +292,7 @@ export class InvoiceService {
   async transmitLookupTin(tin: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
     const url = `${this.firsApiUrl}/api/v1/invoice/transmit/lookup/tin/${encodeURIComponent(tin)}`;
@@ -283,9 +300,9 @@ export class InvoiceService {
       this.logger.log(`Transmit lookup TIN: ${tin}`);
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
       this.logger.log(`Transmit lookup TIN successful: ${tin}`);
@@ -309,19 +326,23 @@ export class InvoiceService {
   async transmitInvoice(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
     const url = `${this.firsApiUrl}/api/v1/invoice/transmit/${encodeURIComponent(irn)}`;
     try {
       this.logger.log(`Transmit invoice: ${irn}`);
-      const response = await axios.post(url, {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+      const response = await axios.post(
+        url,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": this.firsApiKey,
+            "x-api-secret": this.firsApiSecret,
+          },
         },
-      });
+      );
       this.logger.log(`Transmit invoice successful: ${irn}`);
       return response.data;
     } catch (error) {
@@ -344,19 +365,23 @@ export class InvoiceService {
   async transmitConfirmReceipt(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
     const url = `${this.firsApiUrl}/api/v1/invoice/transmit/${encodeURIComponent(irn)}`;
     try {
       this.logger.log(`Transmit confirm receipt: ${irn}`);
-      const response = await axios.patch(url, {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+      const response = await axios.patch(
+        url,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": this.firsApiKey,
+            "x-api-secret": this.firsApiSecret,
+          },
         },
-      });
+      );
       this.logger.log(`Transmit confirm receipt successful: ${irn}`);
       return response.data;
     } catch (error) {
@@ -425,17 +450,17 @@ export class InvoiceService {
   async transmitPullInvoice(): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
     const url = `${this.firsApiUrl}/api/v1/invoice/transmit/pull`;
     try {
-      this.logger.log('Transmit pull invoice');
+      this.logger.log("Transmit pull invoice");
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
       const data = response.data;
@@ -446,15 +471,15 @@ export class InvoiceService {
         if (irns.length > 0) {
           await this.prisma.invoice.updateMany({
             where: { irn: { in: irns } },
-            data: { status: 'TRANSMITTING', updatedAt: new Date() },
+            data: { status: "TRANSMITTING", updatedAt: new Date() },
           });
           this.logger.log(`Updated ${irns.length} invoices to TRANSMITTING`);
         }
       }
-      this.logger.log('Transmit pull invoice successful');
+      this.logger.log("Transmit pull invoice successful");
       return response.data;
     } catch (error) {
-      this.logger.error('Transmit pull invoice failed', error.stack);
+      this.logger.error("Transmit pull invoice failed", error.stack);
       if (error.response) {
         throw new Error(
           `Transmit pull invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
@@ -472,7 +497,7 @@ export class InvoiceService {
   async getInvoiceConfirmation(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
-        'FIRS API credentials are not set in environment variables',
+        "FIRS API credentials are not set in environment variables",
       );
     }
 
@@ -480,20 +505,25 @@ export class InvoiceService {
 
     try {
       this.logger.log(`Getting invoice confirmation for IRN: ${irn}`);
-      
+
       const response = await axios.get(url, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.firsApiKey,
-          'x-api-secret': this.firsApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
-      
-      this.logger.log(`Successfully retrieved invoice confirmation for IRN: ${irn}`);
+
+      this.logger.log(
+        `Successfully retrieved invoice confirmation for IRN: ${irn}`,
+      );
       return response.data;
     } catch (error) {
-      this.logger.error(`Failed to get invoice confirmation for IRN: ${irn}`, error.stack);
-      
+      this.logger.error(
+        `Failed to get invoice confirmation for IRN: ${irn}`,
+        error.stack,
+      );
+
       if (error.response) {
         throw new Error(
           `Failed to get invoice confirmation: ${error.response.status} ${JSON.stringify(error.response.data)}`,
@@ -510,12 +540,18 @@ export class InvoiceService {
    * @param limit - The number of invoices per page.
    * @returns Paginated invoices for the user.
    */
-  async getInvoicesByUserId(userId: number, page: number = 1, limit: number = 10): Promise<{ invoices: any[], total: number, page: number, limit: number }> {
+  async getInvoicesByUserId(
+    userId: number,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{ invoices: any[]; total: number; page: number; limit: number }> {
     try {
-      this.logger.log(`Getting invoices for user ID: ${userId}, page: ${page}, limit: ${limit}`);
+      this.logger.log(
+        `Getting invoices for user ID: ${userId}, page: ${page}, limit: ${limit}`,
+      );
 
       const skip = (page - 1) * limit;
-      
+
       const [invoices, total] = await Promise.all([
         this.prisma.invoice.findMany({
           where: { userId },
@@ -558,15 +594,17 @@ export class InvoiceService {
               },
             },
           },
-          orderBy: { createdAt: 'desc' },
+          orderBy: { createdAt: "desc" },
         }),
         this.prisma.invoice.count({
           where: { userId },
         }),
       ]);
 
-      this.logger.log(`Successfully retrieved ${invoices.length} invoices for user ID: ${userId}`);
-      
+      this.logger.log(
+        `Successfully retrieved ${invoices.length} invoices for user ID: ${userId}`,
+      );
+
       return {
         invoices,
         total,
@@ -574,7 +612,10 @@ export class InvoiceService {
         limit,
       };
     } catch (error) {
-      this.logger.error(`Failed to get invoices for user ID: ${userId}`, error.stack);
+      this.logger.error(
+        `Failed to get invoices for user ID: ${userId}`,
+        error.stack,
+      );
       throw new Error(`Failed to get invoices: ${error.message}`);
     }
   }
@@ -635,16 +676,21 @@ export class InvoiceService {
 
       let encryptedBase64: string | undefined;
       try {
-        const timestamp = Math.floor(Date.now() / 1000) // Unix timestamp (seconds)
+        const timestamp = Math.floor(Date.now() / 1000); // Unix timestamp (seconds)
 
         const irn_id = `${invoice.irn}.${timestamp}`;
 
-        console.log(irn_id,'irn_id');
+        console.log(irn_id, "irn_id");
 
         encryptedBase64 = generateFirsQrCode(irn_id);
-        this.logger.log(`Successfully generated QR code for invoice with ID: ${invoiceId}`);
+        this.logger.log(
+          `Successfully generated QR code for invoice with ID: ${invoiceId}`,
+        );
       } catch (qrError) {
-        this.logger.warn(`Failed to generate QR code for invoice with ID: ${invoiceId}`, qrError.message);
+        this.logger.warn(
+          `Failed to generate QR code for invoice with ID: ${invoiceId}`,
+          qrError.message,
+        );
       }
 
       this.logger.log(`Successfully retrieved invoice with ID: ${invoiceId}`);
@@ -653,7 +699,10 @@ export class InvoiceService {
         encryptedBase64,
       };
     } catch (error) {
-      this.logger.error(`Failed to get invoice with ID: ${invoiceId}`, error.stack);
+      this.logger.error(
+        `Failed to get invoice with ID: ${invoiceId}`,
+        error.stack,
+      );
       throw new Error(`Failed to get invoice: ${error.message}`);
     }
   }
@@ -663,36 +712,41 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID to sign.
    * @returns The signing result and updated invoice.
    */
-  async signInvoiceById(invoiceId: number): Promise<{ ok: boolean; invoice: any }> {
+  async signInvoiceById(
+    invoiceId: number,
+  ): Promise<{ ok: boolean; invoice: any }> {
     try {
       this.logger.log(`Signing invoice with ID: ${invoiceId}`);
 
       // Get the invoice first
       const invoice = await this.getInvoiceById(invoiceId);
-      
+
       // Convert invoice to DTO format for FIRS API
       const invoiceDto = this.convertInvoiceToDto(invoice);
-      
+
       // Call FIRS sign API
       const signResult = await this.signInvoice(invoiceDto);
-      
+
       if (signResult.ok) {
         // Update invoice status to SIGNED
         const updatedInvoice = await this.prisma.invoice.update({
           where: { id: invoiceId },
-          data: { 
-            status: 'SIGNED',
+          data: {
+            status: "SIGNED",
             transmittedAt: new Date(),
           },
         });
-        
+
         this.logger.log(`Successfully signed invoice with ID: ${invoiceId}`);
         return { ok: true, invoice: updatedInvoice };
       } else {
-        throw new Error('Failed to sign invoice via FIRS API');
+        throw new Error("Failed to sign invoice via FIRS API");
       }
     } catch (error) {
-      this.logger.error(`Failed to sign invoice with ID: ${invoiceId}`, error.stack);
+      this.logger.error(
+        `Failed to sign invoice with ID: ${invoiceId}`,
+        error.stack,
+      );
       throw new Error(`Failed to sign invoice: ${error.message}`);
     }
   }
@@ -702,33 +756,38 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID to confirm.
    * @returns The confirmation result and updated invoice.
    */
-  async confirmInvoiceById(invoiceId: number): Promise<{ ok: boolean; invoice: any }> {
+  async confirmInvoiceById(
+    invoiceId: number,
+  ): Promise<{ ok: boolean; invoice: any }> {
     try {
       this.logger.log(`Confirming invoice with ID: ${invoiceId}`);
 
       // Get the invoice first
       const invoice = await this.getInvoiceById(invoiceId);
-      
+
       // Call FIRS confirm API
       const confirmResult = await this.getInvoiceConfirmation(invoice.irn);
-      
+
       if (confirmResult) {
         // Update invoice status to CONFIRMED
         const updatedInvoice = await this.prisma.invoice.update({
           where: { id: invoiceId },
-          data: { 
-            status: 'CONFIRMED',
+          data: {
+            status: "CONFIRMED",
             acknowledgedAt: new Date(),
           },
         });
-        
+
         this.logger.log(`Successfully confirmed invoice with ID: ${invoiceId}`);
         return { ok: true, invoice: updatedInvoice };
       } else {
-        throw new Error('Failed to confirm invoice via FIRS API');
+        throw new Error("Failed to confirm invoice via FIRS API");
       }
     } catch (error) {
-      this.logger.error(`Failed to confirm invoice with ID: ${invoiceId}`, error.stack);
+      this.logger.error(
+        `Failed to confirm invoice with ID: ${invoiceId}`,
+        error.stack,
+      );
       throw new Error(`Failed to confirm invoice: ${error.message}`);
     }
   }
@@ -742,30 +801,43 @@ export class InvoiceService {
     return {
       business_id: invoice.businessId,
       irn: invoice.irn,
-      issue_date: invoice.issueDate.toISOString().split('T')[0],
-      due_date: invoice.dueDate ? invoice.dueDate.toISOString().split('T')[0] : undefined,
+      issue_date: invoice.issueDate.toISOString().split("T")[0],
+      due_date: invoice.dueDate
+        ? invoice.dueDate.toISOString().split("T")[0]
+        : undefined,
       issue_time: invoice.issueTime,
       invoice_type_code: invoice.invoiceTypeCode,
       payment_status: invoice.paymentStatus,
       note: invoice.note,
-      tax_point_date: invoice.taxPointDate ? invoice.taxPointDate.toISOString().split('T')[0] : undefined,
+      tax_point_date: invoice.taxPointDate
+        ? invoice.taxPointDate.toISOString().split("T")[0]
+        : undefined,
       document_currency_code: invoice.documentCurrencyCode,
       tax_currency_code: invoice.taxCurrencyCode,
       accounting_cost: invoice.accountingCost,
       buyer_reference: invoice.buyerReference,
       order_reference: invoice.orderReference,
-      actual_delivery_date: invoice.actualDeliveryDate ? invoice.actualDeliveryDate.toISOString().split('T')[0] : undefined,
+      actual_delivery_date: invoice.actualDeliveryDate
+        ? invoice.actualDeliveryDate.toISOString().split("T")[0]
+        : undefined,
       payment_terms_note: invoice.paymentTermsNote,
-      invoice_delivery_period: invoice.invoiceDeliveryPeriod ? {
-        start_date: invoice.invoiceDeliveryPeriod.startDate.toISOString().split('T')[0],
-        end_date: invoice.invoiceDeliveryPeriod.endDate.toISOString().split('T')[0],
-      } : undefined,
+      invoice_delivery_period: invoice.invoiceDeliveryPeriod
+        ? {
+            start_date: invoice.invoiceDeliveryPeriod.startDate
+              .toISOString()
+              .split("T")[0],
+            end_date: invoice.invoiceDeliveryPeriod.endDate
+              .toISOString()
+              .split("T")[0],
+          }
+        : undefined,
       accounting_supplier_party: {
         party_name: invoice.accountingSupplierParty.partyName,
         tin: invoice.accountingSupplierParty.tin,
         email: invoice.accountingSupplierParty.email,
         telephone: invoice.accountingSupplierParty.telephone,
-        business_description: invoice.accountingSupplierParty.businessDescription,
+        business_description:
+          invoice.accountingSupplierParty.businessDescription,
         postal_address: {
           street_name: invoice.accountingSupplierParty.postalAddress.streetName,
           city_name: invoice.accountingSupplierParty.postalAddress.cityName,
@@ -778,7 +850,8 @@ export class InvoiceService {
         tin: invoice.accountingCustomerParty.tin,
         email: invoice.accountingCustomerParty.email,
         telephone: invoice.accountingCustomerParty.telephone,
-        business_description: invoice.accountingCustomerParty.businessDescription,
+        business_description:
+          invoice.accountingCustomerParty.businessDescription,
         postal_address: {
           street_name: invoice.accountingCustomerParty.postalAddress.streetName,
           city_name: invoice.accountingCustomerParty.postalAddress.cityName,
@@ -786,41 +859,57 @@ export class InvoiceService {
           country: invoice.accountingCustomerParty.postalAddress.country,
         },
       },
-      billing_reference: invoice.billingReferences?.map(ref => ({
+      billing_reference: invoice.billingReferences?.map((ref) => ({
         irn: ref.irn,
-        issue_date: ref.issueDate.toISOString().split('T')[0],
+        issue_date: ref.issueDate.toISOString().split("T")[0],
       })),
-      _document_reference: invoice.documentReferences?.map(ref => ({
+      _document_reference: invoice.documentReferences?.map((ref) => ({
         irn: ref.irn,
-        issue_date: ref.issueDate.toISOString().split('T')[0],
+        issue_date: ref.issueDate.toISOString().split("T")[0],
       })),
-      dispatch_document_reference: invoice.dispatchDocumentReference ? {
-        irn: invoice.dispatchDocumentReference.irn,
-        issue_date: invoice.dispatchDocumentReference.issueDate.toISOString().split('T')[0],
-      } : undefined,
-      receipt_document_reference: invoice.receiptDocumentReference ? {
-        irn: invoice.receiptDocumentReference.irn,
-        issue_date: invoice.receiptDocumentReference.issueDate.toISOString().split('T')[0],
-      } : undefined,
-      originator_document_reference: invoice.originatorDocumentReference ? {
-        irn: invoice.originatorDocumentReference.irn,
-        issue_date: invoice.originatorDocumentReference.issueDate.toISOString().split('T')[0],
-      } : undefined,
-      contract_document_reference: invoice.contractDocumentReference ? {
-        irn: invoice.contractDocumentReference.irn,
-        issue_date: invoice.contractDocumentReference.issueDate.toISOString().split('T')[0],
-      } : undefined,
-      payment_means: invoice.paymentMeans?.map(pm => ({
+      dispatch_document_reference: invoice.dispatchDocumentReference
+        ? {
+            irn: invoice.dispatchDocumentReference.irn,
+            issue_date: invoice.dispatchDocumentReference.issueDate
+              .toISOString()
+              .split("T")[0],
+          }
+        : undefined,
+      receipt_document_reference: invoice.receiptDocumentReference
+        ? {
+            irn: invoice.receiptDocumentReference.irn,
+            issue_date: invoice.receiptDocumentReference.issueDate
+              .toISOString()
+              .split("T")[0],
+          }
+        : undefined,
+      originator_document_reference: invoice.originatorDocumentReference
+        ? {
+            irn: invoice.originatorDocumentReference.irn,
+            issue_date: invoice.originatorDocumentReference.issueDate
+              .toISOString()
+              .split("T")[0],
+          }
+        : undefined,
+      contract_document_reference: invoice.contractDocumentReference
+        ? {
+            irn: invoice.contractDocumentReference.irn,
+            issue_date: invoice.contractDocumentReference.issueDate
+              .toISOString()
+              .split("T")[0],
+          }
+        : undefined,
+      payment_means: invoice.paymentMeans?.map((pm) => ({
         payment_means_code: pm.paymentMeansCode,
-        payment_due_date: pm.paymentDueDate.toISOString().split('T')[0],
+        payment_due_date: pm.paymentDueDate.toISOString().split("T")[0],
       })),
-      allowance_charge: invoice.allowanceCharges?.map(ac => ({
+      allowance_charge: invoice.allowanceCharges?.map((ac) => ({
         charge_indicator: ac.chargeIndicator,
         amount: ac.amount,
       })),
-      tax_total: invoice.taxTotals?.map(tt => ({
+      tax_total: invoice.taxTotals?.map((tt) => ({
         tax_amount: tt.taxAmount,
-        tax_subtotal: tt.taxSubtotals?.map(ts => ({
+        tax_subtotal: tt.taxSubtotals?.map((ts) => ({
           taxable_amount: ts.taxableAmount,
           tax_amount: ts.taxAmount,
           tax_category: {
@@ -835,7 +924,7 @@ export class InvoiceService {
         tax_inclusive_amount: invoice.legalMonetaryTotal.taxInclusiveAmount,
         payable_amount: invoice.legalMonetaryTotal.payableAmount,
       },
-      invoice_line: invoice.invoiceLines?.map(line => ({
+      invoice_line: invoice.invoiceLines?.map((line) => ({
         hsn_code: line.hsnCode,
         product_category: line.productCategory,
         discount_rate: line.discountRate,
@@ -881,15 +970,15 @@ export class InvoiceService {
 
       // // Convert invoice to DTO format for FIRS API
       // const invoiceDto = this.convertInvoiceToDto(data);
-      
+
       // try {
       //   this.logger.log(`Validating invoice with FIRS API before creation: ${data.irn}`);
       //   const validationResult = await this.validateInvoice(invoiceDto);
-        
+
       //   if (!validationResult.ok) {
       //     throw new Error('Invoice validation failed - invoice data is invalid');
       //   }
-        
+
       //   this.logger.log(`Invoice validation successful for IRN: ${data.irn}`);
       // } catch (validationError) {
       //   this.logger.error(`Invoice validation failed for IRN: ${data.irn}`, validationError.stack);
@@ -910,24 +999,30 @@ export class InvoiceService {
           dueDate: data.due_date ? new Date(data.due_date) : null,
           issueTime: data.issue_time,
           invoiceTypeCode: data.invoice_type_code,
-          paymentStatus: data.payment_status || 'PENDING',
+          paymentStatus: data.payment_status || "PENDING",
           note: data.note,
-          taxPointDate: data.tax_point_date ? new Date(data.tax_point_date) : null,
+          taxPointDate: data.tax_point_date
+            ? new Date(data.tax_point_date)
+            : null,
           documentCurrencyCode: data.document_currency_code,
           taxCurrencyCode: data.tax_currency_code,
           accountingCost: data.accounting_cost,
           buyerReference: data.buyer_reference,
           orderReference: data.order_reference,
-          actualDeliveryDate: data.actual_delivery_date ? new Date(data.actual_delivery_date) : null,
+          actualDeliveryDate: data.actual_delivery_date
+            ? new Date(data.actual_delivery_date)
+            : null,
           paymentTermsNote: data.payment_terms_note,
 
           // Create invoice delivery period if provided
-          invoiceDeliveryPeriod: data.invoice_delivery_period ? {
-            create: {
-              startDate: new Date(data.invoice_delivery_period.start_date),
-              endDate: new Date(data.invoice_delivery_period.end_date),
-            },
-          } : undefined,
+          invoiceDeliveryPeriod: data.invoice_delivery_period
+            ? {
+                create: {
+                  startDate: new Date(data.invoice_delivery_period.start_date),
+                  endDate: new Date(data.invoice_delivery_period.end_date),
+                },
+              }
+            : undefined,
 
           // Create supplier party
           accountingSupplierParty: {
@@ -936,13 +1031,18 @@ export class InvoiceService {
               tin: data.accounting_supplier_party.tin,
               email: data.accounting_supplier_party.email,
               telephone: data.accounting_supplier_party.telephone,
-              businessDescription: data.accounting_supplier_party.business_description,
+              businessDescription:
+                data.accounting_supplier_party.business_description,
               postalAddress: {
                 create: {
-                  streetName: data.accounting_supplier_party.postal_address.street_name,
-                  cityName: data.accounting_supplier_party.postal_address.city_name,
-                  postalZone: data.accounting_supplier_party.postal_address.postal_zone,
-                  country: data.accounting_supplier_party.postal_address.country,
+                  streetName:
+                    data.accounting_supplier_party.postal_address.street_name,
+                  cityName:
+                    data.accounting_supplier_party.postal_address.city_name,
+                  postalZone:
+                    data.accounting_supplier_party.postal_address.postal_zone,
+                  country:
+                    data.accounting_supplier_party.postal_address.country,
                 },
               },
             },
@@ -955,114 +1055,148 @@ export class InvoiceService {
               tin: data.accounting_customer_party.tin,
               email: data.accounting_customer_party.email,
               telephone: data.accounting_customer_party.telephone,
-              businessDescription: data.accounting_customer_party.business_description,
+              businessDescription:
+                data.accounting_customer_party.business_description,
               postalAddress: {
                 create: {
-                  streetName: data.accounting_customer_party.postal_address.street_name,
-                  cityName: data.accounting_customer_party.postal_address.city_name,
-                  postalZone: data.accounting_customer_party.postal_address.postal_zone,
-                  country: data.accounting_customer_party.postal_address.country,
+                  streetName:
+                    data.accounting_customer_party.postal_address.street_name,
+                  cityName:
+                    data.accounting_customer_party.postal_address.city_name,
+                  postalZone:
+                    data.accounting_customer_party.postal_address.postal_zone,
+                  country:
+                    data.accounting_customer_party.postal_address.country,
                 },
               },
             },
           },
 
           // Create billing references if provided
-          billingReferences: data.billing_reference ? {
-            create: data.billing_reference.map(ref => ({
-              irn: ref.irn,
-              issueDate: new Date(ref.issue_date),
-            })),
-          } : undefined,
+          billingReferences: data.billing_reference
+            ? {
+                create: data.billing_reference.map((ref) => ({
+                  irn: ref.irn,
+                  issueDate: new Date(ref.issue_date),
+                })),
+              }
+            : undefined,
 
           // Create document references if provided
-          documentReferences: data._document_reference ? {
-            create: data._document_reference.map(ref => ({
-              irn: ref.irn,
-              issueDate: new Date(ref.issue_date),
-            })),
-          } : undefined,
+          documentReferences: data._document_reference
+            ? {
+                create: data._document_reference.map((ref) => ({
+                  irn: ref.irn,
+                  issueDate: new Date(ref.issue_date),
+                })),
+              }
+            : undefined,
 
           // Create dispatch document reference if provided
-          dispatchDocumentReference: data.dispatch_document_reference ? {
-            create: {
-              irn: data.dispatch_document_reference.irn,
-              issueDate: new Date(data.dispatch_document_reference.issue_date),
-            },
-          } : undefined,
+          dispatchDocumentReference: data.dispatch_document_reference
+            ? {
+                create: {
+                  irn: data.dispatch_document_reference.irn,
+                  issueDate: new Date(
+                    data.dispatch_document_reference.issue_date,
+                  ),
+                },
+              }
+            : undefined,
 
           // Create receipt document reference if provided
-          receiptDocumentReference: data.receipt_document_reference ? {
-            create: {
-              irn: data.receipt_document_reference.irn,
-              issueDate: new Date(data.receipt_document_reference.issue_date),
-            },
-          } : undefined,
+          receiptDocumentReference: data.receipt_document_reference
+            ? {
+                create: {
+                  irn: data.receipt_document_reference.irn,
+                  issueDate: new Date(
+                    data.receipt_document_reference.issue_date,
+                  ),
+                },
+              }
+            : undefined,
 
           // Create originator document reference if provided
-          originatorDocumentReference: data.originator_document_reference ? {
-            create: {
-              irn: data.originator_document_reference.irn,
-              issueDate: new Date(data.originator_document_reference.issue_date),
-            },
-          } : undefined,
+          originatorDocumentReference: data.originator_document_reference
+            ? {
+                create: {
+                  irn: data.originator_document_reference.irn,
+                  issueDate: new Date(
+                    data.originator_document_reference.issue_date,
+                  ),
+                },
+              }
+            : undefined,
 
           // Create contract document reference if provided
-          contractDocumentReference: data.contract_document_reference ? {
-            create: {
-              irn: data.contract_document_reference.irn,
-              issueDate: new Date(data.contract_document_reference.issue_date),
-            },
-          } : undefined,
+          contractDocumentReference: data.contract_document_reference
+            ? {
+                create: {
+                  irn: data.contract_document_reference.irn,
+                  issueDate: new Date(
+                    data.contract_document_reference.issue_date,
+                  ),
+                },
+              }
+            : undefined,
 
           // Create payment means if provided
-          paymentMeans: data.payment_means ? {
-            create: data.payment_means.map(pm => ({
-              paymentMeansCode: pm.payment_means_code,
-              paymentDueDate: new Date(pm.payment_due_date),
-            })),
-          } : undefined,
+          paymentMeans: data.payment_means
+            ? {
+                create: data.payment_means.map((pm) => ({
+                  paymentMeansCode: pm.payment_means_code,
+                  paymentDueDate: new Date(pm.payment_due_date),
+                })),
+              }
+            : undefined,
 
           // Create allowance charges if provided
-          allowanceCharges: data.allowance_charge ? {
-            create: data.allowance_charge.map(ac => ({
-              chargeIndicator: ac.charge_indicator,
-              amount: ac.amount,
-            })),
-          } : undefined,
+          allowanceCharges: data.allowance_charge
+            ? {
+                create: data.allowance_charge.map((ac) => ({
+                  chargeIndicator: ac.charge_indicator,
+                  amount: ac.amount,
+                })),
+              }
+            : undefined,
 
           // Create tax totals if provided
-          taxTotals: data.tax_total ? {
-            create: data.tax_total.map(tt => ({
-              taxAmount: tt.tax_amount,
-              taxSubtotals: {
-                create: tt.tax_subtotal.map(ts => ({
-                  taxableAmount: ts.taxable_amount,
-                  taxAmount: ts.tax_amount,
-                  taxCategory: {
-                    create: {
-                      categoryId: ts.tax_category.id,
-                      percent: ts.tax_category.percent,
-                    },
+          taxTotals: data.tax_total
+            ? {
+                create: data.tax_total.map((tt) => ({
+                  taxAmount: tt.tax_amount,
+                  taxSubtotals: {
+                    create: tt.tax_subtotal.map((ts) => ({
+                      taxableAmount: ts.taxable_amount,
+                      taxAmount: ts.tax_amount,
+                      taxCategory: {
+                        create: {
+                          categoryId: ts.tax_category.id,
+                          percent: ts.tax_category.percent,
+                        },
+                      },
+                    })),
                   },
                 })),
-              },
-            })),
-          } : undefined,
+              }
+            : undefined,
 
           // Create legal monetary total
           legalMonetaryTotal: {
             create: {
-              lineExtensionAmount: data.legal_monetary_total.line_extension_amount,
-              taxExclusiveAmount: data.legal_monetary_total.tax_exclusive_amount,
-              taxInclusiveAmount: data.legal_monetary_total.tax_inclusive_amount,
+              lineExtensionAmount:
+                data.legal_monetary_total.line_extension_amount,
+              taxExclusiveAmount:
+                data.legal_monetary_total.tax_exclusive_amount,
+              taxInclusiveAmount:
+                data.legal_monetary_total.tax_inclusive_amount,
               payableAmount: data.legal_monetary_total.payable_amount,
             },
           },
 
           // Create invoice lines
           invoiceLines: {
-            create: data.invoice_line.map(line => ({
+            create: data.invoice_line.map((line) => ({
               hsnCode: line.hsn_code,
               productCategory: line.product_category,
               discountRate: line.discount_rate,
@@ -1075,7 +1209,8 @@ export class InvoiceService {
                 create: {
                   name: line.item.name,
                   description: line.item.description,
-                  sellersItemIdentification: line.item.sellers_item_identification,
+                  sellersItemIdentification:
+                    line.item.sellers_item_identification,
                 },
               },
               price: {
@@ -1127,20 +1262,27 @@ export class InvoiceService {
         },
       });
 
-      this.logger.log(`Successfully created invoice with IRN: ${data.irn} and ID: ${invoice.id}`);
-      this.logger.log(`Invoice creation completed - validation passed and database record created`);
+      this.logger.log(
+        `Successfully created invoice with IRN: ${data.irn} and ID: ${invoice.id}`,
+      );
+      this.logger.log(
+        `Invoice creation completed - validation passed and database record created`,
+      );
       return invoice;
     } catch (error) {
-      this.logger.error(`Failed to create invoice with IRN: ${data.irn}`, error.stack);
-      
-      if (error.message.includes('already exists')) {
+      this.logger.error(
+        `Failed to create invoice with IRN: ${data.irn}`,
+        error.stack,
+      );
+
+      if (error.message.includes("already exists")) {
         throw new Error(`Invoice with IRN ${data.irn} already exists`);
       }
-      
-      if (error.message.includes('validation failed')) {
+
+      if (error.message.includes("validation failed")) {
         throw new Error(`Invoice validation failed: ${error.message}`);
       }
-      
+
       throw new Error(`Failed to create invoice: ${error.message}`);
     }
   }
@@ -1151,20 +1293,25 @@ export class InvoiceService {
    * @param updateData - The data to update the invoice with.
    * @returns The updated invoice.
    */
-  async updateInvoiceById(invoiceId: number, updateData: UpdateInvoiceDto): Promise<any> {
+  async updateInvoiceById(
+    invoiceId: number,
+    updateData: UpdateInvoiceDto,
+  ): Promise<any> {
     try {
       this.logger.log(`Updating invoice with ID: ${invoiceId}`);
 
       // Get the existing invoice first
       const existingInvoice = await this.getInvoiceById(invoiceId);
-      
+
       if (!existingInvoice) {
         throw new Error(`Invoice with ID ${invoiceId} not found`);
       }
 
       // Check if invoice can be updated (only PENDING invoices should be updatable)
-      if (existingInvoice.status !== 'PENDING') {
-        throw new Error(`Invoice with ID ${invoiceId} cannot be updated. Current status: ${existingInvoice.status}`);
+      if (existingInvoice.status !== "PENDING") {
+        throw new Error(
+          `Invoice with ID ${invoiceId} cannot be updated. Current status: ${existingInvoice.status}`,
+        );
       }
 
       // Convert update data to FIRS API format
@@ -1203,21 +1350,38 @@ export class InvoiceService {
         data: {
           businessId: updateData.business_id || existingInvoice.businessId,
           irn: updateData.irn || existingInvoice.irn,
-          issueDate: updateData.issue_date ? new Date(updateData.issue_date) : existingInvoice.issueDate,
-          dueDate: updateData.due_date ? new Date(updateData.due_date) : existingInvoice.dueDate,
+          issueDate: updateData.issue_date
+            ? new Date(updateData.issue_date)
+            : existingInvoice.issueDate,
+          dueDate: updateData.due_date
+            ? new Date(updateData.due_date)
+            : existingInvoice.dueDate,
           issueTime: updateData.issue_time || existingInvoice.issueTime,
-          invoiceTypeCode: updateData.invoice_type_code || existingInvoice.invoiceTypeCode,
-          paymentStatus: updateData.payment_status || existingInvoice.paymentStatus,
+          invoiceTypeCode:
+            updateData.invoice_type_code || existingInvoice.invoiceTypeCode,
+          paymentStatus:
+            updateData.payment_status || existingInvoice.paymentStatus,
           note: updateData.note || existingInvoice.note,
-          taxPointDate: updateData.tax_point_date ? new Date(updateData.tax_point_date) : existingInvoice.taxPointDate,
-          documentCurrencyCode: updateData.document_currency_code || existingInvoice.documentCurrencyCode,
-          taxCurrencyCode: updateData.tax_currency_code || existingInvoice.taxCurrencyCode,
-          accountingCost: updateData.accounting_cost || existingInvoice.accountingCost,
-          buyerReference: updateData.buyer_reference || existingInvoice.buyerReference,
-          orderReference: updateData.order_reference || existingInvoice.orderReference,
-          actualDeliveryDate: updateData.actual_delivery_date ? new Date(updateData.actual_delivery_date) : existingInvoice.actualDeliveryDate,
-          paymentTermsNote: updateData.payment_terms_note || existingInvoice.paymentTermsNote,
-          status: 'PENDING', // Reset to pending after update
+          taxPointDate: updateData.tax_point_date
+            ? new Date(updateData.tax_point_date)
+            : existingInvoice.taxPointDate,
+          documentCurrencyCode:
+            updateData.document_currency_code ||
+            existingInvoice.documentCurrencyCode,
+          taxCurrencyCode:
+            updateData.tax_currency_code || existingInvoice.taxCurrencyCode,
+          accountingCost:
+            updateData.accounting_cost || existingInvoice.accountingCost,
+          buyerReference:
+            updateData.buyer_reference || existingInvoice.buyerReference,
+          orderReference:
+            updateData.order_reference || existingInvoice.orderReference,
+          actualDeliveryDate: updateData.actual_delivery_date
+            ? new Date(updateData.actual_delivery_date)
+            : existingInvoice.actualDeliveryDate,
+          paymentTermsNote:
+            updateData.payment_terms_note || existingInvoice.paymentTermsNote,
+          status: "PENDING", // Reset to pending after update
           updatedAt: new Date(),
         },
         include: {
@@ -1262,8 +1426,11 @@ export class InvoiceService {
       this.logger.log(`Successfully updated invoice with ID: ${invoiceId}`);
       return updatedInvoice;
     } catch (error) {
-      this.logger.error(`Failed to update invoice with ID: ${invoiceId}`, error.stack);
+      this.logger.error(
+        `Failed to update invoice with ID: ${invoiceId}`,
+        error.stack,
+      );
       throw new Error(`Failed to update invoice: ${error.message}`);
     }
   }
-} 
+}

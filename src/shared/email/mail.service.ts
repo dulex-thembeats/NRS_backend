@@ -1,16 +1,16 @@
 // src/shared/email/email.service.ts
-import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import * as nodemailer from 'nodemailer';
-import * as handlebars from 'handlebars';
-import * as fs from 'fs';
-import * as path from 'path';
+import { Injectable, Logger } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import * as nodemailer from "nodemailer";
+import * as handlebars from "handlebars";
+import * as fs from "fs";
+import * as path from "path";
 import {
   EmailOptions,
   WelcomeEmailContext,
   PasswordResetContext,
   VerificationEmailContext,
-} from './interface/mail.interface';
+} from "./interface/mail.interface";
 
 @Injectable()
 export class EmailService {
@@ -22,17 +22,17 @@ export class EmailService {
   }
   private createTransporter() {
     const config = {
-      host: this.configService.get<string>('MAIL_HOST'),
-      port: this.configService.get<number>('MAIL_PORT'),
-      secure: this.configService.get<boolean>('MAIL_SECURE', false),
+      host: this.configService.get<string>("MAIL_HOST"),
+      port: this.configService.get<number>("MAIL_PORT"),
+      secure: this.configService.get<boolean>("MAIL_SECURE", false),
       auth: {
-        user: this.configService.get<string>('MAIL_USER'),
-        pass: this.configService.get<string>('MAIL_PASS'),
+        user: this.configService.get<string>("MAIL_USER"),
+        pass: this.configService.get<string>("MAIL_PASS"),
       },
     };
 
     // For Ethereal Email, use different settings
-    if (config.host === 'smtp.ethereal.email') {
+    if (config.host === "smtp.ethereal.email") {
       config.secure = false;
       config.port = 587;
     }
@@ -47,10 +47,10 @@ export class EmailService {
   private async loadTemplate(templateName: string): Promise<string> {
     const templatePath = path.join(
       __dirname,
-      'template',
+      "template",
       `${templateName}.hbs`,
     );
-    return fs.readFileSync(templatePath, 'utf8');
+    return fs.readFileSync(templatePath, "utf8");
   }
 
   private compileTemplate(template: string, context: any): string {
@@ -69,8 +69,8 @@ export class EmailService {
       }
 
       const mailOptions = {
-        from: this.configService.get<string>('MAIL_FROM'),
-        to: Array.isArray(options.to) ? options.to.join(', ') : options.to,
+        from: this.configService.get<string>("MAIL_FROM"),
+        to: Array.isArray(options.to) ? options.to.join(", ") : options.to,
         subject: options.subject,
         html,
         text: options.text,
@@ -83,7 +83,7 @@ export class EmailService {
       );
     } catch (error) {
       this.logger.error(`Failed to send email to ${options.to}`, error.stack);
-      throw new Error('Failed to send email');
+      throw new Error("Failed to send email");
     }
   }
 
@@ -93,8 +93,8 @@ export class EmailService {
   ): Promise<void> {
     await this.sendMail({
       to,
-      subject: 'Welcome to Our App!',
-      template: 'welcome',
+      subject: "Welcome to Our App!",
+      template: "welcome",
       context,
     });
   }
@@ -105,8 +105,8 @@ export class EmailService {
   ): Promise<void> {
     await this.sendMail({
       to,
-      subject: 'Password Reset Request',
-      template: 'password-reset',
+      subject: "Password Reset Request",
+      template: "password-reset",
       context,
     });
   }
@@ -117,8 +117,8 @@ export class EmailService {
   ): Promise<void> {
     await this.sendMail({
       to,
-      subject: 'Verify Your Email Address',
-      template: 'verification',
+      subject: "Verify Your Email Address",
+      template: "verification",
       context,
     });
   }
@@ -142,10 +142,10 @@ export class EmailService {
   async testConnection(): Promise<boolean> {
     try {
       await this.transporter.verify();
-      this.logger.log('Email connection verified successfully');
+      this.logger.log("Email connection verified successfully");
       return true;
     } catch (error) {
-      this.logger.error('Email connection failed', error.stack);
+      this.logger.error("Email connection failed", error.stack);
       return false;
     }
   }

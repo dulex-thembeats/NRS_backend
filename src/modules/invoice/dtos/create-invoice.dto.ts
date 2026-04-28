@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Type } from "class-transformer";
 import {
   IsString,
   IsOptional,
@@ -12,13 +12,13 @@ import {
   MinLength,
   MaxLength,
   IsIn,
-} from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+} from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
- class PostalAddressDto {
+class PostalAddressDto {
   @ApiProperty({
-    description: 'Street name',
-    example: '32, owonikoko street',
+    description: "Street name",
+    example: "32, owonikoko street",
   })
   @IsString()
   @MinLength(1)
@@ -26,8 +26,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   street_name: string;
 
   @ApiProperty({
-    description: 'City name',
-    example: 'Gwarikpa',
+    description: "City name",
+    example: "Gwarikpa",
   })
   @IsString()
   @MinLength(1)
@@ -35,8 +35,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   city_name: string;
 
   @ApiProperty({
-    description: 'Postal zone',
-    example: '023401',
+    description: "Postal zone",
+    example: "023401",
   })
   @IsString()
   @MinLength(1)
@@ -44,8 +44,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   postal_zone: string;
 
   @ApiProperty({
-    description: 'Country code',
-    example: 'NG',
+    description: "Country code",
+    example: "NG",
   })
   @IsString()
   @MinLength(2)
@@ -53,10 +53,10 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   country: string;
 }
 
- class PartyDto {
+class PartyDto {
   @ApiProperty({
-    description: 'Party name',
-    example: 'Test Pls',
+    description: "Party name",
+    example: "Test Pls",
   })
   @IsString()
   @MinLength(1)
@@ -64,8 +64,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   party_name: string;
 
   @ApiProperty({
-    description: 'Tax Identification Number',
-    example: 'TIN-0099990001',
+    description: "Tax Identification Number",
+    example: "TIN-0099990001",
   })
   @IsString()
   @MinLength(1)
@@ -73,26 +73,26 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   tin: string;
 
   @ApiProperty({
-    description: 'Email address',
-    example: 'supplier_business@email.com',
+    description: "Email address",
+    example: "supplier_business@email.com",
   })
   @IsEmail()
   email: string;
 
   @ApiPropertyOptional({
-    description: 'Telephone number with country code',
-    example: '+23480254099000',
+    description: "Telephone number with country code",
+    example: "+23480254099000",
   })
   @IsOptional()
   @IsString()
   @Matches(/^\+[1-9]\d{1,14}$/, {
-    message: 'Telephone must start with + and include country code',
+    message: "Telephone must start with + and include country code",
   })
   telephone?: string;
 
   @ApiPropertyOptional({
-    description: 'Business description',
-    example: 'this entity is into sales of Cement and building materials',
+    description: "Business description",
+    example: "this entity is into sales of Cement and building materials",
   })
   @IsOptional()
   @IsString()
@@ -100,7 +100,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   business_description?: string;
 
   @ApiProperty({
-    description: 'Postal address',
+    description: "Postal address",
     type: PostalAddressDto,
   })
   @ValidateNested()
@@ -108,26 +108,26 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   postal_address: PostalAddressDto;
 }
 
- class InvoiceDeliveryPeriodDto {
+class InvoiceDeliveryPeriodDto {
   @ApiProperty({
-    description: 'Start date',
-    example: '2024-06-14',
+    description: "Start date",
+    example: "2024-06-14",
   })
   @IsDateString()
   start_date: string;
 
   @ApiProperty({
-    description: 'End date',
-    example: '2024-06-16',
+    description: "End date",
+    example: "2024-06-16",
   })
   @IsDateString()
   end_date: string;
 }
 
- class BillingReferenceDto {
+class BillingReferenceDto {
   @ApiProperty({
-    description: 'Invoice Reference Number',
-    example: 'ITW001-E9E0C0D3-20240999',
+    description: "Invoice Reference Number",
+    example: "ITW001-E9E0C0D3-20240999",
   })
   @IsString()
   @MinLength(1)
@@ -135,17 +135,17 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   irn: string;
 
   @ApiProperty({
-    description: 'Issue date',
-    example: '2024-05-14',
+    description: "Issue date",
+    example: "2024-05-14",
   })
   @IsDateString()
   issue_date: string;
 }
 
- class DocumentReferenceDto {
+class DocumentReferenceDto {
   @ApiProperty({
-    description: 'Invoice Reference Number',
-    example: 'ITW001-E9E0C0D3-20240619',
+    description: "Invoice Reference Number",
+    example: "ITW001-E9E0C0D3-20240619",
   })
   @IsString()
   @MinLength(1)
@@ -153,17 +153,17 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   irn: string;
 
   @ApiProperty({
-    description: 'Issue date',
-    example: '2024-05-14',
+    description: "Issue date",
+    example: "2024-05-14",
   })
   @IsDateString()
   issue_date: string;
 }
 
- class PaymentMeansDto {
+class PaymentMeansDto {
   @ApiProperty({
-    description: 'Payment means code',
-    example: '10',
+    description: "Payment means code",
+    example: "10",
   })
   @IsString()
   @MinLength(1)
@@ -171,33 +171,33 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   payment_means_code: string;
 
   @ApiProperty({
-    description: 'Payment due date',
-    example: '2024-05-14',
+    description: "Payment due date",
+    example: "2024-05-14",
   })
   @IsDateString()
   payment_due_date: string;
 }
 
- class AllowanceChargeDto {
+class AllowanceChargeDto {
   @ApiProperty({
-    description: 'Charge indicator - true for charge, false for allowance',
+    description: "Charge indicator - true for charge, false for allowance",
     example: true,
   })
   @IsBoolean()
   charge_indicator: boolean;
 
   @ApiProperty({
-    description: 'Amount',
-    example: 800.60,
+    description: "Amount",
+    example: 800.6,
   })
   @IsNumber()
   amount: number;
 }
 
- class TaxCategoryDto {
+class TaxCategoryDto {
   @ApiProperty({
-    description: 'Tax category ID',
-    example: 'LOCAL_SALES_TAX',
+    description: "Tax category ID",
+    example: "LOCAL_SALES_TAX",
   })
   @IsString()
   @MinLength(1)
@@ -205,30 +205,30 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   id: string;
 
   @ApiProperty({
-    description: 'Tax percentage',
+    description: "Tax percentage",
     example: 2.3,
   })
   @IsNumber()
   percent: number;
 }
 
- class TaxSubtotalDto {
+class TaxSubtotalDto {
   @ApiProperty({
-    description: 'Taxable amount',
+    description: "Taxable amount",
     example: 800,
   })
   @IsNumber()
   taxable_amount: number;
 
   @ApiProperty({
-    description: 'Tax amount',
+    description: "Tax amount",
     example: 8,
   })
   @IsNumber()
   tax_amount: number;
 
   @ApiProperty({
-    description: 'Tax category',
+    description: "Tax category",
     type: TaxCategoryDto,
   })
   @ValidateNested()
@@ -236,16 +236,16 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   tax_category: TaxCategoryDto;
 }
 
- class TaxTotalDto {
+class TaxTotalDto {
   @ApiProperty({
-    description: 'Total tax amount',
+    description: "Total tax amount",
     example: 56.07,
   })
   @IsNumber()
   tax_amount: number;
 
   @ApiProperty({
-    description: 'Tax subtotals',
+    description: "Tax subtotals",
     type: [TaxSubtotalDto],
   })
   @IsArray()
@@ -254,40 +254,40 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   tax_subtotal: TaxSubtotalDto[];
 }
 
- class LegalMonetaryTotalDto {
+class LegalMonetaryTotalDto {
   @ApiProperty({
-    description: 'Line extension amount',
-    example: 340.50,
+    description: "Line extension amount",
+    example: 340.5,
   })
   @IsNumber()
   line_extension_amount: number;
 
   @ApiProperty({
-    description: 'Tax exclusive amount',
+    description: "Tax exclusive amount",
     example: 400,
   })
   @IsNumber()
   tax_exclusive_amount: number;
 
   @ApiProperty({
-    description: 'Tax inclusive amount',
+    description: "Tax inclusive amount",
     example: 430,
   })
   @IsNumber()
   tax_inclusive_amount: number;
 
   @ApiProperty({
-    description: 'Payable amount',
+    description: "Payable amount",
     example: 30,
   })
   @IsNumber()
   payable_amount: number;
 }
 
- class ItemDto {
+class ItemDto {
   @ApiProperty({
-    description: 'Item name',
-    example: 'item name',
+    description: "Item name",
+    example: "item name",
   })
   @IsString()
   @MinLength(1)
@@ -295,8 +295,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   name: string;
 
   @ApiProperty({
-    description: 'Item description',
-    example: 'item description',
+    description: "Item description",
+    example: "item description",
   })
   @IsString()
   @MinLength(1)
@@ -304,8 +304,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   description: string;
 
   @ApiPropertyOptional({
-    description: 'Sellers item identification',
-    example: 'identified as spoon by the seller',
+    description: "Sellers item identification",
+    example: "identified as spoon by the seller",
   })
   @IsOptional()
   @IsString()
@@ -313,24 +313,24 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   sellers_item_identification?: string;
 }
 
- class PriceDto {
+class PriceDto {
   @ApiProperty({
-    description: 'Price amount',
+    description: "Price amount",
     example: 10,
   })
   @IsNumber()
   price_amount: number;
 
   @ApiProperty({
-    description: 'Base quantity',
+    description: "Base quantity",
     example: 3,
   })
   @IsNumber()
   base_quantity: number;
 
   @ApiProperty({
-    description: 'Price unit',
-    example: 'NGN per 1',
+    description: "Price unit",
+    example: "NGN per 1",
   })
   @IsString()
   @MinLength(1)
@@ -338,10 +338,10 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   price_unit: string;
 }
 
- class InvoiceLineDto {
+class InvoiceLineDto {
   @ApiProperty({
-    description: 'HSN code',
-    example: 'CC-001',
+    description: "HSN code",
+    example: "CC-001",
   })
   @IsString()
   @MinLength(1)
@@ -349,8 +349,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   hsn_code: string;
 
   @ApiProperty({
-    description: 'Product category',
-    example: 'Food and Beverages',
+    description: "Product category",
+    example: "Food and Beverages",
   })
   @IsString()
   @MinLength(1)
@@ -358,49 +358,49 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   product_category: string;
 
   @ApiProperty({
-    description: 'Discount rate',
+    description: "Discount rate",
     example: 2.01,
   })
   @IsNumber()
   discount_rate: number;
 
   @ApiProperty({
-    description: 'Discount amount',
+    description: "Discount amount",
     example: 3500,
   })
   @IsNumber()
   discount_amount: number;
 
   @ApiProperty({
-    description: 'Fee rate',
+    description: "Fee rate",
     example: 1.01,
   })
   @IsNumber()
   fee_rate: number;
 
   @ApiProperty({
-    description: 'Fee amount',
+    description: "Fee amount",
     example: 50,
   })
   @IsNumber()
   fee_amount: number;
 
   @ApiProperty({
-    description: 'Invoiced quantity',
+    description: "Invoiced quantity",
     example: 15,
   })
   @IsNumber()
   invoiced_quantity: number;
 
   @ApiProperty({
-    description: 'Line extension amount',
+    description: "Line extension amount",
     example: 30,
   })
   @IsNumber()
   line_extension_amount: number;
 
   @ApiProperty({
-    description: 'Item details',
+    description: "Item details",
     type: ItemDto,
   })
   @ValidateNested()
@@ -408,7 +408,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   item: ItemDto;
 
   @ApiProperty({
-    description: 'Price details',
+    description: "Price details",
     type: PriceDto,
   })
   @ValidateNested()
@@ -416,10 +416,10 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   price: PriceDto;
 }
 
- export class CreateInvoiceDto {
+export class CreateInvoiceDto {
   @ApiProperty({
-    description: 'Business ID',
-    example: '550e8400-e29b-41d4-a716-446655440000',
+    description: "Business ID",
+    example: "550e8400-e29b-41d4-a716-446655440000",
   })
   @IsString()
   @MinLength(1)
@@ -427,8 +427,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   business_id: string;
 
   @ApiProperty({
-    description: 'Invoice Reference Number',
-    example: 'ITW20853450-6997D6BB-20240999',
+    description: "Invoice Reference Number",
+    example: "ITW20853450-6997D6BB-20240999",
   })
   @IsString()
   @MinLength(1)
@@ -436,34 +436,34 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   irn: string;
 
   @ApiProperty({
-    description: 'Issue date',
-    example: '2024-05-14',
+    description: "Issue date",
+    example: "2024-05-14",
   })
   @IsDateString()
   issue_date: string;
 
   @ApiPropertyOptional({
-    description: 'Due date',
-    example: '2024-06-14',
+    description: "Due date",
+    example: "2024-06-14",
   })
   @IsOptional()
   @IsDateString()
   due_date?: string;
 
   @ApiPropertyOptional({
-    description: 'Issue time',
-    example: '17:59:04',
+    description: "Issue time",
+    example: "17:59:04",
   })
   @IsOptional()
   @IsString()
   @Matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/, {
-    message: 'Issue time must be in HH:MM:SS format',
+    message: "Issue time must be in HH:MM:SS format",
   })
   issue_time?: string;
 
   @ApiProperty({
-    description: 'Invoice type code',
-    example: '396',
+    description: "Invoice type code",
+    example: "396",
   })
   @IsString()
   @MinLength(1)
@@ -471,17 +471,17 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   invoice_type_code: string;
 
   @ApiPropertyOptional({
-    description: 'Payment status',
-    example: 'PENDING',
-    enum: ['PENDING', 'PAID', 'OVERDUE', 'CANCELLED'],
+    description: "Payment status",
+    example: "PENDING",
+    enum: ["PENDING", "PAID", "OVERDUE", "CANCELLED"],
   })
   @IsOptional()
-  @IsIn(['PENDING', 'PAID', 'OVERDUE', 'CANCELLED'])
+  @IsIn(["PENDING", "PAID", "OVERDUE", "CANCELLED"])
   payment_status?: string;
 
   @ApiPropertyOptional({
-    description: 'Note',
-    example: 'dummy_note (will be encrypted in storage)',
+    description: "Note",
+    example: "dummy_note (will be encrypted in storage)",
   })
   @IsOptional()
   @IsString()
@@ -489,16 +489,16 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   note?: string;
 
   @ApiPropertyOptional({
-    description: 'Tax point date',
-    example: '2024-05-14',
+    description: "Tax point date",
+    example: "2024-05-14",
   })
   @IsOptional()
   @IsDateString()
   tax_point_date?: string;
 
   @ApiProperty({
-    description: 'Document currency code',
-    example: 'NGN',
+    description: "Document currency code",
+    example: "NGN",
   })
   @IsString()
   @MinLength(3)
@@ -506,8 +506,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   document_currency_code: string;
 
   @ApiPropertyOptional({
-    description: 'Tax currency code',
-    example: 'NGN',
+    description: "Tax currency code",
+    example: "NGN",
   })
   @IsOptional()
   @IsString()
@@ -516,8 +516,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   tax_currency_code?: string;
 
   @ApiPropertyOptional({
-    description: 'Accounting cost',
-    example: '2000',
+    description: "Accounting cost",
+    example: "2000",
   })
   @IsOptional()
   @IsString()
@@ -525,8 +525,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   accounting_cost?: string;
 
   @ApiPropertyOptional({
-    description: 'Buyer reference',
-    example: 'buyer REF IRN?',
+    description: "Buyer reference",
+    example: "buyer REF IRN?",
   })
   @IsOptional()
   @IsString()
@@ -534,7 +534,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   buyer_reference?: string;
 
   @ApiPropertyOptional({
-    description: 'Invoice delivery period',
+    description: "Invoice delivery period",
     type: InvoiceDeliveryPeriodDto,
   })
   @IsOptional()
@@ -543,8 +543,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   invoice_delivery_period?: InvoiceDeliveryPeriodDto;
 
   @ApiPropertyOptional({
-    description: 'Order reference',
-    example: 'order REF IRN?',
+    description: "Order reference",
+    example: "order REF IRN?",
   })
   @IsOptional()
   @IsString()
@@ -552,7 +552,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   order_reference?: string;
 
   @ApiPropertyOptional({
-    description: 'Billing references',
+    description: "Billing references",
     type: [BillingReferenceDto],
   })
   @IsOptional()
@@ -562,7 +562,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   billing_reference?: BillingReferenceDto[];
 
   @ApiPropertyOptional({
-    description: 'Dispatch document reference',
+    description: "Dispatch document reference",
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -571,7 +571,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   dispatch_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: 'Receipt document reference',
+    description: "Receipt document reference",
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -580,7 +580,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   receipt_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: 'Originator document reference',
+    description: "Originator document reference",
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -589,7 +589,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   originator_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: 'Contract document reference',
+    description: "Contract document reference",
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -598,7 +598,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   contract_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: 'Document references',
+    description: "Document references",
     type: [DocumentReferenceDto],
   })
   @IsOptional()
@@ -608,7 +608,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   _document_reference?: DocumentReferenceDto[];
 
   @ApiProperty({
-    description: 'Accounting supplier party',
+    description: "Accounting supplier party",
     type: PartyDto,
   })
   @ValidateNested()
@@ -616,7 +616,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   accounting_supplier_party: PartyDto;
 
   @ApiProperty({
-    description: 'Accounting customer party',
+    description: "Accounting customer party",
     type: PartyDto,
   })
   @ValidateNested()
@@ -624,15 +624,15 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   accounting_customer_party: PartyDto;
 
   @ApiPropertyOptional({
-    description: 'Actual delivery date',
-    example: '2024-05-14',
+    description: "Actual delivery date",
+    example: "2024-05-14",
   })
   @IsOptional()
   @IsDateString()
   actual_delivery_date?: string;
 
   @ApiPropertyOptional({
-    description: 'Payment means',
+    description: "Payment means",
     type: [PaymentMeansDto],
   })
   @IsOptional()
@@ -642,8 +642,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   payment_means?: PaymentMeansDto[];
 
   @ApiPropertyOptional({
-    description: 'Payment terms note',
-    example: 'dummy payment terms note (will be encrypted in storage)',
+    description: "Payment terms note",
+    example: "dummy payment terms note (will be encrypted in storage)",
   })
   @IsOptional()
   @IsString()
@@ -651,7 +651,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   payment_terms_note?: string;
 
   @ApiPropertyOptional({
-    description: 'Allowance charges',
+    description: "Allowance charges",
     type: [AllowanceChargeDto],
   })
   @IsOptional()
@@ -661,7 +661,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   allowance_charge?: AllowanceChargeDto[];
 
   @ApiPropertyOptional({
-    description: 'Tax totals',
+    description: "Tax totals",
     type: [TaxTotalDto],
   })
   @IsOptional()
@@ -671,7 +671,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   tax_total?: TaxTotalDto[];
 
   @ApiProperty({
-    description: 'Legal monetary total',
+    description: "Legal monetary total",
     type: LegalMonetaryTotalDto,
   })
   @ValidateNested()
@@ -679,7 +679,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   legal_monetary_total: LegalMonetaryTotalDto;
 
   @ApiProperty({
-    description: 'Invoice lines',
+    description: "Invoice lines",
     type: [InvoiceLineDto],
   })
   @IsArray()

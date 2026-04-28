@@ -1,19 +1,18 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from 'src/database';
-import axios from 'axios';
-import { FirsValidateInvoiceDto } from '../firs/dtos/validete-invoice.dto';
-import { GenerateQrCodeDto, UpdateFirsSettingsDto } from './dtos';
-import { generateFirsQrCodeWithKeys } from './helpers/qr-code.helper';
+import { Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "src/database";
+import axios from "axios";
+import { FirsValidateInvoiceDto } from "../firs/dtos/validete-invoice.dto";
+import { GenerateQrCodeDto, UpdateFirsSettingsDto } from "./dtos";
+import { generateFirsQrCodeWithKeys } from "./helpers/qr-code.helper";
 
 @Injectable()
 export class SystemIntegratorService {
   private readonly logger = new Logger(SystemIntegratorService.name);
-  private readonly firsApiUrl: string =
-    process.env.FIRS_API_URL ?? '';
+  private readonly firsApiUrl: string = process.env.FIRS_API_URL ?? "";
   private readonly systemIntegratorApiKey: string =
-    process.env.SYSTEM_INTEGRATOR_API_KEY ?? '';
+    process.env.SYSTEM_INTEGRATOR_API_KEY ?? "";
   private readonly systemIntegratorApiSecret: string =
-    process.env.SYSTEM_INTEGRATOR_API_SECRET ?? '';
+    process.env.SYSTEM_INTEGRATOR_API_SECRET ?? "";
 
   constructor(private readonly prisma: PrismaService) {}
 
@@ -32,7 +31,7 @@ export class SystemIntegratorService {
       !this.systemIntegratorApiSecret
     ) {
       throw new Error(
-        'System Integrator API credentials are not set in environment variables',
+        "System Integrator API credentials are not set in environment variables",
       );
     }
 
@@ -42,22 +41,20 @@ export class SystemIntegratorService {
       this.logger.log(`Validating invoice with IRN: ${params.irn}`);
       const response = await axios.post(url, params, {
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': this.systemIntegratorApiKey,
-          'x-api-secret': this.systemIntegratorApiSecret,
+          "Content-Type": "application/json",
+          "x-api-key": this.systemIntegratorApiKey,
+          "x-api-secret": this.systemIntegratorApiSecret,
         },
       });
-      this.logger.log(
-        `Successfully validated invoice with IRN: ${params.irn}`,
-      );
+      this.logger.log(`Successfully validated invoice with IRN: ${params.irn}`);
       if (
         response.data &&
         response.data.data &&
-        typeof response.data.data.ok === 'boolean'
+        typeof response.data.data.ok === "boolean"
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error('Invalid response from FIRS API');
+      throw new Error("Invalid response from FIRS API");
     } catch (error) {
       this.logger.error(
         `Failed to validate invoice with IRN: ${params.irn}`,
@@ -87,11 +84,10 @@ export class SystemIntegratorService {
     let certificateBase64 = params.firsCertificateBase64;
 
     if ((!publicKeyBase64 || !certificateBase64) && params.userId) {
-      const settings = await this.prisma.systemIntegratorFirsSettings.findUnique(
-        {
+      const settings =
+        await this.prisma.systemIntegratorFirsSettings.findUnique({
           where: { userId: params.userId },
-        },
-      );
+        });
       if (settings) {
         publicKeyBase64 ??= settings.firsPublicKeyBase64 ?? undefined;
         certificateBase64 ??= settings.firsCertificateBase64 ?? undefined;
@@ -142,32 +138,29 @@ export class SystemIntegratorService {
    * @param params - The settings to update.
    * @returns The updated settings.
    */
-  async updateFirsSettings(
-    params: UpdateFirsSettingsDto,
-  ): Promise<{
+  async updateFirsSettings(params: UpdateFirsSettingsDto): Promise<{
     userId: number;
     firsPublicKeyBase64: string | null;
     firsCertificateBase64: string | null;
   }> {
-    const settings =
-      await this.prisma.systemIntegratorFirsSettings.upsert({
-        where: { userId: params.userId },
-        create: {
-          userId: params.userId,
-          firsPublicKeyBase64: params.firsPublicKeyBase64 ?? null,
-          firsCertificateBase64: params.firsCertificateBase64 ?? null,
-        },
-        update: {
-          firsPublicKeyBase64:
-            params.firsPublicKeyBase64 !== undefined
-              ? params.firsPublicKeyBase64 ?? null
-              : undefined,
-          firsCertificateBase64:
-            params.firsCertificateBase64 !== undefined
-              ? params.firsCertificateBase64 ?? null
-              : undefined,
-        },
-      });
+    const settings = await this.prisma.systemIntegratorFirsSettings.upsert({
+      where: { userId: params.userId },
+      create: {
+        userId: params.userId,
+        firsPublicKeyBase64: params.firsPublicKeyBase64 ?? null,
+        firsCertificateBase64: params.firsCertificateBase64 ?? null,
+      },
+      update: {
+        firsPublicKeyBase64:
+          params.firsPublicKeyBase64 !== undefined
+            ? (params.firsPublicKeyBase64 ?? null)
+            : undefined,
+        firsCertificateBase64:
+          params.firsCertificateBase64 !== undefined
+            ? (params.firsCertificateBase64 ?? null)
+            : undefined,
+      },
+    });
 
     return {
       userId: settings.userId,
