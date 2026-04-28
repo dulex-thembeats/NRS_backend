@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsString,
   IsDateString,
@@ -12,39 +12,42 @@ import {
   ValidateNested,
   IsNotEmpty,
   Min,
-} from "class-validator";
-import { Type } from "class-transformer";
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
+
+
 
 // Re-export all the nested DTOs from create-invoice.dto.ts
 
 class PostalAddressDto {
   @ApiProperty({
-    description: "Street name",
-    example: "123 Main Street",
+    description: 'Street name',
+    example: '123 Main Street',
   })
   @IsString()
   @IsNotEmpty()
   street_name: string;
 
   @ApiProperty({
-    description: "City name",
-    example: "Lagos",
+    description: 'City name',
+    example: 'Lagos',
   })
   @IsString()
   @IsNotEmpty()
   city_name: string;
 
   @ApiProperty({
-    description: "Postal zone",
-    example: "100001",
+    description: 'Postal zone',
+    example: '100001',
   })
   @IsString()
   @IsNotEmpty()
   postal_zone: string;
 
   @ApiProperty({
-    description: "Country",
-    example: "Nigeria",
+    description: 'Country',
+    example: 'Nigeria',
   })
   @IsString()
   @IsNotEmpty()
@@ -53,47 +56,47 @@ class PostalAddressDto {
 
 class PartyDto {
   @ApiProperty({
-    description: "Party name",
-    example: "John Doe Limited",
+    description: 'Party name',
+    example: 'John Doe Limited',
   })
   @IsString()
   @IsNotEmpty()
   party_name: string;
 
   @ApiProperty({
-    description: "Tax Identification Number",
-    example: "12345678901",
+    description: 'Tax Identification Number',
+    example: '12345678901',
   })
   @IsString()
   @IsNotEmpty()
   tin: string;
 
   @ApiProperty({
-    description: "Email address",
-    example: "john@example.com",
+    description: 'Email address',
+    example: 'john@example.com',
   })
   @IsString()
   @IsNotEmpty()
   email: string;
 
   @ApiPropertyOptional({
-    description: "Telephone number",
-    example: "+2348012345678",
+    description: 'Telephone number',
+    example: '+2348012345678',
   })
   @IsOptional()
   @IsString()
   telephone?: string;
 
   @ApiPropertyOptional({
-    description: "Business description",
-    example: "Software Development Company",
+    description: 'Business description',
+    example: 'Software Development Company',
   })
   @IsOptional()
   @IsString()
   business_description?: string;
 
   @ApiPropertyOptional({
-    description: "Postal address",
+    description: 'Postal address',
     type: PostalAddressDto,
   })
   @IsOptional()
@@ -102,84 +105,85 @@ class PartyDto {
   postal_address?: PostalAddressDto;
 }
 
-class DocumentReferenceDto {
+
+ class DocumentReferenceDto {
   @ApiProperty({
-    description: "Invoice Reference Number",
-    example: "ITW20853450-6997D6BB-20240703",
+    description: 'Invoice Reference Number',
+    example: 'ITW20853450-6997D6BB-20240703',
   })
   @IsString()
   @IsNotEmpty()
   irn: string;
 
   @ApiProperty({
-    description: "Issue date",
-    example: "2024-05-14",
+    description: 'Issue date',
+    example: '2024-05-14',
   })
   @IsDateString()
   issue_date: string;
 }
 
-class InvoiceDeliveryPeriodDto {
+ class InvoiceDeliveryPeriodDto {
   @ApiProperty({
-    description: "Start date",
-    example: "2024-05-14",
+    description: 'Start date',
+    example: '2024-05-14',
   })
   @IsDateString()
   start_date: string;
 
   @ApiProperty({
-    description: "End date",
-    example: "2024-05-20",
+    description: 'End date',
+    example: '2024-05-20',
   })
   @IsDateString()
   end_date: string;
 }
 
-class PaymentMeansDto {
+ class PaymentMeansDto {
   @ApiProperty({
-    description: "Payment means code",
-    example: "10",
+    description: 'Payment means code',
+    example: '10',
   })
   @IsString()
   @IsNotEmpty()
   payment_means_code: string;
 
   @ApiProperty({
-    description: "Payment due date",
-    example: "2024-06-14",
+    description: 'Payment due date',
+    example: '2024-06-14',
   })
   @IsDateString()
   payment_due_date: string;
 }
 
-class AllowanceChargeDto {
+ class AllowanceChargeDto {
   @ApiProperty({
-    description: "Charge indicator",
+    description: 'Charge indicator',
     example: true,
   })
   @IsNumber()
   charge_indicator: number;
 
   @ApiProperty({
-    description: "Amount",
-    example: 100.0,
+    description: 'Amount',
+    example: 100.00,
   })
   @IsNumber()
   @Min(0)
   amount: number;
 }
 
-class TaxCategoryDto {
+ class TaxCategoryDto {
   @ApiProperty({
-    description: "Category ID",
-    example: "S",
+    description: 'Category ID',
+    example: 'S',
   })
   @IsString()
   @IsNotEmpty()
   category_id: string;
 
   @ApiProperty({
-    description: "Percentage",
+    description: 'Percentage',
     example: 15.0,
   })
   @IsNumber()
@@ -187,25 +191,25 @@ class TaxCategoryDto {
   percent: number;
 }
 
-class TaxSubtotalDto {
+ class TaxSubtotalDto {
   @ApiProperty({
-    description: "Taxable amount",
-    example: 1000.0,
+    description: 'Taxable amount',
+    example: 1000.00,
   })
   @IsNumber()
   @Min(0)
   taxable_amount: number;
 
   @ApiProperty({
-    description: "Tax amount",
-    example: 150.0,
+    description: 'Tax amount',
+    example: 150.00,
   })
   @IsNumber()
   @Min(0)
   tax_amount: number;
 
   @ApiPropertyOptional({
-    description: "Tax category",
+    description: 'Tax category',
     type: TaxCategoryDto,
   })
   @IsOptional()
@@ -214,17 +218,17 @@ class TaxSubtotalDto {
   tax_category?: TaxCategoryDto;
 }
 
-class TaxTotalDto {
+ class TaxTotalDto {
   @ApiProperty({
-    description: "Tax amount",
-    example: 150.0,
+    description: 'Tax amount',
+    example: 150.00,
   })
   @IsNumber()
   @Min(0)
   tax_amount: number;
 
   @ApiPropertyOptional({
-    description: "Tax subtotals",
+    description: 'Tax subtotals',
     type: [TaxSubtotalDto],
   })
   @IsOptional()
@@ -234,77 +238,77 @@ class TaxTotalDto {
   tax_subtotal?: TaxSubtotalDto[];
 }
 
-class LegalMonetaryTotalDto {
+ class LegalMonetaryTotalDto {
   @ApiProperty({
-    description: "Line extension amount",
-    example: 1000.0,
+    description: 'Line extension amount',
+    example: 1000.00,
   })
   @IsNumber()
   @Min(0)
   line_extension_amount: number;
 
   @ApiProperty({
-    description: "Tax exclusive amount",
-    example: 1000.0,
+    description: 'Tax exclusive amount',
+    example: 1000.00,
   })
   @IsNumber()
   @Min(0)
   tax_exclusive_amount: number;
 
   @ApiProperty({
-    description: "Tax inclusive amount",
-    example: 1150.0,
+    description: 'Tax inclusive amount',
+    example: 1150.00,
   })
   @IsNumber()
   @Min(0)
   tax_inclusive_amount: number;
 
   @ApiProperty({
-    description: "Payable amount",
-    example: 1150.0,
+    description: 'Payable amount',
+    example: 1150.00,
   })
   @IsNumber()
   @Min(0)
   payable_amount: number;
 }
 
-class ItemDto {
+ class ItemDto {
   @ApiProperty({
-    description: "Item name",
-    example: "Software License",
+    description: 'Item name',
+    example: 'Software License',
   })
   @IsString()
   @IsNotEmpty()
   name: string;
 
   @ApiProperty({
-    description: "Item description",
-    example: "Annual software license subscription",
+    description: 'Item description',
+    example: 'Annual software license subscription',
   })
   @IsString()
   @IsNotEmpty()
   description: string;
 
   @ApiPropertyOptional({
-    description: "Sellers item identification",
-    example: "SKU-001",
+    description: 'Sellers item identification',
+    example: 'SKU-001',
   })
   @IsOptional()
   @IsString()
   sellers_item_identification?: string;
 }
 
-class PriceDto {
+ class PriceDto {
   @ApiProperty({
-    description: "Price amount",
-    example: 100.0,
+    description: 'Price amount',
+    example: 100.00,
   })
   @IsNumber()
   @Min(0)
   price_amount: number;
 
   @ApiProperty({
-    description: "Base quantity",
+    description: 'Base quantity',
     example: 1,
   })
   @IsNumber()
@@ -312,33 +316,33 @@ class PriceDto {
   base_quantity: number;
 
   @ApiProperty({
-    description: "Price unit",
-    example: "Each",
+    description: 'Price unit',
+    example: 'Each',
   })
   @IsString()
   @IsNotEmpty()
   price_unit: string;
 }
 
-class InvoiceLineDto {
+ class InvoiceLineDto {
   @ApiProperty({
-    description: "HSN code",
-    example: "CC-001",
+    description: 'HSN code',
+    example: 'CC-001',
   })
   @IsString()
   @IsNotEmpty()
   hsn_code: string;
 
   @ApiProperty({
-    description: "Product category",
-    example: "Food and Beverages",
+    description: 'Product category',
+    example: 'Food and Beverages',
   })
   @IsString()
   @IsNotEmpty()
   product_category: string;
 
   @ApiProperty({
-    description: "Discount rate",
+    description: 'Discount rate',
     example: 2.01,
   })
   @IsNumber()
@@ -346,7 +350,7 @@ class InvoiceLineDto {
   discount_rate: number;
 
   @ApiProperty({
-    description: "Discount amount",
+    description: 'Discount amount',
     example: 3500,
   })
   @IsNumber()
@@ -354,7 +358,7 @@ class InvoiceLineDto {
   discount_amount: number;
 
   @ApiProperty({
-    description: "Fee rate",
+    description: 'Fee rate',
     example: 1.01,
   })
   @IsNumber()
@@ -362,7 +366,7 @@ class InvoiceLineDto {
   fee_rate: number;
 
   @ApiProperty({
-    description: "Fee amount",
+    description: 'Fee amount',
     example: 50,
   })
   @IsNumber()
@@ -370,7 +374,7 @@ class InvoiceLineDto {
   fee_amount: number;
 
   @ApiProperty({
-    description: "Invoiced quantity",
+    description: 'Invoiced quantity',
     example: 15,
   })
   @IsNumber()
@@ -378,7 +382,7 @@ class InvoiceLineDto {
   invoiced_quantity: number;
 
   @ApiProperty({
-    description: "Line extension amount",
+    description: 'Line extension amount',
     example: 30,
   })
   @IsNumber()
@@ -386,7 +390,7 @@ class InvoiceLineDto {
   line_extension_amount: number;
 
   @ApiProperty({
-    description: "Item details",
+    description: 'Item details',
     type: ItemDto,
   })
   @ValidateNested()
@@ -394,7 +398,7 @@ class InvoiceLineDto {
   item: ItemDto;
 
   @ApiProperty({
-    description: "Price details",
+    description: 'Price details',
     type: PriceDto,
   })
   @ValidateNested()
@@ -404,8 +408,8 @@ class InvoiceLineDto {
 
 export class UpdateInvoiceDto {
   @ApiPropertyOptional({
-    description: "Business ID",
-    example: "{{TEST_BUSINESS_ID}}",
+    description: 'Business ID',
+    example: '{{TEST_BUSINESS_ID}}',
   })
   @IsOptional()
   @IsString()
@@ -414,8 +418,8 @@ export class UpdateInvoiceDto {
   business_id?: string;
 
   @ApiPropertyOptional({
-    description: "Invoice Reference Number",
-    example: "ITW20853450-6997D6BB-20240703",
+    description: 'Invoice Reference Number',
+    example: 'ITW20853450-6997D6BB-20240703',
   })
   @IsOptional()
   @IsString()
@@ -424,35 +428,35 @@ export class UpdateInvoiceDto {
   irn?: string;
 
   @ApiPropertyOptional({
-    description: "Issue date",
-    example: "2024-05-14",
+    description: 'Issue date',
+    example: '2024-05-14',
   })
   @IsOptional()
   @IsDateString()
   issue_date?: string;
 
   @ApiPropertyOptional({
-    description: "Due date",
-    example: "2024-06-14",
+    description: 'Due date',
+    example: '2024-06-14',
   })
   @IsOptional()
   @IsDateString()
   due_date?: string;
 
   @ApiPropertyOptional({
-    description: "Issue time",
-    example: "17:59:04",
+    description: 'Issue time',
+    example: '17:59:04',
   })
   @IsOptional()
   @IsString()
   @Matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/, {
-    message: "Issue time must be in HH:MM:SS format",
+    message: 'Issue time must be in HH:MM:SS format',
   })
   issue_time?: string;
 
   @ApiPropertyOptional({
-    description: "Invoice type code",
-    example: "396",
+    description: 'Invoice type code',
+    example: '396',
   })
   @IsOptional()
   @IsString()
@@ -461,17 +465,17 @@ export class UpdateInvoiceDto {
   invoice_type_code?: string;
 
   @ApiPropertyOptional({
-    description: "Payment status",
-    example: "PENDING",
-    enum: ["PENDING", "PAID", "OVERDUE", "CANCELLED"],
+    description: 'Payment status',
+    example: 'PENDING',
+    enum: ['PENDING', 'PAID', 'OVERDUE', 'CANCELLED'],
   })
   @IsOptional()
-  @IsIn(["PENDING", "PAID", "OVERDUE", "CANCELLED"])
+  @IsIn(['PENDING', 'PAID', 'OVERDUE', 'CANCELLED'])
   payment_status?: string;
 
   @ApiPropertyOptional({
-    description: "Note",
-    example: "dummy_note (will be encrypted in storage)",
+    description: 'Note',
+    example: 'dummy_note (will be encrypted in storage)',
   })
   @IsOptional()
   @IsString()
@@ -479,16 +483,16 @@ export class UpdateInvoiceDto {
   note?: string;
 
   @ApiPropertyOptional({
-    description: "Tax point date",
-    example: "2024-05-14",
+    description: 'Tax point date',
+    example: '2024-05-14',
   })
   @IsOptional()
   @IsDateString()
   tax_point_date?: string;
 
   @ApiPropertyOptional({
-    description: "Document currency code",
-    example: "NGN",
+    description: 'Document currency code',
+    example: 'NGN',
   })
   @IsOptional()
   @IsString()
@@ -497,8 +501,8 @@ export class UpdateInvoiceDto {
   document_currency_code?: string;
 
   @ApiPropertyOptional({
-    description: "Tax currency code",
-    example: "NGN",
+    description: 'Tax currency code',
+    example: 'NGN',
   })
   @IsOptional()
   @IsString()
@@ -507,8 +511,8 @@ export class UpdateInvoiceDto {
   tax_currency_code?: string;
 
   @ApiPropertyOptional({
-    description: "Accounting cost",
-    example: "Cost Center 001",
+    description: 'Accounting cost',
+    example: 'Cost Center 001',
   })
   @IsOptional()
   @IsString()
@@ -516,8 +520,8 @@ export class UpdateInvoiceDto {
   accounting_cost?: string;
 
   @ApiPropertyOptional({
-    description: "Buyer reference",
-    example: "BUYER-REF-001",
+    description: 'Buyer reference',
+    example: 'BUYER-REF-001',
   })
   @IsOptional()
   @IsString()
@@ -525,8 +529,8 @@ export class UpdateInvoiceDto {
   buyer_reference?: string;
 
   @ApiPropertyOptional({
-    description: "Order reference",
-    example: "ORDER-REF-001",
+    description: 'Order reference',
+    example: 'ORDER-REF-001',
   })
   @IsOptional()
   @IsString()
@@ -534,7 +538,7 @@ export class UpdateInvoiceDto {
   order_reference?: string;
 
   @ApiPropertyOptional({
-    description: "Invoice delivery period",
+    description: 'Invoice delivery period',
     type: InvoiceDeliveryPeriodDto,
   })
   @IsOptional()
@@ -543,7 +547,7 @@ export class UpdateInvoiceDto {
   invoice_delivery_period?: InvoiceDeliveryPeriodDto;
 
   @ApiPropertyOptional({
-    description: "Billing reference",
+    description: 'Billing reference',
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -552,7 +556,7 @@ export class UpdateInvoiceDto {
   billing_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: "Dispatch document reference",
+    description: 'Dispatch document reference',
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -561,7 +565,7 @@ export class UpdateInvoiceDto {
   dispatch_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: "Receipt document reference",
+    description: 'Receipt document reference',
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -570,7 +574,7 @@ export class UpdateInvoiceDto {
   receipt_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: "Originator document reference",
+    description: 'Originator document reference',
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -579,7 +583,7 @@ export class UpdateInvoiceDto {
   originator_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: "Contract document reference",
+    description: 'Contract document reference',
     type: DocumentReferenceDto,
   })
   @IsOptional()
@@ -588,7 +592,7 @@ export class UpdateInvoiceDto {
   contract_document_reference?: DocumentReferenceDto;
 
   @ApiPropertyOptional({
-    description: "Document references",
+    description: 'Document references',
     type: [DocumentReferenceDto],
   })
   @IsOptional()
@@ -598,7 +602,7 @@ export class UpdateInvoiceDto {
   _document_reference?: DocumentReferenceDto[];
 
   @ApiPropertyOptional({
-    description: "Accounting supplier party",
+    description: 'Accounting supplier party',
     type: PartyDto,
   })
   @IsOptional()
@@ -607,7 +611,7 @@ export class UpdateInvoiceDto {
   accounting_supplier_party?: PartyDto;
 
   @ApiPropertyOptional({
-    description: "Accounting customer party",
+    description: 'Accounting customer party',
     type: PartyDto,
   })
   @IsOptional()
@@ -616,15 +620,15 @@ export class UpdateInvoiceDto {
   accounting_customer_party?: PartyDto;
 
   @ApiPropertyOptional({
-    description: "Actual delivery date",
-    example: "2024-05-14",
+    description: 'Actual delivery date',
+    example: '2024-05-14',
   })
   @IsOptional()
   @IsDateString()
   actual_delivery_date?: string;
 
   @ApiPropertyOptional({
-    description: "Payment means",
+    description: 'Payment means',
     type: [PaymentMeansDto],
   })
   @IsOptional()
@@ -634,8 +638,8 @@ export class UpdateInvoiceDto {
   payment_means?: PaymentMeansDto[];
 
   @ApiPropertyOptional({
-    description: "Payment terms note",
-    example: "dummy payment terms note (will be encrypted in storage)",
+    description: 'Payment terms note',
+    example: 'dummy payment terms note (will be encrypted in storage)',
   })
   @IsOptional()
   @IsString()
@@ -643,7 +647,7 @@ export class UpdateInvoiceDto {
   payment_terms_note?: string;
 
   @ApiPropertyOptional({
-    description: "Allowance charges",
+    description: 'Allowance charges',
     type: [AllowanceChargeDto],
   })
   @IsOptional()
@@ -653,7 +657,7 @@ export class UpdateInvoiceDto {
   allowance_charge?: AllowanceChargeDto[];
 
   @ApiPropertyOptional({
-    description: "Tax totals",
+    description: 'Tax totals',
     type: [TaxTotalDto],
   })
   @IsOptional()
@@ -663,7 +667,7 @@ export class UpdateInvoiceDto {
   tax_total?: TaxTotalDto[];
 
   @ApiPropertyOptional({
-    description: "Legal monetary total",
+    description: 'Legal monetary total',
     type: LegalMonetaryTotalDto,
   })
   @IsOptional()
@@ -672,7 +676,7 @@ export class UpdateInvoiceDto {
   legal_monetary_total?: LegalMonetaryTotalDto;
 
   @ApiPropertyOptional({
-    description: "Invoice lines",
+    description: 'Invoice lines',
     type: [InvoiceLineDto],
   })
   @IsOptional()

@@ -8,8 +8,8 @@ export interface ProxyResult {
 }
 
 @Injectable()
-export class ClientsService {
-  private readonly logger = new Logger(ClientsService.name);
+export class TenantsService {
+  private readonly logger = new Logger(TenantsService.name);
   constructor(
     private readonly prisma: PrismaService,
     private readonly invoiceService: InvoiceService,
@@ -18,20 +18,20 @@ export class ClientsService {
   async createOrRotateKeys(
     userId: number,
   ): Promise<{ apiKey: string; apiSecret: string }> {
-    await this.ensureClient(userId);
+    await this.ensureTenant(userId);
     const apiKey = this.generateToken();
     const apiSecret = this.generateToken();
 
-    const existing = await (this.prisma as any).clientApiCredential.findUnique({
+    const existing = await (this.prisma as any).tenantApiCredential.findUnique({
       where: { userId },
     });
     if (existing) {
-      await (this.prisma as any).clientApiCredential.update({
+      await (this.prisma as any).tenantApiCredential.update({
         where: { userId },
         data: { apiKey, apiSecret, isActive: true },
       });
     } else {
-      await (this.prisma as any).clientApiCredential.create({
+      await (this.prisma as any).tenantApiCredential.create({
         data: { userId, apiKey, apiSecret },
       });
     }
@@ -41,8 +41,8 @@ export class ClientsService {
   async getKeys(
     userId: number,
   ): Promise<{ apiKey: string; apiSecret: string } | null> {
-    await this.ensureClient(userId);
-    const cred = await (this.prisma as any).clientApiCredential.findUnique({
+    await this.ensureTenant(userId);
+    const cred = await (this.prisma as any).tenantApiCredential.findUnique({
       where: { userId },
     });
     if (!cred) return null;
@@ -55,13 +55,13 @@ export class ClientsService {
   ): Promise<ProxyResult> {
     const endpoint = "/api/v1/invoice/validate";
     try {
-      this.logger.log(`Client validate invoice request`);
+      this.logger.log(`Tenant validate invoice request`);
       const result = await this.invoiceService.validateInvoice(payload);
       await this.saveLog(userId, "POST", endpoint, payload, 200, result);
-      this.logger.log(`Client validate invoice success`);
+      this.logger.log(`Tenant validate invoice success`);
       return { ok: true, data: result };
     } catch (error: any) {
-      this.logger.error(`Client validate invoice failed`, error.stack);
+      this.logger.error(`Tenant validate invoice failed`, error.stack);
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
@@ -72,13 +72,13 @@ export class ClientsService {
   async proxySignInvoice(userId: number, payload: any): Promise<ProxyResult> {
     const endpoint = "/api/v1/invoice/sign";
     try {
-      this.logger.log(`Client sign invoice request`);
+      this.logger.log(`Tenant sign invoice request`);
       const result = await this.invoiceService.signInvoice(payload);
       await this.saveLog(userId, "POST", endpoint, payload, 200, result);
-      this.logger.log(`Client sign invoice success`);
+      this.logger.log(`Tenant sign invoice success`);
       return { ok: true, data: result };
     } catch (error: any) {
-      this.logger.error(`Client sign invoice failed`, error.stack);
+      this.logger.error(`Tenant sign invoice failed`, error.stack);
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
@@ -89,14 +89,14 @@ export class ClientsService {
   async proxyConfirmInvoice(userId: number, irn: string): Promise<ProxyResult> {
     const endpoint = `/api/v1/invoice/confirm/${irn}`;
     try {
-      this.logger.log(`Client confirm invoice request for IRN: ${irn}`);
+      this.logger.log(`Tenant confirm invoice request for IRN: ${irn}`);
       const result = await this.invoiceService.getInvoiceConfirmation(irn);
       await this.saveLog(userId, "GET", endpoint, undefined, 200, result);
-      this.logger.log(`Client confirm invoice success for IRN: ${irn}`);
+      this.logger.log(`Tenant confirm invoice success for IRN: ${irn}`);
       return { ok: true, data: result };
     } catch (error: any) {
       this.logger.error(
-        `Client confirm invoice failed for IRN: ${irn}`,
+        `Tenant confirm invoice failed for IRN: ${irn}`,
         error.stack,
       );
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
@@ -109,13 +109,13 @@ export class ClientsService {
   async proxyValidateIrn(userId: number, payload: any): Promise<ProxyResult> {
     const endpoint = "/api/v1/invoice/irn/validate";
     try {
-      this.logger.log(`Client validate IRN request`);
+      this.logger.log(`Tenant validate IRN request`);
       const result = await this.invoiceService.validateIrn(payload);
       await this.saveLog(userId, "POST", endpoint, payload, 200, result);
-      this.logger.log(`Client validate IRN success`);
+      this.logger.log(`Tenant validate IRN success`);
       return { ok: true, data: result };
     } catch (error: any) {
-      this.logger.error(`Client validate IRN failed`, error.stack);
+      this.logger.error(`Tenant validate IRN failed`, error.stack);
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
@@ -126,14 +126,14 @@ export class ClientsService {
   async proxyTransmitSelfHealthCheck(userId: number): Promise<ProxyResult> {
     const endpoint = "/api/v1/invoice/transmit/self-health-check";
     try {
-      this.logger.log("Client transmit self health check request");
+      this.logger.log("Tenant transmit self health check request");
       const result = await this.invoiceService.transmitSelfHealthCheck();
       await this.saveLog(userId, "GET", endpoint, undefined, 200, result);
-      this.logger.log("Client transmit self health check success");
+      this.logger.log("Tenant transmit self health check success");
       return { ok: true, data: result };
     } catch (error: any) {
       this.logger.error(
-        "Client transmit self health check failed",
+        "Tenant transmit self health check failed",
         error.stack,
       );
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
@@ -149,14 +149,14 @@ export class ClientsService {
   ): Promise<ProxyResult> {
     const endpoint = `/api/v1/invoice/transmit/lookup/${irn}`;
     try {
-      this.logger.log(`Client transmit lookup IRN request: ${irn}`);
+      this.logger.log(`Tenant transmit lookup IRN request: ${irn}`);
       const result = await this.invoiceService.transmitLookupIrn(irn);
       await this.saveLog(userId, "GET", endpoint, undefined, 200, result);
-      this.logger.log(`Client transmit lookup IRN success: ${irn}`);
+      this.logger.log(`Tenant transmit lookup IRN success: ${irn}`);
       return { ok: true, data: result };
     } catch (error: any) {
       this.logger.error(
-        `Client transmit lookup IRN failed: ${irn}`,
+        `Tenant transmit lookup IRN failed: ${irn}`,
         error.stack,
       );
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
@@ -172,14 +172,14 @@ export class ClientsService {
   ): Promise<ProxyResult> {
     const endpoint = `/api/v1/invoice/transmit/lookup/tin/${tin}`;
     try {
-      this.logger.log(`Client transmit lookup TIN request: ${tin}`);
+      this.logger.log(`Tenant transmit lookup TIN request: ${tin}`);
       const result = await this.invoiceService.transmitLookupTin(tin);
       await this.saveLog(userId, "GET", endpoint, undefined, 200, result);
-      this.logger.log(`Client transmit lookup TIN success: ${tin}`);
+      this.logger.log(`Tenant transmit lookup TIN success: ${tin}`);
       return { ok: true, data: result };
     } catch (error: any) {
       this.logger.error(
-        `Client transmit lookup TIN failed: ${tin}`,
+        `Tenant transmit lookup TIN failed: ${tin}`,
         error.stack,
       );
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
@@ -195,13 +195,13 @@ export class ClientsService {
   ): Promise<ProxyResult> {
     const endpoint = `/api/v1/invoice/transmit/${irn}`;
     try {
-      this.logger.log(`Client transmit invoice request: ${irn}`);
+      this.logger.log(`Tenant transmit invoice request: ${irn}`);
       const result = await this.invoiceService.transmitInvoice(irn);
       await this.saveLog(userId, "POST", endpoint, undefined, 200, result);
-      this.logger.log(`Client transmit invoice success: ${irn}`);
+      this.logger.log(`Tenant transmit invoice success: ${irn}`);
       return { ok: true, data: result };
     } catch (error: any) {
-      this.logger.error(`Client transmit invoice failed: ${irn}`, error.stack);
+      this.logger.error(`Tenant transmit invoice failed: ${irn}`, error.stack);
       await this.saveLog(userId, "POST", endpoint, undefined, 500, {
         message: error.message,
       });
@@ -215,14 +215,14 @@ export class ClientsService {
   ): Promise<ProxyResult> {
     const endpoint = `/api/v1/invoice/transmit/${irn}`;
     try {
-      this.logger.log(`Client transmit confirm receipt request: ${irn}`);
+      this.logger.log(`Tenant transmit confirm receipt request: ${irn}`);
       const result = await this.invoiceService.transmitConfirmReceipt(irn);
       await this.saveLog(userId, "PATCH", endpoint, undefined, 200, result);
-      this.logger.log(`Client transmit confirm receipt success: ${irn}`);
+      this.logger.log(`Tenant transmit confirm receipt success: ${irn}`);
       return { ok: true, data: result };
     } catch (error: any) {
       this.logger.error(
-        `Client transmit confirm receipt failed: ${irn}`,
+        `Tenant transmit confirm receipt failed: ${irn}`,
         error.stack,
       );
       await this.saveLog(userId, "PATCH", endpoint, undefined, 500, {
@@ -235,13 +235,13 @@ export class ClientsService {
   async proxyTransmitPullInvoice(userId: number): Promise<ProxyResult> {
     const endpoint = "/api/v1/invoice/transmit/pull";
     try {
-      this.logger.log("Client transmit pull invoice request");
+      this.logger.log("Tenant transmit pull invoice request");
       const result = await this.invoiceService.transmitPullInvoice();
       await this.saveLog(userId, "GET", endpoint, undefined, 200, result);
-      this.logger.log("Client transmit pull invoice success");
+      this.logger.log("Tenant transmit pull invoice success");
       return { ok: true, data: result };
     } catch (error: any) {
-      this.logger.error("Client transmit pull invoice failed", error.stack);
+      this.logger.error("Tenant transmit pull invoice failed", error.stack);
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
@@ -250,16 +250,16 @@ export class ClientsService {
   }
 
   async getLogs(userId: number, page: number = 1, limit: number = 10) {
-    await this.ensureClient(userId);
+    await this.ensureTenant(userId);
     const skip = (page - 1) * limit;
     const [logs, total] = await Promise.all([
-      (this.prisma as any).clientApiLog.findMany({
+      (this.prisma as any).tenantApiLog.findMany({
         where: { userId },
         orderBy: { createdAt: "desc" },
         skip,
         take: limit,
       }),
-      (this.prisma as any).clientApiLog.count({ where: { userId } }),
+      (this.prisma as any).tenantApiLog.count({ where: { userId } }),
     ]);
     return { logs, total, page, limit };
   }
@@ -272,7 +272,7 @@ export class ClientsService {
     responseStatus: number,
     responseBody: any,
   ): Promise<void> {
-    await (this.prisma as any).clientApiLog.create({
+    await (this.prisma as any).tenantApiLog.create({
       data: {
         userId,
         method,
@@ -284,10 +284,10 @@ export class ClientsService {
     });
   }
 
-  private async ensureClient(userId: number): Promise<void> {
+  private async ensureTenant(userId: number): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!user || (user as any).role !== "CLIENT") {
-      throw new ForbiddenException("Only clients may access this resource");
+    if (!user || (user as any).role !== "TENANT") {
+      throw new ForbiddenException("Only tenants may access this resource");
     }
   }
 

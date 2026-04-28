@@ -13,24 +13,24 @@ export class ApiKeyAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const apiKey: string | undefined = request.headers["x-client-key"];
-    const apiSecret: string | undefined = request.headers["x-client-secret"];
+    const apiKey: string | undefined = request.headers["x-tenant-key"];
+    const apiSecret: string | undefined = request.headers["x-tenant-secret"];
 
     if (!apiKey || !apiSecret) {
-      throw new UnauthorizedException("Missing client API credentials");
+      throw new UnauthorizedException("Missing tenant API credentials");
     }
 
-    const cred = await this.prisma.clientApiCredential.findFirst({
+    const cred = await this.prisma.tenantApiCredential.findFirst({
       where: { apiKey, apiSecret, isActive: true },
       include: { user: true },
     });
 
     if (!cred) {
-      throw new UnauthorizedException("Invalid client API credentials");
+      throw new UnauthorizedException("Invalid tenant API credentials");
     }
 
-    if (cred.user.role !== "CLIENT") {
-      throw new ForbiddenException("Only clients may access this resource");
+    if (cred.user.role !== "TENANT") {
+      throw new ForbiddenException("Only tenants may access this resource");
     }
 
     request.user = { id: cred.userId };

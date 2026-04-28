@@ -13,19 +13,19 @@ import {
   ValidationPipe,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { ClientsService } from "./clients.service";
+import { TenantsService } from "./tenants.service";
 import { ApiKeyAuthGuard } from "./security/api-key-auth.guard";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
 import { ValidateInvoiceDto, ValidateIrnDto } from "./dtos";
 import { CurrentUser, Public } from "src/common/decorators";
 
-@ApiTags("Clients")
-@Controller("api/v1/clients")
+@ApiTags("Tenants")
+@Controller("api/v1/tenants")
 @UseGuards(JwtAuthGuard)
-export class ClientsController {
-  constructor(private readonly clientsService: ClientsService) {}
+export class TenantsController {
+  constructor(private readonly tenantsService: TenantsService) {}
 
-  // Client APIs via API Key/Secret headers
+  // Tenant APIs via API Key/Secret headers
   @Post("invoice/validate")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -37,7 +37,7 @@ export class ClientsController {
     @CurrentUser() req: any,
   ) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyValidateInvoice(
+    const result = await this.tenantsService.proxyValidateInvoice(
       userId,
       payload,
     );
@@ -53,7 +53,7 @@ export class ClientsController {
     @CurrentUser() req: any,
   ) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxySignInvoice(userId, payload);
+    const result = await this.tenantsService.proxySignInvoice(userId, payload);
     return result.data ?? { ok: true };
   }
 
@@ -62,11 +62,11 @@ export class ClientsController {
   @UseGuards(ApiKeyAuthGuard)
   async confirmInvoice(@Param("irn") irn: string, @CurrentUser() req: any) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyConfirmInvoice(userId, irn);
+    const result = await this.tenantsService.proxyConfirmInvoice(userId, irn);
     return result.data;
   }
 
-  // --- Exchange E-Invoice Transmit APIs (Client) ---
+  // --- Exchange E-Invoice Transmit APIs (Tenant) ---
 
   @Get("invoice/transmit/self-health-check")
   @HttpCode(HttpStatus.OK)
@@ -74,7 +74,7 @@ export class ClientsController {
   async transmitSelfHealthCheck(@CurrentUser() req: any) {
     const userId: number = req.id;
     const result =
-      await this.clientsService.proxyTransmitSelfHealthCheck(userId);
+      await this.tenantsService.proxyTransmitSelfHealthCheck(userId);
     return result.data;
   }
 
@@ -83,7 +83,7 @@ export class ClientsController {
   @UseGuards(ApiKeyAuthGuard)
   async transmitLookupTin(@Param("tin") tin: string, @CurrentUser() req: any) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyTransmitLookupTin(
+    const result = await this.tenantsService.proxyTransmitLookupTin(
       userId,
       tin,
     );
@@ -95,7 +95,7 @@ export class ClientsController {
   @UseGuards(ApiKeyAuthGuard)
   async transmitLookupIrn(@Param("irn") irn: string, @CurrentUser() req: any) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyTransmitLookupIrn(
+    const result = await this.tenantsService.proxyTransmitLookupIrn(
       userId,
       irn,
     );
@@ -107,7 +107,7 @@ export class ClientsController {
   @UseGuards(ApiKeyAuthGuard)
   async transmitPullInvoice(@CurrentUser() req: any) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyTransmitPullInvoice(userId);
+    const result = await this.tenantsService.proxyTransmitPullInvoice(userId);
     return result.data;
   }
 
@@ -116,7 +116,7 @@ export class ClientsController {
   @UseGuards(ApiKeyAuthGuard)
   async transmitInvoice(@Param("irn") irn: string, @CurrentUser() req: any) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyTransmitInvoice(userId, irn);
+    const result = await this.tenantsService.proxyTransmitInvoice(userId, irn);
     return result.data;
   }
 
@@ -128,7 +128,7 @@ export class ClientsController {
     @CurrentUser() req: any,
   ) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyTransmitConfirmReceipt(
+    const result = await this.tenantsService.proxyTransmitConfirmReceipt(
       userId,
       irn,
     );
@@ -141,18 +141,18 @@ export class ClientsController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async validateIrn(@Body() payload: ValidateIrnDto, @CurrentUser() req: any) {
     const userId: number = req.id;
-    const result = await this.clientsService.proxyValidateIrn(userId, payload);
+    const result = await this.tenantsService.proxyValidateIrn(userId, payload);
     return result.data ?? { ok: true };
   }
 
-  // Key management (JWT, role must be CLIENT handled at business layer)
+  // Key management (JWT, role must be TENANT handled at business layer)
   @Post("keys")
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(JwtAuthGuard)
   async createOrRotateKeys(@CurrentUser() req: any) {
     const userId: number = req.id;
     // Optionally verify role from Users table
-    const keys = await this.clientsService.createOrRotateKeys(userId);
+    const keys = await this.tenantsService.createOrRotateKeys(userId);
     return keys;
   }
 
@@ -161,7 +161,7 @@ export class ClientsController {
   @UseGuards(JwtAuthGuard)
   async getKeys(@CurrentUser() req: any) {
     const userId: number = req.id;
-    const keys = await this.clientsService.getKeys(userId);
+    const keys = await this.tenantsService.getKeys(userId);
     return keys;
   }
 
@@ -174,7 +174,7 @@ export class ClientsController {
     @CurrentUser() req: any,
   ) {
     const userId: number = req.id;
-    const result = await this.clientsService.getLogs(
+    const result = await this.tenantsService.getLogs(
       userId,
       Number(page) || 1,
       Number(limit) || 10,
