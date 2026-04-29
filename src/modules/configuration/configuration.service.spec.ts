@@ -37,14 +37,14 @@ describe("ConfigurationService", () => {
   describe("constructor", () => {
     it("should throw error if FIRS_API_URL is not configured", () => {
       mockConfigService.get.mockReturnValue(undefined);
-      expect(() => new ConfigurationService(configService)).toThrow(
-        "FIRS_API_URL environment variable is not configured",
+      expect(() => new ConfigurationService(configService, {} as any)).toThrow(
+        "FIRS API credentials are not set in environment variables",
       );
     });
 
     it("should initialize successfully with FIRS_API_URL", () => {
       mockConfigService.get.mockReturnValue("https://api.firs.gov.ng");
-      expect(() => new ConfigurationService(configService)).not.toThrow();
+      expect(() => new ConfigurationService(configService, {} as any)).not.toThrow();
     });
   });
 

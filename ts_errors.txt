@@ -1,0 +1,18 @@
+src/modules/configuration/configuration.service.spec.ts(40,20): error TS2554: Expected 2 arguments, but got 1.
+src/modules/configuration/configuration.service.spec.ts(47,20): error TS2554: Expected 2 arguments, but got 1.
+src/modules/invoice/invoice.service.ts(1060,11): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/modules/invoice/invoice.service.ts(1073,11): error TS2322: Type '{ create: { partyName: string; tin: string; email: string; telephone: string | undefined; businessDescription: string | undefined; postalAddress: { create: { streetName: string; cityName: string; postalZone: string; country: string | undefined; }; }; }; }' is not assignable to type 'AccountingSupplierPartyUncheckedCreateNestedOneWithoutInvoiceInput | AccountingSupplierPartyCreateNestedOneWithoutInvoiceInput | undefined'.
+  Types of property 'create' are incompatible.
+    Type '{ partyName: string; tin: string; email: string; telephone: string | undefined; businessDescription: string | undefined; postalAddress: { create: { streetName: string; cityName: string; postalZone: string; country: string | undefined; }; }; }' is not assignable to type '(Without<AccountingSupplierPartyCreateWithoutInvoiceInput, AccountingSupplierPartyUncheckedCreateWithoutInvoiceInput> & AccountingSupplierPartyUncheckedCreateWithoutInvoiceInput) | (Without<...> & AccountingSupplierPartyCreateWithoutInvoiceInput) | undefined'.
+      Types of property 'postalAddress' are incompatible.
+        Type '{ create: { streetName: string; cityName: string; postalZone: string; country: string | undefined; }; }' is not assignable to type 'PostalAddressUncheckedCreateNestedOneWithoutSupplierPartyInput | PostalAddressCreateNestedOneWithoutSupplierPartyInput | undefined'.
+          Types of property 'create' are incompatible.
+            Type '{ streetName: string; cityName: string; postalZone: string; country: string | undefined; }' is not assignable to type '(Without<PostalAddressCreateWithoutSupplierPartyInput, PostalAddressUncheckedCreateWithoutSupplierPartyInput> & PostalAddressUncheckedCreateWithoutSupplierPartyInput) | (Without<...> & PostalAddressCreateWithoutSupplierPartyInput) | undefined'.
+              Type '{ streetName: string; cityName: string; postalZone: string; country: string | undefined; }' is not assignable to type 'Without<PostalAddressUncheckedCreateWithoutSupplierPartyInput, PostalAddressCreateWithoutSupplierPartyInput> & PostalAddressCreateWithoutSupplierPartyInput'.
+                Type '{ streetName: string; cityName: string; postalZone: string; country: string | undefined; }' is not assignable to type 'PostalAddressCreateWithoutSupplierPartyInput'.
+                  Types of property 'country' are incompatible.
+                    Type 'string | undefined' is not assignable to type 'string'.
+                      Type 'undefined' is not assignable to type 'string'.
+src/modules/invoice/invoice.service.ts(1106,19): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.

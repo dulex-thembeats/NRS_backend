@@ -88,31 +88,31 @@ export class DashboardService {
       validateIrnCalls,
       apiCredential,
     ] = await Promise.all([
-      (this.prisma as any).clientApiLog.count({ where: { userId } }),
-      (this.prisma as any).clientApiLog.count({
+      (this.prisma as any).tenantApiLog.count({ where: { userId } }),
+      (this.prisma as any).tenantApiLog.count({
         where: { userId, responseStatus: { gte: 200, lt: 300 } },
       }),
-      (this.prisma as any).clientApiLog.count({
+      (this.prisma as any).tenantApiLog.count({
         where: { userId, responseStatus: { gte: 400 } },
       }),
-      (this.prisma as any).clientApiLog.count({
+      (this.prisma as any).tenantApiLog.count({
         where: { userId, endpoint: "/api/v1/invoice/validate" },
       }),
-      (this.prisma as any).clientApiLog.count({
+      (this.prisma as any).tenantApiLog.count({
         where: { userId, endpoint: "/api/v1/invoice/sign" },
       }),
-      (this.prisma as any).clientApiLog.count({
+      (this.prisma as any).tenantApiLog.count({
         where: { userId, endpoint: { contains: "/api/v1/invoice/confirm/" } },
       }),
-      (this.prisma as any).clientApiLog.count({
+      (this.prisma as any).tenantApiLog.count({
         where: { userId, endpoint: "/api/v1/invoice/irn/validate" },
       }),
-      (this.prisma as any).clientApiCredential.findUnique({
+      (this.prisma as any).tenantApiCredential.findUnique({
         where: { userId },
       }),
     ]);
 
-    const lastApiCall = await (this.prisma as any).clientApiLog.findFirst({
+    const lastApiCall = await (this.prisma as any).tenantApiLog.findFirst({
       where: { userId },
       orderBy: { createdAt: "desc" },
       select: { createdAt: true },
@@ -137,9 +137,9 @@ export class DashboardService {
     const [totalUsers, totalClients, totalInvoices, totalApiCalls] =
       await Promise.all([
         this.prisma.user.count(),
-        this.prisma.user.count({ where: { role: "CLIENT" } }),
+        this.prisma.user.count({ where: { role: "TENANT" } }),
         this.prisma.invoice.count(),
-        (this.prisma as any).clientApiLog.count(),
+        (this.prisma as any).tenantApiLog.count(),
       ]);
 
     const recentUsers = await this.prisma.user.findMany({
@@ -155,7 +155,7 @@ export class DashboardService {
       },
     });
 
-    const recentApiCalls = await (this.prisma as any).clientApiLog.findMany({
+    const recentApiCalls = await (this.prisma as any).tenantApiLog.findMany({
       take: 10,
       orderBy: { createdAt: "desc" },
       include: {

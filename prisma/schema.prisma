@@ -17,7 +17,7 @@ datasource db {
 enum Role {
   USER
   ADMIN
-  CLIENT
+  TENANT
 }
 
 model User {
@@ -43,8 +43,8 @@ model User {
   invoices                     Invoice[]
   directors                    Director[]
   entity                       Entity?
-  clientApiLog                 ClientApiLog[]
-  clientApiCredential          ClientApiCredential?
+  tenantApiLog                 TenantApiLog[]
+  tenantApiCredential          TenantApiCredential?
   systemIntegratorFirsSettings SystemIntegratorFirsSettings?
 
   @@map("users")
@@ -379,7 +379,7 @@ model Business {
   @@map("businesses")
 }
 
-model ClientApiCredential {
+model TenantApiCredential {
   id        Int      @id @default(autoincrement())
   userId    Int      @unique
   apiKey    String
@@ -390,10 +390,10 @@ model ClientApiCredential {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("client_api_credentials")
+  @@map("tenant_api_credentials")
 }
 
-model ClientApiLog {
+model TenantApiLog {
   id             Int      @id @default(autoincrement())
   userId         Int
   method         String
@@ -405,7 +405,7 @@ model ClientApiLog {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("client_api_logs")
+  @@map("tenant_api_logs")
 }
 
 model ConfigurationInvoiceType {

@@ -139,15 +139,15 @@ export type Entity = $Result.DefaultSelection<Prisma.$EntityPayload>
  */
 export type Business = $Result.DefaultSelection<Prisma.$BusinessPayload>
 /**
- * Model ClientApiCredential
+ * Model TenantApiCredential
  * 
  */
-export type ClientApiCredential = $Result.DefaultSelection<Prisma.$ClientApiCredentialPayload>
+export type TenantApiCredential = $Result.DefaultSelection<Prisma.$TenantApiCredentialPayload>
 /**
- * Model ClientApiLog
+ * Model TenantApiLog
  * 
  */
-export type ClientApiLog = $Result.DefaultSelection<Prisma.$ClientApiLogPayload>
+export type TenantApiLog = $Result.DefaultSelection<Prisma.$TenantApiLogPayload>
 /**
  * Model ConfigurationInvoiceType
  * 
@@ -206,7 +206,7 @@ export namespace $Enums {
   export const Role: {
   USER: 'USER',
   ADMIN: 'ADMIN',
-  CLIENT: 'CLIENT'
+  TENANT: 'TENANT'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -593,24 +593,24 @@ export class PrismaClient<
   get business(): Prisma.BusinessDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.clientApiCredential`: Exposes CRUD operations for the **ClientApiCredential** model.
+   * `prisma.tenantApiCredential`: Exposes CRUD operations for the **TenantApiCredential** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ClientApiCredentials
-    * const clientApiCredentials = await prisma.clientApiCredential.findMany()
+    * // Fetch zero or more TenantApiCredentials
+    * const tenantApiCredentials = await prisma.tenantApiCredential.findMany()
     * ```
     */
-  get clientApiCredential(): Prisma.ClientApiCredentialDelegate<ExtArgs, ClientOptions>;
+  get tenantApiCredential(): Prisma.TenantApiCredentialDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.clientApiLog`: Exposes CRUD operations for the **ClientApiLog** model.
+   * `prisma.tenantApiLog`: Exposes CRUD operations for the **TenantApiLog** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ClientApiLogs
-    * const clientApiLogs = await prisma.clientApiLog.findMany()
+    * // Fetch zero or more TenantApiLogs
+    * const tenantApiLogs = await prisma.tenantApiLog.findMany()
     * ```
     */
-  get clientApiLog(): Prisma.ClientApiLogDelegate<ExtArgs, ClientOptions>;
+  get tenantApiLog(): Prisma.TenantApiLogDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.configurationInvoiceType`: Exposes CRUD operations for the **ConfigurationInvoiceType** model.
@@ -1176,8 +1176,8 @@ export namespace Prisma {
     WebhookEvent: 'WebhookEvent',
     Entity: 'Entity',
     Business: 'Business',
-    ClientApiCredential: 'ClientApiCredential',
-    ClientApiLog: 'ClientApiLog',
+    TenantApiCredential: 'TenantApiCredential',
+    TenantApiLog: 'TenantApiLog',
     ConfigurationInvoiceType: 'ConfigurationInvoiceType',
     ConfigurationPaymentMean: 'ConfigurationPaymentMean',
     ConfigurationTaxCategory: 'ConfigurationTaxCategory',
@@ -1206,7 +1206,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "director" | "invoice" | "invoiceDeliveryPeriod" | "accountingSupplierParty" | "accountingCustomerParty" | "postalAddress" | "billingReference" | "documentReference" | "dispatchDocumentReference" | "receiptDocumentReference" | "originatorDocumentReference" | "contractDocumentReference" | "paymentMeans" | "allowanceCharge" | "taxTotal" | "taxSubtotal" | "taxCategory" | "legalMonetaryTotal" | "invoiceLine" | "item" | "price" | "webhookEvent" | "entity" | "business" | "clientApiCredential" | "clientApiLog" | "configurationInvoiceType" | "configurationPaymentMean" | "configurationTaxCategory" | "configurationCurrency" | "configurationVatExemption" | "configurationProductCode" | "configurationServiceCode" | "configurationLocalGovernment" | "configurationState" | "systemIntegratorFirsSettings"
+      modelProps: "user" | "director" | "invoice" | "invoiceDeliveryPeriod" | "accountingSupplierParty" | "accountingCustomerParty" | "postalAddress" | "billingReference" | "documentReference" | "dispatchDocumentReference" | "receiptDocumentReference" | "originatorDocumentReference" | "contractDocumentReference" | "paymentMeans" | "allowanceCharge" | "taxTotal" | "taxSubtotal" | "taxCategory" | "legalMonetaryTotal" | "invoiceLine" | "item" | "price" | "webhookEvent" | "entity" | "business" | "tenantApiCredential" | "tenantApiLog" | "configurationInvoiceType" | "configurationPaymentMean" | "configurationTaxCategory" | "configurationCurrency" | "configurationVatExemption" | "configurationProductCode" | "configurationServiceCode" | "configurationLocalGovernment" | "configurationState" | "systemIntegratorFirsSettings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3060,151 +3060,151 @@ export namespace Prisma {
           }
         }
       }
-      ClientApiCredential: {
-        payload: Prisma.$ClientApiCredentialPayload<ExtArgs>
-        fields: Prisma.ClientApiCredentialFieldRefs
+      TenantApiCredential: {
+        payload: Prisma.$TenantApiCredentialPayload<ExtArgs>
+        fields: Prisma.TenantApiCredentialFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ClientApiCredentialFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload> | null
+            args: Prisma.TenantApiCredentialFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ClientApiCredentialFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
+            args: Prisma.TenantApiCredentialFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>
           }
           findFirst: {
-            args: Prisma.ClientApiCredentialFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload> | null
+            args: Prisma.TenantApiCredentialFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ClientApiCredentialFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
+            args: Prisma.TenantApiCredentialFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>
           }
           findMany: {
-            args: Prisma.ClientApiCredentialFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>[]
+            args: Prisma.TenantApiCredentialFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>[]
           }
           create: {
-            args: Prisma.ClientApiCredentialCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
+            args: Prisma.TenantApiCredentialCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>
           }
           createMany: {
-            args: Prisma.ClientApiCredentialCreateManyArgs<ExtArgs>
+            args: Prisma.TenantApiCredentialCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.ClientApiCredentialCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>[]
+            args: Prisma.TenantApiCredentialCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>[]
           }
           delete: {
-            args: Prisma.ClientApiCredentialDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
+            args: Prisma.TenantApiCredentialDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>
           }
           update: {
-            args: Prisma.ClientApiCredentialUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
+            args: Prisma.TenantApiCredentialUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>
           }
           deleteMany: {
-            args: Prisma.ClientApiCredentialDeleteManyArgs<ExtArgs>
+            args: Prisma.TenantApiCredentialDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ClientApiCredentialUpdateManyArgs<ExtArgs>
+            args: Prisma.TenantApiCredentialUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.ClientApiCredentialUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>[]
+            args: Prisma.TenantApiCredentialUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>[]
           }
           upsert: {
-            args: Prisma.ClientApiCredentialUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiCredentialPayload>
+            args: Prisma.TenantApiCredentialUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiCredentialPayload>
           }
           aggregate: {
-            args: Prisma.ClientApiCredentialAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateClientApiCredential>
+            args: Prisma.TenantApiCredentialAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantApiCredential>
           }
           groupBy: {
-            args: Prisma.ClientApiCredentialGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ClientApiCredentialGroupByOutputType>[]
+            args: Prisma.TenantApiCredentialGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantApiCredentialGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ClientApiCredentialCountArgs<ExtArgs>
-            result: $Utils.Optional<ClientApiCredentialCountAggregateOutputType> | number
+            args: Prisma.TenantApiCredentialCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantApiCredentialCountAggregateOutputType> | number
           }
         }
       }
-      ClientApiLog: {
-        payload: Prisma.$ClientApiLogPayload<ExtArgs>
-        fields: Prisma.ClientApiLogFieldRefs
+      TenantApiLog: {
+        payload: Prisma.$TenantApiLogPayload<ExtArgs>
+        fields: Prisma.TenantApiLogFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ClientApiLogFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload> | null
+            args: Prisma.TenantApiLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ClientApiLogFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
+            args: Prisma.TenantApiLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>
           }
           findFirst: {
-            args: Prisma.ClientApiLogFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload> | null
+            args: Prisma.TenantApiLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ClientApiLogFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
+            args: Prisma.TenantApiLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>
           }
           findMany: {
-            args: Prisma.ClientApiLogFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>[]
+            args: Prisma.TenantApiLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>[]
           }
           create: {
-            args: Prisma.ClientApiLogCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
+            args: Prisma.TenantApiLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>
           }
           createMany: {
-            args: Prisma.ClientApiLogCreateManyArgs<ExtArgs>
+            args: Prisma.TenantApiLogCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.ClientApiLogCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>[]
+            args: Prisma.TenantApiLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>[]
           }
           delete: {
-            args: Prisma.ClientApiLogDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
+            args: Prisma.TenantApiLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>
           }
           update: {
-            args: Prisma.ClientApiLogUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
+            args: Prisma.TenantApiLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>
           }
           deleteMany: {
-            args: Prisma.ClientApiLogDeleteManyArgs<ExtArgs>
+            args: Prisma.TenantApiLogDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ClientApiLogUpdateManyArgs<ExtArgs>
+            args: Prisma.TenantApiLogUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.ClientApiLogUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>[]
+            args: Prisma.TenantApiLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>[]
           }
           upsert: {
-            args: Prisma.ClientApiLogUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClientApiLogPayload>
+            args: Prisma.TenantApiLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantApiLogPayload>
           }
           aggregate: {
-            args: Prisma.ClientApiLogAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateClientApiLog>
+            args: Prisma.TenantApiLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantApiLog>
           }
           groupBy: {
-            args: Prisma.ClientApiLogGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ClientApiLogGroupByOutputType>[]
+            args: Prisma.TenantApiLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantApiLogGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ClientApiLogCountArgs<ExtArgs>
-            result: $Utils.Optional<ClientApiLogCountAggregateOutputType> | number
+            args: Prisma.TenantApiLogCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantApiLogCountAggregateOutputType> | number
           }
         }
       }
@@ -4065,8 +4065,8 @@ export namespace Prisma {
     webhookEvent?: WebhookEventOmit
     entity?: EntityOmit
     business?: BusinessOmit
-    clientApiCredential?: ClientApiCredentialOmit
-    clientApiLog?: ClientApiLogOmit
+    tenantApiCredential?: TenantApiCredentialOmit
+    tenantApiLog?: TenantApiLogOmit
     configurationInvoiceType?: ConfigurationInvoiceTypeOmit
     configurationPaymentMean?: ConfigurationPaymentMeanOmit
     configurationTaxCategory?: ConfigurationTaxCategoryOmit
@@ -4178,13 +4178,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     invoices: number
     directors: number
-    clientApiLog: number
+    tenantApiLog: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoices?: boolean | UserCountOutputTypeCountInvoicesArgs
     directors?: boolean | UserCountOutputTypeCountDirectorsArgs
-    clientApiLog?: boolean | UserCountOutputTypeCountClientApiLogArgs
+    tenantApiLog?: boolean | UserCountOutputTypeCountTenantApiLogArgs
   }
 
   // Custom InputTypes
@@ -4215,8 +4215,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountClientApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClientApiLogWhereInput
+  export type UserCountOutputTypeCountTenantApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantApiLogWhereInput
   }
 
 
@@ -4643,8 +4643,8 @@ export namespace Prisma {
     invoices?: boolean | User$invoicesArgs<ExtArgs>
     directors?: boolean | User$directorsArgs<ExtArgs>
     entity?: boolean | User$entityArgs<ExtArgs>
-    clientApiLog?: boolean | User$clientApiLogArgs<ExtArgs>
-    clientApiCredential?: boolean | User$clientApiCredentialArgs<ExtArgs>
+    tenantApiLog?: boolean | User$tenantApiLogArgs<ExtArgs>
+    tenantApiCredential?: boolean | User$tenantApiCredentialArgs<ExtArgs>
     systemIntegratorFirsSettings?: boolean | User$systemIntegratorFirsSettingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -4708,8 +4708,8 @@ export namespace Prisma {
     invoices?: boolean | User$invoicesArgs<ExtArgs>
     directors?: boolean | User$directorsArgs<ExtArgs>
     entity?: boolean | User$entityArgs<ExtArgs>
-    clientApiLog?: boolean | User$clientApiLogArgs<ExtArgs>
-    clientApiCredential?: boolean | User$clientApiCredentialArgs<ExtArgs>
+    tenantApiLog?: boolean | User$tenantApiLogArgs<ExtArgs>
+    tenantApiCredential?: boolean | User$tenantApiCredentialArgs<ExtArgs>
     systemIntegratorFirsSettings?: boolean | User$systemIntegratorFirsSettingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4722,8 +4722,8 @@ export namespace Prisma {
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
       directors: Prisma.$DirectorPayload<ExtArgs>[]
       entity: Prisma.$EntityPayload<ExtArgs> | null
-      clientApiLog: Prisma.$ClientApiLogPayload<ExtArgs>[]
-      clientApiCredential: Prisma.$ClientApiCredentialPayload<ExtArgs> | null
+      tenantApiLog: Prisma.$TenantApiLogPayload<ExtArgs>[]
+      tenantApiCredential: Prisma.$TenantApiCredentialPayload<ExtArgs> | null
       systemIntegratorFirsSettings: Prisma.$SystemIntegratorFirsSettingsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5139,8 +5139,8 @@ export namespace Prisma {
     invoices<T extends User$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, User$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     directors<T extends User$directorsArgs<ExtArgs> = {}>(args?: Subset<T, User$directorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     entity<T extends User$entityArgs<ExtArgs> = {}>(args?: Subset<T, User$entityArgs<ExtArgs>>): Prisma__EntityClient<$Result.GetResult<Prisma.$EntityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    clientApiLog<T extends User$clientApiLogArgs<ExtArgs> = {}>(args?: Subset<T, User$clientApiLogArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    clientApiCredential<T extends User$clientApiCredentialArgs<ExtArgs> = {}>(args?: Subset<T, User$clientApiCredentialArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tenantApiLog<T extends User$tenantApiLogArgs<ExtArgs> = {}>(args?: Subset<T, User$tenantApiLogArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tenantApiCredential<T extends User$tenantApiCredentialArgs<ExtArgs> = {}>(args?: Subset<T, User$tenantApiCredentialArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     systemIntegratorFirsSettings<T extends User$systemIntegratorFirsSettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$systemIntegratorFirsSettingsArgs<ExtArgs>>): Prisma__SystemIntegratorFirsSettingsClient<$Result.GetResult<Prisma.$SystemIntegratorFirsSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5641,46 +5641,46 @@ export namespace Prisma {
   }
 
   /**
-   * User.clientApiLog
+   * User.tenantApiLog
    */
-  export type User$clientApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$tenantApiLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
-    where?: ClientApiLogWhereInput
-    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
-    cursor?: ClientApiLogWhereUniqueInput
+    include?: TenantApiLogInclude<ExtArgs> | null
+    where?: TenantApiLogWhereInput
+    orderBy?: TenantApiLogOrderByWithRelationInput | TenantApiLogOrderByWithRelationInput[]
+    cursor?: TenantApiLogWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
+    distinct?: TenantApiLogScalarFieldEnum | TenantApiLogScalarFieldEnum[]
   }
 
   /**
-   * User.clientApiCredential
+   * User.tenantApiCredential
    */
-  export type User$clientApiCredentialArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$tenantApiCredentialArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
-    where?: ClientApiCredentialWhereInput
+    include?: TenantApiCredentialInclude<ExtArgs> | null
+    where?: TenantApiCredentialWhereInput
   }
 
   /**
@@ -33088,38 +33088,28 @@ export namespace Prisma {
 
 
   /**
-   * Model ClientApiCredential
+   * Model TenantApiCredential
    */
 
-  export type AggregateClientApiCredential = {
-    _count: ClientApiCredentialCountAggregateOutputType | null
-    _avg: ClientApiCredentialAvgAggregateOutputType | null
-    _sum: ClientApiCredentialSumAggregateOutputType | null
-    _min: ClientApiCredentialMinAggregateOutputType | null
-    _max: ClientApiCredentialMaxAggregateOutputType | null
+  export type AggregateTenantApiCredential = {
+    _count: TenantApiCredentialCountAggregateOutputType | null
+    _avg: TenantApiCredentialAvgAggregateOutputType | null
+    _sum: TenantApiCredentialSumAggregateOutputType | null
+    _min: TenantApiCredentialMinAggregateOutputType | null
+    _max: TenantApiCredentialMaxAggregateOutputType | null
   }
 
-  export type ClientApiCredentialAvgAggregateOutputType = {
+  export type TenantApiCredentialAvgAggregateOutputType = {
     id: number | null
     userId: number | null
   }
 
-  export type ClientApiCredentialSumAggregateOutputType = {
+  export type TenantApiCredentialSumAggregateOutputType = {
     id: number | null
     userId: number | null
   }
 
-  export type ClientApiCredentialMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    apiKey: string | null
-    apiSecret: string | null
-    isActive: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type ClientApiCredentialMaxAggregateOutputType = {
+  export type TenantApiCredentialMinAggregateOutputType = {
     id: number | null
     userId: number | null
     apiKey: string | null
@@ -33129,7 +33119,17 @@ export namespace Prisma {
     updatedAt: Date | null
   }
 
-  export type ClientApiCredentialCountAggregateOutputType = {
+  export type TenantApiCredentialMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    apiKey: string | null
+    apiSecret: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantApiCredentialCountAggregateOutputType = {
     id: number
     userId: number
     apiKey: number
@@ -33141,27 +33141,17 @@ export namespace Prisma {
   }
 
 
-  export type ClientApiCredentialAvgAggregateInputType = {
+  export type TenantApiCredentialAvgAggregateInputType = {
     id?: true
     userId?: true
   }
 
-  export type ClientApiCredentialSumAggregateInputType = {
+  export type TenantApiCredentialSumAggregateInputType = {
     id?: true
     userId?: true
   }
 
-  export type ClientApiCredentialMinAggregateInputType = {
-    id?: true
-    userId?: true
-    apiKey?: true
-    apiSecret?: true
-    isActive?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type ClientApiCredentialMaxAggregateInputType = {
+  export type TenantApiCredentialMinAggregateInputType = {
     id?: true
     userId?: true
     apiKey?: true
@@ -33171,7 +33161,17 @@ export namespace Prisma {
     updatedAt?: true
   }
 
-  export type ClientApiCredentialCountAggregateInputType = {
+  export type TenantApiCredentialMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    apiKey?: true
+    apiSecret?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantApiCredentialCountAggregateInputType = {
     id?: true
     userId?: true
     apiKey?: true
@@ -33182,93 +33182,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ClientApiCredentialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ClientApiCredential to aggregate.
+     * Filter which TenantApiCredential to aggregate.
      */
-    where?: ClientApiCredentialWhereInput
+    where?: TenantApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiCredentials to fetch.
+     * Determine the order of TenantApiCredentials to fetch.
      */
-    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
+    orderBy?: TenantApiCredentialOrderByWithRelationInput | TenantApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ClientApiCredentialWhereUniqueInput
+    cursor?: TenantApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiCredentials from the position of the cursor.
+     * Take `±n` TenantApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiCredentials.
+     * Skip the first `n` TenantApiCredentials.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ClientApiCredentials
+     * Count returned TenantApiCredentials
     **/
-    _count?: true | ClientApiCredentialCountAggregateInputType
+    _count?: true | TenantApiCredentialCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ClientApiCredentialAvgAggregateInputType
+    _avg?: TenantApiCredentialAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ClientApiCredentialSumAggregateInputType
+    _sum?: TenantApiCredentialSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ClientApiCredentialMinAggregateInputType
+    _min?: TenantApiCredentialMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ClientApiCredentialMaxAggregateInputType
+    _max?: TenantApiCredentialMaxAggregateInputType
   }
 
-  export type GetClientApiCredentialAggregateType<T extends ClientApiCredentialAggregateArgs> = {
-        [P in keyof T & keyof AggregateClientApiCredential]: P extends '_count' | 'count'
+  export type GetTenantApiCredentialAggregateType<T extends TenantApiCredentialAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantApiCredential]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateClientApiCredential[P]>
-      : GetScalarType<T[P], AggregateClientApiCredential[P]>
+        : GetScalarType<T[P], AggregateTenantApiCredential[P]>
+      : GetScalarType<T[P], AggregateTenantApiCredential[P]>
   }
 
 
 
 
-  export type ClientApiCredentialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClientApiCredentialWhereInput
-    orderBy?: ClientApiCredentialOrderByWithAggregationInput | ClientApiCredentialOrderByWithAggregationInput[]
-    by: ClientApiCredentialScalarFieldEnum[] | ClientApiCredentialScalarFieldEnum
-    having?: ClientApiCredentialScalarWhereWithAggregatesInput
+  export type TenantApiCredentialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantApiCredentialWhereInput
+    orderBy?: TenantApiCredentialOrderByWithAggregationInput | TenantApiCredentialOrderByWithAggregationInput[]
+    by: TenantApiCredentialScalarFieldEnum[] | TenantApiCredentialScalarFieldEnum
+    having?: TenantApiCredentialScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ClientApiCredentialCountAggregateInputType | true
-    _avg?: ClientApiCredentialAvgAggregateInputType
-    _sum?: ClientApiCredentialSumAggregateInputType
-    _min?: ClientApiCredentialMinAggregateInputType
-    _max?: ClientApiCredentialMaxAggregateInputType
+    _count?: TenantApiCredentialCountAggregateInputType | true
+    _avg?: TenantApiCredentialAvgAggregateInputType
+    _sum?: TenantApiCredentialSumAggregateInputType
+    _min?: TenantApiCredentialMinAggregateInputType
+    _max?: TenantApiCredentialMaxAggregateInputType
   }
 
-  export type ClientApiCredentialGroupByOutputType = {
+  export type TenantApiCredentialGroupByOutputType = {
     id: number
     userId: number
     apiKey: string
@@ -33276,28 +33276,28 @@ export namespace Prisma {
     isActive: boolean
     createdAt: Date
     updatedAt: Date
-    _count: ClientApiCredentialCountAggregateOutputType | null
-    _avg: ClientApiCredentialAvgAggregateOutputType | null
-    _sum: ClientApiCredentialSumAggregateOutputType | null
-    _min: ClientApiCredentialMinAggregateOutputType | null
-    _max: ClientApiCredentialMaxAggregateOutputType | null
+    _count: TenantApiCredentialCountAggregateOutputType | null
+    _avg: TenantApiCredentialAvgAggregateOutputType | null
+    _sum: TenantApiCredentialSumAggregateOutputType | null
+    _min: TenantApiCredentialMinAggregateOutputType | null
+    _max: TenantApiCredentialMaxAggregateOutputType | null
   }
 
-  type GetClientApiCredentialGroupByPayload<T extends ClientApiCredentialGroupByArgs> = Prisma.PrismaPromise<
+  type GetTenantApiCredentialGroupByPayload<T extends TenantApiCredentialGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ClientApiCredentialGroupByOutputType, T['by']> &
+      PickEnumerable<TenantApiCredentialGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ClientApiCredentialGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof TenantApiCredentialGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ClientApiCredentialGroupByOutputType[P]>
-            : GetScalarType<T[P], ClientApiCredentialGroupByOutputType[P]>
+              : GetScalarType<T[P], TenantApiCredentialGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantApiCredentialGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ClientApiCredentialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TenantApiCredentialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33306,9 +33306,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["clientApiCredential"]>
+  }, ExtArgs["result"]["tenantApiCredential"]>
 
-  export type ClientApiCredentialSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TenantApiCredentialSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33317,9 +33317,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["clientApiCredential"]>
+  }, ExtArgs["result"]["tenantApiCredential"]>
 
-  export type ClientApiCredentialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TenantApiCredentialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33328,9 +33328,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["clientApiCredential"]>
+  }, ExtArgs["result"]["tenantApiCredential"]>
 
-  export type ClientApiCredentialSelectScalar = {
+  export type TenantApiCredentialSelectScalar = {
     id?: boolean
     userId?: boolean
     apiKey?: boolean
@@ -33340,19 +33340,19 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ClientApiCredentialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "apiKey" | "apiSecret" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["clientApiCredential"]>
-  export type ClientApiCredentialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "apiKey" | "apiSecret" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantApiCredential"]>
+  export type TenantApiCredentialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type ClientApiCredentialIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type ClientApiCredentialIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $ClientApiCredentialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ClientApiCredential"
+  export type $TenantApiCredentialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantApiCredential"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
     }
@@ -33364,136 +33364,136 @@ export namespace Prisma {
       isActive: boolean
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["clientApiCredential"]>
+    }, ExtArgs["result"]["tenantApiCredential"]>
     composites: {}
   }
 
-  type ClientApiCredentialGetPayload<S extends boolean | null | undefined | ClientApiCredentialDefaultArgs> = $Result.GetResult<Prisma.$ClientApiCredentialPayload, S>
+  type TenantApiCredentialGetPayload<S extends boolean | null | undefined | TenantApiCredentialDefaultArgs> = $Result.GetResult<Prisma.$TenantApiCredentialPayload, S>
 
-  type ClientApiCredentialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ClientApiCredentialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ClientApiCredentialCountAggregateInputType | true
+  type TenantApiCredentialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantApiCredentialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantApiCredentialCountAggregateInputType | true
     }
 
-  export interface ClientApiCredentialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClientApiCredential'], meta: { name: 'ClientApiCredential' } }
+  export interface TenantApiCredentialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantApiCredential'], meta: { name: 'TenantApiCredential' } }
     /**
-     * Find zero or one ClientApiCredential that matches the filter.
-     * @param {ClientApiCredentialFindUniqueArgs} args - Arguments to find a ClientApiCredential
+     * Find zero or one TenantApiCredential that matches the filter.
+     * @param {TenantApiCredentialFindUniqueArgs} args - Arguments to find a TenantApiCredential
      * @example
-     * // Get one ClientApiCredential
-     * const clientApiCredential = await prisma.clientApiCredential.findUnique({
+     * // Get one TenantApiCredential
+     * const tenantApiCredential = await prisma.tenantApiCredential.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ClientApiCredentialFindUniqueArgs>(args: SelectSubset<T, ClientApiCredentialFindUniqueArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends TenantApiCredentialFindUniqueArgs>(args: SelectSubset<T, TenantApiCredentialFindUniqueArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one ClientApiCredential that matches the filter or throw an error with `error.code='P2025'`
+     * Find one TenantApiCredential that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {ClientApiCredentialFindUniqueOrThrowArgs} args - Arguments to find a ClientApiCredential
+     * @param {TenantApiCredentialFindUniqueOrThrowArgs} args - Arguments to find a TenantApiCredential
      * @example
-     * // Get one ClientApiCredential
-     * const clientApiCredential = await prisma.clientApiCredential.findUniqueOrThrow({
+     * // Get one TenantApiCredential
+     * const tenantApiCredential = await prisma.tenantApiCredential.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ClientApiCredentialFindUniqueOrThrowArgs>(args: SelectSubset<T, ClientApiCredentialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends TenantApiCredentialFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantApiCredentialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first ClientApiCredential that matches the filter.
+     * Find the first TenantApiCredential that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiCredentialFindFirstArgs} args - Arguments to find a ClientApiCredential
+     * @param {TenantApiCredentialFindFirstArgs} args - Arguments to find a TenantApiCredential
      * @example
-     * // Get one ClientApiCredential
-     * const clientApiCredential = await prisma.clientApiCredential.findFirst({
+     * // Get one TenantApiCredential
+     * const tenantApiCredential = await prisma.tenantApiCredential.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ClientApiCredentialFindFirstArgs>(args?: SelectSubset<T, ClientApiCredentialFindFirstArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends TenantApiCredentialFindFirstArgs>(args?: SelectSubset<T, TenantApiCredentialFindFirstArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first ClientApiCredential that matches the filter or
+     * Find the first TenantApiCredential that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiCredentialFindFirstOrThrowArgs} args - Arguments to find a ClientApiCredential
+     * @param {TenantApiCredentialFindFirstOrThrowArgs} args - Arguments to find a TenantApiCredential
      * @example
-     * // Get one ClientApiCredential
-     * const clientApiCredential = await prisma.clientApiCredential.findFirstOrThrow({
+     * // Get one TenantApiCredential
+     * const tenantApiCredential = await prisma.tenantApiCredential.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ClientApiCredentialFindFirstOrThrowArgs>(args?: SelectSubset<T, ClientApiCredentialFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends TenantApiCredentialFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantApiCredentialFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more ClientApiCredentials that matches the filter.
+     * Find zero or more TenantApiCredentials that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiCredentialFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {TenantApiCredentialFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ClientApiCredentials
-     * const clientApiCredentials = await prisma.clientApiCredential.findMany()
+     * // Get all TenantApiCredentials
+     * const tenantApiCredentials = await prisma.tenantApiCredential.findMany()
      * 
-     * // Get first 10 ClientApiCredentials
-     * const clientApiCredentials = await prisma.clientApiCredential.findMany({ take: 10 })
+     * // Get first 10 TenantApiCredentials
+     * const tenantApiCredentials = await prisma.tenantApiCredential.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const clientApiCredentialWithIdOnly = await prisma.clientApiCredential.findMany({ select: { id: true } })
+     * const tenantApiCredentialWithIdOnly = await prisma.tenantApiCredential.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ClientApiCredentialFindManyArgs>(args?: SelectSubset<T, ClientApiCredentialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends TenantApiCredentialFindManyArgs>(args?: SelectSubset<T, TenantApiCredentialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a ClientApiCredential.
-     * @param {ClientApiCredentialCreateArgs} args - Arguments to create a ClientApiCredential.
+     * Create a TenantApiCredential.
+     * @param {TenantApiCredentialCreateArgs} args - Arguments to create a TenantApiCredential.
      * @example
-     * // Create one ClientApiCredential
-     * const ClientApiCredential = await prisma.clientApiCredential.create({
+     * // Create one TenantApiCredential
+     * const TenantApiCredential = await prisma.tenantApiCredential.create({
      *   data: {
-     *     // ... data to create a ClientApiCredential
+     *     // ... data to create a TenantApiCredential
      *   }
      * })
      * 
      */
-    create<T extends ClientApiCredentialCreateArgs>(args: SelectSubset<T, ClientApiCredentialCreateArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends TenantApiCredentialCreateArgs>(args: SelectSubset<T, TenantApiCredentialCreateArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many ClientApiCredentials.
-     * @param {ClientApiCredentialCreateManyArgs} args - Arguments to create many ClientApiCredentials.
+     * Create many TenantApiCredentials.
+     * @param {TenantApiCredentialCreateManyArgs} args - Arguments to create many TenantApiCredentials.
      * @example
-     * // Create many ClientApiCredentials
-     * const clientApiCredential = await prisma.clientApiCredential.createMany({
+     * // Create many TenantApiCredentials
+     * const tenantApiCredential = await prisma.tenantApiCredential.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ClientApiCredentialCreateManyArgs>(args?: SelectSubset<T, ClientApiCredentialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends TenantApiCredentialCreateManyArgs>(args?: SelectSubset<T, TenantApiCredentialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many ClientApiCredentials and returns the data saved in the database.
-     * @param {ClientApiCredentialCreateManyAndReturnArgs} args - Arguments to create many ClientApiCredentials.
+     * Create many TenantApiCredentials and returns the data saved in the database.
+     * @param {TenantApiCredentialCreateManyAndReturnArgs} args - Arguments to create many TenantApiCredentials.
      * @example
-     * // Create many ClientApiCredentials
-     * const clientApiCredential = await prisma.clientApiCredential.createManyAndReturn({
+     * // Create many TenantApiCredentials
+     * const tenantApiCredential = await prisma.tenantApiCredential.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many ClientApiCredentials and only return the `id`
-     * const clientApiCredentialWithIdOnly = await prisma.clientApiCredential.createManyAndReturn({
+     * // Create many TenantApiCredentials and only return the `id`
+     * const tenantApiCredentialWithIdOnly = await prisma.tenantApiCredential.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -33503,28 +33503,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ClientApiCredentialCreateManyAndReturnArgs>(args?: SelectSubset<T, ClientApiCredentialCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends TenantApiCredentialCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantApiCredentialCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a ClientApiCredential.
-     * @param {ClientApiCredentialDeleteArgs} args - Arguments to delete one ClientApiCredential.
+     * Delete a TenantApiCredential.
+     * @param {TenantApiCredentialDeleteArgs} args - Arguments to delete one TenantApiCredential.
      * @example
-     * // Delete one ClientApiCredential
-     * const ClientApiCredential = await prisma.clientApiCredential.delete({
+     * // Delete one TenantApiCredential
+     * const TenantApiCredential = await prisma.tenantApiCredential.delete({
      *   where: {
-     *     // ... filter to delete one ClientApiCredential
+     *     // ... filter to delete one TenantApiCredential
      *   }
      * })
      * 
      */
-    delete<T extends ClientApiCredentialDeleteArgs>(args: SelectSubset<T, ClientApiCredentialDeleteArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends TenantApiCredentialDeleteArgs>(args: SelectSubset<T, TenantApiCredentialDeleteArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one ClientApiCredential.
-     * @param {ClientApiCredentialUpdateArgs} args - Arguments to update one ClientApiCredential.
+     * Update one TenantApiCredential.
+     * @param {TenantApiCredentialUpdateArgs} args - Arguments to update one TenantApiCredential.
      * @example
-     * // Update one ClientApiCredential
-     * const clientApiCredential = await prisma.clientApiCredential.update({
+     * // Update one TenantApiCredential
+     * const tenantApiCredential = await prisma.tenantApiCredential.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -33534,30 +33534,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ClientApiCredentialUpdateArgs>(args: SelectSubset<T, ClientApiCredentialUpdateArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends TenantApiCredentialUpdateArgs>(args: SelectSubset<T, TenantApiCredentialUpdateArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more ClientApiCredentials.
-     * @param {ClientApiCredentialDeleteManyArgs} args - Arguments to filter ClientApiCredentials to delete.
+     * Delete zero or more TenantApiCredentials.
+     * @param {TenantApiCredentialDeleteManyArgs} args - Arguments to filter TenantApiCredentials to delete.
      * @example
-     * // Delete a few ClientApiCredentials
-     * const { count } = await prisma.clientApiCredential.deleteMany({
+     * // Delete a few TenantApiCredentials
+     * const { count } = await prisma.tenantApiCredential.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ClientApiCredentialDeleteManyArgs>(args?: SelectSubset<T, ClientApiCredentialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends TenantApiCredentialDeleteManyArgs>(args?: SelectSubset<T, TenantApiCredentialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ClientApiCredentials.
+     * Update zero or more TenantApiCredentials.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiCredentialUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {TenantApiCredentialUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ClientApiCredentials
-     * const clientApiCredential = await prisma.clientApiCredential.updateMany({
+     * // Update many TenantApiCredentials
+     * const tenantApiCredential = await prisma.tenantApiCredential.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -33567,14 +33567,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ClientApiCredentialUpdateManyArgs>(args: SelectSubset<T, ClientApiCredentialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends TenantApiCredentialUpdateManyArgs>(args: SelectSubset<T, TenantApiCredentialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ClientApiCredentials and returns the data updated in the database.
-     * @param {ClientApiCredentialUpdateManyAndReturnArgs} args - Arguments to update many ClientApiCredentials.
+     * Update zero or more TenantApiCredentials and returns the data updated in the database.
+     * @param {TenantApiCredentialUpdateManyAndReturnArgs} args - Arguments to update many TenantApiCredentials.
      * @example
-     * // Update many ClientApiCredentials
-     * const clientApiCredential = await prisma.clientApiCredential.updateManyAndReturn({
+     * // Update many TenantApiCredentials
+     * const tenantApiCredential = await prisma.tenantApiCredential.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -33583,8 +33583,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more ClientApiCredentials and only return the `id`
-     * const clientApiCredentialWithIdOnly = await prisma.clientApiCredential.updateManyAndReturn({
+     * // Update zero or more TenantApiCredentials and only return the `id`
+     * const tenantApiCredentialWithIdOnly = await prisma.tenantApiCredential.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -33597,56 +33597,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends ClientApiCredentialUpdateManyAndReturnArgs>(args: SelectSubset<T, ClientApiCredentialUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends TenantApiCredentialUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantApiCredentialUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one ClientApiCredential.
-     * @param {ClientApiCredentialUpsertArgs} args - Arguments to update or create a ClientApiCredential.
+     * Create or update one TenantApiCredential.
+     * @param {TenantApiCredentialUpsertArgs} args - Arguments to update or create a TenantApiCredential.
      * @example
-     * // Update or create a ClientApiCredential
-     * const clientApiCredential = await prisma.clientApiCredential.upsert({
+     * // Update or create a TenantApiCredential
+     * const tenantApiCredential = await prisma.tenantApiCredential.upsert({
      *   create: {
-     *     // ... data to create a ClientApiCredential
+     *     // ... data to create a TenantApiCredential
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ClientApiCredential we want to update
+     *     // ... the filter for the TenantApiCredential we want to update
      *   }
      * })
      */
-    upsert<T extends ClientApiCredentialUpsertArgs>(args: SelectSubset<T, ClientApiCredentialUpsertArgs<ExtArgs>>): Prisma__ClientApiCredentialClient<$Result.GetResult<Prisma.$ClientApiCredentialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends TenantApiCredentialUpsertArgs>(args: SelectSubset<T, TenantApiCredentialUpsertArgs<ExtArgs>>): Prisma__TenantApiCredentialClient<$Result.GetResult<Prisma.$TenantApiCredentialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of ClientApiCredentials.
+     * Count the number of TenantApiCredentials.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiCredentialCountArgs} args - Arguments to filter ClientApiCredentials to count.
+     * @param {TenantApiCredentialCountArgs} args - Arguments to filter TenantApiCredentials to count.
      * @example
-     * // Count the number of ClientApiCredentials
-     * const count = await prisma.clientApiCredential.count({
+     * // Count the number of TenantApiCredentials
+     * const count = await prisma.tenantApiCredential.count({
      *   where: {
-     *     // ... the filter for the ClientApiCredentials we want to count
+     *     // ... the filter for the TenantApiCredentials we want to count
      *   }
      * })
     **/
-    count<T extends ClientApiCredentialCountArgs>(
-      args?: Subset<T, ClientApiCredentialCountArgs>,
+    count<T extends TenantApiCredentialCountArgs>(
+      args?: Subset<T, TenantApiCredentialCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ClientApiCredentialCountAggregateOutputType>
+          : GetScalarType<T['select'], TenantApiCredentialCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ClientApiCredential.
+     * Allows you to perform aggregations operations on a TenantApiCredential.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiCredentialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {TenantApiCredentialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -33666,13 +33666,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ClientApiCredentialAggregateArgs>(args: Subset<T, ClientApiCredentialAggregateArgs>): Prisma.PrismaPromise<GetClientApiCredentialAggregateType<T>>
+    aggregate<T extends TenantApiCredentialAggregateArgs>(args: Subset<T, TenantApiCredentialAggregateArgs>): Prisma.PrismaPromise<GetTenantApiCredentialAggregateType<T>>
 
     /**
-     * Group by ClientApiCredential.
+     * Group by TenantApiCredential.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiCredentialGroupByArgs} args - Group by arguments.
+     * @param {TenantApiCredentialGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -33687,14 +33687,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ClientApiCredentialGroupByArgs,
+      T extends TenantApiCredentialGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ClientApiCredentialGroupByArgs['orderBy'] }
-        : { orderBy?: ClientApiCredentialGroupByArgs['orderBy'] },
+        ? { orderBy: TenantApiCredentialGroupByArgs['orderBy'] }
+        : { orderBy?: TenantApiCredentialGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -33743,20 +33743,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ClientApiCredentialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClientApiCredentialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, TenantApiCredentialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantApiCredentialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the ClientApiCredential model
+   * Fields of the TenantApiCredential model
    */
-  readonly fields: ClientApiCredentialFieldRefs;
+  readonly fields: TenantApiCredentialFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ClientApiCredential.
+   * The delegate class that acts as a "Promise-like" for TenantApiCredential.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ClientApiCredentialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__TenantApiCredentialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -33785,455 +33785,455 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the ClientApiCredential model
+   * Fields of the TenantApiCredential model
    */
-  interface ClientApiCredentialFieldRefs {
-    readonly id: FieldRef<"ClientApiCredential", 'Int'>
-    readonly userId: FieldRef<"ClientApiCredential", 'Int'>
-    readonly apiKey: FieldRef<"ClientApiCredential", 'String'>
-    readonly apiSecret: FieldRef<"ClientApiCredential", 'String'>
-    readonly isActive: FieldRef<"ClientApiCredential", 'Boolean'>
-    readonly createdAt: FieldRef<"ClientApiCredential", 'DateTime'>
-    readonly updatedAt: FieldRef<"ClientApiCredential", 'DateTime'>
+  interface TenantApiCredentialFieldRefs {
+    readonly id: FieldRef<"TenantApiCredential", 'Int'>
+    readonly userId: FieldRef<"TenantApiCredential", 'Int'>
+    readonly apiKey: FieldRef<"TenantApiCredential", 'String'>
+    readonly apiSecret: FieldRef<"TenantApiCredential", 'String'>
+    readonly isActive: FieldRef<"TenantApiCredential", 'Boolean'>
+    readonly createdAt: FieldRef<"TenantApiCredential", 'DateTime'>
+    readonly updatedAt: FieldRef<"TenantApiCredential", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * ClientApiCredential findUnique
+   * TenantApiCredential findUnique
    */
-  export type ClientApiCredentialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiCredential to fetch.
+     * Filter, which TenantApiCredential to fetch.
      */
-    where: ClientApiCredentialWhereUniqueInput
+    where: TenantApiCredentialWhereUniqueInput
   }
 
   /**
-   * ClientApiCredential findUniqueOrThrow
+   * TenantApiCredential findUniqueOrThrow
    */
-  export type ClientApiCredentialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiCredential to fetch.
+     * Filter, which TenantApiCredential to fetch.
      */
-    where: ClientApiCredentialWhereUniqueInput
+    where: TenantApiCredentialWhereUniqueInput
   }
 
   /**
-   * ClientApiCredential findFirst
+   * TenantApiCredential findFirst
    */
-  export type ClientApiCredentialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiCredential to fetch.
+     * Filter, which TenantApiCredential to fetch.
      */
-    where?: ClientApiCredentialWhereInput
+    where?: TenantApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiCredentials to fetch.
+     * Determine the order of TenantApiCredentials to fetch.
      */
-    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
+    orderBy?: TenantApiCredentialOrderByWithRelationInput | TenantApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ClientApiCredentials.
+     * Sets the position for searching for TenantApiCredentials.
      */
-    cursor?: ClientApiCredentialWhereUniqueInput
+    cursor?: TenantApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiCredentials from the position of the cursor.
+     * Take `±n` TenantApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiCredentials.
+     * Skip the first `n` TenantApiCredentials.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ClientApiCredentials.
+     * Filter by unique combinations of TenantApiCredentials.
      */
-    distinct?: ClientApiCredentialScalarFieldEnum | ClientApiCredentialScalarFieldEnum[]
+    distinct?: TenantApiCredentialScalarFieldEnum | TenantApiCredentialScalarFieldEnum[]
   }
 
   /**
-   * ClientApiCredential findFirstOrThrow
+   * TenantApiCredential findFirstOrThrow
    */
-  export type ClientApiCredentialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiCredential to fetch.
+     * Filter, which TenantApiCredential to fetch.
      */
-    where?: ClientApiCredentialWhereInput
+    where?: TenantApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiCredentials to fetch.
+     * Determine the order of TenantApiCredentials to fetch.
      */
-    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
+    orderBy?: TenantApiCredentialOrderByWithRelationInput | TenantApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ClientApiCredentials.
+     * Sets the position for searching for TenantApiCredentials.
      */
-    cursor?: ClientApiCredentialWhereUniqueInput
+    cursor?: TenantApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiCredentials from the position of the cursor.
+     * Take `±n` TenantApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiCredentials.
+     * Skip the first `n` TenantApiCredentials.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ClientApiCredentials.
+     * Filter by unique combinations of TenantApiCredentials.
      */
-    distinct?: ClientApiCredentialScalarFieldEnum | ClientApiCredentialScalarFieldEnum[]
+    distinct?: TenantApiCredentialScalarFieldEnum | TenantApiCredentialScalarFieldEnum[]
   }
 
   /**
-   * ClientApiCredential findMany
+   * TenantApiCredential findMany
    */
-  export type ClientApiCredentialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiCredentials to fetch.
+     * Filter, which TenantApiCredentials to fetch.
      */
-    where?: ClientApiCredentialWhereInput
+    where?: TenantApiCredentialWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiCredentials to fetch.
+     * Determine the order of TenantApiCredentials to fetch.
      */
-    orderBy?: ClientApiCredentialOrderByWithRelationInput | ClientApiCredentialOrderByWithRelationInput[]
+    orderBy?: TenantApiCredentialOrderByWithRelationInput | TenantApiCredentialOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ClientApiCredentials.
+     * Sets the position for listing TenantApiCredentials.
      */
-    cursor?: ClientApiCredentialWhereUniqueInput
+    cursor?: TenantApiCredentialWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiCredentials from the position of the cursor.
+     * Take `±n` TenantApiCredentials from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiCredentials.
+     * Skip the first `n` TenantApiCredentials.
      */
     skip?: number
-    distinct?: ClientApiCredentialScalarFieldEnum | ClientApiCredentialScalarFieldEnum[]
+    distinct?: TenantApiCredentialScalarFieldEnum | TenantApiCredentialScalarFieldEnum[]
   }
 
   /**
-   * ClientApiCredential create
+   * TenantApiCredential create
    */
-  export type ClientApiCredentialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * The data needed to create a ClientApiCredential.
+     * The data needed to create a TenantApiCredential.
      */
-    data: XOR<ClientApiCredentialCreateInput, ClientApiCredentialUncheckedCreateInput>
+    data: XOR<TenantApiCredentialCreateInput, TenantApiCredentialUncheckedCreateInput>
   }
 
   /**
-   * ClientApiCredential createMany
+   * TenantApiCredential createMany
    */
-  export type ClientApiCredentialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many ClientApiCredentials.
+     * The data used to create many TenantApiCredentials.
      */
-    data: ClientApiCredentialCreateManyInput | ClientApiCredentialCreateManyInput[]
+    data: TenantApiCredentialCreateManyInput | TenantApiCredentialCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * ClientApiCredential createManyAndReturn
+   * TenantApiCredential createManyAndReturn
    */
-  export type ClientApiCredentialCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelectCreateManyAndReturn<ExtArgs> | null
+    select?: TenantApiCredentialSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
-     * The data used to create many ClientApiCredentials.
+     * The data used to create many TenantApiCredentials.
      */
-    data: ClientApiCredentialCreateManyInput | ClientApiCredentialCreateManyInput[]
+    data: TenantApiCredentialCreateManyInput | TenantApiCredentialCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: TenantApiCredentialIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * ClientApiCredential update
+   * TenantApiCredential update
    */
-  export type ClientApiCredentialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * The data needed to update a ClientApiCredential.
+     * The data needed to update a TenantApiCredential.
      */
-    data: XOR<ClientApiCredentialUpdateInput, ClientApiCredentialUncheckedUpdateInput>
+    data: XOR<TenantApiCredentialUpdateInput, TenantApiCredentialUncheckedUpdateInput>
     /**
-     * Choose, which ClientApiCredential to update.
+     * Choose, which TenantApiCredential to update.
      */
-    where: ClientApiCredentialWhereUniqueInput
+    where: TenantApiCredentialWhereUniqueInput
   }
 
   /**
-   * ClientApiCredential updateMany
+   * TenantApiCredential updateMany
    */
-  export type ClientApiCredentialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update ClientApiCredentials.
+     * The data used to update TenantApiCredentials.
      */
-    data: XOR<ClientApiCredentialUpdateManyMutationInput, ClientApiCredentialUncheckedUpdateManyInput>
+    data: XOR<TenantApiCredentialUpdateManyMutationInput, TenantApiCredentialUncheckedUpdateManyInput>
     /**
-     * Filter which ClientApiCredentials to update
+     * Filter which TenantApiCredentials to update
      */
-    where?: ClientApiCredentialWhereInput
+    where?: TenantApiCredentialWhereInput
     /**
-     * Limit how many ClientApiCredentials to update.
+     * Limit how many TenantApiCredentials to update.
      */
     limit?: number
   }
 
   /**
-   * ClientApiCredential updateManyAndReturn
+   * TenantApiCredential updateManyAndReturn
    */
-  export type ClientApiCredentialUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: TenantApiCredentialSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
-     * The data used to update ClientApiCredentials.
+     * The data used to update TenantApiCredentials.
      */
-    data: XOR<ClientApiCredentialUpdateManyMutationInput, ClientApiCredentialUncheckedUpdateManyInput>
+    data: XOR<TenantApiCredentialUpdateManyMutationInput, TenantApiCredentialUncheckedUpdateManyInput>
     /**
-     * Filter which ClientApiCredentials to update
+     * Filter which TenantApiCredentials to update
      */
-    where?: ClientApiCredentialWhereInput
+    where?: TenantApiCredentialWhereInput
     /**
-     * Limit how many ClientApiCredentials to update.
+     * Limit how many TenantApiCredentials to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: TenantApiCredentialIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * ClientApiCredential upsert
+   * TenantApiCredential upsert
    */
-  export type ClientApiCredentialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * The filter to search for the ClientApiCredential to update in case it exists.
+     * The filter to search for the TenantApiCredential to update in case it exists.
      */
-    where: ClientApiCredentialWhereUniqueInput
+    where: TenantApiCredentialWhereUniqueInput
     /**
-     * In case the ClientApiCredential found by the `where` argument doesn't exist, create a new ClientApiCredential with this data.
+     * In case the TenantApiCredential found by the `where` argument doesn't exist, create a new TenantApiCredential with this data.
      */
-    create: XOR<ClientApiCredentialCreateInput, ClientApiCredentialUncheckedCreateInput>
+    create: XOR<TenantApiCredentialCreateInput, TenantApiCredentialUncheckedCreateInput>
     /**
-     * In case the ClientApiCredential was found with the provided `where` argument, update it with this data.
+     * In case the TenantApiCredential was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ClientApiCredentialUpdateInput, ClientApiCredentialUncheckedUpdateInput>
+    update: XOR<TenantApiCredentialUpdateInput, TenantApiCredentialUncheckedUpdateInput>
   }
 
   /**
-   * ClientApiCredential delete
+   * TenantApiCredential delete
    */
-  export type ClientApiCredentialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
     /**
-     * Filter which ClientApiCredential to delete.
+     * Filter which TenantApiCredential to delete.
      */
-    where: ClientApiCredentialWhereUniqueInput
+    where: TenantApiCredentialWhereUniqueInput
   }
 
   /**
-   * ClientApiCredential deleteMany
+   * TenantApiCredential deleteMany
    */
-  export type ClientApiCredentialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ClientApiCredentials to delete
+     * Filter which TenantApiCredentials to delete
      */
-    where?: ClientApiCredentialWhereInput
+    where?: TenantApiCredentialWhereInput
     /**
-     * Limit how many ClientApiCredentials to delete.
+     * Limit how many TenantApiCredentials to delete.
      */
     limit?: number
   }
 
   /**
-   * ClientApiCredential without action
+   * TenantApiCredential without action
    */
-  export type ClientApiCredentialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiCredentialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiCredential
+     * Select specific fields to fetch from the TenantApiCredential
      */
-    select?: ClientApiCredentialSelect<ExtArgs> | null
+    select?: TenantApiCredentialSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiCredential
+     * Omit specific fields from the TenantApiCredential
      */
-    omit?: ClientApiCredentialOmit<ExtArgs> | null
+    omit?: TenantApiCredentialOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiCredentialInclude<ExtArgs> | null
+    include?: TenantApiCredentialInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model ClientApiLog
+   * Model TenantApiLog
    */
 
-  export type AggregateClientApiLog = {
-    _count: ClientApiLogCountAggregateOutputType | null
-    _avg: ClientApiLogAvgAggregateOutputType | null
-    _sum: ClientApiLogSumAggregateOutputType | null
-    _min: ClientApiLogMinAggregateOutputType | null
-    _max: ClientApiLogMaxAggregateOutputType | null
+  export type AggregateTenantApiLog = {
+    _count: TenantApiLogCountAggregateOutputType | null
+    _avg: TenantApiLogAvgAggregateOutputType | null
+    _sum: TenantApiLogSumAggregateOutputType | null
+    _min: TenantApiLogMinAggregateOutputType | null
+    _max: TenantApiLogMaxAggregateOutputType | null
   }
 
-  export type ClientApiLogAvgAggregateOutputType = {
+  export type TenantApiLogAvgAggregateOutputType = {
     id: number | null
     userId: number | null
     responseStatus: number | null
   }
 
-  export type ClientApiLogSumAggregateOutputType = {
+  export type TenantApiLogSumAggregateOutputType = {
     id: number | null
     userId: number | null
     responseStatus: number | null
   }
 
-  export type ClientApiLogMinAggregateOutputType = {
+  export type TenantApiLogMinAggregateOutputType = {
     id: number | null
     userId: number | null
     method: string | null
@@ -34244,7 +34244,7 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type ClientApiLogMaxAggregateOutputType = {
+  export type TenantApiLogMaxAggregateOutputType = {
     id: number | null
     userId: number | null
     method: string | null
@@ -34255,7 +34255,7 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type ClientApiLogCountAggregateOutputType = {
+  export type TenantApiLogCountAggregateOutputType = {
     id: number
     userId: number
     method: number
@@ -34268,30 +34268,19 @@ export namespace Prisma {
   }
 
 
-  export type ClientApiLogAvgAggregateInputType = {
+  export type TenantApiLogAvgAggregateInputType = {
     id?: true
     userId?: true
     responseStatus?: true
   }
 
-  export type ClientApiLogSumAggregateInputType = {
+  export type TenantApiLogSumAggregateInputType = {
     id?: true
     userId?: true
     responseStatus?: true
   }
 
-  export type ClientApiLogMinAggregateInputType = {
-    id?: true
-    userId?: true
-    method?: true
-    endpoint?: true
-    requestBody?: true
-    responseStatus?: true
-    responseBody?: true
-    createdAt?: true
-  }
-
-  export type ClientApiLogMaxAggregateInputType = {
+  export type TenantApiLogMinAggregateInputType = {
     id?: true
     userId?: true
     method?: true
@@ -34302,7 +34291,18 @@ export namespace Prisma {
     createdAt?: true
   }
 
-  export type ClientApiLogCountAggregateInputType = {
+  export type TenantApiLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    method?: true
+    endpoint?: true
+    requestBody?: true
+    responseStatus?: true
+    responseBody?: true
+    createdAt?: true
+  }
+
+  export type TenantApiLogCountAggregateInputType = {
     id?: true
     userId?: true
     method?: true
@@ -34314,93 +34314,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ClientApiLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ClientApiLog to aggregate.
+     * Filter which TenantApiLog to aggregate.
      */
-    where?: ClientApiLogWhereInput
+    where?: TenantApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiLogs to fetch.
+     * Determine the order of TenantApiLogs to fetch.
      */
-    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
+    orderBy?: TenantApiLogOrderByWithRelationInput | TenantApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ClientApiLogWhereUniqueInput
+    cursor?: TenantApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiLogs from the position of the cursor.
+     * Take `±n` TenantApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiLogs.
+     * Skip the first `n` TenantApiLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ClientApiLogs
+     * Count returned TenantApiLogs
     **/
-    _count?: true | ClientApiLogCountAggregateInputType
+    _count?: true | TenantApiLogCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ClientApiLogAvgAggregateInputType
+    _avg?: TenantApiLogAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ClientApiLogSumAggregateInputType
+    _sum?: TenantApiLogSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ClientApiLogMinAggregateInputType
+    _min?: TenantApiLogMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ClientApiLogMaxAggregateInputType
+    _max?: TenantApiLogMaxAggregateInputType
   }
 
-  export type GetClientApiLogAggregateType<T extends ClientApiLogAggregateArgs> = {
-        [P in keyof T & keyof AggregateClientApiLog]: P extends '_count' | 'count'
+  export type GetTenantApiLogAggregateType<T extends TenantApiLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantApiLog]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateClientApiLog[P]>
-      : GetScalarType<T[P], AggregateClientApiLog[P]>
+        : GetScalarType<T[P], AggregateTenantApiLog[P]>
+      : GetScalarType<T[P], AggregateTenantApiLog[P]>
   }
 
 
 
 
-  export type ClientApiLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClientApiLogWhereInput
-    orderBy?: ClientApiLogOrderByWithAggregationInput | ClientApiLogOrderByWithAggregationInput[]
-    by: ClientApiLogScalarFieldEnum[] | ClientApiLogScalarFieldEnum
-    having?: ClientApiLogScalarWhereWithAggregatesInput
+  export type TenantApiLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantApiLogWhereInput
+    orderBy?: TenantApiLogOrderByWithAggregationInput | TenantApiLogOrderByWithAggregationInput[]
+    by: TenantApiLogScalarFieldEnum[] | TenantApiLogScalarFieldEnum
+    having?: TenantApiLogScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ClientApiLogCountAggregateInputType | true
-    _avg?: ClientApiLogAvgAggregateInputType
-    _sum?: ClientApiLogSumAggregateInputType
-    _min?: ClientApiLogMinAggregateInputType
-    _max?: ClientApiLogMaxAggregateInputType
+    _count?: TenantApiLogCountAggregateInputType | true
+    _avg?: TenantApiLogAvgAggregateInputType
+    _sum?: TenantApiLogSumAggregateInputType
+    _min?: TenantApiLogMinAggregateInputType
+    _max?: TenantApiLogMaxAggregateInputType
   }
 
-  export type ClientApiLogGroupByOutputType = {
+  export type TenantApiLogGroupByOutputType = {
     id: number
     userId: number
     method: string
@@ -34409,28 +34409,28 @@ export namespace Prisma {
     responseStatus: number
     responseBody: string | null
     createdAt: Date
-    _count: ClientApiLogCountAggregateOutputType | null
-    _avg: ClientApiLogAvgAggregateOutputType | null
-    _sum: ClientApiLogSumAggregateOutputType | null
-    _min: ClientApiLogMinAggregateOutputType | null
-    _max: ClientApiLogMaxAggregateOutputType | null
+    _count: TenantApiLogCountAggregateOutputType | null
+    _avg: TenantApiLogAvgAggregateOutputType | null
+    _sum: TenantApiLogSumAggregateOutputType | null
+    _min: TenantApiLogMinAggregateOutputType | null
+    _max: TenantApiLogMaxAggregateOutputType | null
   }
 
-  type GetClientApiLogGroupByPayload<T extends ClientApiLogGroupByArgs> = Prisma.PrismaPromise<
+  type GetTenantApiLogGroupByPayload<T extends TenantApiLogGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ClientApiLogGroupByOutputType, T['by']> &
+      PickEnumerable<TenantApiLogGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ClientApiLogGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof TenantApiLogGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ClientApiLogGroupByOutputType[P]>
-            : GetScalarType<T[P], ClientApiLogGroupByOutputType[P]>
+              : GetScalarType<T[P], TenantApiLogGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantApiLogGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ClientApiLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TenantApiLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34440,9 +34440,9 @@ export namespace Prisma {
     responseBody?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["clientApiLog"]>
+  }, ExtArgs["result"]["tenantApiLog"]>
 
-  export type ClientApiLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TenantApiLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34452,9 +34452,9 @@ export namespace Prisma {
     responseBody?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["clientApiLog"]>
+  }, ExtArgs["result"]["tenantApiLog"]>
 
-  export type ClientApiLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type TenantApiLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34464,9 +34464,9 @@ export namespace Prisma {
     responseBody?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["clientApiLog"]>
+  }, ExtArgs["result"]["tenantApiLog"]>
 
-  export type ClientApiLogSelectScalar = {
+  export type TenantApiLogSelectScalar = {
     id?: boolean
     userId?: boolean
     method?: boolean
@@ -34477,19 +34477,19 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type ClientApiLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "method" | "endpoint" | "requestBody" | "responseStatus" | "responseBody" | "createdAt", ExtArgs["result"]["clientApiLog"]>
-  export type ClientApiLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "method" | "endpoint" | "requestBody" | "responseStatus" | "responseBody" | "createdAt", ExtArgs["result"]["tenantApiLog"]>
+  export type TenantApiLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type ClientApiLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type ClientApiLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $ClientApiLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ClientApiLog"
+  export type $TenantApiLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantApiLog"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
     }
@@ -34502,136 +34502,136 @@ export namespace Prisma {
       responseStatus: number
       responseBody: string | null
       createdAt: Date
-    }, ExtArgs["result"]["clientApiLog"]>
+    }, ExtArgs["result"]["tenantApiLog"]>
     composites: {}
   }
 
-  type ClientApiLogGetPayload<S extends boolean | null | undefined | ClientApiLogDefaultArgs> = $Result.GetResult<Prisma.$ClientApiLogPayload, S>
+  type TenantApiLogGetPayload<S extends boolean | null | undefined | TenantApiLogDefaultArgs> = $Result.GetResult<Prisma.$TenantApiLogPayload, S>
 
-  type ClientApiLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ClientApiLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ClientApiLogCountAggregateInputType | true
+  type TenantApiLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantApiLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantApiLogCountAggregateInputType | true
     }
 
-  export interface ClientApiLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClientApiLog'], meta: { name: 'ClientApiLog' } }
+  export interface TenantApiLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantApiLog'], meta: { name: 'TenantApiLog' } }
     /**
-     * Find zero or one ClientApiLog that matches the filter.
-     * @param {ClientApiLogFindUniqueArgs} args - Arguments to find a ClientApiLog
+     * Find zero or one TenantApiLog that matches the filter.
+     * @param {TenantApiLogFindUniqueArgs} args - Arguments to find a TenantApiLog
      * @example
-     * // Get one ClientApiLog
-     * const clientApiLog = await prisma.clientApiLog.findUnique({
+     * // Get one TenantApiLog
+     * const tenantApiLog = await prisma.tenantApiLog.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ClientApiLogFindUniqueArgs>(args: SelectSubset<T, ClientApiLogFindUniqueArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends TenantApiLogFindUniqueArgs>(args: SelectSubset<T, TenantApiLogFindUniqueArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one ClientApiLog that matches the filter or throw an error with `error.code='P2025'`
+     * Find one TenantApiLog that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {ClientApiLogFindUniqueOrThrowArgs} args - Arguments to find a ClientApiLog
+     * @param {TenantApiLogFindUniqueOrThrowArgs} args - Arguments to find a TenantApiLog
      * @example
-     * // Get one ClientApiLog
-     * const clientApiLog = await prisma.clientApiLog.findUniqueOrThrow({
+     * // Get one TenantApiLog
+     * const tenantApiLog = await prisma.tenantApiLog.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ClientApiLogFindUniqueOrThrowArgs>(args: SelectSubset<T, ClientApiLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends TenantApiLogFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantApiLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first ClientApiLog that matches the filter.
+     * Find the first TenantApiLog that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiLogFindFirstArgs} args - Arguments to find a ClientApiLog
+     * @param {TenantApiLogFindFirstArgs} args - Arguments to find a TenantApiLog
      * @example
-     * // Get one ClientApiLog
-     * const clientApiLog = await prisma.clientApiLog.findFirst({
+     * // Get one TenantApiLog
+     * const tenantApiLog = await prisma.tenantApiLog.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ClientApiLogFindFirstArgs>(args?: SelectSubset<T, ClientApiLogFindFirstArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends TenantApiLogFindFirstArgs>(args?: SelectSubset<T, TenantApiLogFindFirstArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first ClientApiLog that matches the filter or
+     * Find the first TenantApiLog that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiLogFindFirstOrThrowArgs} args - Arguments to find a ClientApiLog
+     * @param {TenantApiLogFindFirstOrThrowArgs} args - Arguments to find a TenantApiLog
      * @example
-     * // Get one ClientApiLog
-     * const clientApiLog = await prisma.clientApiLog.findFirstOrThrow({
+     * // Get one TenantApiLog
+     * const tenantApiLog = await prisma.tenantApiLog.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ClientApiLogFindFirstOrThrowArgs>(args?: SelectSubset<T, ClientApiLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends TenantApiLogFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantApiLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more ClientApiLogs that matches the filter.
+     * Find zero or more TenantApiLogs that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {TenantApiLogFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ClientApiLogs
-     * const clientApiLogs = await prisma.clientApiLog.findMany()
+     * // Get all TenantApiLogs
+     * const tenantApiLogs = await prisma.tenantApiLog.findMany()
      * 
-     * // Get first 10 ClientApiLogs
-     * const clientApiLogs = await prisma.clientApiLog.findMany({ take: 10 })
+     * // Get first 10 TenantApiLogs
+     * const tenantApiLogs = await prisma.tenantApiLog.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const clientApiLogWithIdOnly = await prisma.clientApiLog.findMany({ select: { id: true } })
+     * const tenantApiLogWithIdOnly = await prisma.tenantApiLog.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ClientApiLogFindManyArgs>(args?: SelectSubset<T, ClientApiLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends TenantApiLogFindManyArgs>(args?: SelectSubset<T, TenantApiLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a ClientApiLog.
-     * @param {ClientApiLogCreateArgs} args - Arguments to create a ClientApiLog.
+     * Create a TenantApiLog.
+     * @param {TenantApiLogCreateArgs} args - Arguments to create a TenantApiLog.
      * @example
-     * // Create one ClientApiLog
-     * const ClientApiLog = await prisma.clientApiLog.create({
+     * // Create one TenantApiLog
+     * const TenantApiLog = await prisma.tenantApiLog.create({
      *   data: {
-     *     // ... data to create a ClientApiLog
+     *     // ... data to create a TenantApiLog
      *   }
      * })
      * 
      */
-    create<T extends ClientApiLogCreateArgs>(args: SelectSubset<T, ClientApiLogCreateArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends TenantApiLogCreateArgs>(args: SelectSubset<T, TenantApiLogCreateArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many ClientApiLogs.
-     * @param {ClientApiLogCreateManyArgs} args - Arguments to create many ClientApiLogs.
+     * Create many TenantApiLogs.
+     * @param {TenantApiLogCreateManyArgs} args - Arguments to create many TenantApiLogs.
      * @example
-     * // Create many ClientApiLogs
-     * const clientApiLog = await prisma.clientApiLog.createMany({
+     * // Create many TenantApiLogs
+     * const tenantApiLog = await prisma.tenantApiLog.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ClientApiLogCreateManyArgs>(args?: SelectSubset<T, ClientApiLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends TenantApiLogCreateManyArgs>(args?: SelectSubset<T, TenantApiLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many ClientApiLogs and returns the data saved in the database.
-     * @param {ClientApiLogCreateManyAndReturnArgs} args - Arguments to create many ClientApiLogs.
+     * Create many TenantApiLogs and returns the data saved in the database.
+     * @param {TenantApiLogCreateManyAndReturnArgs} args - Arguments to create many TenantApiLogs.
      * @example
-     * // Create many ClientApiLogs
-     * const clientApiLog = await prisma.clientApiLog.createManyAndReturn({
+     * // Create many TenantApiLogs
+     * const tenantApiLog = await prisma.tenantApiLog.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many ClientApiLogs and only return the `id`
-     * const clientApiLogWithIdOnly = await prisma.clientApiLog.createManyAndReturn({
+     * // Create many TenantApiLogs and only return the `id`
+     * const tenantApiLogWithIdOnly = await prisma.tenantApiLog.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -34641,28 +34641,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ClientApiLogCreateManyAndReturnArgs>(args?: SelectSubset<T, ClientApiLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends TenantApiLogCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantApiLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a ClientApiLog.
-     * @param {ClientApiLogDeleteArgs} args - Arguments to delete one ClientApiLog.
+     * Delete a TenantApiLog.
+     * @param {TenantApiLogDeleteArgs} args - Arguments to delete one TenantApiLog.
      * @example
-     * // Delete one ClientApiLog
-     * const ClientApiLog = await prisma.clientApiLog.delete({
+     * // Delete one TenantApiLog
+     * const TenantApiLog = await prisma.tenantApiLog.delete({
      *   where: {
-     *     // ... filter to delete one ClientApiLog
+     *     // ... filter to delete one TenantApiLog
      *   }
      * })
      * 
      */
-    delete<T extends ClientApiLogDeleteArgs>(args: SelectSubset<T, ClientApiLogDeleteArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends TenantApiLogDeleteArgs>(args: SelectSubset<T, TenantApiLogDeleteArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one ClientApiLog.
-     * @param {ClientApiLogUpdateArgs} args - Arguments to update one ClientApiLog.
+     * Update one TenantApiLog.
+     * @param {TenantApiLogUpdateArgs} args - Arguments to update one TenantApiLog.
      * @example
-     * // Update one ClientApiLog
-     * const clientApiLog = await prisma.clientApiLog.update({
+     * // Update one TenantApiLog
+     * const tenantApiLog = await prisma.tenantApiLog.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -34672,30 +34672,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ClientApiLogUpdateArgs>(args: SelectSubset<T, ClientApiLogUpdateArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends TenantApiLogUpdateArgs>(args: SelectSubset<T, TenantApiLogUpdateArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more ClientApiLogs.
-     * @param {ClientApiLogDeleteManyArgs} args - Arguments to filter ClientApiLogs to delete.
+     * Delete zero or more TenantApiLogs.
+     * @param {TenantApiLogDeleteManyArgs} args - Arguments to filter TenantApiLogs to delete.
      * @example
-     * // Delete a few ClientApiLogs
-     * const { count } = await prisma.clientApiLog.deleteMany({
+     * // Delete a few TenantApiLogs
+     * const { count } = await prisma.tenantApiLog.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ClientApiLogDeleteManyArgs>(args?: SelectSubset<T, ClientApiLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends TenantApiLogDeleteManyArgs>(args?: SelectSubset<T, TenantApiLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ClientApiLogs.
+     * Update zero or more TenantApiLogs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {TenantApiLogUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ClientApiLogs
-     * const clientApiLog = await prisma.clientApiLog.updateMany({
+     * // Update many TenantApiLogs
+     * const tenantApiLog = await prisma.tenantApiLog.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -34705,14 +34705,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ClientApiLogUpdateManyArgs>(args: SelectSubset<T, ClientApiLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends TenantApiLogUpdateManyArgs>(args: SelectSubset<T, TenantApiLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ClientApiLogs and returns the data updated in the database.
-     * @param {ClientApiLogUpdateManyAndReturnArgs} args - Arguments to update many ClientApiLogs.
+     * Update zero or more TenantApiLogs and returns the data updated in the database.
+     * @param {TenantApiLogUpdateManyAndReturnArgs} args - Arguments to update many TenantApiLogs.
      * @example
-     * // Update many ClientApiLogs
-     * const clientApiLog = await prisma.clientApiLog.updateManyAndReturn({
+     * // Update many TenantApiLogs
+     * const tenantApiLog = await prisma.tenantApiLog.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -34721,8 +34721,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more ClientApiLogs and only return the `id`
-     * const clientApiLogWithIdOnly = await prisma.clientApiLog.updateManyAndReturn({
+     * // Update zero or more TenantApiLogs and only return the `id`
+     * const tenantApiLogWithIdOnly = await prisma.tenantApiLog.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -34735,56 +34735,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends ClientApiLogUpdateManyAndReturnArgs>(args: SelectSubset<T, ClientApiLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends TenantApiLogUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantApiLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one ClientApiLog.
-     * @param {ClientApiLogUpsertArgs} args - Arguments to update or create a ClientApiLog.
+     * Create or update one TenantApiLog.
+     * @param {TenantApiLogUpsertArgs} args - Arguments to update or create a TenantApiLog.
      * @example
-     * // Update or create a ClientApiLog
-     * const clientApiLog = await prisma.clientApiLog.upsert({
+     * // Update or create a TenantApiLog
+     * const tenantApiLog = await prisma.tenantApiLog.upsert({
      *   create: {
-     *     // ... data to create a ClientApiLog
+     *     // ... data to create a TenantApiLog
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ClientApiLog we want to update
+     *     // ... the filter for the TenantApiLog we want to update
      *   }
      * })
      */
-    upsert<T extends ClientApiLogUpsertArgs>(args: SelectSubset<T, ClientApiLogUpsertArgs<ExtArgs>>): Prisma__ClientApiLogClient<$Result.GetResult<Prisma.$ClientApiLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends TenantApiLogUpsertArgs>(args: SelectSubset<T, TenantApiLogUpsertArgs<ExtArgs>>): Prisma__TenantApiLogClient<$Result.GetResult<Prisma.$TenantApiLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of ClientApiLogs.
+     * Count the number of TenantApiLogs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiLogCountArgs} args - Arguments to filter ClientApiLogs to count.
+     * @param {TenantApiLogCountArgs} args - Arguments to filter TenantApiLogs to count.
      * @example
-     * // Count the number of ClientApiLogs
-     * const count = await prisma.clientApiLog.count({
+     * // Count the number of TenantApiLogs
+     * const count = await prisma.tenantApiLog.count({
      *   where: {
-     *     // ... the filter for the ClientApiLogs we want to count
+     *     // ... the filter for the TenantApiLogs we want to count
      *   }
      * })
     **/
-    count<T extends ClientApiLogCountArgs>(
-      args?: Subset<T, ClientApiLogCountArgs>,
+    count<T extends TenantApiLogCountArgs>(
+      args?: Subset<T, TenantApiLogCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ClientApiLogCountAggregateOutputType>
+          : GetScalarType<T['select'], TenantApiLogCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ClientApiLog.
+     * Allows you to perform aggregations operations on a TenantApiLog.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {TenantApiLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -34804,13 +34804,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ClientApiLogAggregateArgs>(args: Subset<T, ClientApiLogAggregateArgs>): Prisma.PrismaPromise<GetClientApiLogAggregateType<T>>
+    aggregate<T extends TenantApiLogAggregateArgs>(args: Subset<T, TenantApiLogAggregateArgs>): Prisma.PrismaPromise<GetTenantApiLogAggregateType<T>>
 
     /**
-     * Group by ClientApiLog.
+     * Group by TenantApiLog.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClientApiLogGroupByArgs} args - Group by arguments.
+     * @param {TenantApiLogGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -34825,14 +34825,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ClientApiLogGroupByArgs,
+      T extends TenantApiLogGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ClientApiLogGroupByArgs['orderBy'] }
-        : { orderBy?: ClientApiLogGroupByArgs['orderBy'] },
+        ? { orderBy: TenantApiLogGroupByArgs['orderBy'] }
+        : { orderBy?: TenantApiLogGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -34881,20 +34881,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ClientApiLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClientApiLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, TenantApiLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantApiLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the ClientApiLog model
+   * Fields of the TenantApiLog model
    */
-  readonly fields: ClientApiLogFieldRefs;
+  readonly fields: TenantApiLogFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ClientApiLog.
+   * The delegate class that acts as a "Promise-like" for TenantApiLog.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ClientApiLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__TenantApiLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -34923,428 +34923,428 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the ClientApiLog model
+   * Fields of the TenantApiLog model
    */
-  interface ClientApiLogFieldRefs {
-    readonly id: FieldRef<"ClientApiLog", 'Int'>
-    readonly userId: FieldRef<"ClientApiLog", 'Int'>
-    readonly method: FieldRef<"ClientApiLog", 'String'>
-    readonly endpoint: FieldRef<"ClientApiLog", 'String'>
-    readonly requestBody: FieldRef<"ClientApiLog", 'String'>
-    readonly responseStatus: FieldRef<"ClientApiLog", 'Int'>
-    readonly responseBody: FieldRef<"ClientApiLog", 'String'>
-    readonly createdAt: FieldRef<"ClientApiLog", 'DateTime'>
+  interface TenantApiLogFieldRefs {
+    readonly id: FieldRef<"TenantApiLog", 'Int'>
+    readonly userId: FieldRef<"TenantApiLog", 'Int'>
+    readonly method: FieldRef<"TenantApiLog", 'String'>
+    readonly endpoint: FieldRef<"TenantApiLog", 'String'>
+    readonly requestBody: FieldRef<"TenantApiLog", 'String'>
+    readonly responseStatus: FieldRef<"TenantApiLog", 'Int'>
+    readonly responseBody: FieldRef<"TenantApiLog", 'String'>
+    readonly createdAt: FieldRef<"TenantApiLog", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * ClientApiLog findUnique
+   * TenantApiLog findUnique
    */
-  export type ClientApiLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiLog to fetch.
+     * Filter, which TenantApiLog to fetch.
      */
-    where: ClientApiLogWhereUniqueInput
+    where: TenantApiLogWhereUniqueInput
   }
 
   /**
-   * ClientApiLog findUniqueOrThrow
+   * TenantApiLog findUniqueOrThrow
    */
-  export type ClientApiLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiLog to fetch.
+     * Filter, which TenantApiLog to fetch.
      */
-    where: ClientApiLogWhereUniqueInput
+    where: TenantApiLogWhereUniqueInput
   }
 
   /**
-   * ClientApiLog findFirst
+   * TenantApiLog findFirst
    */
-  export type ClientApiLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiLog to fetch.
+     * Filter, which TenantApiLog to fetch.
      */
-    where?: ClientApiLogWhereInput
+    where?: TenantApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiLogs to fetch.
+     * Determine the order of TenantApiLogs to fetch.
      */
-    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
+    orderBy?: TenantApiLogOrderByWithRelationInput | TenantApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ClientApiLogs.
+     * Sets the position for searching for TenantApiLogs.
      */
-    cursor?: ClientApiLogWhereUniqueInput
+    cursor?: TenantApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiLogs from the position of the cursor.
+     * Take `±n` TenantApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiLogs.
+     * Skip the first `n` TenantApiLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ClientApiLogs.
+     * Filter by unique combinations of TenantApiLogs.
      */
-    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
+    distinct?: TenantApiLogScalarFieldEnum | TenantApiLogScalarFieldEnum[]
   }
 
   /**
-   * ClientApiLog findFirstOrThrow
+   * TenantApiLog findFirstOrThrow
    */
-  export type ClientApiLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiLog to fetch.
+     * Filter, which TenantApiLog to fetch.
      */
-    where?: ClientApiLogWhereInput
+    where?: TenantApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiLogs to fetch.
+     * Determine the order of TenantApiLogs to fetch.
      */
-    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
+    orderBy?: TenantApiLogOrderByWithRelationInput | TenantApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ClientApiLogs.
+     * Sets the position for searching for TenantApiLogs.
      */
-    cursor?: ClientApiLogWhereUniqueInput
+    cursor?: TenantApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiLogs from the position of the cursor.
+     * Take `±n` TenantApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiLogs.
+     * Skip the first `n` TenantApiLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ClientApiLogs.
+     * Filter by unique combinations of TenantApiLogs.
      */
-    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
+    distinct?: TenantApiLogScalarFieldEnum | TenantApiLogScalarFieldEnum[]
   }
 
   /**
-   * ClientApiLog findMany
+   * TenantApiLog findMany
    */
-  export type ClientApiLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * Filter, which ClientApiLogs to fetch.
+     * Filter, which TenantApiLogs to fetch.
      */
-    where?: ClientApiLogWhereInput
+    where?: TenantApiLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ClientApiLogs to fetch.
+     * Determine the order of TenantApiLogs to fetch.
      */
-    orderBy?: ClientApiLogOrderByWithRelationInput | ClientApiLogOrderByWithRelationInput[]
+    orderBy?: TenantApiLogOrderByWithRelationInput | TenantApiLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ClientApiLogs.
+     * Sets the position for listing TenantApiLogs.
      */
-    cursor?: ClientApiLogWhereUniqueInput
+    cursor?: TenantApiLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ClientApiLogs from the position of the cursor.
+     * Take `±n` TenantApiLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ClientApiLogs.
+     * Skip the first `n` TenantApiLogs.
      */
     skip?: number
-    distinct?: ClientApiLogScalarFieldEnum | ClientApiLogScalarFieldEnum[]
+    distinct?: TenantApiLogScalarFieldEnum | TenantApiLogScalarFieldEnum[]
   }
 
   /**
-   * ClientApiLog create
+   * TenantApiLog create
    */
-  export type ClientApiLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * The data needed to create a ClientApiLog.
+     * The data needed to create a TenantApiLog.
      */
-    data: XOR<ClientApiLogCreateInput, ClientApiLogUncheckedCreateInput>
+    data: XOR<TenantApiLogCreateInput, TenantApiLogUncheckedCreateInput>
   }
 
   /**
-   * ClientApiLog createMany
+   * TenantApiLog createMany
    */
-  export type ClientApiLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many ClientApiLogs.
+     * The data used to create many TenantApiLogs.
      */
-    data: ClientApiLogCreateManyInput | ClientApiLogCreateManyInput[]
+    data: TenantApiLogCreateManyInput | TenantApiLogCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * ClientApiLog createManyAndReturn
+   * TenantApiLog createManyAndReturn
    */
-  export type ClientApiLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelectCreateManyAndReturn<ExtArgs> | null
+    select?: TenantApiLogSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
-     * The data used to create many ClientApiLogs.
+     * The data used to create many TenantApiLogs.
      */
-    data: ClientApiLogCreateManyInput | ClientApiLogCreateManyInput[]
+    data: TenantApiLogCreateManyInput | TenantApiLogCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: TenantApiLogIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * ClientApiLog update
+   * TenantApiLog update
    */
-  export type ClientApiLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * The data needed to update a ClientApiLog.
+     * The data needed to update a TenantApiLog.
      */
-    data: XOR<ClientApiLogUpdateInput, ClientApiLogUncheckedUpdateInput>
+    data: XOR<TenantApiLogUpdateInput, TenantApiLogUncheckedUpdateInput>
     /**
-     * Choose, which ClientApiLog to update.
+     * Choose, which TenantApiLog to update.
      */
-    where: ClientApiLogWhereUniqueInput
+    where: TenantApiLogWhereUniqueInput
   }
 
   /**
-   * ClientApiLog updateMany
+   * TenantApiLog updateMany
    */
-  export type ClientApiLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update ClientApiLogs.
+     * The data used to update TenantApiLogs.
      */
-    data: XOR<ClientApiLogUpdateManyMutationInput, ClientApiLogUncheckedUpdateManyInput>
+    data: XOR<TenantApiLogUpdateManyMutationInput, TenantApiLogUncheckedUpdateManyInput>
     /**
-     * Filter which ClientApiLogs to update
+     * Filter which TenantApiLogs to update
      */
-    where?: ClientApiLogWhereInput
+    where?: TenantApiLogWhereInput
     /**
-     * Limit how many ClientApiLogs to update.
+     * Limit how many TenantApiLogs to update.
      */
     limit?: number
   }
 
   /**
-   * ClientApiLog updateManyAndReturn
+   * TenantApiLog updateManyAndReturn
    */
-  export type ClientApiLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: TenantApiLogSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
-     * The data used to update ClientApiLogs.
+     * The data used to update TenantApiLogs.
      */
-    data: XOR<ClientApiLogUpdateManyMutationInput, ClientApiLogUncheckedUpdateManyInput>
+    data: XOR<TenantApiLogUpdateManyMutationInput, TenantApiLogUncheckedUpdateManyInput>
     /**
-     * Filter which ClientApiLogs to update
+     * Filter which TenantApiLogs to update
      */
-    where?: ClientApiLogWhereInput
+    where?: TenantApiLogWhereInput
     /**
-     * Limit how many ClientApiLogs to update.
+     * Limit how many TenantApiLogs to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: TenantApiLogIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * ClientApiLog upsert
+   * TenantApiLog upsert
    */
-  export type ClientApiLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * The filter to search for the ClientApiLog to update in case it exists.
+     * The filter to search for the TenantApiLog to update in case it exists.
      */
-    where: ClientApiLogWhereUniqueInput
+    where: TenantApiLogWhereUniqueInput
     /**
-     * In case the ClientApiLog found by the `where` argument doesn't exist, create a new ClientApiLog with this data.
+     * In case the TenantApiLog found by the `where` argument doesn't exist, create a new TenantApiLog with this data.
      */
-    create: XOR<ClientApiLogCreateInput, ClientApiLogUncheckedCreateInput>
+    create: XOR<TenantApiLogCreateInput, TenantApiLogUncheckedCreateInput>
     /**
-     * In case the ClientApiLog was found with the provided `where` argument, update it with this data.
+     * In case the TenantApiLog was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ClientApiLogUpdateInput, ClientApiLogUncheckedUpdateInput>
+    update: XOR<TenantApiLogUpdateInput, TenantApiLogUncheckedUpdateInput>
   }
 
   /**
-   * ClientApiLog delete
+   * TenantApiLog delete
    */
-  export type ClientApiLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
     /**
-     * Filter which ClientApiLog to delete.
+     * Filter which TenantApiLog to delete.
      */
-    where: ClientApiLogWhereUniqueInput
+    where: TenantApiLogWhereUniqueInput
   }
 
   /**
-   * ClientApiLog deleteMany
+   * TenantApiLog deleteMany
    */
-  export type ClientApiLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ClientApiLogs to delete
+     * Filter which TenantApiLogs to delete
      */
-    where?: ClientApiLogWhereInput
+    where?: TenantApiLogWhereInput
     /**
-     * Limit how many ClientApiLogs to delete.
+     * Limit how many TenantApiLogs to delete.
      */
     limit?: number
   }
 
   /**
-   * ClientApiLog without action
+   * TenantApiLog without action
    */
-  export type ClientApiLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TenantApiLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ClientApiLog
+     * Select specific fields to fetch from the TenantApiLog
      */
-    select?: ClientApiLogSelect<ExtArgs> | null
+    select?: TenantApiLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ClientApiLog
+     * Omit specific fields from the TenantApiLog
      */
-    omit?: ClientApiLogOmit<ExtArgs> | null
+    omit?: TenantApiLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ClientApiLogInclude<ExtArgs> | null
+    include?: TenantApiLogInclude<ExtArgs> | null
   }
 
 
@@ -45789,7 +45789,7 @@ export namespace Prisma {
   export type BusinessScalarFieldEnum = (typeof BusinessScalarFieldEnum)[keyof typeof BusinessScalarFieldEnum]
 
 
-  export const ClientApiCredentialScalarFieldEnum: {
+  export const TenantApiCredentialScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     apiKey: 'apiKey',
@@ -45799,10 +45799,10 @@ export namespace Prisma {
     updatedAt: 'updatedAt'
   };
 
-  export type ClientApiCredentialScalarFieldEnum = (typeof ClientApiCredentialScalarFieldEnum)[keyof typeof ClientApiCredentialScalarFieldEnum]
+  export type TenantApiCredentialScalarFieldEnum = (typeof TenantApiCredentialScalarFieldEnum)[keyof typeof TenantApiCredentialScalarFieldEnum]
 
 
-  export const ClientApiLogScalarFieldEnum: {
+  export const TenantApiLogScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     method: 'method',
@@ -45813,7 +45813,7 @@ export namespace Prisma {
     createdAt: 'createdAt'
   };
 
-  export type ClientApiLogScalarFieldEnum = (typeof ClientApiLogScalarFieldEnum)[keyof typeof ClientApiLogScalarFieldEnum]
+  export type TenantApiLogScalarFieldEnum = (typeof TenantApiLogScalarFieldEnum)[keyof typeof TenantApiLogScalarFieldEnum]
 
 
   export const ConfigurationInvoiceTypeScalarFieldEnum: {
@@ -46058,8 +46058,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     directors?: DirectorListRelationFilter
     entity?: XOR<EntityNullableScalarRelationFilter, EntityWhereInput> | null
-    clientApiLog?: ClientApiLogListRelationFilter
-    clientApiCredential?: XOR<ClientApiCredentialNullableScalarRelationFilter, ClientApiCredentialWhereInput> | null
+    tenantApiLog?: TenantApiLogListRelationFilter
+    tenantApiCredential?: XOR<TenantApiCredentialNullableScalarRelationFilter, TenantApiCredentialWhereInput> | null
     systemIntegratorFirsSettings?: XOR<SystemIntegratorFirsSettingsNullableScalarRelationFilter, SystemIntegratorFirsSettingsWhereInput> | null
   }
 
@@ -46082,8 +46082,8 @@ export namespace Prisma {
     invoices?: InvoiceOrderByRelationAggregateInput
     directors?: DirectorOrderByRelationAggregateInput
     entity?: EntityOrderByWithRelationInput
-    clientApiLog?: ClientApiLogOrderByRelationAggregateInput
-    clientApiCredential?: ClientApiCredentialOrderByWithRelationInput
+    tenantApiLog?: TenantApiLogOrderByRelationAggregateInput
+    tenantApiCredential?: TenantApiCredentialOrderByWithRelationInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsOrderByWithRelationInput
   }
 
@@ -46109,8 +46109,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     directors?: DirectorListRelationFilter
     entity?: XOR<EntityNullableScalarRelationFilter, EntityWhereInput> | null
-    clientApiLog?: ClientApiLogListRelationFilter
-    clientApiCredential?: XOR<ClientApiCredentialNullableScalarRelationFilter, ClientApiCredentialWhereInput> | null
+    tenantApiLog?: TenantApiLogListRelationFilter
+    tenantApiCredential?: XOR<TenantApiCredentialNullableScalarRelationFilter, TenantApiCredentialWhereInput> | null
     systemIntegratorFirsSettings?: XOR<SystemIntegratorFirsSettingsNullableScalarRelationFilter, SystemIntegratorFirsSettingsWhereInput> | null
   }, "id" | "entityId" | "email">
 
@@ -47787,21 +47787,21 @@ export namespace Prisma {
     entityId?: StringWithAggregatesFilter<"Business"> | string
   }
 
-  export type ClientApiCredentialWhereInput = {
-    AND?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
-    OR?: ClientApiCredentialWhereInput[]
-    NOT?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
-    id?: IntFilter<"ClientApiCredential"> | number
-    userId?: IntFilter<"ClientApiCredential"> | number
-    apiKey?: StringFilter<"ClientApiCredential"> | string
-    apiSecret?: StringFilter<"ClientApiCredential"> | string
-    isActive?: BoolFilter<"ClientApiCredential"> | boolean
-    createdAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
-    updatedAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
+  export type TenantApiCredentialWhereInput = {
+    AND?: TenantApiCredentialWhereInput | TenantApiCredentialWhereInput[]
+    OR?: TenantApiCredentialWhereInput[]
+    NOT?: TenantApiCredentialWhereInput | TenantApiCredentialWhereInput[]
+    id?: IntFilter<"TenantApiCredential"> | number
+    userId?: IntFilter<"TenantApiCredential"> | number
+    apiKey?: StringFilter<"TenantApiCredential"> | string
+    apiSecret?: StringFilter<"TenantApiCredential"> | string
+    isActive?: BoolFilter<"TenantApiCredential"> | boolean
+    createdAt?: DateTimeFilter<"TenantApiCredential"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantApiCredential"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type ClientApiCredentialOrderByWithRelationInput = {
+  export type TenantApiCredentialOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -47812,21 +47812,21 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
   }
 
-  export type ClientApiCredentialWhereUniqueInput = Prisma.AtLeast<{
+  export type TenantApiCredentialWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     userId?: number
-    AND?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
-    OR?: ClientApiCredentialWhereInput[]
-    NOT?: ClientApiCredentialWhereInput | ClientApiCredentialWhereInput[]
-    apiKey?: StringFilter<"ClientApiCredential"> | string
-    apiSecret?: StringFilter<"ClientApiCredential"> | string
-    isActive?: BoolFilter<"ClientApiCredential"> | boolean
-    createdAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
-    updatedAt?: DateTimeFilter<"ClientApiCredential"> | Date | string
+    AND?: TenantApiCredentialWhereInput | TenantApiCredentialWhereInput[]
+    OR?: TenantApiCredentialWhereInput[]
+    NOT?: TenantApiCredentialWhereInput | TenantApiCredentialWhereInput[]
+    apiKey?: StringFilter<"TenantApiCredential"> | string
+    apiSecret?: StringFilter<"TenantApiCredential"> | string
+    isActive?: BoolFilter<"TenantApiCredential"> | boolean
+    createdAt?: DateTimeFilter<"TenantApiCredential"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantApiCredential"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
-  export type ClientApiCredentialOrderByWithAggregationInput = {
+  export type TenantApiCredentialOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -47834,42 +47834,42 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: ClientApiCredentialCountOrderByAggregateInput
-    _avg?: ClientApiCredentialAvgOrderByAggregateInput
-    _max?: ClientApiCredentialMaxOrderByAggregateInput
-    _min?: ClientApiCredentialMinOrderByAggregateInput
-    _sum?: ClientApiCredentialSumOrderByAggregateInput
+    _count?: TenantApiCredentialCountOrderByAggregateInput
+    _avg?: TenantApiCredentialAvgOrderByAggregateInput
+    _max?: TenantApiCredentialMaxOrderByAggregateInput
+    _min?: TenantApiCredentialMinOrderByAggregateInput
+    _sum?: TenantApiCredentialSumOrderByAggregateInput
   }
 
-  export type ClientApiCredentialScalarWhereWithAggregatesInput = {
-    AND?: ClientApiCredentialScalarWhereWithAggregatesInput | ClientApiCredentialScalarWhereWithAggregatesInput[]
-    OR?: ClientApiCredentialScalarWhereWithAggregatesInput[]
-    NOT?: ClientApiCredentialScalarWhereWithAggregatesInput | ClientApiCredentialScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ClientApiCredential"> | number
-    userId?: IntWithAggregatesFilter<"ClientApiCredential"> | number
-    apiKey?: StringWithAggregatesFilter<"ClientApiCredential"> | string
-    apiSecret?: StringWithAggregatesFilter<"ClientApiCredential"> | string
-    isActive?: BoolWithAggregatesFilter<"ClientApiCredential"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"ClientApiCredential"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"ClientApiCredential"> | Date | string
+  export type TenantApiCredentialScalarWhereWithAggregatesInput = {
+    AND?: TenantApiCredentialScalarWhereWithAggregatesInput | TenantApiCredentialScalarWhereWithAggregatesInput[]
+    OR?: TenantApiCredentialScalarWhereWithAggregatesInput[]
+    NOT?: TenantApiCredentialScalarWhereWithAggregatesInput | TenantApiCredentialScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TenantApiCredential"> | number
+    userId?: IntWithAggregatesFilter<"TenantApiCredential"> | number
+    apiKey?: StringWithAggregatesFilter<"TenantApiCredential"> | string
+    apiSecret?: StringWithAggregatesFilter<"TenantApiCredential"> | string
+    isActive?: BoolWithAggregatesFilter<"TenantApiCredential"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"TenantApiCredential"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TenantApiCredential"> | Date | string
   }
 
-  export type ClientApiLogWhereInput = {
-    AND?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
-    OR?: ClientApiLogWhereInput[]
-    NOT?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
-    id?: IntFilter<"ClientApiLog"> | number
-    userId?: IntFilter<"ClientApiLog"> | number
-    method?: StringFilter<"ClientApiLog"> | string
-    endpoint?: StringFilter<"ClientApiLog"> | string
-    requestBody?: StringNullableFilter<"ClientApiLog"> | string | null
-    responseStatus?: IntFilter<"ClientApiLog"> | number
-    responseBody?: StringNullableFilter<"ClientApiLog"> | string | null
-    createdAt?: DateTimeFilter<"ClientApiLog"> | Date | string
+  export type TenantApiLogWhereInput = {
+    AND?: TenantApiLogWhereInput | TenantApiLogWhereInput[]
+    OR?: TenantApiLogWhereInput[]
+    NOT?: TenantApiLogWhereInput | TenantApiLogWhereInput[]
+    id?: IntFilter<"TenantApiLog"> | number
+    userId?: IntFilter<"TenantApiLog"> | number
+    method?: StringFilter<"TenantApiLog"> | string
+    endpoint?: StringFilter<"TenantApiLog"> | string
+    requestBody?: StringNullableFilter<"TenantApiLog"> | string | null
+    responseStatus?: IntFilter<"TenantApiLog"> | number
+    responseBody?: StringNullableFilter<"TenantApiLog"> | string | null
+    createdAt?: DateTimeFilter<"TenantApiLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type ClientApiLogOrderByWithRelationInput = {
+  export type TenantApiLogOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -47881,22 +47881,22 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
   }
 
-  export type ClientApiLogWhereUniqueInput = Prisma.AtLeast<{
+  export type TenantApiLogWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
-    OR?: ClientApiLogWhereInput[]
-    NOT?: ClientApiLogWhereInput | ClientApiLogWhereInput[]
-    userId?: IntFilter<"ClientApiLog"> | number
-    method?: StringFilter<"ClientApiLog"> | string
-    endpoint?: StringFilter<"ClientApiLog"> | string
-    requestBody?: StringNullableFilter<"ClientApiLog"> | string | null
-    responseStatus?: IntFilter<"ClientApiLog"> | number
-    responseBody?: StringNullableFilter<"ClientApiLog"> | string | null
-    createdAt?: DateTimeFilter<"ClientApiLog"> | Date | string
+    AND?: TenantApiLogWhereInput | TenantApiLogWhereInput[]
+    OR?: TenantApiLogWhereInput[]
+    NOT?: TenantApiLogWhereInput | TenantApiLogWhereInput[]
+    userId?: IntFilter<"TenantApiLog"> | number
+    method?: StringFilter<"TenantApiLog"> | string
+    endpoint?: StringFilter<"TenantApiLog"> | string
+    requestBody?: StringNullableFilter<"TenantApiLog"> | string | null
+    responseStatus?: IntFilter<"TenantApiLog"> | number
+    responseBody?: StringNullableFilter<"TenantApiLog"> | string | null
+    createdAt?: DateTimeFilter<"TenantApiLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
-  export type ClientApiLogOrderByWithAggregationInput = {
+  export type TenantApiLogOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -47905,25 +47905,25 @@ export namespace Prisma {
     responseStatus?: SortOrder
     responseBody?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    _count?: ClientApiLogCountOrderByAggregateInput
-    _avg?: ClientApiLogAvgOrderByAggregateInput
-    _max?: ClientApiLogMaxOrderByAggregateInput
-    _min?: ClientApiLogMinOrderByAggregateInput
-    _sum?: ClientApiLogSumOrderByAggregateInput
+    _count?: TenantApiLogCountOrderByAggregateInput
+    _avg?: TenantApiLogAvgOrderByAggregateInput
+    _max?: TenantApiLogMaxOrderByAggregateInput
+    _min?: TenantApiLogMinOrderByAggregateInput
+    _sum?: TenantApiLogSumOrderByAggregateInput
   }
 
-  export type ClientApiLogScalarWhereWithAggregatesInput = {
-    AND?: ClientApiLogScalarWhereWithAggregatesInput | ClientApiLogScalarWhereWithAggregatesInput[]
-    OR?: ClientApiLogScalarWhereWithAggregatesInput[]
-    NOT?: ClientApiLogScalarWhereWithAggregatesInput | ClientApiLogScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ClientApiLog"> | number
-    userId?: IntWithAggregatesFilter<"ClientApiLog"> | number
-    method?: StringWithAggregatesFilter<"ClientApiLog"> | string
-    endpoint?: StringWithAggregatesFilter<"ClientApiLog"> | string
-    requestBody?: StringNullableWithAggregatesFilter<"ClientApiLog"> | string | null
-    responseStatus?: IntWithAggregatesFilter<"ClientApiLog"> | number
-    responseBody?: StringNullableWithAggregatesFilter<"ClientApiLog"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"ClientApiLog"> | Date | string
+  export type TenantApiLogScalarWhereWithAggregatesInput = {
+    AND?: TenantApiLogScalarWhereWithAggregatesInput | TenantApiLogScalarWhereWithAggregatesInput[]
+    OR?: TenantApiLogScalarWhereWithAggregatesInput[]
+    NOT?: TenantApiLogScalarWhereWithAggregatesInput | TenantApiLogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TenantApiLog"> | number
+    userId?: IntWithAggregatesFilter<"TenantApiLog"> | number
+    method?: StringWithAggregatesFilter<"TenantApiLog"> | string
+    endpoint?: StringWithAggregatesFilter<"TenantApiLog"> | string
+    requestBody?: StringNullableWithAggregatesFilter<"TenantApiLog"> | string | null
+    responseStatus?: IntWithAggregatesFilter<"TenantApiLog"> | number
+    responseBody?: StringNullableWithAggregatesFilter<"TenantApiLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TenantApiLog"> | Date | string
   }
 
   export type ConfigurationInvoiceTypeWhereInput = {
@@ -48476,8 +48476,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -48500,8 +48500,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogUncheckedCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -48523,8 +48523,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -48547,8 +48547,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUncheckedUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -50223,16 +50223,16 @@ export namespace Prisma {
     entityId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ClientApiCredentialCreateInput = {
+  export type TenantApiCredentialCreateInput = {
     apiKey: string
     apiSecret: string
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutClientApiCredentialInput
+    user: UserCreateNestedOneWithoutTenantApiCredentialInput
   }
 
-  export type ClientApiCredentialUncheckedCreateInput = {
+  export type TenantApiCredentialUncheckedCreateInput = {
     id?: number
     userId: number
     apiKey: string
@@ -50242,16 +50242,16 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ClientApiCredentialUpdateInput = {
+  export type TenantApiCredentialUpdateInput = {
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutClientApiCredentialNestedInput
+    user?: UserUpdateOneRequiredWithoutTenantApiCredentialNestedInput
   }
 
-  export type ClientApiCredentialUncheckedUpdateInput = {
+  export type TenantApiCredentialUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     apiKey?: StringFieldUpdateOperationsInput | string
@@ -50261,7 +50261,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiCredentialCreateManyInput = {
+  export type TenantApiCredentialCreateManyInput = {
     id?: number
     userId: number
     apiKey: string
@@ -50271,7 +50271,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ClientApiCredentialUpdateManyMutationInput = {
+  export type TenantApiCredentialUpdateManyMutationInput = {
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -50279,7 +50279,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiCredentialUncheckedUpdateManyInput = {
+  export type TenantApiCredentialUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     apiKey?: StringFieldUpdateOperationsInput | string
@@ -50289,49 +50289,17 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiLogCreateInput = {
+  export type TenantApiLogCreateInput = {
     method: string
     endpoint: string
     requestBody?: string | null
     responseStatus: number
     responseBody?: string | null
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutClientApiLogInput
+    user: UserCreateNestedOneWithoutTenantApiLogInput
   }
 
-  export type ClientApiLogUncheckedCreateInput = {
-    id?: number
-    userId: number
-    method: string
-    endpoint: string
-    requestBody?: string | null
-    responseStatus: number
-    responseBody?: string | null
-    createdAt?: Date | string
-  }
-
-  export type ClientApiLogUpdateInput = {
-    method?: StringFieldUpdateOperationsInput | string
-    endpoint?: StringFieldUpdateOperationsInput | string
-    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
-    responseStatus?: IntFieldUpdateOperationsInput | number
-    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutClientApiLogNestedInput
-  }
-
-  export type ClientApiLogUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    method?: StringFieldUpdateOperationsInput | string
-    endpoint?: StringFieldUpdateOperationsInput | string
-    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
-    responseStatus?: IntFieldUpdateOperationsInput | number
-    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClientApiLogCreateManyInput = {
+  export type TenantApiLogUncheckedCreateInput = {
     id?: number
     userId: number
     method: string
@@ -50342,7 +50310,19 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type ClientApiLogUpdateManyMutationInput = {
+  export type TenantApiLogUpdateInput = {
+    method?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
+    responseStatus?: IntFieldUpdateOperationsInput | number
+    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTenantApiLogNestedInput
+  }
+
+  export type TenantApiLogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     requestBody?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50351,7 +50331,27 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiLogUncheckedUpdateManyInput = {
+  export type TenantApiLogCreateManyInput = {
+    id?: number
+    userId: number
+    method: string
+    endpoint: string
+    requestBody?: string | null
+    responseStatus: number
+    responseBody?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TenantApiLogUpdateManyMutationInput = {
+    method?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    requestBody?: NullableStringFieldUpdateOperationsInput | string | null
+    responseStatus?: IntFieldUpdateOperationsInput | number
+    responseBody?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantApiLogUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
@@ -51017,15 +51017,15 @@ export namespace Prisma {
     isNot?: EntityWhereInput | null
   }
 
-  export type ClientApiLogListRelationFilter = {
-    every?: ClientApiLogWhereInput
-    some?: ClientApiLogWhereInput
-    none?: ClientApiLogWhereInput
+  export type TenantApiLogListRelationFilter = {
+    every?: TenantApiLogWhereInput
+    some?: TenantApiLogWhereInput
+    none?: TenantApiLogWhereInput
   }
 
-  export type ClientApiCredentialNullableScalarRelationFilter = {
-    is?: ClientApiCredentialWhereInput | null
-    isNot?: ClientApiCredentialWhereInput | null
+  export type TenantApiCredentialNullableScalarRelationFilter = {
+    is?: TenantApiCredentialWhereInput | null
+    isNot?: TenantApiCredentialWhereInput | null
   }
 
   export type SystemIntegratorFirsSettingsNullableScalarRelationFilter = {
@@ -51046,7 +51046,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type ClientApiLogOrderByRelationAggregateInput = {
+  export type TenantApiLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -52394,7 +52394,7 @@ export namespace Prisma {
     entityId?: SortOrder
   }
 
-  export type ClientApiCredentialCountOrderByAggregateInput = {
+  export type TenantApiCredentialCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -52404,22 +52404,12 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ClientApiCredentialAvgOrderByAggregateInput = {
+  export type TenantApiCredentialAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
   }
 
-  export type ClientApiCredentialMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    apiKey?: SortOrder
-    apiSecret?: SortOrder
-    isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ClientApiCredentialMinOrderByAggregateInput = {
+  export type TenantApiCredentialMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     apiKey?: SortOrder
@@ -52429,12 +52419,22 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ClientApiCredentialSumOrderByAggregateInput = {
+  export type TenantApiCredentialMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    apiKey?: SortOrder
+    apiSecret?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantApiCredentialSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
   }
 
-  export type ClientApiLogCountOrderByAggregateInput = {
+  export type TenantApiLogCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -52445,24 +52445,13 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type ClientApiLogAvgOrderByAggregateInput = {
+  export type TenantApiLogAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     responseStatus?: SortOrder
   }
 
-  export type ClientApiLogMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    method?: SortOrder
-    endpoint?: SortOrder
-    requestBody?: SortOrder
-    responseStatus?: SortOrder
-    responseBody?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type ClientApiLogMinOrderByAggregateInput = {
+  export type TenantApiLogMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     method?: SortOrder
@@ -52473,7 +52462,18 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type ClientApiLogSumOrderByAggregateInput = {
+  export type TenantApiLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    method?: SortOrder
+    endpoint?: SortOrder
+    requestBody?: SortOrder
+    responseStatus?: SortOrder
+    responseBody?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TenantApiLogSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     responseStatus?: SortOrder
@@ -52762,17 +52762,17 @@ export namespace Prisma {
     connect?: EntityWhereUniqueInput
   }
 
-  export type ClientApiLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
-    createMany?: ClientApiLogCreateManyUserInputEnvelope
-    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+  export type TenantApiLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<TenantApiLogCreateWithoutUserInput, TenantApiLogUncheckedCreateWithoutUserInput> | TenantApiLogCreateWithoutUserInput[] | TenantApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TenantApiLogCreateOrConnectWithoutUserInput | TenantApiLogCreateOrConnectWithoutUserInput[]
+    createMany?: TenantApiLogCreateManyUserInputEnvelope
+    connect?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
   }
 
-  export type ClientApiCredentialCreateNestedOneWithoutUserInput = {
-    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
-    connect?: ClientApiCredentialWhereUniqueInput
+  export type TenantApiCredentialCreateNestedOneWithoutUserInput = {
+    create?: XOR<TenantApiCredentialCreateWithoutUserInput, TenantApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TenantApiCredentialCreateOrConnectWithoutUserInput
+    connect?: TenantApiCredentialWhereUniqueInput
   }
 
   export type SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput = {
@@ -52801,17 +52801,17 @@ export namespace Prisma {
     connect?: EntityWhereUniqueInput
   }
 
-  export type ClientApiLogUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
-    createMany?: ClientApiLogCreateManyUserInputEnvelope
-    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
+  export type TenantApiLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TenantApiLogCreateWithoutUserInput, TenantApiLogUncheckedCreateWithoutUserInput> | TenantApiLogCreateWithoutUserInput[] | TenantApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TenantApiLogCreateOrConnectWithoutUserInput | TenantApiLogCreateOrConnectWithoutUserInput[]
+    createMany?: TenantApiLogCreateManyUserInputEnvelope
+    connect?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
   }
 
-  export type ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
-    connect?: ClientApiCredentialWhereUniqueInput
+  export type TenantApiCredentialUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<TenantApiCredentialCreateWithoutUserInput, TenantApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TenantApiCredentialCreateOrConnectWithoutUserInput
+    connect?: TenantApiCredentialWhereUniqueInput
   }
 
   export type SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput = {
@@ -52882,28 +52882,28 @@ export namespace Prisma {
     update?: XOR<XOR<EntityUpdateToOneWithWhereWithoutUserInput, EntityUpdateWithoutUserInput>, EntityUncheckedUpdateWithoutUserInput>
   }
 
-  export type ClientApiLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
-    upsert?: ClientApiLogUpsertWithWhereUniqueWithoutUserInput | ClientApiLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ClientApiLogCreateManyUserInputEnvelope
-    set?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    disconnect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    delete?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    update?: ClientApiLogUpdateWithWhereUniqueWithoutUserInput | ClientApiLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ClientApiLogUpdateManyWithWhereWithoutUserInput | ClientApiLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
+  export type TenantApiLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TenantApiLogCreateWithoutUserInput, TenantApiLogUncheckedCreateWithoutUserInput> | TenantApiLogCreateWithoutUserInput[] | TenantApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TenantApiLogCreateOrConnectWithoutUserInput | TenantApiLogCreateOrConnectWithoutUserInput[]
+    upsert?: TenantApiLogUpsertWithWhereUniqueWithoutUserInput | TenantApiLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TenantApiLogCreateManyUserInputEnvelope
+    set?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    disconnect?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    delete?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    connect?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    update?: TenantApiLogUpdateWithWhereUniqueWithoutUserInput | TenantApiLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TenantApiLogUpdateManyWithWhereWithoutUserInput | TenantApiLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TenantApiLogScalarWhereInput | TenantApiLogScalarWhereInput[]
   }
 
-  export type ClientApiCredentialUpdateOneWithoutUserNestedInput = {
-    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
-    upsert?: ClientApiCredentialUpsertWithoutUserInput
-    disconnect?: ClientApiCredentialWhereInput | boolean
-    delete?: ClientApiCredentialWhereInput | boolean
-    connect?: ClientApiCredentialWhereUniqueInput
-    update?: XOR<XOR<ClientApiCredentialUpdateToOneWithWhereWithoutUserInput, ClientApiCredentialUpdateWithoutUserInput>, ClientApiCredentialUncheckedUpdateWithoutUserInput>
+  export type TenantApiCredentialUpdateOneWithoutUserNestedInput = {
+    create?: XOR<TenantApiCredentialCreateWithoutUserInput, TenantApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TenantApiCredentialCreateOrConnectWithoutUserInput
+    upsert?: TenantApiCredentialUpsertWithoutUserInput
+    disconnect?: TenantApiCredentialWhereInput | boolean
+    delete?: TenantApiCredentialWhereInput | boolean
+    connect?: TenantApiCredentialWhereUniqueInput
+    update?: XOR<XOR<TenantApiCredentialUpdateToOneWithWhereWithoutUserInput, TenantApiCredentialUpdateWithoutUserInput>, TenantApiCredentialUncheckedUpdateWithoutUserInput>
   }
 
   export type SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput = {
@@ -52962,28 +52962,28 @@ export namespace Prisma {
     update?: XOR<XOR<EntityUpdateToOneWithWhereWithoutUserInput, EntityUpdateWithoutUserInput>, EntityUncheckedUpdateWithoutUserInput>
   }
 
-  export type ClientApiLogUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput> | ClientApiLogCreateWithoutUserInput[] | ClientApiLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ClientApiLogCreateOrConnectWithoutUserInput | ClientApiLogCreateOrConnectWithoutUserInput[]
-    upsert?: ClientApiLogUpsertWithWhereUniqueWithoutUserInput | ClientApiLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ClientApiLogCreateManyUserInputEnvelope
-    set?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    disconnect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    delete?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    connect?: ClientApiLogWhereUniqueInput | ClientApiLogWhereUniqueInput[]
-    update?: ClientApiLogUpdateWithWhereUniqueWithoutUserInput | ClientApiLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ClientApiLogUpdateManyWithWhereWithoutUserInput | ClientApiLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
+  export type TenantApiLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TenantApiLogCreateWithoutUserInput, TenantApiLogUncheckedCreateWithoutUserInput> | TenantApiLogCreateWithoutUserInput[] | TenantApiLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TenantApiLogCreateOrConnectWithoutUserInput | TenantApiLogCreateOrConnectWithoutUserInput[]
+    upsert?: TenantApiLogUpsertWithWhereUniqueWithoutUserInput | TenantApiLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TenantApiLogCreateManyUserInputEnvelope
+    set?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    disconnect?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    delete?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    connect?: TenantApiLogWhereUniqueInput | TenantApiLogWhereUniqueInput[]
+    update?: TenantApiLogUpdateWithWhereUniqueWithoutUserInput | TenantApiLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TenantApiLogUpdateManyWithWhereWithoutUserInput | TenantApiLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TenantApiLogScalarWhereInput | TenantApiLogScalarWhereInput[]
   }
 
-  export type ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ClientApiCredentialCreateOrConnectWithoutUserInput
-    upsert?: ClientApiCredentialUpsertWithoutUserInput
-    disconnect?: ClientApiCredentialWhereInput | boolean
-    delete?: ClientApiCredentialWhereInput | boolean
-    connect?: ClientApiCredentialWhereUniqueInput
-    update?: XOR<XOR<ClientApiCredentialUpdateToOneWithWhereWithoutUserInput, ClientApiCredentialUpdateWithoutUserInput>, ClientApiCredentialUncheckedUpdateWithoutUserInput>
+  export type TenantApiCredentialUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<TenantApiCredentialCreateWithoutUserInput, TenantApiCredentialUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TenantApiCredentialCreateOrConnectWithoutUserInput
+    upsert?: TenantApiCredentialUpsertWithoutUserInput
+    disconnect?: TenantApiCredentialWhereInput | boolean
+    delete?: TenantApiCredentialWhereInput | boolean
+    connect?: TenantApiCredentialWhereUniqueInput
+    update?: XOR<XOR<TenantApiCredentialUpdateToOneWithWhereWithoutUserInput, TenantApiCredentialUpdateWithoutUserInput>, TenantApiCredentialUncheckedUpdateWithoutUserInput>
   }
 
   export type SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput = {
@@ -54104,32 +54104,32 @@ export namespace Prisma {
     update?: XOR<XOR<EntityUpdateToOneWithWhereWithoutBusinessesInput, EntityUpdateWithoutBusinessesInput>, EntityUncheckedUpdateWithoutBusinessesInput>
   }
 
-  export type UserCreateNestedOneWithoutClientApiCredentialInput = {
-    create?: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
-    connectOrCreate?: UserCreateOrConnectWithoutClientApiCredentialInput
+  export type UserCreateNestedOneWithoutTenantApiCredentialInput = {
+    create?: XOR<UserCreateWithoutTenantApiCredentialInput, UserUncheckedCreateWithoutTenantApiCredentialInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTenantApiCredentialInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutClientApiCredentialNestedInput = {
-    create?: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
-    connectOrCreate?: UserCreateOrConnectWithoutClientApiCredentialInput
-    upsert?: UserUpsertWithoutClientApiCredentialInput
+  export type UserUpdateOneRequiredWithoutTenantApiCredentialNestedInput = {
+    create?: XOR<UserCreateWithoutTenantApiCredentialInput, UserUncheckedCreateWithoutTenantApiCredentialInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTenantApiCredentialInput
+    upsert?: UserUpsertWithoutTenantApiCredentialInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClientApiCredentialInput, UserUpdateWithoutClientApiCredentialInput>, UserUncheckedUpdateWithoutClientApiCredentialInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTenantApiCredentialInput, UserUpdateWithoutTenantApiCredentialInput>, UserUncheckedUpdateWithoutTenantApiCredentialInput>
   }
 
-  export type UserCreateNestedOneWithoutClientApiLogInput = {
-    create?: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
-    connectOrCreate?: UserCreateOrConnectWithoutClientApiLogInput
+  export type UserCreateNestedOneWithoutTenantApiLogInput = {
+    create?: XOR<UserCreateWithoutTenantApiLogInput, UserUncheckedCreateWithoutTenantApiLogInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTenantApiLogInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutClientApiLogNestedInput = {
-    create?: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
-    connectOrCreate?: UserCreateOrConnectWithoutClientApiLogInput
-    upsert?: UserUpsertWithoutClientApiLogInput
+  export type UserUpdateOneRequiredWithoutTenantApiLogNestedInput = {
+    create?: XOR<UserCreateWithoutTenantApiLogInput, UserUncheckedCreateWithoutTenantApiLogInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTenantApiLogInput
+    upsert?: UserUpsertWithoutTenantApiLogInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClientApiLogInput, UserUpdateWithoutClientApiLogInput>, UserUncheckedUpdateWithoutClientApiLogInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTenantApiLogInput, UserUpdateWithoutTenantApiLogInput>, UserUncheckedUpdateWithoutTenantApiLogInput>
   }
 
   export type UserCreateNestedOneWithoutSystemIntegratorFirsSettingsInput = {
@@ -54527,7 +54527,7 @@ export namespace Prisma {
     create: XOR<EntityCreateWithoutUserInput, EntityUncheckedCreateWithoutUserInput>
   }
 
-  export type ClientApiLogCreateWithoutUserInput = {
+  export type TenantApiLogCreateWithoutUserInput = {
     method: string
     endpoint: string
     requestBody?: string | null
@@ -54536,7 +54536,7 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type ClientApiLogUncheckedCreateWithoutUserInput = {
+  export type TenantApiLogUncheckedCreateWithoutUserInput = {
     id?: number
     method: string
     endpoint: string
@@ -54546,17 +54546,17 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type ClientApiLogCreateOrConnectWithoutUserInput = {
-    where: ClientApiLogWhereUniqueInput
-    create: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput>
+  export type TenantApiLogCreateOrConnectWithoutUserInput = {
+    where: TenantApiLogWhereUniqueInput
+    create: XOR<TenantApiLogCreateWithoutUserInput, TenantApiLogUncheckedCreateWithoutUserInput>
   }
 
-  export type ClientApiLogCreateManyUserInputEnvelope = {
-    data: ClientApiLogCreateManyUserInput | ClientApiLogCreateManyUserInput[]
+  export type TenantApiLogCreateManyUserInputEnvelope = {
+    data: TenantApiLogCreateManyUserInput | TenantApiLogCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type ClientApiCredentialCreateWithoutUserInput = {
+  export type TenantApiCredentialCreateWithoutUserInput = {
     apiKey: string
     apiSecret: string
     isActive?: boolean
@@ -54564,7 +54564,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ClientApiCredentialUncheckedCreateWithoutUserInput = {
+  export type TenantApiCredentialUncheckedCreateWithoutUserInput = {
     id?: number
     apiKey: string
     apiSecret: string
@@ -54573,9 +54573,9 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ClientApiCredentialCreateOrConnectWithoutUserInput = {
-    where: ClientApiCredentialWhereUniqueInput
-    create: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
+  export type TenantApiCredentialCreateOrConnectWithoutUserInput = {
+    where: TenantApiCredentialWhereUniqueInput
+    create: XOR<TenantApiCredentialCreateWithoutUserInput, TenantApiCredentialUncheckedCreateWithoutUserInput>
   }
 
   export type SystemIntegratorFirsSettingsCreateWithoutUserInput = {
@@ -54708,48 +54708,48 @@ export namespace Prisma {
     businesses?: BusinessUncheckedUpdateManyWithoutEntityNestedInput
   }
 
-  export type ClientApiLogUpsertWithWhereUniqueWithoutUserInput = {
-    where: ClientApiLogWhereUniqueInput
-    update: XOR<ClientApiLogUpdateWithoutUserInput, ClientApiLogUncheckedUpdateWithoutUserInput>
-    create: XOR<ClientApiLogCreateWithoutUserInput, ClientApiLogUncheckedCreateWithoutUserInput>
+  export type TenantApiLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: TenantApiLogWhereUniqueInput
+    update: XOR<TenantApiLogUpdateWithoutUserInput, TenantApiLogUncheckedUpdateWithoutUserInput>
+    create: XOR<TenantApiLogCreateWithoutUserInput, TenantApiLogUncheckedCreateWithoutUserInput>
   }
 
-  export type ClientApiLogUpdateWithWhereUniqueWithoutUserInput = {
-    where: ClientApiLogWhereUniqueInput
-    data: XOR<ClientApiLogUpdateWithoutUserInput, ClientApiLogUncheckedUpdateWithoutUserInput>
+  export type TenantApiLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: TenantApiLogWhereUniqueInput
+    data: XOR<TenantApiLogUpdateWithoutUserInput, TenantApiLogUncheckedUpdateWithoutUserInput>
   }
 
-  export type ClientApiLogUpdateManyWithWhereWithoutUserInput = {
-    where: ClientApiLogScalarWhereInput
-    data: XOR<ClientApiLogUpdateManyMutationInput, ClientApiLogUncheckedUpdateManyWithoutUserInput>
+  export type TenantApiLogUpdateManyWithWhereWithoutUserInput = {
+    where: TenantApiLogScalarWhereInput
+    data: XOR<TenantApiLogUpdateManyMutationInput, TenantApiLogUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ClientApiLogScalarWhereInput = {
-    AND?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
-    OR?: ClientApiLogScalarWhereInput[]
-    NOT?: ClientApiLogScalarWhereInput | ClientApiLogScalarWhereInput[]
-    id?: IntFilter<"ClientApiLog"> | number
-    userId?: IntFilter<"ClientApiLog"> | number
-    method?: StringFilter<"ClientApiLog"> | string
-    endpoint?: StringFilter<"ClientApiLog"> | string
-    requestBody?: StringNullableFilter<"ClientApiLog"> | string | null
-    responseStatus?: IntFilter<"ClientApiLog"> | number
-    responseBody?: StringNullableFilter<"ClientApiLog"> | string | null
-    createdAt?: DateTimeFilter<"ClientApiLog"> | Date | string
+  export type TenantApiLogScalarWhereInput = {
+    AND?: TenantApiLogScalarWhereInput | TenantApiLogScalarWhereInput[]
+    OR?: TenantApiLogScalarWhereInput[]
+    NOT?: TenantApiLogScalarWhereInput | TenantApiLogScalarWhereInput[]
+    id?: IntFilter<"TenantApiLog"> | number
+    userId?: IntFilter<"TenantApiLog"> | number
+    method?: StringFilter<"TenantApiLog"> | string
+    endpoint?: StringFilter<"TenantApiLog"> | string
+    requestBody?: StringNullableFilter<"TenantApiLog"> | string | null
+    responseStatus?: IntFilter<"TenantApiLog"> | number
+    responseBody?: StringNullableFilter<"TenantApiLog"> | string | null
+    createdAt?: DateTimeFilter<"TenantApiLog"> | Date | string
   }
 
-  export type ClientApiCredentialUpsertWithoutUserInput = {
-    update: XOR<ClientApiCredentialUpdateWithoutUserInput, ClientApiCredentialUncheckedUpdateWithoutUserInput>
-    create: XOR<ClientApiCredentialCreateWithoutUserInput, ClientApiCredentialUncheckedCreateWithoutUserInput>
-    where?: ClientApiCredentialWhereInput
+  export type TenantApiCredentialUpsertWithoutUserInput = {
+    update: XOR<TenantApiCredentialUpdateWithoutUserInput, TenantApiCredentialUncheckedUpdateWithoutUserInput>
+    create: XOR<TenantApiCredentialCreateWithoutUserInput, TenantApiCredentialUncheckedCreateWithoutUserInput>
+    where?: TenantApiCredentialWhereInput
   }
 
-  export type ClientApiCredentialUpdateToOneWithWhereWithoutUserInput = {
-    where?: ClientApiCredentialWhereInput
-    data: XOR<ClientApiCredentialUpdateWithoutUserInput, ClientApiCredentialUncheckedUpdateWithoutUserInput>
+  export type TenantApiCredentialUpdateToOneWithWhereWithoutUserInput = {
+    where?: TenantApiCredentialWhereInput
+    data: XOR<TenantApiCredentialUpdateWithoutUserInput, TenantApiCredentialUncheckedUpdateWithoutUserInput>
   }
 
-  export type ClientApiCredentialUpdateWithoutUserInput = {
+  export type TenantApiCredentialUpdateWithoutUserInput = {
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -54757,7 +54757,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiCredentialUncheckedUpdateWithoutUserInput = {
+  export type TenantApiCredentialUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     apiKey?: StringFieldUpdateOperationsInput | string
     apiSecret?: StringFieldUpdateOperationsInput | string
@@ -54809,8 +54809,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -54832,8 +54832,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogUncheckedCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -54870,8 +54870,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -54893,8 +54893,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUncheckedUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -54915,8 +54915,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -54938,8 +54938,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogUncheckedCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -55266,8 +55266,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -55289,8 +55289,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUncheckedUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -58703,8 +58703,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
-    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
@@ -58726,8 +58726,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
-    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogUncheckedCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -58810,8 +58810,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
@@ -58833,8 +58833,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUncheckedUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -58936,7 +58936,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UserCreateWithoutClientApiCredentialInput = {
+  export type UserCreateWithoutTenantApiCredentialInput = {
     entityId?: string | null
     email: string
     password: string
@@ -58954,11 +58954,11 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
+    tenantApiLog?: TenantApiLogCreateNestedManyWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutClientApiCredentialInput = {
+  export type UserUncheckedCreateWithoutTenantApiCredentialInput = {
     id?: number
     entityId?: string | null
     email: string
@@ -58977,27 +58977,27 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
+    tenantApiLog?: TenantApiLogUncheckedCreateNestedManyWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutClientApiCredentialInput = {
+  export type UserCreateOrConnectWithoutTenantApiCredentialInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
+    create: XOR<UserCreateWithoutTenantApiCredentialInput, UserUncheckedCreateWithoutTenantApiCredentialInput>
   }
 
-  export type UserUpsertWithoutClientApiCredentialInput = {
-    update: XOR<UserUpdateWithoutClientApiCredentialInput, UserUncheckedUpdateWithoutClientApiCredentialInput>
-    create: XOR<UserCreateWithoutClientApiCredentialInput, UserUncheckedCreateWithoutClientApiCredentialInput>
+  export type UserUpsertWithoutTenantApiCredentialInput = {
+    update: XOR<UserUpdateWithoutTenantApiCredentialInput, UserUncheckedUpdateWithoutTenantApiCredentialInput>
+    create: XOR<UserCreateWithoutTenantApiCredentialInput, UserUncheckedCreateWithoutTenantApiCredentialInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutClientApiCredentialInput = {
+  export type UserUpdateToOneWithWhereWithoutTenantApiCredentialInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutClientApiCredentialInput, UserUncheckedUpdateWithoutClientApiCredentialInput>
+    data: XOR<UserUpdateWithoutTenantApiCredentialInput, UserUncheckedUpdateWithoutTenantApiCredentialInput>
   }
 
-  export type UserUpdateWithoutClientApiCredentialInput = {
+  export type UserUpdateWithoutTenantApiCredentialInput = {
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -59015,11 +59015,11 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUpdateManyWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutClientApiCredentialInput = {
+  export type UserUncheckedUpdateWithoutTenantApiCredentialInput = {
     id?: IntFieldUpdateOperationsInput | number
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
@@ -59038,11 +59038,11 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUncheckedUpdateManyWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutClientApiLogInput = {
+  export type UserCreateWithoutTenantApiLogInput = {
     entityId?: string | null
     email: string
     password: string
@@ -59060,11 +59060,11 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutClientApiLogInput = {
+  export type UserUncheckedCreateWithoutTenantApiLogInput = {
     id?: number
     entityId?: string | null
     email: string
@@ -59083,27 +59083,27 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialUncheckedCreateNestedOneWithoutUserInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutClientApiLogInput = {
+  export type UserCreateOrConnectWithoutTenantApiLogInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
+    create: XOR<UserCreateWithoutTenantApiLogInput, UserUncheckedCreateWithoutTenantApiLogInput>
   }
 
-  export type UserUpsertWithoutClientApiLogInput = {
-    update: XOR<UserUpdateWithoutClientApiLogInput, UserUncheckedUpdateWithoutClientApiLogInput>
-    create: XOR<UserCreateWithoutClientApiLogInput, UserUncheckedCreateWithoutClientApiLogInput>
+  export type UserUpsertWithoutTenantApiLogInput = {
+    update: XOR<UserUpdateWithoutTenantApiLogInput, UserUncheckedUpdateWithoutTenantApiLogInput>
+    create: XOR<UserCreateWithoutTenantApiLogInput, UserUncheckedCreateWithoutTenantApiLogInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutClientApiLogInput = {
+  export type UserUpdateToOneWithWhereWithoutTenantApiLogInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutClientApiLogInput, UserUncheckedUpdateWithoutClientApiLogInput>
+    data: XOR<UserUpdateWithoutTenantApiLogInput, UserUncheckedUpdateWithoutTenantApiLogInput>
   }
 
-  export type UserUpdateWithoutClientApiLogInput = {
+  export type UserUpdateWithoutTenantApiLogInput = {
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -59121,11 +59121,11 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUpdateOneWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutClientApiLogInput = {
+  export type UserUncheckedUpdateWithoutTenantApiLogInput = {
     id?: IntFieldUpdateOperationsInput | number
     entityId?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
@@ -59144,7 +59144,7 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUncheckedUpdateOneWithoutUserNestedInput
     systemIntegratorFirsSettings?: SystemIntegratorFirsSettingsUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -59166,8 +59166,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutUserInput
     directors?: DirectorCreateNestedManyWithoutUserInput
     entity?: EntityCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSystemIntegratorFirsSettingsInput = {
@@ -59189,8 +59189,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutUserInput
     directors?: DirectorUncheckedCreateNestedManyWithoutUserInput
     entity?: EntityUncheckedCreateNestedOneWithoutUserInput
-    clientApiLog?: ClientApiLogUncheckedCreateNestedManyWithoutUserInput
-    clientApiCredential?: ClientApiCredentialUncheckedCreateNestedOneWithoutUserInput
+    tenantApiLog?: TenantApiLogUncheckedCreateNestedManyWithoutUserInput
+    tenantApiCredential?: TenantApiCredentialUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSystemIntegratorFirsSettingsInput = {
@@ -59227,8 +59227,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutUserNestedInput
     directors?: DirectorUpdateManyWithoutUserNestedInput
     entity?: EntityUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystemIntegratorFirsSettingsInput = {
@@ -59250,8 +59250,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutUserNestedInput
     directors?: DirectorUncheckedUpdateManyWithoutUserNestedInput
     entity?: EntityUncheckedUpdateOneWithoutUserNestedInput
-    clientApiLog?: ClientApiLogUncheckedUpdateManyWithoutUserNestedInput
-    clientApiCredential?: ClientApiCredentialUncheckedUpdateOneWithoutUserNestedInput
+    tenantApiLog?: TenantApiLogUncheckedUpdateManyWithoutUserNestedInput
+    tenantApiCredential?: TenantApiCredentialUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InvoiceCreateManyUserInput = {
@@ -59291,7 +59291,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ClientApiLogCreateManyUserInput = {
+  export type TenantApiLogCreateManyUserInput = {
     id?: number
     method: string
     endpoint: string
@@ -59438,7 +59438,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiLogUpdateWithoutUserInput = {
+  export type TenantApiLogUpdateWithoutUserInput = {
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     requestBody?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59447,7 +59447,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiLogUncheckedUpdateWithoutUserInput = {
+  export type TenantApiLogUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
@@ -59457,7 +59457,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ClientApiLogUncheckedUpdateManyWithoutUserInput = {
+  export type TenantApiLogUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     method?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string

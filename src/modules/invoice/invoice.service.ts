@@ -985,242 +985,174 @@ export class InvoiceService {
       //   throw new Error(`Invoice validation failed: ${validationError.message}`);
       // }
 
-      const user = await this.prisma.user.findUnique({
-        where: { id: userId },
+      let businessId = data.business_id;
+      if (!businessId) {
+        const userWithEntity = await this.prisma.user.findUnique({
+          where: { id: userId },
+          include: { entity: { include: { businesses: true } } },
+        });
+        
+        if (userWithEntity && userWithEntity.entity && userWithEntity.entity.businesses && userWithEntity.entity.businesses.length > 0) {
+          businessId = userWithEntity.entity.businesses[0].id;
+        } else {
+          throw new Error("No business ID provided and no business found for user");
+        }
+      }
+
+      // Calculate totals
+      let lineExtTotal = 0;
+      let taxExclTotal = 0;
+      let taxInclTotal = 0;
+      let totalTaxAmount = 0;
+
+      const taxSubtotalsMap = new Map<
+        number,
+        {
+          taxableAmount: number;
+          taxAmount: number;
+          categoryId: string;
+          percent: number;
+        }
+      >();
+
+      const invoiceLines = data.items.map((line) => {
+        const lineExtensionAmount = line.quantity * line.unit_price;
+        const taxRate = line.tax_rate ?? 7.5;
+        const taxAmount = (lineExtensionAmount * taxRate) / 100;
+
+        lineExtTotal += lineExtensionAmount;
+        taxExclTotal += lineExtensionAmount;
+        taxInclTotal += lineExtensionAmount + taxAmount;
+        totalTaxAmount += taxAmount;
+
+        const existingTax = taxSubtotalsMap.get(taxRate);
+        if (existingTax) {
+          existingTax.taxableAmount += lineExtensionAmount;
+          existingTax.taxAmount += taxAmount;
+        } else {
+          taxSubtotalsMap.set(taxRate, {
+            taxableAmount: lineExtensionAmount,
+            taxAmount: taxAmount,
+            categoryId: line.tax_category || "STANDARD_VAT",
+            percent: taxRate,
+          });
+        }
+
+        return {
+          hsnCode: line.hsn_code || line.isic_code || "N/A",
+          productCategory:
+            line.product_category || line.service_category || "N/A",
+          discountRate: 0,
+          discountAmount: line.discount_amount || 0,
+          feeRate: 0,
+          feeAmount: line.fee_amount || 0,
+          invoicedQuantity: line.quantity,
+          lineExtensionAmount: lineExtensionAmount,
+          item: {
+            create: {
+              name: line.name,
+              description: line.description || line.name,
+            },
+          },
+          price: {
+            create: {
+              priceAmount: line.unit_price,
+              baseQuantity: 1,
+              priceUnit: line.price_unit || "C62",
+            },
+          },
+        };
       });
 
       // Create the invoice with all related data
       const invoice = await this.prisma.invoice.create({
         data: {
-          businessId: data.business_id,
+          businessId: businessId,
           userId: userId,
           irn: data.irn,
-          issueDate: new Date(data.issue_date),
+          issueDate: data.issue_date ? new Date(data.issue_date) : new Date(),
           dueDate: data.due_date ? new Date(data.due_date) : null,
           issueTime: data.issue_time,
-          invoiceTypeCode: data.invoice_type_code,
+          invoiceTypeCode: data.invoice_type_code || "396",
           paymentStatus: data.payment_status || "PENDING",
           note: data.note,
-          taxPointDate: data.tax_point_date
-            ? new Date(data.tax_point_date)
-            : null,
-          documentCurrencyCode: data.document_currency_code,
-          taxCurrencyCode: data.tax_currency_code,
-          accountingCost: data.accounting_cost,
-          buyerReference: data.buyer_reference,
-          orderReference: data.order_reference,
-          actualDeliveryDate: data.actual_delivery_date
-            ? new Date(data.actual_delivery_date)
-            : null,
-          paymentTermsNote: data.payment_terms_note,
-
-          // Create invoice delivery period if provided
-          invoiceDeliveryPeriod: data.invoice_delivery_period
+          documentCurrencyCode: data.document_currency_code || "NGN",
+          taxCurrencyCode: data.tax_currency_code || data.document_currency_code || "NGN",
+          
+          // Create supplier party
+          accountingSupplierParty: data.supplier
             ? {
                 create: {
-                  startDate: new Date(data.invoice_delivery_period.start_date),
-                  endDate: new Date(data.invoice_delivery_period.end_date),
+                  partyName: data.supplier.party_name,
+                  tin: data.supplier.tin,
+                  email: data.supplier.email,
+                  telephone: data.supplier.telephone,
+                  businessDescription: data.supplier.business_description,
+                  postalAddress: {
+                    create: {
+                      streetName: data.supplier.postal_address.street_name,
+                      cityName: data.supplier.postal_address.city_name,
+                      postalZone: data.supplier.postal_address.postal_zone,
+                      country: data.supplier.postal_address.country || "NG",
+                    },
+                  },
                 },
               }
             : undefined,
-
-          // Create supplier party
-          accountingSupplierParty: {
-            create: {
-              partyName: data.accounting_supplier_party.party_name,
-              tin: data.accounting_supplier_party.tin,
-              email: data.accounting_supplier_party.email,
-              telephone: data.accounting_supplier_party.telephone,
-              businessDescription:
-                data.accounting_supplier_party.business_description,
-              postalAddress: {
-                create: {
-                  streetName:
-                    data.accounting_supplier_party.postal_address.street_name,
-                  cityName:
-                    data.accounting_supplier_party.postal_address.city_name,
-                  postalZone:
-                    data.accounting_supplier_party.postal_address.postal_zone,
-                  country:
-                    data.accounting_supplier_party.postal_address.country,
-                },
-              },
-            },
-          },
 
           // Create customer party
           accountingCustomerParty: {
             create: {
-              partyName: data.accounting_customer_party.party_name,
-              tin: data.accounting_customer_party.tin,
-              email: data.accounting_customer_party.email,
-              telephone: data.accounting_customer_party.telephone,
-              businessDescription:
-                data.accounting_customer_party.business_description,
+              partyName: data.customer.party_name,
+              tin: data.customer.tin,
+              email: data.customer.email,
+              telephone: data.customer.telephone,
+              businessDescription: data.customer.business_description,
               postalAddress: {
                 create: {
-                  streetName:
-                    data.accounting_customer_party.postal_address.street_name,
-                  cityName:
-                    data.accounting_customer_party.postal_address.city_name,
-                  postalZone:
-                    data.accounting_customer_party.postal_address.postal_zone,
-                  country:
-                    data.accounting_customer_party.postal_address.country,
+                  streetName: data.customer.postal_address.street_name,
+                  cityName: data.customer.postal_address.city_name,
+                  postalZone: data.customer.postal_address.postal_zone,
+                  country: data.customer.postal_address.country || "NG",
                 },
               },
             },
           },
 
-          // Create billing references if provided
-          billingReferences: data.billing_reference
-            ? {
-                create: data.billing_reference.map((ref) => ({
-                  irn: ref.irn,
-                  issueDate: new Date(ref.issue_date),
-                })),
-              }
-            : undefined,
-
-          // Create document references if provided
-          documentReferences: data._document_reference
-            ? {
-                create: data._document_reference.map((ref) => ({
-                  irn: ref.irn,
-                  issueDate: new Date(ref.issue_date),
-                })),
-              }
-            : undefined,
-
-          // Create dispatch document reference if provided
-          dispatchDocumentReference: data.dispatch_document_reference
-            ? {
-                create: {
-                  irn: data.dispatch_document_reference.irn,
-                  issueDate: new Date(
-                    data.dispatch_document_reference.issue_date,
-                  ),
-                },
-              }
-            : undefined,
-
-          // Create receipt document reference if provided
-          receiptDocumentReference: data.receipt_document_reference
-            ? {
-                create: {
-                  irn: data.receipt_document_reference.irn,
-                  issueDate: new Date(
-                    data.receipt_document_reference.issue_date,
-                  ),
-                },
-              }
-            : undefined,
-
-          // Create originator document reference if provided
-          originatorDocumentReference: data.originator_document_reference
-            ? {
-                create: {
-                  irn: data.originator_document_reference.irn,
-                  issueDate: new Date(
-                    data.originator_document_reference.issue_date,
-                  ),
-                },
-              }
-            : undefined,
-
-          // Create contract document reference if provided
-          contractDocumentReference: data.contract_document_reference
-            ? {
-                create: {
-                  irn: data.contract_document_reference.irn,
-                  issueDate: new Date(
-                    data.contract_document_reference.issue_date,
-                  ),
-                },
-              }
-            : undefined,
-
-          // Create payment means if provided
-          paymentMeans: data.payment_means
-            ? {
-                create: data.payment_means.map((pm) => ({
-                  paymentMeansCode: pm.payment_means_code,
-                  paymentDueDate: new Date(pm.payment_due_date),
-                })),
-              }
-            : undefined,
-
-          // Create allowance charges if provided
-          allowanceCharges: data.allowance_charge
-            ? {
-                create: data.allowance_charge.map((ac) => ({
-                  chargeIndicator: ac.charge_indicator,
-                  amount: ac.amount,
-                })),
-              }
-            : undefined,
-
-          // Create tax totals if provided
-          taxTotals: data.tax_total
-            ? {
-                create: data.tax_total.map((tt) => ({
-                  taxAmount: tt.tax_amount,
-                  taxSubtotals: {
-                    create: tt.tax_subtotal.map((ts) => ({
-                      taxableAmount: ts.taxable_amount,
-                      taxAmount: ts.tax_amount,
-                      taxCategory: {
-                        create: {
-                          categoryId: ts.tax_category.id,
-                          percent: ts.tax_category.percent,
-                        },
+          // Create tax totals
+          taxTotals: {
+            create: [
+              {
+                taxAmount: totalTaxAmount,
+                taxSubtotals: {
+                  create: Array.from(taxSubtotalsMap.values()).map((ts) => ({
+                    taxableAmount: ts.taxableAmount,
+                    taxAmount: ts.taxAmount,
+                    taxCategory: {
+                      create: {
+                        categoryId: ts.categoryId,
+                        percent: ts.percent,
                       },
-                    })),
-                  },
-                })),
-              }
-            : undefined,
+                    },
+                  })),
+                },
+              },
+            ],
+          },
 
           // Create legal monetary total
           legalMonetaryTotal: {
             create: {
-              lineExtensionAmount:
-                data.legal_monetary_total.line_extension_amount,
-              taxExclusiveAmount:
-                data.legal_monetary_total.tax_exclusive_amount,
-              taxInclusiveAmount:
-                data.legal_monetary_total.tax_inclusive_amount,
-              payableAmount: data.legal_monetary_total.payable_amount,
+              lineExtensionAmount: lineExtTotal,
+              taxExclusiveAmount: taxExclTotal,
+              taxInclusiveAmount: taxInclTotal,
+              payableAmount: taxInclTotal,
             },
           },
 
           // Create invoice lines
           invoiceLines: {
-            create: data.invoice_line.map((line) => ({
-              hsnCode: line.hsn_code,
-              productCategory: line.product_category,
-              discountRate: line.discount_rate,
-              discountAmount: line.discount_amount,
-              feeRate: line.fee_rate,
-              feeAmount: line.fee_amount,
-              invoicedQuantity: line.invoiced_quantity,
-              lineExtensionAmount: line.line_extension_amount,
-              item: {
-                create: {
-                  name: line.item.name,
-                  description: line.item.description,
-                  sellersItemIdentification:
-                    line.item.sellers_item_identification,
-                },
-              },
-              price: {
-                create: {
-                  priceAmount: line.price.price_amount,
-                  baseQuantity: line.price.base_quantity,
-                  priceUnit: line.price.price_unit,
-                },
-              },
-            })),
+            create: invoiceLines,
           },
         },
         include: {
