@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { AppController } from "./app.controller";
 import { ConfigModule } from "@nestjs/config";
 import { DatabaseModule } from "./database/database.module";
 import { AuthModule } from "./modules/auth/auth.module";
@@ -29,6 +30,7 @@ import { SystemIntegratorModule } from "./modules/system-integrator/system-integ
     TenantsModule,
     SystemIntegratorModule,
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
