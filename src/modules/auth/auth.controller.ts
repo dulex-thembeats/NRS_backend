@@ -62,10 +62,9 @@ export class AuthController {
   async getProfile(
     @CurrentUser() req: any,
   ) {
-    console.log(req);
     const user = await this.authService.validateUser(req);
-    if (!user) {
-      throw new UnauthorizedException('User not found');
+    if (!user || user.id != req.id) {
+      throw new UnauthorizedException('User not found or not authorized');
     }
     return user;
   }

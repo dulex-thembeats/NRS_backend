@@ -19,7 +19,6 @@ import { Public } from 'src/common/decorators';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Public()
   @Get()
   async findAll() {
     return this.usersService.findAllUsers();
@@ -34,13 +33,11 @@ export class UsersController {
     return user;
   }
 
-  @Public()
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 
-  @Public()
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
