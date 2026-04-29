@@ -62,6 +62,7 @@ export class AuthService {
         email: user.email,
         entityId: user.entityId ?? '',
         businessName: user.businessName ?? '',
+        role: user.role,
       };
 
       if (user.entityId) {
@@ -120,6 +121,7 @@ export class AuthService {
         email: user.email,
         entityId: user.entityId ?? '',
         businessName: user.businessName ?? '',
+        role: user.role,
       };
       try {
         await this.emailService.sendWelcomeEmail(user.email, {

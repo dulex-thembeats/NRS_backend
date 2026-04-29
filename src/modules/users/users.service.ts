@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -77,8 +78,7 @@ export class UsersService {
 
     return {
       success: true,
-      user: this.mapPrismaUserToEntity(user),
-      password: randomPassword,
+      user: this.sanitizeUser(this.mapPrismaUserToEntity(user)),
     };
   }
 
@@ -121,7 +121,7 @@ export class UsersService {
         businessName: registerUserDto.businessName,
         businessAddress: registerUserDto.businessAddress,
         rcNumber: registerUserDto.rcNumber,
-        role: (registerUserDto.role || 'USER') as any,
+        role: 'USER' as any,
         dateOfIncorporation: registerUserDto.dateOfIncorporation 
           ? new Date(registerUserDto.dateOfIncorporation) 
           : new Date(),
@@ -151,31 +151,36 @@ export class UsersService {
       where: { isActive: true },
     });
 
-    return users.map(({ password, ...user }) => user);
+    return users.map((user) => this.sanitizeUser(user));
   }
 
   async findUserById(id: number): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { id },
-      select:{
-        id:true,
-        email:true,
-        businessAddress:true,
-        businessName:true,
+      select: {
+        id: true,
+        entityId: true,
+        email: true,
+        businessAddress: true,
+        businessName: true,
+        rcNumber: true,
+        role: true,
+        isEmailVerified: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
         entity: {
           include: {
             businesses: true,
           },
         },
-      }
+      },
     });
 
     if (!user) {
       return null;
     }
     return this.mapPrismaUserToEntity(user);
-    // const { password, ...userWithoutPassword } = user;
-    // return userWithoutPassword;
   }
 
   async findUserByEmail(email: string): Promise<User | null> {
@@ -223,6 +228,13 @@ export class UsersService {
       where: { id },
       data: { isActive: false },
     });
+  }
+
+  async removeAsRequester(id: number, requesterId: number, requesterRole: string): Promise<void> {
+    if (requesterRole !== 'ADMIN' && id !== requesterId) {
+      throw new ForbiddenException('You can only deactivate your own account');
+    }
+    await this.remove(id);
   }
 
   async findByVerificationToken(token: string): Promise<User | null> {
@@ -295,5 +307,15 @@ export class UsersService {
       emailVerificationToken: u.emailVerificationToken ?? undefined,
       emailVerificationExpires: u.emailVerificationExpires ?? undefined,
     } as User;
+  }
+
+  private sanitizeUser(user: any) {
+    const {
+      password,
+      emailVerificationToken,
+      emailVerificationExpires,
+      ...safeUser
+    } = user;
+    return safeUser;
   }
 }

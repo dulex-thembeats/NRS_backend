@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/database';
 import axios from 'axios';
 import { GetEntityDto, ValidateIrnDto, ValidateInvoiceDto, CreateInvoiceDto, UpdateInvoiceDto } from './dtos';
@@ -20,6 +25,8 @@ export class InvoiceService {
    * @returns The entity information from the FIRS API.
    */
   async getEntityById(entityId: string): Promise<any> {
+    // await this.assertEntityAccess(entityId, requester);
+
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
         'FIRS API credentials are not set in environment variables',
@@ -375,14 +382,8 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID.
    * @returns The lookup result from FIRS API.
    */
-  async transmitLookupIrnById(invoiceId: number): Promise<any> {
-    const invoice = await this.prisma.invoice.findUnique({
-      where: { id: invoiceId },
-      select: { irn: true },
-    });
-    if (!invoice) {
-      throw new Error(`Invoice with ID ${invoiceId} not found`);
-    }
+  async transmitLookupIrnById(invoiceId: number, requester: any): Promise<any> {
+    const invoice = await this.findAccessibleInvoice(invoiceId, requester);
     return this.transmitLookupIrn(invoice.irn);
   }
 
@@ -391,14 +392,8 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID.
    * @returns The transmit result.
    */
-  async transmitInvoiceById(invoiceId: number): Promise<any> {
-    const invoice = await this.prisma.invoice.findUnique({
-      where: { id: invoiceId },
-      select: { irn: true },
-    });
-    if (!invoice) {
-      throw new Error(`Invoice with ID ${invoiceId} not found`);
-    }
+  async transmitInvoiceById(invoiceId: number, requester: any): Promise<any> {
+    const invoice = await this.findAccessibleInvoice(invoiceId, requester);
     return this.transmitInvoice(invoice.irn);
   }
 
@@ -407,14 +402,11 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID.
    * @returns The confirmation result.
    */
-  async transmitConfirmReceiptById(invoiceId: number): Promise<any> {
-    const invoice = await this.prisma.invoice.findUnique({
-      where: { id: invoiceId },
-      select: { irn: true },
-    });
-    if (!invoice) {
-      throw new Error(`Invoice with ID ${invoiceId} not found`);
-    }
+  async transmitConfirmReceiptById(
+    invoiceId: number,
+    requester: any,
+  ): Promise<any> {
+    const invoice = await this.findAccessibleInvoice(invoiceId, requester);
     return this.transmitConfirmReceipt(invoice.irn);
   }
 
@@ -584,12 +576,15 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID to retrieve.
    * @returns The invoice with all related data and encrypted QR code.
    */
-  async getInvoiceById(invoiceId: number): Promise<any> {
+  async getInvoiceById(invoiceId: number, requester: any): Promise<any> {
     try {
       this.logger.log(`Getting invoice with ID: ${invoiceId}`);
 
-      const invoice = await this.prisma.invoice.findUnique({
-        where: { id: invoiceId },
+      const invoice = await this.prisma.invoice.findFirst({
+        where: {
+          id: invoiceId,
+          ...(requester.role === 'ADMIN' ? {} : { userId: requester.id }),
+        },
         include: {
           invoiceDeliveryPeriod: true,
           accountingSupplierParty: {
@@ -630,7 +625,7 @@ export class InvoiceService {
       });
 
       if (!invoice) {
-        throw new Error(`Invoice with ID ${invoiceId} not found`);
+        throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
       }
 
       let encryptedBase64: string | undefined;
@@ -663,12 +658,15 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID to sign.
    * @returns The signing result and updated invoice.
    */
-  async signInvoiceById(invoiceId: number): Promise<{ ok: boolean; invoice: any }> {
+  async signInvoiceById(
+    invoiceId: number,
+    requester: any,
+  ): Promise<{ ok: boolean; invoice: any }> {
     try {
       this.logger.log(`Signing invoice with ID: ${invoiceId}`);
 
       // Get the invoice first
-      const invoice = await this.getInvoiceById(invoiceId);
+      const invoice = await this.getInvoiceById(invoiceId, requester);
       
       // Convert invoice to DTO format for FIRS API
       const invoiceDto = this.convertInvoiceToDto(invoice);
@@ -702,12 +700,15 @@ export class InvoiceService {
    * @param invoiceId - The invoice ID to confirm.
    * @returns The confirmation result and updated invoice.
    */
-  async confirmInvoiceById(invoiceId: number): Promise<{ ok: boolean; invoice: any }> {
+  async confirmInvoiceById(
+    invoiceId: number,
+    requester: any,
+  ): Promise<{ ok: boolean; invoice: any }> {
     try {
       this.logger.log(`Confirming invoice with ID: ${invoiceId}`);
 
       // Get the invoice first
-      const invoice = await this.getInvoiceById(invoiceId);
+      const invoice = await this.getInvoiceById(invoiceId, requester);
       
       // Call FIRS confirm API
       const confirmResult = await this.getInvoiceConfirmation(invoice.irn);
@@ -1151,12 +1152,16 @@ export class InvoiceService {
    * @param updateData - The data to update the invoice with.
    * @returns The updated invoice.
    */
-  async updateInvoiceById(invoiceId: number, updateData: UpdateInvoiceDto): Promise<any> {
+  async updateInvoiceById(
+    invoiceId: number,
+    updateData: UpdateInvoiceDto,
+    requester: any,
+  ): Promise<any> {
     try {
       this.logger.log(`Updating invoice with ID: ${invoiceId}`);
 
       // Get the existing invoice first
-      const existingInvoice = await this.getInvoiceById(invoiceId);
+      const existingInvoice = await this.getInvoiceById(invoiceId, requester);
       
       if (!existingInvoice) {
         throw new Error(`Invoice with ID ${invoiceId} not found`);
@@ -1265,5 +1270,33 @@ export class InvoiceService {
       this.logger.error(`Failed to update invoice with ID: ${invoiceId}`, error.stack);
       throw new Error(`Failed to update invoice: ${error.message}`);
     }
+  }
+
+  private async assertEntityAccess(entityId: string, requester: any): Promise<void> {
+    if (requester.role === 'ADMIN') {
+      return;
+    }
+
+    if (!requester.entityId || requester.entityId !== entityId) {
+      throw new ForbiddenException(
+        'You are not allowed to access data for this entity',
+      );
+    }
+  }
+
+  private async findAccessibleInvoice(invoiceId: number, requester: any) {
+    const invoice = await this.prisma.invoice.findFirst({
+      where: {
+        id: invoiceId,
+        ...(requester.role === 'ADMIN' ? {} : { userId: requester.id }),
+      },
+      select: { irn: true },
+    });
+
+    if (!invoice) {
+      throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
+    }
+
+    return invoice;
   }
 } 

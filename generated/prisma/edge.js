@@ -514,7 +514,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/favouridowu-alvative/Documents/NRS_backend/generated/prisma",
+      "value": "/home/elbelel/Documents/WALI/NRS_backend/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -523,17 +523,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/favouridowu-alvative/Documents/NRS_backend/prisma/schema.prisma",
+    "sourceFilePath": "/home/elbelel/Documents/WALI/NRS_backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.13.0",
@@ -542,6 +541,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {

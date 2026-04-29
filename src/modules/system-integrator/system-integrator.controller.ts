@@ -11,6 +11,7 @@ import {
   UsePipes,
   ValidationPipe,
   ParseIntPipe,
+  ForbiddenException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -22,6 +23,7 @@ import {
 import { SystemIntegratorService } from './system-integrator.service';
 import { ValidateInvoiceDto } from '../firs/dtos/validete-invoice.dto';
 import { GenerateQrCodeDto, UpdateFirsSettingsDto } from './dtos';
+import { CurrentUser } from 'src/common/decorators';
 
 @ApiTags('System Integrator')
 @Controller('api/v1/system-integrator')
@@ -149,11 +151,16 @@ export class SystemIntegratorController {
   @ApiResponse({ status: 404, description: 'Settings not found for user' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async getFirsSettings(
+    @CurrentUser() requester: any,
     @Param('userId', ParseIntPipe) userId: number,
   ): Promise<{
     firsPublicKeyBase64: string | null;
     firsCertificateBase64: string | null;
   } | null> {
+    if (requester.role !== 'ADMIN' && requester.id !== userId) {
+      throw new ForbiddenException('You can only access your own settings');
+    }
+
     this.logger.log(`Received get FIRS settings request for user: ${userId}`);
     try {
       const result =
@@ -198,12 +205,17 @@ export class SystemIntegratorController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async updateFirsSettings(
+    @CurrentUser() requester: any,
     @Body() params: UpdateFirsSettingsDto,
   ): Promise<{
     userId: number;
     firsPublicKeyBase64: string | null;
     firsCertificateBase64: string | null;
   }> {
+    if (requester.role !== 'ADMIN' && requester.id !== params.userId) {
+      throw new ForbiddenException('You can only update your own settings');
+    }
+
     this.logger.log(
       `Received update FIRS settings request for user: ${params.userId}`,
     );

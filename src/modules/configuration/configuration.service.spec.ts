@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
 import { HttpException } from '@nestjs/common';
 import { ConfigurationService } from './configuration.service';
+import { PrismaService } from 'src/database';
 import axios from 'axios';
 
 jest.mock('axios');
@@ -10,6 +11,17 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('ConfigurationService', () => {
   let service: ConfigurationService;
   let configService: ConfigService;
+  const mockPrismaService = {
+    configurationInvoiceType: { findMany: jest.fn() },
+    configurationPaymentMean: { findMany: jest.fn() },
+    configurationTaxCategory: { findMany: jest.fn() },
+    configurationCurrency: { findMany: jest.fn() },
+    configurationVatExemption: { findMany: jest.fn() },
+    configurationProductCode: { findMany: jest.fn() },
+    configurationServiceCode: { findMany: jest.fn() },
+    configurationLocalGovernment: { findMany: jest.fn() },
+    configurationState: { findMany: jest.fn() },
+  };
 
   const mockConfigService = {
     get: jest.fn(),
@@ -22,6 +34,10 @@ describe('ConfigurationService', () => {
         {
           provide: ConfigService,
           useValue: mockConfigService,
+        },
+        {
+          provide: PrismaService,
+          useValue: mockPrismaService,
         },
       ],
     }).compile();
@@ -37,14 +53,18 @@ describe('ConfigurationService', () => {
   describe('constructor', () => {
     it('should throw error if FIRS_API_URL is not configured', () => {
       mockConfigService.get.mockReturnValue(undefined);
-      expect(() => new ConfigurationService(configService)).toThrow(
+      expect(
+        () => new ConfigurationService(configService, mockPrismaService as any),
+      ).toThrow(
         'FIRS_API_URL environment variable is not configured'
       );
     });
 
     it('should initialize successfully with FIRS_API_URL', () => {
       mockConfigService.get.mockReturnValue('https://api.firs.gov.ng');
-      expect(() => new ConfigurationService(configService)).not.toThrow();
+      expect(
+        () => new ConfigurationService(configService, mockPrismaService as any),
+      ).not.toThrow();
     });
   });
 
