@@ -1051,7 +1051,7 @@ export class InvoiceService {
           item: {
             create: {
               name: line.name,
-              description: line.description || line.name,
+              description: line.description || "",
             },
           },
           price: {
@@ -1093,7 +1093,7 @@ export class InvoiceService {
                       streetName: data.supplier.postal_address.street_name,
                       cityName: data.supplier.postal_address.city_name,
                       postalZone: data.supplier.postal_address.postal_zone,
-                      country: data.supplier.postal_address.country || "NG",
+                      country: data.supplier.postal_address.country ?? "NG",
                     },
                   },
                 },
@@ -1113,7 +1113,7 @@ export class InvoiceService {
                   streetName: data.customer.postal_address.street_name,
                   cityName: data.customer.postal_address.city_name,
                   postalZone: data.customer.postal_address.postal_zone,
-                  country: data.customer.postal_address.country || "NG",
+                  country: data.customer.postal_address.country ?? "NG",
                 },
               },
             },
