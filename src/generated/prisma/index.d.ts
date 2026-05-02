@@ -4395,6 +4395,7 @@ export namespace Prisma {
     isEmailVerified: boolean | null
     emailVerificationToken: string | null
     emailVerificationExpires: Date | null
+    isProfileComplete: boolean | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4413,6 +4414,7 @@ export namespace Prisma {
     isEmailVerified: boolean | null
     emailVerificationToken: string | null
     emailVerificationExpires: Date | null
+    isProfileComplete: boolean | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4431,6 +4433,7 @@ export namespace Prisma {
     isEmailVerified: number
     emailVerificationToken: number
     emailVerificationExpires: number
+    isProfileComplete: number
     isActive: number
     createdAt: number
     updatedAt: number
@@ -4459,6 +4462,7 @@ export namespace Prisma {
     isEmailVerified?: true
     emailVerificationToken?: true
     emailVerificationExpires?: true
+    isProfileComplete?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -4477,6 +4481,7 @@ export namespace Prisma {
     isEmailVerified?: true
     emailVerificationToken?: true
     emailVerificationExpires?: true
+    isProfileComplete?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -4495,6 +4500,7 @@ export namespace Prisma {
     isEmailVerified?: true
     emailVerificationToken?: true
     emailVerificationExpires?: true
+    isProfileComplete?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -4600,6 +4606,7 @@ export namespace Prisma {
     isEmailVerified: boolean
     emailVerificationToken: string | null
     emailVerificationExpires: Date | null
+    isProfileComplete: boolean
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -4637,6 +4644,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: boolean
     emailVerificationExpires?: boolean
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4662,6 +4670,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: boolean
     emailVerificationExpires?: boolean
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4680,6 +4689,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: boolean
     emailVerificationExpires?: boolean
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4698,12 +4708,13 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: boolean
     emailVerificationExpires?: boolean
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "entityId" | "email" | "password" | "businessName" | "businessAddress" | "rcNumber" | "role" | "dateOfIncorporation" | "isEmailVerified" | "emailVerificationToken" | "emailVerificationExpires" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "entityId" | "email" | "password" | "businessName" | "businessAddress" | "rcNumber" | "role" | "dateOfIncorporation" | "isEmailVerified" | "emailVerificationToken" | "emailVerificationExpires" | "isProfileComplete" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoices?: boolean | User$invoicesArgs<ExtArgs>
     directors?: boolean | User$directorsArgs<ExtArgs>
@@ -4739,6 +4750,7 @@ export namespace Prisma {
       isEmailVerified: boolean
       emailVerificationToken: string | null
       emailVerificationExpires: Date | null
+      isProfileComplete: boolean
       isActive: boolean
       createdAt: Date
       updatedAt: Date
@@ -5183,6 +5195,7 @@ export namespace Prisma {
     readonly isEmailVerified: FieldRef<"User", 'Boolean'>
     readonly emailVerificationToken: FieldRef<"User", 'String'>
     readonly emailVerificationExpires: FieldRef<"User", 'DateTime'>
+    readonly isProfileComplete: FieldRef<"User", 'Boolean'>
     readonly isActive: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -45477,6 +45490,7 @@ export namespace Prisma {
     isEmailVerified: 'isEmailVerified',
     emailVerificationToken: 'emailVerificationToken',
     emailVerificationExpires: 'emailVerificationExpires',
+    isProfileComplete: 'isProfileComplete',
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -46052,6 +46066,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFilter<"User"> | boolean
     emailVerificationToken?: StringNullableFilter<"User"> | string | null
     emailVerificationExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    isProfileComplete?: BoolFilter<"User"> | boolean
     isActive?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -46076,6 +46091,7 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     emailVerificationToken?: SortOrderInput | SortOrder
     emailVerificationExpires?: SortOrderInput | SortOrder
+    isProfileComplete?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -46103,6 +46119,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFilter<"User"> | boolean
     emailVerificationToken?: StringNullableFilter<"User"> | string | null
     emailVerificationExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    isProfileComplete?: BoolFilter<"User"> | boolean
     isActive?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -46127,6 +46144,7 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     emailVerificationToken?: SortOrderInput | SortOrder
     emailVerificationExpires?: SortOrderInput | SortOrder
+    isProfileComplete?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -46153,6 +46171,7 @@ export namespace Prisma {
     isEmailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     emailVerificationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerificationExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    isProfileComplete?: BoolWithAggregatesFilter<"User"> | boolean
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -48470,6 +48489,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -48494,6 +48514,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -48517,6 +48538,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48541,6 +48563,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48565,6 +48588,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -48582,6 +48606,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48600,6 +48625,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -51063,6 +51089,7 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     emailVerificationToken?: SortOrder
     emailVerificationExpires?: SortOrder
+    isProfileComplete?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -51085,6 +51112,7 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     emailVerificationToken?: SortOrder
     emailVerificationExpires?: SortOrder
+    isProfileComplete?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -51103,6 +51131,7 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     emailVerificationToken?: SortOrder
     emailVerificationExpires?: SortOrder
+    isProfileComplete?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -54804,6 +54833,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54827,6 +54857,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54865,6 +54896,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54888,6 +54920,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54910,6 +54943,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54933,6 +54967,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -55261,6 +55296,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -55284,6 +55320,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58698,6 +58735,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -58721,6 +58759,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -58805,6 +58844,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58828,6 +58868,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58948,6 +58989,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -58971,6 +59013,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -59009,6 +59052,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59032,6 +59076,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59054,6 +59099,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -59077,6 +59123,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -59115,6 +59162,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59138,6 +59186,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59160,6 +59209,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -59183,6 +59233,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     emailVerificationToken?: string | null
     emailVerificationExpires?: Date | string | null
+    isProfileComplete?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -59221,6 +59272,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59244,6 +59296,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isProfileComplete?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

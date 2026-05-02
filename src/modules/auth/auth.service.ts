@@ -9,7 +9,7 @@ import { JwtService } from "@nestjs/jwt";
 import { UsersService } from "../users/users.service";
 import { JwtPayload } from "./interface/jwt-payload.interface";
 import { compare, hash } from "bcryptjs";
-import { RegisterUserDto } from "../users/dtos";
+import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
 import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
 import * as bcrypt from "bcryptjs";
 import { EmailService } from "../../shared/email/mail.service";
@@ -82,8 +82,11 @@ export class AuthService {
     return match ? match[1] : irnTemplate;
   }
 
+  /**
+   * Phase 1: Lightweight registration with email + password only.
+   * User gets a JWT and lands on the dashboard with isProfileComplete: false.
+   */
   async register(registerUserDto: RegisterUserDto) {
-    // Check if user already exists
     try {
       const existingUser = await this.userService.findUserByEmail(
         registerUserDto.email,
@@ -92,49 +95,78 @@ export class AuthService {
         throw new UnauthorizedException("User already exists");
       }
 
-      // Create new user with directors
+      // Create user with just email + password
       const user =
-        await this.userService.createUserWithDirectors(registerUserDto);
+        await this.userService.createUserLightweight(registerUserDto);
 
       // Generate JWT token
       const payload: JwtPayload = {
         sub: user.id,
         email: user.email,
-        entityId: user.entityId ?? "",
-        businessName: user.businessName ?? "",
+        entityId: "",
+        businessName: "",
       };
-
-      if (user.entityId) {
-        try {
-          await this.fetchAndSaveEntityData(user.entityId, user.id);
-        } catch (fetchError) {
-          this.logger.warn(
-            `Could not sync entity data with FIRS during registration: ${fetchError.message}. Proceeding with registration anyway.`,
-          );
-        }
-      }
-
-      const businessContext = await this.buildBusinessContext(user.id);
-      // await this.emailService.sendWelcomeEmail(user.email, {
-      //   businessName: user.businessName,
-      //   email: user.email,
-      //   loginUrl: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/login`,
-      // });
 
       return {
         access_token: this.jwtService.sign(payload),
         user: {
           id: user.id,
           email: user.email,
-          businessName: user.businessName,
         },
-        entity_id: businessContext.entityId ?? user.entityId ?? null,
-        business_id: businessContext.business_id,
-        businesses: businessContext.businesses,
+        isProfileComplete: false,
+        entity_id: null,
+        business_id: null,
+        businesses: [],
       };
     } catch (error) {
       throw error;
     }
+  }
+
+  /**
+   * Phase 2: Complete profile with business info and directors.
+   * Called from within the dashboard after the user is already authenticated.
+   * Returns a fresh JWT with updated business claims.
+   */
+  async completeProfile(userId: number, completeProfileDto: CompleteProfileDto) {
+    const user = await this.userService.completeProfile(
+      userId,
+      completeProfileDto,
+    );
+
+    // Sync with FIRS if entityId is provided
+    if (user.entityId) {
+      try {
+        await this.fetchAndSaveEntityData(user.entityId, user.id);
+      } catch (fetchError) {
+        this.logger.warn(
+          `Could not sync entity data during profile completion: ${fetchError.message}. Proceeding anyway.`,
+        );
+      }
+    }
+
+    const businessContext = await this.buildBusinessContext(user.id);
+
+    // Issue a fresh JWT with the updated business context
+    const payload: JwtPayload = {
+      sub: user.id,
+      email: user.email,
+      entityId: user.entityId ?? "",
+      businessName: user.businessName ?? "",
+    };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+      user: {
+        id: user.id,
+        email: user.email,
+        businessName: user.businessName,
+      },
+      isProfileComplete: true,
+      entity_id: businessContext.entityId ?? user.entityId ?? null,
+      business_id: businessContext.business_id,
+      businesses: businessContext.businesses,
+    };
   }
 
   async login(loginDto: LoginDto) {
@@ -200,6 +232,7 @@ export class AuthService {
           email: user.email,
           businessName: user.businessName,
         },
+        isProfileComplete: user.isProfileComplete ?? false,
         entity_id: businessContext.entityId ?? user.entityId ?? null,
         business_id: businessContext.business_id,
         businesses: businessContext.businesses,
@@ -272,6 +305,7 @@ export class AuthService {
 
     return {
       ...safeUser,
+      isProfileComplete: safeUser.isProfileComplete ?? false,
       entityId: businessContext.entityId ?? safeUser.entityId ?? null,
       business_id: businessContext.business_id,
       businesses: businessContext.businesses,

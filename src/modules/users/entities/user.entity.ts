@@ -12,6 +12,7 @@ export class User {
   isEmailVerified: boolean;
   emailVerificationToken?: string;
   emailVerificationExpires?: Date;
+  isProfileComplete: boolean;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

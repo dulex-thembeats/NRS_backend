@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { RegisterUserDto } from "../users/dtos";
+import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
 import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
 import { Public, CurrentUser } from "../../common/decorators";
 import { EmailService } from "src/shared/email/mail.service";
@@ -27,6 +27,19 @@ export class AuthController {
   @Post("register")
   async register(@Body() registerUserDto: RegisterUserDto) {
     return this.authService.register(registerUserDto);
+  }
+
+  /**
+   * Phase 2: Complete profile with business info and directors.
+   * Requires JWT from Phase 1 registration or login.
+   */
+  @Post("complete-profile")
+  @HttpCode(HttpStatus.OK)
+  async completeProfile(
+    @CurrentUser() req: any,
+    @Body() completeProfileDto: CompleteProfileDto,
+  ) {
+    return this.authService.completeProfile(req.id, completeProfileDto);
   }
 
   @Public()

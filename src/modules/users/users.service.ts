@@ -5,7 +5,12 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "src/database";
 import { EmailService } from "src/shared/email/mail.service";
-import { CreateUserDto, UpdateUserDto, RegisterUserDto } from "./dtos";
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  RegisterUserDto,
+  CompleteProfileDto,
+} from "./dtos";
 import * as bcrypt from "bcryptjs";
 import { User } from "./entities/user.entity";
 import * as crypto from "crypto";
@@ -57,6 +62,7 @@ export class UsersService {
         // business fields intentionally omitted (nullable)
         role: createUserDto.role as any, // Cast to avoid type conflicts
         isEmailVerified: true,
+        isProfileComplete: false,
         emailVerificationToken: verificationToken,
         emailVerificationExpires: verificationExpires,
       },
@@ -81,7 +87,11 @@ export class UsersService {
     };
   }
 
-  async createUserWithDirectors(
+  /**
+   * Lightweight registration: creates a user with only email and password.
+   * Business information is collected later via completeProfile().
+   */
+  async createUserLightweight(
     registerUserDto: RegisterUserDto,
   ): Promise<User> {
     // Check if user already exists with the same email
@@ -95,17 +105,6 @@ export class UsersService {
       throw new ConflictException("User with this email already exists");
     }
 
-    // Check if user already exists with the same entityId
-    const existingUserByEntityId = await this.prisma.user.findUnique({
-      where: {
-        entityId: registerUserDto.entityId,
-      },
-    });
-
-    if (existingUserByEntityId) {
-      throw new ConflictException("User with this entity ID already exists");
-    }
-
     // Hash the password
     const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
 
@@ -113,29 +112,71 @@ export class UsersService {
     const verificationToken = crypto.randomBytes(32).toString("hex");
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
-    // Create new user with directors
+    // Create new user with minimal info
     const user = await this.prisma.user.create({
       data: {
         email: registerUserDto.email,
-        entityId: registerUserDto.entityId,
         password: hashedPassword,
-        businessName: registerUserDto.businessName,
-        businessAddress: registerUserDto.businessAddress,
-        rcNumber: registerUserDto.rcNumber,
-        role: (registerUserDto.role || "USER") as any,
-        dateOfIncorporation: registerUserDto.dateOfIncorporation
-          ? new Date(registerUserDto.dateOfIncorporation)
-          : new Date(),
+        role: "USER",
         isEmailVerified: true,
+        isProfileComplete: false,
         emailVerificationToken: verificationToken,
         emailVerificationExpires: verificationExpires,
+      },
+    });
+
+    return this.mapPrismaUserToEntity(user);
+  }
+
+  /**
+   * Phase 2: completes a user's profile with business information and directors.
+   * Can only be called once per user (guarded by isProfileComplete flag).
+   */
+  async completeProfile(
+    userId: number,
+    completeProfileDto: CompleteProfileDto,
+  ): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException("User not found");
+    }
+
+    if (user.isProfileComplete) {
+      throw new ConflictException("Profile has already been completed");
+    }
+
+    // Check entityId uniqueness
+    if (completeProfileDto.entityId) {
+      const existingEntity = await this.prisma.user.findUnique({
+        where: { entityId: completeProfileDto.entityId },
+      });
+      if (existingEntity && existingEntity.id !== userId) {
+        throw new ConflictException("This entity ID is already in use");
+      }
+    }
+
+    // Update user with business info and create directors in one transaction
+    const updatedUser = await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        entityId: completeProfileDto.entityId,
+        businessName: completeProfileDto.businessName,
+        businessAddress: completeProfileDto.businessAddress,
+        rcNumber: completeProfileDto.rcNumber,
+        dateOfIncorporation: completeProfileDto.dateOfIncorporation
+          ? new Date(completeProfileDto.dateOfIncorporation)
+          : new Date(),
+        isProfileComplete: true,
         directors: {
-          create: registerUserDto.directors.map((director) => ({
-            firstName: director.firstName,
-            lastName: director.lastName,
-            email: director.email,
-            phoneNumber: director.phoneNumber,
-            nin: director.nin,
+          create: completeProfileDto.directors.map((d) => ({
+            firstName: d.firstName,
+            lastName: d.lastName,
+            email: d.email,
+            phoneNumber: d.phoneNumber,
+            nin: d.nin,
           })),
         },
       },
@@ -144,7 +185,7 @@ export class UsersService {
       },
     });
 
-    return this.mapPrismaUserToEntity(user);
+    return this.mapPrismaUserToEntity(updatedUser);
   }
 
   async findAllUsers(): Promise<any[]> {

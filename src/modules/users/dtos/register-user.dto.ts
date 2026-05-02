@@ -67,15 +67,6 @@ export class RegisterUserDto {
   email: string;
 
   @IsString()
-  @MinLength(3)
-  @ApiProperty({
-    description: "The entity ID of the Business",
-    example: "1234567890",
-    required: true,
-  })
-  entityId: string;
-
-  @IsString()
   @MinLength(6)
   @ApiProperty({
     description: "The password of the user",
@@ -83,60 +74,4 @@ export class RegisterUserDto {
     required: true,
   })
   password: string;
-
-  @IsString()
-  @MinLength(3)
-  @ApiProperty({
-    description: "The name of the Business",
-    example: "NorthGate Technology Limited",
-    required: true,
-  })
-  businessName: string;
-
-  @IsString()
-  @MinLength(3)
-  @ApiProperty({
-    description: "The address of the Business",
-    example: "123 Main St, Anytown, USA",
-    required: true,
-  })
-  businessAddress: string;
-
-  @IsString()
-  @MinLength(4)
-  @ApiProperty({
-    description: "The RC number of the Business",
-    example: "RC123456",
-    required: true,
-  })
-  rcNumber: string;
-
-  @IsOptional()
-  @IsIn(["USER", "ADMIN", "CLIENT"])
-  @ApiProperty({
-    description: "The role of the user",
-    example: "USER",
-    required: false,
-    default: "USER",
-  })
-  role?: string;
-
-  @IsOptional()
-  @IsDateString()
-  @ApiProperty({
-    description: "Date of incorporation of the business",
-    example: "2020-01-01",
-    required: false,
-  })
-  dateOfIncorporation?: string;
-
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => DirectorDto)
-  @ApiProperty({
-    description: "Array of directors for the business",
-    type: [DirectorDto],
-    required: true,
-  })
-  directors: DirectorDto[];
 }
