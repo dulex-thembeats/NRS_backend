@@ -33,7 +33,6 @@ export class InvoiceController {
    * @param entityId - The unique identifier of the entity to retrieve.
    * @returns The entity information from the FIRS API.
    */
-  @Public()
   @Get('entity/:entityId')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -63,14 +62,14 @@ export class InvoiceController {
     description: 'Internal server error',
   })
   async getEntityById(
-    // @CurrentUser() user: any,
+    @CurrentUser() user: any,
     @Param() params: GetEntityDto,
   ): Promise<any> {
     this.logger.log(`Received request to get entity with ID: ${params.entityId}`);
 
     try {
-      // const entity = await this.invoiceService.getEntityById(params.entityId, user);
-      const entity = await this.invoiceService.getEntityById(params.entityId);
+      const entity = await this.invoiceService.getEntityById(params.entityId, user);
+      // const entity = await this.invoiceService.getEntityById(params.entityId);
 
       this.logger.log(`Successfully retrieved entity with ID: ${params.entityId}`);
       return entity;

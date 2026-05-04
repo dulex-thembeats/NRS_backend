@@ -94,17 +94,6 @@ export class UsersService {
       throw new ConflictException('User with this email already exists');
     }
 
-    // Check if user already exists with the same entityId
-    const existingUserByEntityId = await this.prisma.user.findUnique({
-      where: {
-        entityId: registerUserDto.entityId,
-      },
-    });
-
-    if (existingUserByEntityId) {
-      throw new ConflictException('User with this entity ID already exists');
-    }
-
     // Hash the password
     const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
 
@@ -116,7 +105,6 @@ export class UsersService {
     const user = await this.prisma.user.create({
       data: {
         email: registerUserDto.email,
-        entityId: registerUserDto.entityId,
         password: hashedPassword,
         businessName: registerUserDto.businessName,
         businessAddress: registerUserDto.businessAddress,
@@ -295,6 +283,53 @@ export class UsersService {
     });
 
     return verificationToken;
+  }
+
+  /**
+   * Ensures the user exists and has no entity ID set yet (one-time bind).
+   */
+  async assertEntityIdUnset(userId: number): Promise<void> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, entityId: true },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (user.entityId) {
+      throw new ConflictException(
+        'Entity ID is already set for this account and cannot be changed here',
+      );
+    }
+  }
+
+  /**
+   * Ensures no other account is already using this entity ID.
+   */
+  async assertEntityIdNotUsedByOtherUser(
+    entityId: string,
+    userId: number,
+  ): Promise<void> {
+    const existing = await this.prisma.user.findUnique({
+      where: { entityId },
+      select: { id: true },
+    });
+
+    if (existing && existing.id !== userId) {
+      throw new ConflictException(
+        'This entity ID is already linked to another account',
+      );
+    }
+  }
+
+  async setUserEntityId(userId: number, entityId: string): Promise<User> {
+    const updated = await this.prisma.user.update({
+      where: { id: userId },
+      data: { entityId },
+    });
+    return this.mapPrismaUserToEntity(updated);
   }
 
   private mapPrismaUserToEntity(u: any): User {

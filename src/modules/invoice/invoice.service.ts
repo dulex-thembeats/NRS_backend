@@ -24,8 +24,8 @@ export class InvoiceService {
    * @param entityId - The unique identifier of the entity to retrieve.
    * @returns The entity information from the FIRS API.
    */
-  async getEntityById(entityId: string): Promise<any> {
-    // await this.assertEntityAccess(entityId, requester);
+  async getEntityById(entityId: string, requester: any): Promise<any> {
+    await this.assertEntityAccess(entityId, requester);
 
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new Error(
