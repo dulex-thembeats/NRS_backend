@@ -1,6 +1,4 @@
 .env
 dist/
-node_modules/generated/prisma/edge.js
-generated/prisma/index.js
-generated/prisma/edge.js
 node_modules/
+generated/prisma/
