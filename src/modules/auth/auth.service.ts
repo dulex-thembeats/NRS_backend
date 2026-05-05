@@ -62,11 +62,8 @@ export class AuthService {
         email: user.email,
         entityId: user.entityId ?? '',
         businessName: user.businessName ?? '',
+        role: user.role,
       };
-
-      if (user.entityId) {
-        await this.fetchAndSaveEntityData(user.entityId, user.id);
-      }
       // await this.emailService.sendWelcomeEmail(user.email, {
       //   businessName: user.businessName,
       //   email: user.email,
@@ -84,6 +81,37 @@ export class AuthService {
     } catch (error) {
       throw error;
     }
+  }
+
+  /**
+   * Binds FIRS entity to the account once: validates entity via FIRS, persists entity data,
+   * sets `user.entityId` only when it was previously unset. The client keeps the same JWT;
+   * `JwtStrategy` loads `entityId` from the database on each request.
+   */
+  async bindEntityIdIfUnset(
+    userId: number,
+    entityId: string,
+  ): Promise<{
+    user: { id: number; email: string; businessName?: string; entityId?: string };
+  }> {
+    const trimmed = entityId.trim();
+
+    await this.userService.assertEntityIdUnset(userId);
+    await this.userService.assertEntityIdNotUsedByOtherUser(trimmed, userId);
+
+    const savedEntity = await this.fetchAndSaveEntityData(trimmed, userId);
+    const resolvedEntityId = savedEntity?.id ?? trimmed;
+
+    const user = await this.userService.setUserEntityId(userId, resolvedEntityId);
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        businessName: user.businessName,
+        entityId: user.entityId,
+      },
+    };
   }
 
   async login(loginDto: LoginDto) {
@@ -120,6 +148,7 @@ export class AuthService {
         email: user.email,
         entityId: user.entityId ?? '',
         businessName: user.businessName ?? '',
+        role: user.role,
       };
       try {
         await this.emailService.sendWelcomeEmail(user.email, {

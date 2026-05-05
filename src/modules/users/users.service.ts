@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -77,8 +78,7 @@ export class UsersService {
 
     return {
       success: true,
-      user: this.mapPrismaUserToEntity(user),
-      password: randomPassword,
+      user: this.sanitizeUser(this.mapPrismaUserToEntity(user)),
     };
   }
 
@@ -94,17 +94,6 @@ export class UsersService {
       throw new ConflictException('User with this email already exists');
     }
 
-    // Check if user already exists with the same entityId
-    const existingUserByEntityId = await this.prisma.user.findUnique({
-      where: {
-        entityId: registerUserDto.entityId,
-      },
-    });
-
-    if (existingUserByEntityId) {
-      throw new ConflictException('User with this entity ID already exists');
-    }
-
     // Hash the password
     const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
 
@@ -116,12 +105,11 @@ export class UsersService {
     const user = await this.prisma.user.create({
       data: {
         email: registerUserDto.email,
-        entityId: registerUserDto.entityId,
         password: hashedPassword,
         businessName: registerUserDto.businessName,
         businessAddress: registerUserDto.businessAddress,
         rcNumber: registerUserDto.rcNumber,
-        role: (registerUserDto.role || 'USER') as any,
+        role: 'USER' as any,
         dateOfIncorporation: registerUserDto.dateOfIncorporation 
           ? new Date(registerUserDto.dateOfIncorporation) 
           : new Date(),
@@ -151,31 +139,36 @@ export class UsersService {
       where: { isActive: true },
     });
 
-    return users.map(({ password, ...user }) => user);
+    return users.map((user) => this.sanitizeUser(user));
   }
 
   async findUserById(id: number): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { id },
-      select:{
-        id:true,
-        email:true,
-        businessAddress:true,
-        businessName:true,
+      select: {
+        id: true,
+        entityId: true,
+        email: true,
+        businessAddress: true,
+        businessName: true,
+        rcNumber: true,
+        role: true,
+        isEmailVerified: true,
+        isActive: true,
+        createdAt: true,
+        updatedAt: true,
         entity: {
           include: {
             businesses: true,
           },
         },
-      }
+      },
     });
 
     if (!user) {
       return null;
     }
     return this.mapPrismaUserToEntity(user);
-    // const { password, ...userWithoutPassword } = user;
-    // return userWithoutPassword;
   }
 
   async findUserByEmail(email: string): Promise<User | null> {
@@ -223,6 +216,13 @@ export class UsersService {
       where: { id },
       data: { isActive: false },
     });
+  }
+
+  async removeAsRequester(id: number, requesterId: number, requesterRole: string): Promise<void> {
+    if (requesterRole !== 'ADMIN' && id !== requesterId) {
+      throw new ForbiddenException('You can only deactivate your own account');
+    }
+    await this.remove(id);
   }
 
   async findByVerificationToken(token: string): Promise<User | null> {
@@ -285,6 +285,53 @@ export class UsersService {
     return verificationToken;
   }
 
+  /**
+   * Ensures the user exists and has no entity ID set yet (one-time bind).
+   */
+  async assertEntityIdUnset(userId: number): Promise<void> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, entityId: true },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (user.entityId) {
+      throw new ConflictException(
+        'Entity ID is already set for this account and cannot be changed here',
+      );
+    }
+  }
+
+  /**
+   * Ensures no other account is already using this entity ID.
+   */
+  async assertEntityIdNotUsedByOtherUser(
+    entityId: string,
+    userId: number,
+  ): Promise<void> {
+    const existing = await this.prisma.user.findUnique({
+      where: { entityId },
+      select: { id: true },
+    });
+
+    if (existing && existing.id !== userId) {
+      throw new ConflictException(
+        'This entity ID is already linked to another account',
+      );
+    }
+  }
+
+  async setUserEntityId(userId: number, entityId: string): Promise<User> {
+    const updated = await this.prisma.user.update({
+      where: { id: userId },
+      data: { entityId },
+    });
+    return this.mapPrismaUserToEntity(updated);
+  }
+
   private mapPrismaUserToEntity(u: any): User {
     return {
       ...(u as User),
@@ -295,5 +342,15 @@ export class UsersService {
       emailVerificationToken: u.emailVerificationToken ?? undefined,
       emailVerificationExpires: u.emailVerificationExpires ?? undefined,
     } as User;
+  }
+
+  private sanitizeUser(user: any) {
+    const {
+      password,
+      emailVerificationToken,
+      emailVerificationExpires,
+      ...safeUser
+    } = user;
+    return safeUser;
   }
 }

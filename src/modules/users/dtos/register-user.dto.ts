@@ -3,7 +3,6 @@ import {
   IsEmail,
   IsString,
   MinLength,
-  IsIn,
   IsOptional,
   IsArray,
   ValidateNested,
@@ -67,15 +66,6 @@ export class RegisterUserDto {
   email: string;
 
   @IsString()
-  @MinLength(3)
-  @ApiProperty({
-    description: 'The entity ID of the Business',
-    example: '1234567890',
-    required: true,
-  })
-  entityId: string;
-
-  @IsString()
   @MinLength(6)
   @ApiProperty({
     description: 'The password of the user',
@@ -110,16 +100,6 @@ export class RegisterUserDto {
     required: true,
   })
   rcNumber: string;
-
-  @IsOptional()
-  @IsIn(['USER', 'ADMIN', 'PARTNER'])
-  @ApiProperty({
-    description: 'The role of the user',
-    example: 'USER',
-    required: false,
-    default: 'USER',
-  })
-  role?: string;
 
   @IsOptional()
   @IsDateString()

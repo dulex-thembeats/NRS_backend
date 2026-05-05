@@ -8,24 +8,30 @@ import {
   Param,
   ParseIntPipe,
   NotFoundException,
-  UseGuards,
+  ForbiddenException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto } from './dtos';
-import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
-import { Public } from 'src/common/decorators';
+import { CurrentUser, Roles } from 'src/common/decorators';
 
 @Controller('api/v1/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @Roles('ADMIN')
   async findAll() {
     return this.usersService.findAllUsers();
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() requester: any,
+  ) {
+    if (requester.role !== 'ADMIN' && requester.id !== id) {
+      throw new ForbiddenException('You can only access your own profile');
+    }
     const user = await this.usersService.findUserById(id);
     if (!user) {
       throw new NotFoundException('User not found');
@@ -34,11 +40,13 @@ export class UsersController {
   }
 
   @Post()
+  @Roles('ADMIN')
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 
   @Put(':id')
+  @Roles('ADMIN')
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -47,8 +55,11 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    await this.usersService.remove(id);
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() requester: any,
+  ) {
+    await this.usersService.removeAsRequester(id, requester.id, requester.role);
     return { message: 'User successfully deactivated' };
   }
 }

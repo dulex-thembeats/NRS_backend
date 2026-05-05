@@ -33,7 +33,6 @@ export class InvoiceController {
    * @param entityId - The unique identifier of the entity to retrieve.
    * @returns The entity information from the FIRS API.
    */
-  @Public()
   @Get('entity/:entityId')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -62,11 +61,16 @@ export class InvoiceController {
     status: 500,
     description: 'Internal server error',
   })
-  async getEntityById(@Param() params: GetEntityDto): Promise<any> {
+  async getEntityById(
+    @CurrentUser() user: any,
+    @Param() params: GetEntityDto,
+  ): Promise<any> {
     this.logger.log(`Received request to get entity with ID: ${params.entityId}`);
 
     try {
-      const entity = await this.invoiceService.getEntityById(params.entityId);
+      const entity = await this.invoiceService.getEntityById(params.entityId, user);
+      // const entity = await this.invoiceService.getEntityById(params.entityId);
+
       this.logger.log(`Successfully retrieved entity with ID: ${params.entityId}`);
       return entity;
     } catch (error) {
@@ -381,12 +385,12 @@ export class InvoiceController {
   @ApiResponse({ status: 404, description: 'Invoice not found' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async transmitLookupById(
+    @CurrentUser() user: any,
     @Param('id', ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(`Received transmit lookup request for invoice ID: ${invoiceId}`);
     try {
-      const result =
-        await this.invoiceService.transmitLookupIrnById(invoiceId);
+      const result = await this.invoiceService.transmitLookupIrnById(invoiceId, user);
       this.logger.log(`Transmit lookup completed for invoice ID: ${invoiceId}`);
       return result;
     } catch (error) {
@@ -414,11 +418,12 @@ export class InvoiceController {
   @ApiResponse({ status: 404, description: 'Invoice not found' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async transmitInvoiceById(
+    @CurrentUser() user: any,
     @Param('id', ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(`Received transmit invoice request for ID: ${invoiceId}`);
     try {
-      const result = await this.invoiceService.transmitInvoiceById(invoiceId);
+      const result = await this.invoiceService.transmitInvoiceById(invoiceId, user);
       this.logger.log(`Transmit invoice completed for ID: ${invoiceId}`);
       return result;
     } catch (error) {
@@ -446,14 +451,17 @@ export class InvoiceController {
   @ApiResponse({ status: 404, description: 'Invoice not found' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async transmitConfirmReceiptById(
+    @CurrentUser() user: any,
     @Param('id', ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(
       `Received transmit confirm receipt request for ID: ${invoiceId}`,
     );
     try {
-      const result =
-        await this.invoiceService.transmitConfirmReceiptById(invoiceId);
+      const result = await this.invoiceService.transmitConfirmReceiptById(
+        invoiceId,
+        user,
+      );
       this.logger.log(
         `Transmit confirm receipt completed for ID: ${invoiceId}`,
       );
@@ -625,11 +633,14 @@ export class InvoiceController {
     status: 500,
     description: 'Internal server error',
   })
-  async getInvoiceById(@Param('id', ParseIntPipe) invoiceId: number): Promise<any> {
+  async getInvoiceById(
+    @CurrentUser() user: any,
+    @Param('id', ParseIntPipe) invoiceId: number,
+  ): Promise<any> {
     this.logger.log(`Received request to get invoice with ID: ${invoiceId}`);
 
     try {
-      const invoice = await this.invoiceService.getInvoiceById(invoiceId);
+      const invoice = await this.invoiceService.getInvoiceById(invoiceId, user);
       this.logger.log(`Successfully retrieved invoice with ID: ${invoiceId}`);
       return invoice;
     } catch (error) {
@@ -687,11 +698,14 @@ export class InvoiceController {
     status: 500,
     description: 'Internal server error',
   })
-  async signInvoiceById(@Param('id', ParseIntPipe) invoiceId: number): Promise<{ ok: boolean; invoice: any }> {
+  async signInvoiceById(
+    @CurrentUser() user: any,
+    @Param('id', ParseIntPipe) invoiceId: number,
+  ): Promise<{ ok: boolean; invoice: any }> {
     this.logger.log(`Received request to sign invoice with ID: ${invoiceId}`);
 
     try {
-      const result = await this.invoiceService.signInvoiceById(invoiceId);
+      const result = await this.invoiceService.signInvoiceById(invoiceId, user);
       this.logger.log(`Successfully signed invoice with ID: ${invoiceId}`);
       return result;
     } catch (error) {
@@ -749,11 +763,14 @@ export class InvoiceController {
     status: 500,
     description: 'Internal server error',
   })
-  async confirmInvoiceById(@Param('id', ParseIntPipe) invoiceId: number): Promise<{ ok: boolean; invoice: any }> {
+  async confirmInvoiceById(
+    @CurrentUser() user: any,
+    @Param('id', ParseIntPipe) invoiceId: number,
+  ): Promise<{ ok: boolean; invoice: any }> {
     this.logger.log(`Received request to confirm invoice with ID: ${invoiceId}`);
 
     try {
-      const result = await this.invoiceService.confirmInvoiceById(invoiceId);
+      const result = await this.invoiceService.confirmInvoiceById(invoiceId, user);
       this.logger.log(`Successfully confirmed invoice with ID: ${invoiceId}`);
       return result;
     } catch (error) {
@@ -832,13 +849,18 @@ export class InvoiceController {
     description: 'Internal server error or FIRS API error',
   })
   async updateInvoiceById(
+    @CurrentUser() user: any,
     @Param('id', ParseIntPipe) invoiceId: number, 
     @Body() payload: UpdateInvoiceDto
   ): Promise<any> {
     this.logger.log(`Received request to update invoice with ID: ${invoiceId}`);
 
     try {
-      const updatedInvoice = await this.invoiceService.updateInvoiceById(invoiceId, payload);
+      const updatedInvoice = await this.invoiceService.updateInvoiceById(
+        invoiceId,
+        payload,
+        user,
+      );
       this.logger.log(`Successfully updated invoice with ID: ${invoiceId}`);
       return updatedInvoice;
     } catch (error) {

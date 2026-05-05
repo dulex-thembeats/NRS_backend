@@ -4,18 +4,22 @@ import {
   Body,
   HttpCode,
   HttpStatus,
-  Request,
   UnauthorizedException,
   Get,
-  Param,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from '../users/dtos';
-import { LoginDto, ResendVerificationDto, VerifyEmailDto } from './dtos';
+import {
+  LoginDto,
+  ResendVerificationDto,
+  VerifyEmailDto,
+  SetEntityIdDto,
+} from './dtos';
 import { Public,CurrentUser } from '../../common/decorators';
 import { EmailService } from 'src/shared/email/mail.service';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('api/v1/auth')
 @UseGuards(JwtAuthGuard)
@@ -34,6 +38,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
@@ -56,6 +61,18 @@ export class AuthController {
   @Post('forgot-password')
   async forgotPassword(@Body('email') email: string) {
     return this.authService.requestPasswordReset(email);
+  }
+
+  /**
+   * One-time: set FIRS entity ID on the account after registration (only when `entityId` is not yet set).
+   */
+  @Post('entity-id')
+  @HttpCode(HttpStatus.OK)
+  async setEntityId(
+    @CurrentUser() req: any,
+    @Body() dto: SetEntityIdDto,
+  ) {
+    return this.authService.bindEntityIdIfUnset(req.id, dto.entityId);
   }
 
   @Get('profile')
