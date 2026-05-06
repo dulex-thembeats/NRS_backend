@@ -1,5 +1,7 @@
 import {
+  BadRequestException,
   ForbiddenException,
+  HttpException,
   Injectable,
   Logger,
   NotFoundException,
@@ -580,10 +582,24 @@ export class InvoiceService {
     try {
       this.logger.log(`Getting invoice with ID: ${invoiceId}`);
 
+      const invoiceOwner = await this.prisma.invoice.findUnique({
+        where: { id: invoiceId },
+        select: { id: true, userId: true },
+      });
+
+      if (!invoiceOwner) {
+        throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
+      }
+
+      if (requester.role !== 'ADMIN' && invoiceOwner.userId !== requester.id) {
+        throw new BadRequestException(
+          'The invoice does not belong to the authenticated user or business',
+        );
+      }
+
       const invoice = await this.prisma.invoice.findFirst({
         where: {
           id: invoiceId,
-          ...(requester.role === 'ADMIN' ? {} : { userId: requester.id }),
         },
         include: {
           invoiceDeliveryPeriod: true,
@@ -649,6 +665,9 @@ export class InvoiceService {
       };
     } catch (error) {
       this.logger.error(`Failed to get invoice with ID: ${invoiceId}`, error.stack);
+      if (error instanceof HttpException) {
+        throw error;
+      }
       throw new Error(`Failed to get invoice: ${error.message}`);
     }
   }
