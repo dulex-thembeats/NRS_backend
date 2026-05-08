@@ -27,7 +27,7 @@ import {
   WebhookPayloadDto,
   WebhookResponseDto,
 } from "./dtos";
-import { Public } from "src/common/decorators";
+import { Public } from "../../common/decorators";
 
 @ApiTags("FIRS")
 @ApiBearerAuth()

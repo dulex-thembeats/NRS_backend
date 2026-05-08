@@ -1,7 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
 import { ConfigurationService } from "./configuration.service";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { Public } from "src/common/decorators";
+import { Public } from "../../common/decorators";
 
 @ApiTags("Configuration")
 @Controller("api/v1/invoice/resources")

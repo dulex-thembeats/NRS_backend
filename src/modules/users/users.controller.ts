@@ -13,7 +13,7 @@ import {
 import { UsersService } from "./users.service";
 import { CreateUserDto, UpdateUserDto } from "./dtos";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
-import { Public } from "src/common/decorators";
+import { Public } from "../../common/decorators";
 
 @Controller("api/v1/users")
 export class UsersController {

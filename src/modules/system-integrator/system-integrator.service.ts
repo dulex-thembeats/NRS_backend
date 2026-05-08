@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { PrismaService } from "src/database";
+import { PrismaService } from "../../database";
 import axios from "axios";
 import { FirsValidateInvoiceDto } from "../firs/dtos/validete-invoice.dto";
 import { GenerateQrCodeDto, UpdateFirsSettingsDto } from "./dtos";

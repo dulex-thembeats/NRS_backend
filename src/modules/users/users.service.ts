@@ -3,8 +3,8 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { PrismaService } from "src/database";
-import { EmailService } from "src/shared/email/mail.service";
+import { PrismaService } from "../../database";
+import { EmailService } from "../../shared/email/mail.service";
 import {
   CreateUserDto,
   UpdateUserDto,

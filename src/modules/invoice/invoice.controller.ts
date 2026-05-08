@@ -31,7 +31,7 @@ import {
   UpdateInvoiceDto,
 } from "./dtos";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
-import { CurrentUser, Public } from "src/common/decorators";
+import { CurrentUser, Public } from "../../common/decorators";
 
 @ApiTags("Invoice")
 @ApiBearerAuth()

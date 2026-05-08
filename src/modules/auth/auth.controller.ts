@@ -12,7 +12,7 @@ import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
 import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
 import { Public, CurrentUser } from "../../common/decorators";
-import { EmailService } from "src/shared/email/mail.service";
+import { EmailService } from "../../shared/email/mail.service";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
 
 @Controller("api/v1/auth")

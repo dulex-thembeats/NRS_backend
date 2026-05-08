@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { PrismaService } from "src/database";
+import { PrismaService } from "../../database";
 import axios from "axios";
 import {
   GetEntityDto,
@@ -8,7 +8,7 @@ import {
   CreateInvoiceDto,
   UpdateInvoiceDto,
 } from "./dtos";
-import { generateFirsQrCode } from "src/shared/helpers/firs-qr-code.helper";
+import { generateFirsQrCode } from "../../shared/helpers/firs-qr-code.helper";
 
 @Injectable()
 export class InvoiceService {

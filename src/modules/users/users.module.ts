@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { DatabaseModule } from "src/database";
+import { DatabaseModule } from "../../database";
 import { UsersService } from "./users.service";
 import { UsersController } from "./users.controller";
 

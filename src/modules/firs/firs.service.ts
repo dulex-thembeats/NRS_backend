@@ -1,5 +1,5 @@
 import { HttpException, Injectable, Logger } from "@nestjs/common";
-import { PrismaService } from "src/database";
+import { PrismaService } from "../../database";
 import axios from "axios";
 import { CountryEntity } from "./entities/countries.entities";
 import { LoginDto } from "./dtos/firs-login.dto";

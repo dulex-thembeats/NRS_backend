@@ -17,7 +17,7 @@ import { TenantsService } from "./tenants.service";
 import { ApiKeyAuthGuard } from "./security/api-key-auth.guard";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
 import { ValidateInvoiceDto, ValidateIrnDto } from "./dtos";
-import { CurrentUser, Public } from "src/common/decorators";
+import { CurrentUser, Public } from "../../common/decorators";
 
 @ApiTags("Tenants")
 @Controller("api/v1/tenants")

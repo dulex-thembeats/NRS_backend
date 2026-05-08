@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { PrismaService } from "src/database";
+import { PrismaService } from "../../database";
 import axios, { AxiosResponse } from "axios";
 
 export interface InvoiceType {
