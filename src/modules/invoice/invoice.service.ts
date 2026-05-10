@@ -1,4 +1,12 @@
-import { Injectable, Logger } from "@nestjs/common";
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  ConflictException,
+  BadRequestException,
+  BadGatewayException,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { PrismaService } from "../../database";
 import axios from "axios";
 import {
@@ -27,7 +35,7 @@ export class InvoiceService {
    */
   async getEntityById(entityId: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -54,11 +62,11 @@ export class InvoiceService {
       );
 
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to fetch entity: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to fetch entity: ${error.message}`);
+      throw new BadGatewayException(`Failed to fetch entity: ${error.message}`);
     }
   }
 
@@ -69,7 +77,7 @@ export class InvoiceService {
    */
   async validateIrn(params: ValidateIrnDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -103,16 +111,16 @@ export class InvoiceService {
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       this.logger.error(`Failed to validate IRN: ${params.irn}`, error.stack);
 
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to validate IRN: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to validate IRN: ${error.message}`);
+      throw new BadGatewayException(`Failed to validate IRN: ${error.message}`);
     }
   }
 
@@ -123,7 +131,7 @@ export class InvoiceService {
    */
   async validateInvoice(params: ValidateInvoiceDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -150,7 +158,7 @@ export class InvoiceService {
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       this.logger.error(
         `Failed to validate invoice with IRN: ${params.irn}`,
@@ -158,11 +166,11 @@ export class InvoiceService {
       );
 
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to validate invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to validate invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to validate invoice: ${error.message}`);
     }
   }
 
@@ -173,7 +181,7 @@ export class InvoiceService {
    */
   async signInvoice(params: ValidateInvoiceDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -200,7 +208,7 @@ export class InvoiceService {
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       this.logger.error(
         `Failed to sign invoice with IRN: ${params.irn}`,
@@ -208,11 +216,11 @@ export class InvoiceService {
       );
 
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to sign invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to sign invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to sign invoice: ${error.message}`);
     }
   }
 
@@ -223,7 +231,7 @@ export class InvoiceService {
    */
   async transmitSelfHealthCheck(): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -242,11 +250,11 @@ export class InvoiceService {
     } catch (error) {
       this.logger.error("Transmit self health check failed", error.stack);
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Transmit self health check failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Transmit self health check failed: ${error.message}`);
+      throw new BadGatewayException(`Transmit self health check failed: ${error.message}`);
     }
   }
 
@@ -257,7 +265,7 @@ export class InvoiceService {
    */
   async transmitLookupIrn(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -276,11 +284,11 @@ export class InvoiceService {
     } catch (error) {
       this.logger.error(`Transmit lookup IRN failed: ${irn}`, error.stack);
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Transmit lookup IRN failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Transmit lookup IRN failed: ${error.message}`);
+      throw new BadGatewayException(`Transmit lookup IRN failed: ${error.message}`);
     }
   }
 
@@ -291,7 +299,7 @@ export class InvoiceService {
    */
   async transmitLookupTin(tin: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -310,11 +318,11 @@ export class InvoiceService {
     } catch (error) {
       this.logger.error(`Transmit lookup TIN failed: ${tin}`, error.stack);
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Transmit lookup TIN failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Transmit lookup TIN failed: ${error.message}`);
+      throw new BadGatewayException(`Transmit lookup TIN failed: ${error.message}`);
     }
   }
 
@@ -325,7 +333,7 @@ export class InvoiceService {
    */
   async transmitInvoice(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -348,11 +356,11 @@ export class InvoiceService {
     } catch (error) {
       this.logger.error(`Transmit invoice failed: ${irn}`, error.stack);
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Transmit invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Transmit invoice failed: ${error.message}`);
+      throw new BadGatewayException(`Transmit invoice failed: ${error.message}`);
     }
   }
 
@@ -364,7 +372,7 @@ export class InvoiceService {
    */
   async transmitConfirmReceipt(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -387,11 +395,11 @@ export class InvoiceService {
     } catch (error) {
       this.logger.error(`Transmit confirm receipt failed: ${irn}`, error.stack);
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Transmit confirm receipt failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Transmit confirm receipt failed: ${error.message}`);
+      throw new BadGatewayException(`Transmit confirm receipt failed: ${error.message}`);
     }
   }
 
@@ -406,7 +414,7 @@ export class InvoiceService {
       select: { irn: true },
     });
     if (!invoice) {
-      throw new Error(`Invoice with ID ${invoiceId} not found`);
+      throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
     }
     return this.transmitLookupIrn(invoice.irn);
   }
@@ -422,7 +430,7 @@ export class InvoiceService {
       select: { irn: true },
     });
     if (!invoice) {
-      throw new Error(`Invoice with ID ${invoiceId} not found`);
+      throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
     }
     return this.transmitInvoice(invoice.irn);
   }
@@ -438,7 +446,7 @@ export class InvoiceService {
       select: { irn: true },
     });
     if (!invoice) {
-      throw new Error(`Invoice with ID ${invoiceId} not found`);
+      throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
     }
     return this.transmitConfirmReceipt(invoice.irn);
   }
@@ -449,7 +457,7 @@ export class InvoiceService {
    */
   async transmitPullInvoice(): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -481,11 +489,11 @@ export class InvoiceService {
     } catch (error) {
       this.logger.error("Transmit pull invoice failed", error.stack);
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Transmit pull invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Transmit pull invoice failed: ${error.message}`);
+      throw new BadGatewayException(`Transmit pull invoice failed: ${error.message}`);
     }
   }
 
@@ -496,7 +504,7 @@ export class InvoiceService {
    */
   async getInvoiceConfirmation(irn: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -525,11 +533,11 @@ export class InvoiceService {
       );
 
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get invoice confirmation: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get invoice confirmation: ${error.message}`);
+      throw new BadGatewayException(`Failed to get invoice confirmation: ${error.message}`);
     }
   }
 
@@ -616,7 +624,7 @@ export class InvoiceService {
         `Failed to get invoices for user ID: ${userId}`,
         error.stack,
       );
-      throw new Error(`Failed to get invoices: ${error.message}`);
+      throw new InternalServerErrorException(`Failed to get invoices: ${error.message}`);
     }
   }
 
@@ -671,7 +679,7 @@ export class InvoiceService {
       });
 
       if (!invoice) {
-        throw new Error(`Invoice with ID ${invoiceId} not found`);
+        throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
       }
 
       let encryptedBase64: string | undefined;
@@ -703,7 +711,7 @@ export class InvoiceService {
         `Failed to get invoice with ID: ${invoiceId}`,
         error.stack,
       );
-      throw new Error(`Failed to get invoice: ${error.message}`);
+      throw error instanceof NotFoundException ? error : new InternalServerErrorException(`Failed to get invoice: ${error.message}`);
     }
   }
 
@@ -740,14 +748,14 @@ export class InvoiceService {
         this.logger.log(`Successfully signed invoice with ID: ${invoiceId}`);
         return { ok: true, invoice: updatedInvoice };
       } else {
-        throw new Error("Failed to sign invoice via FIRS API");
+        throw new BadGatewayException("Failed to sign invoice via FIRS API");
       }
     } catch (error) {
       this.logger.error(
         `Failed to sign invoice with ID: ${invoiceId}`,
         error.stack,
       );
-      throw new Error(`Failed to sign invoice: ${error.message}`);
+      throw error instanceof BadGatewayException || error instanceof NotFoundException ? error : new BadGatewayException(`Failed to sign invoice: ${error.message}`);
     }
   }
 
@@ -781,14 +789,14 @@ export class InvoiceService {
         this.logger.log(`Successfully confirmed invoice with ID: ${invoiceId}`);
         return { ok: true, invoice: updatedInvoice };
       } else {
-        throw new Error("Failed to confirm invoice via FIRS API");
+        throw new BadGatewayException("Failed to confirm invoice via FIRS API");
       }
     } catch (error) {
       this.logger.error(
         `Failed to confirm invoice with ID: ${invoiceId}`,
         error.stack,
       );
-      throw new Error(`Failed to confirm invoice: ${error.message}`);
+      throw error instanceof BadGatewayException || error instanceof NotFoundException ? error : new BadGatewayException(`Failed to confirm invoice: ${error.message}`);
     }
   }
 
@@ -963,7 +971,7 @@ export class InvoiceService {
       });
 
       if (existingInvoice) {
-        throw new Error(`Invoice with IRN ${data.irn} already exists`);
+        throw new ConflictException(`Invoice with IRN ${data.irn} already exists`);
       }
 
       // // Validate invoice with FIRS API before creating
@@ -995,7 +1003,7 @@ export class InvoiceService {
         if (userWithEntity && userWithEntity.entity && userWithEntity.entity.businesses && userWithEntity.entity.businesses.length > 0) {
           businessId = userWithEntity.entity.businesses[0].id;
         } else {
-          throw new Error("No business ID provided and no business found for user");
+          throw new BadRequestException("No business ID provided and no business found for user");
         }
       }
 
@@ -1208,14 +1216,14 @@ export class InvoiceService {
       );
 
       if (error.message.includes("already exists")) {
-        throw new Error(`Invoice with IRN ${data.irn} already exists`);
+        throw new ConflictException(`Invoice with IRN ${data.irn} already exists`);
       }
 
       if (error.message.includes("validation failed")) {
-        throw new Error(`Invoice validation failed: ${error.message}`);
+        throw new BadRequestException(`Invoice validation failed: ${error.message}`);
       }
 
-      throw new Error(`Failed to create invoice: ${error.message}`);
+      throw error instanceof ConflictException || error instanceof BadRequestException ? error : new InternalServerErrorException(`Failed to create invoice: ${error.message}`);
     }
   }
 
@@ -1236,12 +1244,12 @@ export class InvoiceService {
       const existingInvoice = await this.getInvoiceById(invoiceId);
 
       if (!existingInvoice) {
-        throw new Error(`Invoice with ID ${invoiceId} not found`);
+        throw new NotFoundException(`Invoice with ID ${invoiceId} not found`);
       }
 
       // Check if invoice can be updated (only PENDING invoices should be updatable)
       if (existingInvoice.status !== "PENDING") {
-        throw new Error(
+        throw new BadRequestException(
           `Invoice with ID ${invoiceId} cannot be updated. Current status: ${existingInvoice.status}`,
         );
       }
@@ -1362,7 +1370,7 @@ export class InvoiceService {
         `Failed to update invoice with ID: ${invoiceId}`,
         error.stack,
       );
-      throw new Error(`Failed to update invoice: ${error.message}`);
+      throw error instanceof NotFoundException || error instanceof BadRequestException ? error : new InternalServerErrorException(`Failed to update invoice: ${error.message}`);
     }
   }
 }

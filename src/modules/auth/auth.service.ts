@@ -3,6 +3,8 @@ import {
   UnauthorizedException,
   ConflictException,
   BadRequestException,
+  BadGatewayException,
+  InternalServerErrorException,
   Logger,
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
@@ -360,7 +362,7 @@ export class AuthService {
       });
     } catch (emailError) {
       console.error("Failed to send password reset email:", emailError);
-      throw new Error("Failed to send password reset email");
+      throw new InternalServerErrorException("Failed to send password reset email");
     }
 
     return {
@@ -377,7 +379,7 @@ export class AuthService {
    */
   async fetchAndSaveEntityData(entityId: string, userId: number): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -400,7 +402,7 @@ export class AuthService {
       const entityData = response.data.data;
 
       if (!entityData) {
-        throw new Error("No entity data received from FIRS API");
+        throw new BadGatewayException("No entity data received from FIRS API");
       }
 
       this.logger.log(
@@ -522,11 +524,11 @@ export class AuthService {
       );
 
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to fetch entity from FIRS: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to fetch and save entity data: ${error.message}`);
+      throw new BadGatewayException(`Failed to fetch and save entity data: ${error.message}`);
     }
   }
 }

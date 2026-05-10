@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateFirsQrCode = generateFirsQrCode;
 const crypto = require("crypto");
+const common_1 = require("@nestjs/common");
 function getPublicKeyPem() {
     const base64Key = process.env.FIRS_PUBLIC_KEY_BASE64;
     if (!base64Key) {
-        throw new Error("Missing FIRS_PUBLIC_KEY_BASE64 env variable");
+        throw new common_1.InternalServerErrorException("Missing FIRS_PUBLIC_KEY_BASE64 env variable");
     }
     return Buffer.from(base64Key, "base64").toString("utf-8");
 }
@@ -20,7 +21,7 @@ function encryptPayload(payload) {
 function generateFirsQrCode(irn) {
     const certificate = process.env.FIRS_CERTIFICATE_BASE64;
     if (!certificate) {
-        throw new Error("Missing FIRS_CERTIFICATE_BASE64 env variable");
+        throw new common_1.InternalServerErrorException("Missing FIRS_CERTIFICATE_BASE64 env variable");
     }
     const payload = {
         irn,

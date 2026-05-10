@@ -1,4 +1,5 @@
 import * as crypto from "crypto";
+import { InternalServerErrorException } from "@nestjs/common";
 
 /**
  * Decode Base64 → PEM public key
@@ -6,7 +7,7 @@ import * as crypto from "crypto";
 function getPublicKeyPem(): string {
   const base64Key = process.env.FIRS_PUBLIC_KEY_BASE64;
   if (!base64Key) {
-    throw new Error("Missing FIRS_PUBLIC_KEY_BASE64 env variable");
+    throw new InternalServerErrorException("Missing FIRS_PUBLIC_KEY_BASE64 env variable");
   }
   return Buffer.from(base64Key, "base64").toString("utf-8");
 }
@@ -34,7 +35,7 @@ function encryptPayload(payload: object): string {
 export function generateFirsQrCode(irn: string): string {
   const certificate = process.env.FIRS_CERTIFICATE_BASE64;
   if (!certificate) {
-    throw new Error("Missing FIRS_CERTIFICATE_BASE64 env variable");
+    throw new InternalServerErrorException("Missing FIRS_CERTIFICATE_BASE64 env variable");
   }
   const payload = {
     irn,

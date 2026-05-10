@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Logger } from "@nestjs/common";
+import { ForbiddenException, Injectable, Logger, BadGatewayException } from "@nestjs/common";
 import { PrismaService } from "../../database";
 import { InvoiceService } from "../invoice/invoice.service";
 
@@ -65,7 +65,7 @@ export class TenantsService {
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to validate invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to validate invoice: ${error.message}`);
     }
   }
 
@@ -82,7 +82,7 @@ export class TenantsService {
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to sign invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to sign invoice: ${error.message}`);
     }
   }
 
@@ -102,7 +102,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to confirm invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to confirm invoice: ${error.message}`);
     }
   }
 
@@ -119,7 +119,7 @@ export class TenantsService {
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to validate IRN: ${error.message}`);
+      throw new BadGatewayException(`Failed to validate IRN: ${error.message}`);
     }
   }
 
@@ -139,7 +139,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to transmit self health check: ${error.message}`);
+      throw new BadGatewayException(`Failed to transmit self health check: ${error.message}`);
     }
   }
 
@@ -162,7 +162,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to transmit lookup IRN: ${error.message}`);
+      throw new BadGatewayException(`Failed to transmit lookup IRN: ${error.message}`);
     }
   }
 
@@ -185,7 +185,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to transmit lookup TIN: ${error.message}`);
+      throw new BadGatewayException(`Failed to transmit lookup TIN: ${error.message}`);
     }
   }
 
@@ -205,7 +205,7 @@ export class TenantsService {
       await this.saveLog(userId, "POST", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to transmit invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to transmit invoice: ${error.message}`);
     }
   }
 
@@ -228,7 +228,7 @@ export class TenantsService {
       await this.saveLog(userId, "PATCH", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to transmit confirm receipt: ${error.message}`);
+      throw new BadGatewayException(`Failed to transmit confirm receipt: ${error.message}`);
     }
   }
 
@@ -245,7 +245,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new Error(`Failed to transmit pull invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to transmit pull invoice: ${error.message}`);
     }
   }
 

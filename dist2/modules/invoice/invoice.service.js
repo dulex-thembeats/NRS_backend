@@ -26,7 +26,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
     firsApiSecret = process.env.FIRS_API_SECRET ?? "";
     async getEntityById(entityId) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/entity/${entityId}`;
         try {
@@ -44,14 +44,14 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error(`Failed to fetch entity with ID: ${entityId}`, error.stack);
             if (error.response) {
-                throw new Error(`Failed to fetch entity: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Failed to fetch entity: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Failed to fetch entity: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to fetch entity: ${error.message}`);
         }
     }
     async validateIrn(params) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/irn/validate`;
         const body = {
@@ -74,19 +74,19 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                 typeof response.data.data.ok === "boolean") {
                 return { ok: response.data.data.ok };
             }
-            throw new Error("Invalid response from FIRS API");
+            throw new common_1.BadGatewayException("Invalid response from FIRS API");
         }
         catch (error) {
             this.logger.error(`Failed to validate IRN: ${params.irn}`, error.stack);
             if (error.response) {
-                throw new Error(`Failed to validate IRN: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Failed to validate IRN: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Failed to validate IRN: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to validate IRN: ${error.message}`);
         }
     }
     async validateInvoice(params) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/validate`;
         try {
@@ -104,19 +104,19 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                 typeof response.data.data.ok === "boolean") {
                 return { ok: response.data.data.ok };
             }
-            throw new Error("Invalid response from FIRS API");
+            throw new common_1.BadGatewayException("Invalid response from FIRS API");
         }
         catch (error) {
             this.logger.error(`Failed to validate invoice with IRN: ${params.irn}`, error.stack);
             if (error.response) {
-                throw new Error(`Failed to validate invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Failed to validate invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Failed to validate invoice: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to validate invoice: ${error.message}`);
         }
     }
     async signInvoice(params) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/sign`;
         try {
@@ -134,19 +134,19 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                 typeof response.data.data.ok === "boolean") {
                 return { ok: response.data.data.ok };
             }
-            throw new Error("Invalid response from FIRS API");
+            throw new common_1.BadGatewayException("Invalid response from FIRS API");
         }
         catch (error) {
             this.logger.error(`Failed to sign invoice with IRN: ${params.irn}`, error.stack);
             if (error.response) {
-                throw new Error(`Failed to sign invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Failed to sign invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Failed to sign invoice: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to sign invoice: ${error.message}`);
         }
     }
     async transmitSelfHealthCheck() {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/transmit/self-health-check`;
         try {
@@ -164,14 +164,14 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error("Transmit self health check failed", error.stack);
             if (error.response) {
-                throw new Error(`Transmit self health check failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Transmit self health check failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Transmit self health check failed: ${error.message}`);
+            throw new common_1.BadGatewayException(`Transmit self health check failed: ${error.message}`);
         }
     }
     async transmitLookupIrn(irn) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/transmit/lookup/${encodeURIComponent(irn)}`;
         try {
@@ -189,14 +189,14 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error(`Transmit lookup IRN failed: ${irn}`, error.stack);
             if (error.response) {
-                throw new Error(`Transmit lookup IRN failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Transmit lookup IRN failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Transmit lookup IRN failed: ${error.message}`);
+            throw new common_1.BadGatewayException(`Transmit lookup IRN failed: ${error.message}`);
         }
     }
     async transmitLookupTin(tin) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/transmit/lookup/tin/${encodeURIComponent(tin)}`;
         try {
@@ -214,14 +214,14 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error(`Transmit lookup TIN failed: ${tin}`, error.stack);
             if (error.response) {
-                throw new Error(`Transmit lookup TIN failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Transmit lookup TIN failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Transmit lookup TIN failed: ${error.message}`);
+            throw new common_1.BadGatewayException(`Transmit lookup TIN failed: ${error.message}`);
         }
     }
     async transmitInvoice(irn) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/transmit/${encodeURIComponent(irn)}`;
         try {
@@ -239,14 +239,14 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error(`Transmit invoice failed: ${irn}`, error.stack);
             if (error.response) {
-                throw new Error(`Transmit invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Transmit invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Transmit invoice failed: ${error.message}`);
+            throw new common_1.BadGatewayException(`Transmit invoice failed: ${error.message}`);
         }
     }
     async transmitConfirmReceipt(irn) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/transmit/${encodeURIComponent(irn)}`;
         try {
@@ -264,9 +264,9 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error(`Transmit confirm receipt failed: ${irn}`, error.stack);
             if (error.response) {
-                throw new Error(`Transmit confirm receipt failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Transmit confirm receipt failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Transmit confirm receipt failed: ${error.message}`);
+            throw new common_1.BadGatewayException(`Transmit confirm receipt failed: ${error.message}`);
         }
     }
     async transmitLookupIrnById(invoiceId) {
@@ -275,7 +275,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
             select: { irn: true },
         });
         if (!invoice) {
-            throw new Error(`Invoice with ID ${invoiceId} not found`);
+            throw new common_1.NotFoundException(`Invoice with ID ${invoiceId} not found`);
         }
         return this.transmitLookupIrn(invoice.irn);
     }
@@ -285,7 +285,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
             select: { irn: true },
         });
         if (!invoice) {
-            throw new Error(`Invoice with ID ${invoiceId} not found`);
+            throw new common_1.NotFoundException(`Invoice with ID ${invoiceId} not found`);
         }
         return this.transmitInvoice(invoice.irn);
     }
@@ -295,13 +295,13 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
             select: { irn: true },
         });
         if (!invoice) {
-            throw new Error(`Invoice with ID ${invoiceId} not found`);
+            throw new common_1.NotFoundException(`Invoice with ID ${invoiceId} not found`);
         }
         return this.transmitConfirmReceipt(invoice.irn);
     }
     async transmitPullInvoice() {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/transmit/pull`;
         try {
@@ -332,14 +332,14 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error("Transmit pull invoice failed", error.stack);
             if (error.response) {
-                throw new Error(`Transmit pull invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Transmit pull invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Transmit pull invoice failed: ${error.message}`);
+            throw new common_1.BadGatewayException(`Transmit pull invoice failed: ${error.message}`);
         }
     }
     async getInvoiceConfirmation(irn) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/invoice/confirm/${irn}`;
         try {
@@ -357,9 +357,9 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error(`Failed to get invoice confirmation for IRN: ${irn}`, error.stack);
             if (error.response) {
-                throw new Error(`Failed to get invoice confirmation: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Failed to get invoice confirmation: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Failed to get invoice confirmation: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to get invoice confirmation: ${error.message}`);
         }
     }
     async getInvoicesByUserId(userId, page = 1, limit = 10) {
@@ -424,7 +424,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         }
         catch (error) {
             this.logger.error(`Failed to get invoices for user ID: ${userId}`, error.stack);
-            throw new Error(`Failed to get invoices: ${error.message}`);
+            throw new common_1.InternalServerErrorException(`Failed to get invoices: ${error.message}`);
         }
     }
     async getInvoiceById(invoiceId) {
@@ -471,7 +471,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                 },
             });
             if (!invoice) {
-                throw new Error(`Invoice with ID ${invoiceId} not found`);
+                throw new common_1.NotFoundException(`Invoice with ID ${invoiceId} not found`);
             }
             let encryptedBase64;
             try {
@@ -492,7 +492,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         }
         catch (error) {
             this.logger.error(`Failed to get invoice with ID: ${invoiceId}`, error.stack);
-            throw new Error(`Failed to get invoice: ${error.message}`);
+            throw error instanceof common_1.NotFoundException ? error : new common_1.InternalServerErrorException(`Failed to get invoice: ${error.message}`);
         }
     }
     async signInvoiceById(invoiceId) {
@@ -513,12 +513,12 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                 return { ok: true, invoice: updatedInvoice };
             }
             else {
-                throw new Error("Failed to sign invoice via FIRS API");
+                throw new common_1.BadGatewayException("Failed to sign invoice via FIRS API");
             }
         }
         catch (error) {
             this.logger.error(`Failed to sign invoice with ID: ${invoiceId}`, error.stack);
-            throw new Error(`Failed to sign invoice: ${error.message}`);
+            throw error instanceof common_1.BadGatewayException || error instanceof common_1.NotFoundException ? error : new common_1.BadGatewayException(`Failed to sign invoice: ${error.message}`);
         }
     }
     async confirmInvoiceById(invoiceId) {
@@ -538,12 +538,12 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                 return { ok: true, invoice: updatedInvoice };
             }
             else {
-                throw new Error("Failed to confirm invoice via FIRS API");
+                throw new common_1.BadGatewayException("Failed to confirm invoice via FIRS API");
             }
         }
         catch (error) {
             this.logger.error(`Failed to confirm invoice with ID: ${invoiceId}`, error.stack);
-            throw new Error(`Failed to confirm invoice: ${error.message}`);
+            throw error instanceof common_1.BadGatewayException || error instanceof common_1.NotFoundException ? error : new common_1.BadGatewayException(`Failed to confirm invoice: ${error.message}`);
         }
     }
     convertInvoiceToDto(invoice) {
@@ -700,7 +700,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                 where: { irn: data.irn },
             });
             if (existingInvoice) {
-                throw new Error(`Invoice with IRN ${data.irn} already exists`);
+                throw new common_1.ConflictException(`Invoice with IRN ${data.irn} already exists`);
             }
             let businessId = data.business_id;
             if (!businessId) {
@@ -712,7 +712,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                     businessId = userWithEntity.entity.businesses[0].id;
                 }
                 else {
-                    throw new Error("No business ID provided and no business found for user");
+                    throw new common_1.BadRequestException("No business ID provided and no business found for user");
                 }
             }
             let lineExtTotal = 0;
@@ -890,12 +890,12 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         catch (error) {
             this.logger.error(`Failed to create invoice with IRN: ${data.irn}`, error.stack);
             if (error.message.includes("already exists")) {
-                throw new Error(`Invoice with IRN ${data.irn} already exists`);
+                throw new common_1.ConflictException(`Invoice with IRN ${data.irn} already exists`);
             }
             if (error.message.includes("validation failed")) {
-                throw new Error(`Invoice validation failed: ${error.message}`);
+                throw new common_1.BadRequestException(`Invoice validation failed: ${error.message}`);
             }
-            throw new Error(`Failed to create invoice: ${error.message}`);
+            throw error instanceof common_1.ConflictException || error instanceof common_1.BadRequestException ? error : new common_1.InternalServerErrorException(`Failed to create invoice: ${error.message}`);
         }
     }
     async updateInvoiceById(invoiceId, updateData) {
@@ -903,10 +903,10 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
             this.logger.log(`Updating invoice with ID: ${invoiceId}`);
             const existingInvoice = await this.getInvoiceById(invoiceId);
             if (!existingInvoice) {
-                throw new Error(`Invoice with ID ${invoiceId} not found`);
+                throw new common_1.NotFoundException(`Invoice with ID ${invoiceId} not found`);
             }
             if (existingInvoice.status !== "PENDING") {
-                throw new Error(`Invoice with ID ${invoiceId} cannot be updated. Current status: ${existingInvoice.status}`);
+                throw new common_1.BadRequestException(`Invoice with ID ${invoiceId} cannot be updated. Current status: ${existingInvoice.status}`);
             }
             const updatedInvoice = await this.prisma.invoice.update({
                 where: { id: invoiceId },
@@ -982,7 +982,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         }
         catch (error) {
             this.logger.error(`Failed to update invoice with ID: ${invoiceId}`, error.stack);
-            throw new Error(`Failed to update invoice: ${error.message}`);
+            throw error instanceof common_1.NotFoundException || error instanceof common_1.BadRequestException ? error : new common_1.InternalServerErrorException(`Failed to update invoice: ${error.message}`);
         }
     }
 };

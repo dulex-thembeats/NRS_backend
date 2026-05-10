@@ -257,7 +257,7 @@ let AuthService = AuthService_1 = class AuthService {
         }
         catch (emailError) {
             console.error("Failed to send password reset email:", emailError);
-            throw new Error("Failed to send password reset email");
+            throw new common_1.InternalServerErrorException("Failed to send password reset email");
         }
         return {
             message: "If an account with that email exists, a password reset link has been sent.",
@@ -265,7 +265,7 @@ let AuthService = AuthService_1 = class AuthService {
     }
     async fetchAndSaveEntityData(entityId, userId) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new Error("FIRS API credentials are not set in environment variables");
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/entity/${entityId}`;
         try {
@@ -279,7 +279,7 @@ let AuthService = AuthService_1 = class AuthService {
             });
             const entityData = response.data.data;
             if (!entityData) {
-                throw new Error("No entity data received from FIRS API");
+                throw new common_1.BadGatewayException("No entity data received from FIRS API");
             }
             this.logger.log(`Successfully fetched entity data for entityId: ${entityId}`);
             const existingEntity = await this.prisma.entity.findFirst({
@@ -378,9 +378,9 @@ let AuthService = AuthService_1 = class AuthService {
         catch (error) {
             this.logger.error(`Failed to fetch and save entity data for entityId: ${entityId}`, error.stack);
             if (error.response) {
-                throw new Error(`Failed to fetch entity from FIRS: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+                throw new common_1.BadGatewayException(`Failed to fetch entity from FIRS: ${error.response.status} ${JSON.stringify(error.response.data)}`);
             }
-            throw new Error(`Failed to fetch and save entity data: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to fetch and save entity data: ${error.message}`);
         }
     }
 };

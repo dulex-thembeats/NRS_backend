@@ -1,4 +1,4 @@
-import { HttpException, Injectable, Logger } from "@nestjs/common";
+import { HttpException, Injectable, Logger, InternalServerErrorException, BadGatewayException } from "@nestjs/common";
 import { PrismaService } from "../../database";
 import axios from "axios";
 import { CountryEntity } from "./entities/countries.entities";
@@ -22,7 +22,7 @@ export class FirsService {
 
   async loginTaxpayer(loginDto: LoginDto): Promise<FirsLoginResponseEntity> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -46,14 +46,14 @@ export class FirsService {
       if (error.response) {
         throw new HttpException(error.response.data, error.response.status);
       }
-      throw new Error(`Failed to authenticate taxpayer: ${error.message}`);
+      throw new BadGatewayException(`Failed to authenticate taxpayer: ${error.message}`);
     }
   }
 
   //#region Entity
   async getEntityById(entityId: string): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -73,13 +73,13 @@ export class FirsService {
       if (error.response) {
         throw new HttpException(error.response.data, error.response.status);
       }
-      throw new Error(`Failed to fetch entity: ${error.message}`);
+      throw new BadGatewayException(`Failed to fetch entity: ${error.message}`);
     }
   }
 
   async searchEntitiesByReference(searchParams: SearchEntityDto): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -114,7 +114,7 @@ export class FirsService {
       if (error.response) {
         throw new HttpException(error.response.data, error.response.status);
       }
-      throw new Error(`Failed to search entities: ${error.message}`);
+      throw new BadGatewayException(`Failed to search entities: ${error.message}`);
     }
   }
   //#endregion
@@ -122,7 +122,7 @@ export class FirsService {
   //#region Resources
   async getCountries(): Promise<CountryEntity[]> {
     if (!this.firsApiUrl) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -134,17 +134,17 @@ export class FirsService {
       return response.data;
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get countries: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get countries: ${error.message}`);
+      throw new BadGatewayException(`Failed to get countries: ${error.message}`);
     }
   }
 
   async getCurrencies(): Promise<any> {
     if (!this.firsApiUrl) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -156,17 +156,17 @@ export class FirsService {
       return response.data;
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get currencies: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get currencies: ${error.message}`);
+      throw new BadGatewayException(`Failed to get currencies: ${error.message}`);
     }
   }
 
   async getTaxCategories(): Promise<any> {
     if (!this.firsApiUrl) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -178,17 +178,17 @@ export class FirsService {
       return response.data;
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get tax categories: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get tax categories: ${error.message}`);
+      throw new BadGatewayException(`Failed to get tax categories: ${error.message}`);
     }
   }
 
   async getPaymentMeans(): Promise<any> {
     if (!this.firsApiUrl) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -200,17 +200,17 @@ export class FirsService {
       return response.data;
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get payment means: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get payment means: ${error.message}`);
+      throw new BadGatewayException(`Failed to get payment means: ${error.message}`);
     }
   }
 
   async getInvoiceTypes(): Promise<any> {
     if (!this.firsApiUrl) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -222,17 +222,17 @@ export class FirsService {
       return response.data;
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get invoice types: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get invoice types: ${error.message}`);
+      throw new BadGatewayException(`Failed to get invoice types: ${error.message}`);
     }
   }
 
   async getServiceCodes(): Promise<any> {
     if (!this.firsApiUrl) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -244,17 +244,17 @@ export class FirsService {
       return response.data;
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get service codes: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get service codes: ${error.message}`);
+      throw new BadGatewayException(`Failed to get service codes: ${error.message}`);
     }
   }
 
   async getVatExemptions(): Promise<any> {
     if (!this.firsApiUrl) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -266,11 +266,11 @@ export class FirsService {
       return response.data;
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to get VAT exemptions: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to get VAT exemptions: ${error.message}`);
+      throw new BadGatewayException(`Failed to get VAT exemptions: ${error.message}`);
     }
   }
 
@@ -280,7 +280,7 @@ export class FirsService {
 
   async validateIrn(params: ValidateIrnDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -307,14 +307,14 @@ export class FirsService {
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to validate IRN: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to validate IRN: ${error.message}`);
+      throw new BadGatewayException(`Failed to validate IRN: ${error.message}`);
     }
   }
 
@@ -322,7 +322,7 @@ export class FirsService {
     params: FirsValidateInvoiceDto,
   ): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -344,20 +344,20 @@ export class FirsService {
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to validate invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to validate invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to validate invoice: ${error.message}`);
     }
   }
 
   async signInvoice(params: FirsValidateInvoiceDto): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -379,14 +379,14 @@ export class FirsService {
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to sign invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to sign invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to sign invoice: ${error.message}`);
     }
   }
 
@@ -400,15 +400,15 @@ export class FirsService {
     decryptionKey: string;
   }): Promise<string> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
     if (!params.irn) {
-      throw new Error("IRN is required to download the invoice");
+      throw new BadGatewayException("IRN is required to download the invoice");
     }
     if (!params.decryptionKey) {
-      throw new Error("Decryption key is required to decrypt the invoice");
+      throw new BadGatewayException("Decryption key is required to decrypt the invoice");
     }
 
     const url = `${this.firsApiUrl}/api/v1/invoice/download/${params.irn}`;
@@ -436,24 +436,24 @@ export class FirsService {
         try {
           iv = Buffer.from(ivHex, "hex");
         } catch (err) {
-          throw new Error("Error decoding IV: " + err.message);
+          throw new InternalServerErrorException("Error decoding IV: " + err.message);
         }
 
         try {
           const decrypted = this.decryptAes256Cfb(key, iv, ciphertext);
           return decrypted;
         } catch (err) {
-          throw new Error("Decryption error: " + err.message);
+          throw new InternalServerErrorException("Decryption error: " + err.message);
         }
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to download invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to download invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to download invoice: ${error.message}`);
     }
   }
 
@@ -489,7 +489,7 @@ export class FirsService {
    */
   async getInvoiceConfirmation(irn: string): Promise<ConfirmEntity> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -524,14 +524,14 @@ export class FirsService {
           delivered: response.data.data.delivered,
         };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to confirm invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to confirm invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to confirm invoice: ${error.message}`);
     }
   }
 
@@ -544,7 +544,7 @@ export class FirsService {
     params: UpdateInvoicePaymentStatusDto,
   ): Promise<{ ok: boolean }> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
       );
     }
@@ -578,14 +578,14 @@ export class FirsService {
       ) {
         return { ok: response.data.data.ok };
       }
-      throw new Error("Invalid response from FIRS API");
+      throw new BadGatewayException("Invalid response from FIRS API");
     } catch (error) {
       if (error.response) {
-        throw new Error(
+        throw new BadGatewayException(
           `Failed to update invoice: ${error.response.status} ${JSON.stringify(error.response.data)}`,
         );
       }
-      throw new Error(`Failed to update invoice: ${error.message}`);
+      throw new BadGatewayException(`Failed to update invoice: ${error.message}`);
     }
   }
 

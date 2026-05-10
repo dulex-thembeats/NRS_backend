@@ -65,7 +65,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "POST", endpoint, payload, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to validate invoice: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to validate invoice: ${error.message}`);
         }
     }
     async proxySignInvoice(userId, payload) {
@@ -82,7 +82,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "POST", endpoint, payload, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to sign invoice: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to sign invoice: ${error.message}`);
         }
     }
     async proxyConfirmInvoice(userId, irn) {
@@ -99,7 +99,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to confirm invoice: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to confirm invoice: ${error.message}`);
         }
     }
     async proxyValidateIrn(userId, payload) {
@@ -116,7 +116,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "POST", endpoint, payload, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to validate IRN: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to validate IRN: ${error.message}`);
         }
     }
     async proxyTransmitSelfHealthCheck(userId) {
@@ -133,7 +133,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to transmit self health check: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to transmit self health check: ${error.message}`);
         }
     }
     async proxyTransmitLookupIrn(userId, irn) {
@@ -150,7 +150,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to transmit lookup IRN: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to transmit lookup IRN: ${error.message}`);
         }
     }
     async proxyTransmitLookupTin(userId, tin) {
@@ -167,7 +167,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to transmit lookup TIN: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to transmit lookup TIN: ${error.message}`);
         }
     }
     async proxyTransmitInvoice(userId, irn) {
@@ -184,7 +184,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "POST", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to transmit invoice: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to transmit invoice: ${error.message}`);
         }
     }
     async proxyTransmitConfirmReceipt(userId, irn) {
@@ -201,7 +201,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "PATCH", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to transmit confirm receipt: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to transmit confirm receipt: ${error.message}`);
         }
     }
     async proxyTransmitPullInvoice(userId) {
@@ -218,7 +218,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new Error(`Failed to transmit pull invoice: ${error.message}`);
+            throw new common_1.BadGatewayException(`Failed to transmit pull invoice: ${error.message}`);
         }
     }
     async getLogs(userId, page = 1, limit = 10) {

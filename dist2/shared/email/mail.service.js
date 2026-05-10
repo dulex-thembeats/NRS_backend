@@ -70,7 +70,7 @@ let EmailService = EmailService_1 = class EmailService {
         }
         catch (error) {
             this.logger.error(`Failed to send email to ${options.to}`, error.stack);
-            throw new Error("Failed to send email");
+            throw new common_1.InternalServerErrorException("Failed to send email");
         }
     }
     async sendWelcomeEmail(to, context) {

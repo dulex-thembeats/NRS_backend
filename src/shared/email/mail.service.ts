@@ -1,5 +1,5 @@
 // src/shared/email/email.service.ts
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable, Logger, InternalServerErrorException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import * as nodemailer from "nodemailer";
 import * as handlebars from "handlebars";
@@ -83,7 +83,7 @@ export class EmailService {
       );
     } catch (error) {
       this.logger.error(`Failed to send email to ${options.to}`, error.stack);
-      throw new Error("Failed to send email");
+      throw new InternalServerErrorException("Failed to send email");
     }
   }
 
