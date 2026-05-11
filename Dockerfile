@@ -35,7 +35,7 @@ FROM node:18-bullseye AS production
 WORKDIR /app
 
 # Copy the production build from the build stage
-COPY --from=build /app/dist ./dist
+COPY --from=build /app/dist2 ./dist2
 COPY --from=build /app/package.json ./
 COPY --from=build /app/docker-entrypoint.sh ./
 # Copy generated Prisma client from previous step
