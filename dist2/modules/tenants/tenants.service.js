@@ -181,9 +181,13 @@ let TenantsService = TenantsService_1 = class TenantsService {
         }
         catch (error) {
             this.logger.error(`Tenant transmit invoice failed: ${irn}`, error.stack);
-            await this.saveLog(userId, "POST", endpoint, undefined, 500, {
+            const responseStatus = error instanceof common_1.HttpException ? error.getStatus() : 500;
+            await this.saveLog(userId, "POST", endpoint, undefined, responseStatus, {
                 message: error.message,
             });
+            if (error instanceof common_1.HttpException) {
+                throw error;
+            }
             throw new common_1.BadGatewayException(`Failed to transmit invoice: ${error.message}`);
         }
     }

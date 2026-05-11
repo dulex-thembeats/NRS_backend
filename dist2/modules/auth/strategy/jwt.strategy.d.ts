@@ -16,6 +16,7 @@ export declare class JwtStrategy extends JwtStrategy_base {
         username: string | undefined;
         entityId: string;
         businessName: string;
+        role: any;
     }>;
 }
 export {};

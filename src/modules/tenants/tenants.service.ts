@@ -1,4 +1,10 @@
-import { ForbiddenException, Injectable, Logger, BadGatewayException } from "@nestjs/common";
+import {
+  ForbiddenException,
+  Injectable,
+  Logger,
+  BadGatewayException,
+  HttpException,
+} from "@nestjs/common";
 import { PrismaService } from "../../database";
 import { InvoiceService } from "../invoice/invoice.service";
 
@@ -202,9 +208,14 @@ export class TenantsService {
       return { ok: true, data: result };
     } catch (error: any) {
       this.logger.error(`Tenant transmit invoice failed: ${irn}`, error.stack);
-      await this.saveLog(userId, "POST", endpoint, undefined, 500, {
+      const responseStatus =
+        error instanceof HttpException ? error.getStatus() : 500;
+      await this.saveLog(userId, "POST", endpoint, undefined, responseStatus, {
         message: error.message,
       });
+      if (error instanceof HttpException) {
+        throw error;
+      }
       throw new BadGatewayException(`Failed to transmit invoice: ${error.message}`);
     }
   }

@@ -44,7 +44,7 @@ let DashboardService = class DashboardService {
                 : undefined,
         };
     }
-    async getClientDashboardSummary(userId) {
+    async getTenantDashboardSummary(userId) {
         const [totalApiCalls, successfulCalls, failedCalls, validateInvoiceCalls, signInvoiceCalls, confirmInvoiceCalls, validateIrnCalls, apiCredential,] = await Promise.all([
             this.prisma.tenantApiLog.count({ where: { userId } }),
             this.prisma.tenantApiLog.count({
@@ -89,7 +89,7 @@ let DashboardService = class DashboardService {
         };
     }
     async getAdminDashboardSummary() {
-        const [totalUsers, totalClients, totalInvoices, totalApiCalls] = await Promise.all([
+        const [totalUsers, totalTenants, totalInvoices, totalApiCalls] = await Promise.all([
             this.prisma.user.count(),
             this.prisma.user.count({ where: { role: "TENANT" } }),
             this.prisma.invoice.count(),
@@ -128,7 +128,7 @@ let DashboardService = class DashboardService {
         };
         return {
             totalUsers,
-            totalClients,
+            totalTenants,
             totalInvoices,
             totalApiCalls,
             recentUsers,

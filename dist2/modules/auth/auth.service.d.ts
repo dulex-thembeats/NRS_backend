@@ -22,6 +22,7 @@ export declare class AuthService {
         user: {
             id: number;
             email: string;
+            role: any;
         };
         isProfileComplete: boolean;
         entity_id: null;
@@ -34,6 +35,7 @@ export declare class AuthService {
             id: number;
             email: string;
             businessName: string | undefined;
+            role: any;
         };
         isProfileComplete: boolean;
         entity_id: string | null;
@@ -51,6 +53,7 @@ export declare class AuthService {
             id: number;
             email: string;
             businessName: string | undefined;
+            role: any;
         };
         isProfileComplete: boolean;
         entity_id: string | null;

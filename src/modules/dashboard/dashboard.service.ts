@@ -10,7 +10,7 @@ export interface DashboardSummary {
   lastInvoiceIssuedAt?: string;
 }
 
-export interface ClientDashboardSummary {
+export interface TenantDashboardSummary {
   totalApiCalls: number;
   successfulCalls: number;
   failedCalls: number;
@@ -24,7 +24,7 @@ export interface ClientDashboardSummary {
 
 export interface AdminDashboardSummary {
   totalUsers: number;
-  totalClients: number;
+  totalTenants: number;
   totalInvoices: number;
   totalApiCalls: number;
   recentUsers: any[];
@@ -75,9 +75,9 @@ export class DashboardService {
     };
   }
 
-  async getClientDashboardSummary(
+  async getTenantDashboardSummary(
     userId: number,
-  ): Promise<ClientDashboardSummary> {
+  ): Promise<TenantDashboardSummary> {
     const [
       totalApiCalls,
       successfulCalls,
@@ -134,7 +134,7 @@ export class DashboardService {
   }
 
   async getAdminDashboardSummary(): Promise<AdminDashboardSummary> {
-    const [totalUsers, totalClients, totalInvoices, totalApiCalls] =
+    const [totalUsers, totalTenants, totalInvoices, totalApiCalls] =
       await Promise.all([
         this.prisma.user.count(),
         this.prisma.user.count({ where: { role: "TENANT" } }),
@@ -181,7 +181,7 @@ export class DashboardService {
 
     return {
       totalUsers,
-      totalClients,
+      totalTenants,
       totalInvoices,
       totalApiCalls,
       recentUsers,

@@ -431,6 +431,10 @@ export class InvoiceController {
   @ApiParam({ name: "id", description: "Invoice ID", example: 1 })
   @ApiResponse({ status: 200, description: "Transmit result" })
   @ApiResponse({ status: 404, description: "Invoice not found" })
+  @ApiResponse({
+    status: 503,
+    description: "Transmission temporarily unavailable; retry later",
+  })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async transmitInvoiceById(
     @Param("id", ParseIntPipe) invoiceId: number,
@@ -443,6 +447,43 @@ export class InvoiceController {
     } catch (error) {
       this.logger.error(
         `Transmit invoice failed for ID: ${invoiceId}`,
+        error.stack,
+      );
+      throw error;
+    }
+  }
+
+  /**
+   * Retry invoice transmission by ID.
+   */
+  @Post(":id/transmit/retry")
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @ApiOperation({
+    summary: "Retry transmit invoice by ID",
+    description:
+      "Retries invoice transmission after a retryable upstream failure such as offline access points.",
+  })
+  @ApiParam({ name: "id", description: "Invoice ID", example: 1 })
+  @ApiResponse({ status: 200, description: "Transmit retry result" })
+  @ApiResponse({ status: 404, description: "Invoice not found" })
+  @ApiResponse({
+    status: 503,
+    description: "Transmission temporarily unavailable; retry later",
+  })
+  @ApiResponse({ status: 500, description: "Internal server error" })
+  async retryTransmitInvoiceById(
+    @Param("id", ParseIntPipe) invoiceId: number,
+  ): Promise<any> {
+    this.logger.log(`Received transmit retry request for ID: ${invoiceId}`);
+    try {
+      const result =
+        await this.invoiceService.retryTransmitInvoiceById(invoiceId);
+      this.logger.log(`Transmit retry completed for ID: ${invoiceId}`);
+      return result;
+    } catch (error) {
+      this.logger.error(
+        `Transmit retry failed for ID: ${invoiceId}`,
         error.stack,
       );
       throw error;

@@ -19,6 +19,7 @@ let AllExceptionsFilter = AllExceptionsFilter_1 = class AllExceptionsFilter {
         let message;
         let error;
         let source;
+        let extraFields = {};
         if (exception instanceof common_1.HttpException) {
             statusCode = exception.getStatus();
             const exceptionResponse = exception.getResponse();
@@ -33,6 +34,7 @@ let AllExceptionsFilter = AllExceptionsFilter_1 = class AllExceptionsFilter {
                     : resp.message || exception.message;
                 error = resp.error || this.getErrorName(statusCode);
                 source = resp.source;
+                extraFields = Object.fromEntries(Object.entries(resp).filter(([key]) => !["statusCode", "message", "error", "source"].includes(key)));
             }
             else {
                 message = exception.message;
@@ -55,6 +57,7 @@ let AllExceptionsFilter = AllExceptionsFilter_1 = class AllExceptionsFilter {
             error,
             message,
             ...(source && { source }),
+            ...extraFields,
             timestamp: new Date().toISOString(),
             path: request.url,
         };

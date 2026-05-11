@@ -72,6 +72,7 @@ __decorate([
 class RegisterUserDto {
     email;
     password;
+    role;
 }
 exports.RegisterUserDto = RegisterUserDto;
 __decorate([
@@ -93,4 +94,16 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsIn)(["USER", "TENANT"]),
+    (0, swagger_1.ApiProperty)({
+        description: "The role to assign during public registration",
+        example: "TENANT",
+        required: false,
+        enum: ["USER", "TENANT"],
+        default: "USER",
+    }),
+    __metadata("design:type", String)
+], RegisterUserDto.prototype, "role", void 0);
 //# sourceMappingURL=register-user.dto.js.map

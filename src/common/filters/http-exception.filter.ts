@@ -35,6 +35,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     let message: string;
     let error: string;
     let source: string | undefined;
+    let extraFields: Record<string, any> = {};
 
     if (exception instanceof HttpException) {
       statusCode = exception.getStatus();
@@ -51,6 +52,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
           : resp.message || exception.message;
         error = resp.error || this.getErrorName(statusCode);
         source = resp.source;
+        extraFields = Object.fromEntries(
+          Object.entries(resp).filter(
+            ([key]) =>
+              !["statusCode", "message", "error", "source"].includes(key),
+          ),
+        );
       } else {
         message = exception.message;
         error = this.getErrorName(statusCode);
@@ -75,6 +82,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       error,
       message,
       ...(source && { source }),
+      ...extraFields,
       timestamp: new Date().toISOString(),
       path: request.url,
     };

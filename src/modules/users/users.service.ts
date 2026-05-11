@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -105,6 +106,11 @@ export class UsersService {
       throw new ConflictException("User with this email already exists");
     }
 
+    const role = registerUserDto.role ?? "USER";
+    if (!["USER", "TENANT"].includes(role)) {
+      throw new BadRequestException("Only USER or TENANT can self-register");
+    }
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
 
@@ -117,7 +123,7 @@ export class UsersService {
       data: {
         email: registerUserDto.email,
         password: hashedPassword,
-        role: "USER",
+        role: role as any,
         isEmailVerified: true,
         isProfileComplete: false,
         emailVerificationToken: verificationToken,

@@ -54,6 +54,7 @@ let JwtStrategy = JwtStrategy_1 = class JwtStrategy extends (0, passport_1.Passp
                 username: user.businessName,
                 entityId: payload.entityId,
                 businessName: payload.businessName,
+                role: user.role,
             };
         }
         catch (error) {

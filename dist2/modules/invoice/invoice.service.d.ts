@@ -7,6 +7,11 @@ export declare class InvoiceService {
     private readonly firsApiUrl;
     private readonly firsApiKey;
     private readonly firsApiSecret;
+    private buildFirsHeaders;
+    private parseTransmitError;
+    private createTransmitException;
+    private sendTransmitInvoiceRequest;
+    private updateInvoiceTransmissionFailure;
     getEntityById(entityId: string): Promise<any>;
     validateIrn(params: ValidateIrnDto): Promise<{
         ok: boolean;
@@ -24,6 +29,7 @@ export declare class InvoiceService {
     transmitConfirmReceipt(irn: string): Promise<any>;
     transmitLookupIrnById(invoiceId: number): Promise<any>;
     transmitInvoiceById(invoiceId: number): Promise<any>;
+    retryTransmitInvoiceById(invoiceId: number): Promise<any>;
     transmitConfirmReceiptById(invoiceId: number): Promise<any>;
     transmitPullInvoice(): Promise<any>;
     getInvoiceConfirmation(irn: string): Promise<any>;

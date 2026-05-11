@@ -13,13 +13,15 @@ import {
 import { UsersService } from "./users.service";
 import { CreateUserDto, UpdateUserDto } from "./dtos";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
-import { Public } from "../../common/decorators";
+import { Roles } from "../../common/decorators";
+import { RolesGuard } from "../../common/guards/roles.guard";
 
 @Controller("api/v1/users")
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles("ADMIN")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Public()
   @Get()
   async findAll() {
     return this.usersService.findAllUsers();
@@ -34,13 +36,11 @@ export class UsersController {
     return user;
   }
 
-  @Public()
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 
-  @Public()
   @Put(":id")
   async update(
     @Param("id", ParseIntPipe) id: number,

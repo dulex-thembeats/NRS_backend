@@ -24,6 +24,91 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
     firsApiUrl = process.env.FIRS_API_URL ?? "";
     firsApiKey = process.env.FIRS_API_KEY ?? "";
     firsApiSecret = process.env.FIRS_API_SECRET ?? "";
+    buildFirsHeaders() {
+        return {
+            "Content-Type": "application/json",
+            "x-api-key": this.firsApiKey,
+            "x-api-secret": this.firsApiSecret,
+        };
+    }
+    parseTransmitError(error) {
+        const responseData = error?.response?.data;
+        const upstreamError = responseData?.error ?? {};
+        const publicMessage = upstreamError.public_message ??
+            upstreamError.details ??
+            responseData?.message ??
+            error?.message ??
+            "Transmission failed";
+        const details = upstreamError.details ?? publicMessage;
+        const searchableText = JSON.stringify(responseData ?? error?.message ?? "")
+            .toLowerCase();
+        const accessPointsOffline = searchableText.includes("access points are offline") ||
+            searchableText.includes("corresponding access points are offline");
+        return {
+            statusCode: error?.response?.status,
+            responseBody: responseData,
+            code: responseData?.code,
+            message: responseData?.message,
+            publicMessage,
+            details,
+            errorId: upstreamError.id,
+            handler: upstreamError.handler,
+            retryable: accessPointsOffline,
+        };
+    }
+    createTransmitException(irn, context, invoice) {
+        const response = {
+            message: context.retryable
+                ? `Invoice transmission is temporarily unavailable: ${context.publicMessage}`
+                : `Transmit invoice failed: ${context.publicMessage}`,
+            error: context.retryable ? "Transmission Temporarily Unavailable" : "Bad Gateway",
+            retryable: context.retryable,
+            invoice: invoice
+                ? {
+                    id: invoice.id,
+                    irn,
+                    status: invoice.status,
+                }
+                : {
+                    irn,
+                },
+            upstream: {
+                statusCode: context.statusCode,
+                code: context.code,
+                message: context.message,
+                publicMessage: context.publicMessage,
+                details: context.details,
+                errorId: context.errorId,
+                handler: context.handler,
+            },
+        };
+        return context.retryable
+            ? new common_1.ServiceUnavailableException(response)
+            : new common_1.BadGatewayException(response);
+    }
+    async sendTransmitInvoiceRequest(irn) {
+        if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
+            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
+        }
+        const url = `${this.firsApiUrl}/api/v1/invoice/transmit/${encodeURIComponent(irn)}`;
+        const response = await axios_1.default.post(url, {}, {
+            headers: this.buildFirsHeaders(),
+        });
+        return response.data;
+    }
+    async updateInvoiceTransmissionFailure(invoiceId, retryable) {
+        const status = retryable
+            ? "TRANSMISSION_PENDING_RETRY"
+            : "TRANSMISSION_FAILED";
+        await this.prisma.invoice.update({
+            where: { id: invoiceId },
+            data: {
+                status,
+                failedAt: new Date(),
+            },
+        });
+        return status;
+    }
     async getEntityById(entityId) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
             throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
@@ -220,28 +305,16 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         }
     }
     async transmitInvoice(irn) {
-        if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
-        }
-        const url = `${this.firsApiUrl}/api/v1/invoice/transmit/${encodeURIComponent(irn)}`;
         try {
             this.logger.log(`Transmit invoice: ${irn}`);
-            const response = await axios_1.default.post(url, {}, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
-                },
-            });
+            const response = await this.sendTransmitInvoiceRequest(irn);
             this.logger.log(`Transmit invoice successful: ${irn}`);
-            return response.data;
+            return response;
         }
         catch (error) {
             this.logger.error(`Transmit invoice failed: ${irn}`, error.stack);
-            if (error.response) {
-                throw new common_1.BadGatewayException(`Transmit invoice failed: ${error.response.status} ${JSON.stringify(error.response.data)}`);
-            }
-            throw new common_1.BadGatewayException(`Transmit invoice failed: ${error.message}`);
+            const context = this.parseTransmitError(error);
+            throw this.createTransmitException(irn, context);
         }
     }
     async transmitConfirmReceipt(irn) {
@@ -282,12 +355,42 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
     async transmitInvoiceById(invoiceId) {
         const invoice = await this.prisma.invoice.findUnique({
             where: { id: invoiceId },
-            select: { irn: true },
+            select: { id: true, irn: true },
         });
         if (!invoice) {
             throw new common_1.NotFoundException(`Invoice with ID ${invoiceId} not found`);
         }
-        return this.transmitInvoice(invoice.irn);
+        try {
+            const result = await this.sendTransmitInvoiceRequest(invoice.irn);
+            await this.prisma.invoice.update({
+                where: { id: invoiceId },
+                data: {
+                    status: "TRANSMITTING",
+                    failedAt: null,
+                    updatedAt: new Date(),
+                },
+            });
+            return result;
+        }
+        catch (error) {
+            const context = this.parseTransmitError(error);
+            let status = context.retryable
+                ? "TRANSMISSION_PENDING_RETRY"
+                : "TRANSMISSION_FAILED";
+            try {
+                status = await this.updateInvoiceTransmissionFailure(invoiceId, context.retryable);
+            }
+            catch (updateError) {
+                this.logger.error(`Failed to update transmission failure status for invoice ID: ${invoiceId}`, updateError.stack);
+            }
+            throw this.createTransmitException(invoice.irn, context, {
+                id: invoiceId,
+                status,
+            });
+        }
+    }
+    async retryTransmitInvoiceById(invoiceId) {
+        return this.transmitInvoiceById(invoiceId);
     }
     async transmitConfirmReceiptById(invoiceId) {
         const invoice = await this.prisma.invoice.findUnique({

@@ -72,12 +72,14 @@ let AuthService = AuthService_1 = class AuthService {
                 email: user.email,
                 entityId: "",
                 businessName: "",
+                role: user.role,
             };
             return {
                 access_token: this.jwtService.sign(payload),
                 user: {
                     id: user.id,
                     email: user.email,
+                    role: user.role,
                 },
                 isProfileComplete: false,
                 entity_id: null,
@@ -105,6 +107,7 @@ let AuthService = AuthService_1 = class AuthService {
             email: user.email,
             entityId: user.entityId ?? "",
             businessName: user.businessName ?? "",
+            role: user.role,
         };
         return {
             access_token: this.jwtService.sign(payload),
@@ -112,6 +115,7 @@ let AuthService = AuthService_1 = class AuthService {
                 id: user.id,
                 email: user.email,
                 businessName: user.businessName,
+                role: user.role,
             },
             isProfileComplete: true,
             entity_id: businessContext.entityId ?? user.entityId ?? null,
@@ -140,6 +144,7 @@ let AuthService = AuthService_1 = class AuthService {
                 email: user.email,
                 entityId: user.entityId ?? "",
                 businessName: user.businessName ?? "",
+                role: user.role,
             };
             if (user.entityId) {
                 try {
@@ -156,6 +161,7 @@ let AuthService = AuthService_1 = class AuthService {
                     id: user.id,
                     email: user.email,
                     businessName: user.businessName,
+                    role: user.role,
                 },
                 isProfileComplete: user.isProfileComplete ?? false,
                 entity_id: businessContext.entityId ?? user.entityId ?? null,

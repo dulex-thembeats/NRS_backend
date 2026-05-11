@@ -107,6 +107,7 @@ export class AuthService {
         email: user.email,
         entityId: "",
         businessName: "",
+        role: user.role,
       };
 
       return {
@@ -114,6 +115,7 @@ export class AuthService {
         user: {
           id: user.id,
           email: user.email,
+          role: user.role,
         },
         isProfileComplete: false,
         entity_id: null,
@@ -155,6 +157,7 @@ export class AuthService {
       email: user.email,
       entityId: user.entityId ?? "",
       businessName: user.businessName ?? "",
+      role: user.role,
     };
 
     return {
@@ -163,6 +166,7 @@ export class AuthService {
         id: user.id,
         email: user.email,
         businessName: user.businessName,
+        role: user.role,
       },
       isProfileComplete: true,
       entity_id: businessContext.entityId ?? user.entityId ?? null,
@@ -205,6 +209,7 @@ export class AuthService {
         email: user.email,
         entityId: user.entityId ?? "",
         businessName: user.businessName ?? "",
+        role: user.role,
       };
 
       if (user.entityId) {
@@ -233,6 +238,7 @@ export class AuthService {
           id: user.id,
           email: user.email,
           businessName: user.businessName,
+          role: user.role,
         },
         isProfileComplete: user.isProfileComplete ?? false,
         entity_id: businessContext.entityId ?? user.entityId ?? null,

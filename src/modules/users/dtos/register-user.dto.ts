@@ -74,4 +74,15 @@ export class RegisterUserDto {
     required: true,
   })
   password: string;
+
+  @IsOptional()
+  @IsIn(["USER", "TENANT"])
+  @ApiProperty({
+    description: "The role to assign during public registration",
+    example: "TENANT",
+    required: false,
+    enum: ["USER", "TENANT"],
+    default: "USER",
+  })
+  role?: "USER" | "TENANT";
 }

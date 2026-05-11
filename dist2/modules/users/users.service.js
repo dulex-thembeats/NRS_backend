@@ -61,6 +61,10 @@ let UsersService = class UsersService {
         if (existingUserByEmail) {
             throw new common_1.ConflictException("User with this email already exists");
         }
+        const role = registerUserDto.role ?? "USER";
+        if (!["USER", "TENANT"].includes(role)) {
+            throw new common_1.BadRequestException("Only USER or TENANT can self-register");
+        }
         const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
         const verificationToken = crypto.randomBytes(32).toString("hex");
         const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
@@ -68,7 +72,7 @@ let UsersService = class UsersService {
             data: {
                 email: registerUserDto.email,
                 password: hashedPassword,
-                role: "USER",
+                role: role,
                 isEmailVerified: true,
                 isProfileComplete: false,
                 emailVerificationToken: verificationToken,

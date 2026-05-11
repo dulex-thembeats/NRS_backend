@@ -51,6 +51,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         username: user.businessName,
         entityId: payload.entityId,
         businessName: payload.businessName,
+        role: user.role,
       };
     } catch (error) {
       if (error instanceof UnauthorizedException) {

@@ -10,6 +10,7 @@ export declare class InvoiceController {
     transmitPullInvoice(): Promise<any>;
     transmitLookupById(invoiceId: number): Promise<any>;
     transmitInvoiceById(invoiceId: number): Promise<any>;
+    retryTransmitInvoiceById(invoiceId: number): Promise<any>;
     transmitConfirmReceiptById(invoiceId: number): Promise<any>;
     createInvoice(user: any, payload: CreateInvoiceDto): Promise<any>;
     getMyInvoices(user: any, page?: number, limit?: number): Promise<{

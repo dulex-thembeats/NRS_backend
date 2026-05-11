@@ -98,6 +98,18 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
+    async retryTransmitInvoiceById(invoiceId) {
+        this.logger.log(`Received transmit retry request for ID: ${invoiceId}`);
+        try {
+            const result = await this.invoiceService.retryTransmitInvoiceById(invoiceId);
+            this.logger.log(`Transmit retry completed for ID: ${invoiceId}`);
+            return result;
+        }
+        catch (error) {
+            this.logger.error(`Transmit retry failed for ID: ${invoiceId}`, error.stack);
+            throw error;
+        }
+    }
     async transmitConfirmReceiptById(invoiceId) {
         this.logger.log(`Received transmit confirm receipt request for ID: ${invoiceId}`);
         try {
@@ -290,12 +302,37 @@ __decorate([
     (0, swagger_1.ApiParam)({ name: "id", description: "Invoice ID", example: 1 }),
     (0, swagger_1.ApiResponse)({ status: 200, description: "Transmit result" }),
     (0, swagger_1.ApiResponse)({ status: 404, description: "Invoice not found" }),
+    (0, swagger_1.ApiResponse)({
+        status: 503,
+        description: "Transmission temporarily unavailable; retry later",
+    }),
     (0, swagger_1.ApiResponse)({ status: 500, description: "Internal server error" }),
     __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "transmitInvoiceById", null);
+__decorate([
+    (0, common_1.Post)(":id/transmit/retry"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
+    (0, swagger_1.ApiOperation)({
+        summary: "Retry transmit invoice by ID",
+        description: "Retries invoice transmission after a retryable upstream failure such as offline access points.",
+    }),
+    (0, swagger_1.ApiParam)({ name: "id", description: "Invoice ID", example: 1 }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Transmit retry result" }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: "Invoice not found" }),
+    (0, swagger_1.ApiResponse)({
+        status: 503,
+        description: "Transmission temporarily unavailable; retry later",
+    }),
+    (0, swagger_1.ApiResponse)({ status: 500, description: "Internal server error" }),
+    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], InvoiceController.prototype, "retryTransmitInvoiceById", null);
 __decorate([
     (0, common_1.Patch)(":id/transmit/confirm"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
