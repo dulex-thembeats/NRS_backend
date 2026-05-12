@@ -13,6 +13,7 @@ import {
   Query,
   ParseIntPipe,
   UseGuards,
+  UnauthorizedException,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -42,12 +43,19 @@ export class InvoiceController {
 
   constructor(private readonly invoiceService: InvoiceService) {}
 
+  private async ensureInvoiceOwnership(invoiceId: number, user: any) {
+    if (user.role === "ADMIN") return;
+    const invoice = await this.invoiceService.getInvoiceById(invoiceId);
+    if (!invoice || invoice.userId !== user.id) {
+      throw new UnauthorizedException("You do not have permission to access this invoice");
+    }
+  }
+
   /**
    * Retrieves entity information by entity ID from the FIRS API.
    * @param entityId - The unique identifier of the entity to retrieve.
    * @returns The entity information from the FIRS API.
    */
-  @Public()
   @Get("entity/:entityId")
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -76,10 +84,17 @@ export class InvoiceController {
     status: 500,
     description: "Internal server error",
   })
-  async getEntityById(@Param() params: GetEntityDto): Promise<any> {
+  async getEntityById(
+    @CurrentUser() user: any,
+    @Param() params: GetEntityDto
+  ): Promise<any> {
     this.logger.log(
       `Received request to get entity with ID: ${params.entityId}`,
     );
+
+    if (user.entityId !== params.entityId && user.role !== "ADMIN") {
+      throw new UnauthorizedException("You do not have permission to view this entity data");
+    }
 
     try {
       const entity = await this.invoiceService.getEntityById(params.entityId);
@@ -399,11 +414,13 @@ export class InvoiceController {
   @ApiResponse({ status: 404, description: "Invoice not found" })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async transmitLookupById(
+    @CurrentUser() user: any,
     @Param("id", ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(
       `Received transmit lookup request for invoice ID: ${invoiceId}`,
     );
+    await this.ensureInvoiceOwnership(invoiceId, user);
     try {
       const result = await this.invoiceService.transmitLookupIrnById(invoiceId);
       this.logger.log(`Transmit lookup completed for invoice ID: ${invoiceId}`);
@@ -437,9 +454,11 @@ export class InvoiceController {
   })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async transmitInvoiceById(
+    @CurrentUser() user: any,
     @Param("id", ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(`Received transmit invoice request for ID: ${invoiceId}`);
+    await this.ensureInvoiceOwnership(invoiceId, user);
     try {
       const result = await this.invoiceService.transmitInvoiceById(invoiceId);
       this.logger.log(`Transmit invoice completed for ID: ${invoiceId}`);
@@ -473,9 +492,11 @@ export class InvoiceController {
   })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async retryTransmitInvoiceById(
+    @CurrentUser() user: any,
     @Param("id", ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(`Received transmit retry request for ID: ${invoiceId}`);
+    await this.ensureInvoiceOwnership(invoiceId, user);
     try {
       const result =
         await this.invoiceService.retryTransmitInvoiceById(invoiceId);
@@ -506,11 +527,13 @@ export class InvoiceController {
   @ApiResponse({ status: 404, description: "Invoice not found" })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async transmitConfirmReceiptById(
+    @CurrentUser() user: any,
     @Param("id", ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(
       `Received transmit confirm receipt request for ID: ${invoiceId}`,
     );
+    await this.ensureInvoiceOwnership(invoiceId, user);
     try {
       const result =
         await this.invoiceService.transmitConfirmReceiptById(invoiceId);
@@ -701,9 +724,11 @@ export class InvoiceController {
     description: "Internal server error",
   })
   async getInvoiceById(
+    @CurrentUser() user: any,
     @Param("id", ParseIntPipe) invoiceId: number,
   ): Promise<any> {
     this.logger.log(`Received request to get invoice with ID: ${invoiceId}`);
+    await this.ensureInvoiceOwnership(invoiceId, user);
 
     try {
       const invoice = await this.invoiceService.getInvoiceById(invoiceId);
@@ -766,9 +791,11 @@ export class InvoiceController {
     description: "Internal server error",
   })
   async signInvoiceById(
+    @CurrentUser() user: any,
     @Param("id", ParseIntPipe) invoiceId: number,
   ): Promise<{ ok: boolean; invoice: any }> {
     this.logger.log(`Received request to sign invoice with ID: ${invoiceId}`);
+    await this.ensureInvoiceOwnership(invoiceId, user);
 
     try {
       const result = await this.invoiceService.signInvoiceById(invoiceId);
@@ -831,11 +858,13 @@ export class InvoiceController {
     description: "Internal server error",
   })
   async confirmInvoiceById(
+    @CurrentUser() user: any,
     @Param("id", ParseIntPipe) invoiceId: number,
   ): Promise<{ ok: boolean; invoice: any }> {
     this.logger.log(
       `Received request to confirm invoice with ID: ${invoiceId}`,
     );
+    await this.ensureInvoiceOwnership(invoiceId, user);
 
     try {
       const result = await this.invoiceService.confirmInvoiceById(invoiceId);

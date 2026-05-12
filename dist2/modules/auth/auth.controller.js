@@ -20,6 +20,7 @@ const dtos_2 = require("./dtos");
 const decorators_1 = require("../../common/decorators");
 const mail_service_1 = require("../../shared/email/mail.service");
 const jwt_auth_guard_1 = require("../auth/guard/jwt-auth.guard");
+const rate_limit_guard_1 = require("../../common/guards/rate-limit.guard");
 let AuthController = class AuthController {
     authService;
     emailService;
@@ -97,6 +98,7 @@ __decorate([
 ], AuthController.prototype, "completeProfile", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, common_1.UseGuards)(rate_limit_guard_1.RateLimitGuard),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Post)("login"),
     __param(0, (0, common_1.Body)()),

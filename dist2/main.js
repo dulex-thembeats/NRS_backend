@@ -12,15 +12,18 @@ async function bootstrap() {
     });
     app.useGlobalFilters(new http_exception_filter_1.AllExceptionsFilter());
     app.useGlobalPipes(new common_1.ValidationPipe());
-    const config = new swagger_1.DocumentBuilder()
-        .setTitle("NorthGate E-Invoice API")
-        .setDescription("NorthGate System Integrator — FIRS E-Invoicing Platform")
-        .setVersion("1.0")
-        .addTag("NorthGate")
-        .addBearerAuth()
-        .build();
-    const documentFactory = () => swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup("api", app, documentFactory);
+    app.useGlobalInterceptors(new common_1.ClassSerializerInterceptor(app.get(core_1.Reflector)));
+    if (process.env.NODE_ENV !== "production") {
+        const config = new swagger_1.DocumentBuilder()
+            .setTitle("NorthGate E-Invoice API")
+            .setDescription("NorthGate System Integrator — FIRS E-Invoicing Platform")
+            .setVersion("1.0")
+            .addTag("NorthGate")
+            .addBearerAuth()
+            .build();
+        const documentFactory = () => swagger_1.SwaggerModule.createDocument(app, config);
+        swagger_1.SwaggerModule.setup("api", app, documentFactory);
+    }
     await app.listen(process.env.PORT ?? 3000, "0.0.0.0");
 }
 bootstrap();

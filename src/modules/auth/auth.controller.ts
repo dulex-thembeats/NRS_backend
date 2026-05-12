@@ -14,6 +14,7 @@ import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
 import { Public, CurrentUser } from "../../common/decorators";
 import { EmailService } from "../../shared/email/mail.service";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
+import { RateLimitGuard } from "../../common/guards/rate-limit.guard";
 
 @Controller("api/v1/auth")
 @UseGuards(JwtAuthGuard)
@@ -43,6 +44,7 @@ export class AuthController {
   }
 
   @Public()
+  @UseGuards(RateLimitGuard)
   @HttpCode(HttpStatus.OK)
   @Post("login")
   async login(@Body() loginDto: LoginDto) {

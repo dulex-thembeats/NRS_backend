@@ -26,8 +26,19 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
     constructor(invoiceService) {
         this.invoiceService = invoiceService;
     }
-    async getEntityById(params) {
+    async ensureInvoiceOwnership(invoiceId, user) {
+        if (user.role === "ADMIN")
+            return;
+        const invoice = await this.invoiceService.getInvoiceById(invoiceId);
+        if (!invoice || invoice.userId !== user.id) {
+            throw new common_1.UnauthorizedException("You do not have permission to access this invoice");
+        }
+    }
+    async getEntityById(user, params) {
         this.logger.log(`Received request to get entity with ID: ${params.entityId}`);
+        if (user.entityId !== params.entityId && user.role !== "ADMIN") {
+            throw new common_1.UnauthorizedException("You do not have permission to view this entity data");
+        }
         try {
             const entity = await this.invoiceService.getEntityById(params.entityId);
             this.logger.log(`Successfully retrieved entity with ID: ${params.entityId}`);
@@ -74,8 +85,9 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
-    async transmitLookupById(invoiceId) {
+    async transmitLookupById(user, invoiceId) {
         this.logger.log(`Received transmit lookup request for invoice ID: ${invoiceId}`);
+        await this.ensureInvoiceOwnership(invoiceId, user);
         try {
             const result = await this.invoiceService.transmitLookupIrnById(invoiceId);
             this.logger.log(`Transmit lookup completed for invoice ID: ${invoiceId}`);
@@ -86,8 +98,9 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
-    async transmitInvoiceById(invoiceId) {
+    async transmitInvoiceById(user, invoiceId) {
         this.logger.log(`Received transmit invoice request for ID: ${invoiceId}`);
+        await this.ensureInvoiceOwnership(invoiceId, user);
         try {
             const result = await this.invoiceService.transmitInvoiceById(invoiceId);
             this.logger.log(`Transmit invoice completed for ID: ${invoiceId}`);
@@ -98,8 +111,9 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
-    async retryTransmitInvoiceById(invoiceId) {
+    async retryTransmitInvoiceById(user, invoiceId) {
         this.logger.log(`Received transmit retry request for ID: ${invoiceId}`);
+        await this.ensureInvoiceOwnership(invoiceId, user);
         try {
             const result = await this.invoiceService.retryTransmitInvoiceById(invoiceId);
             this.logger.log(`Transmit retry completed for ID: ${invoiceId}`);
@@ -110,8 +124,9 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
-    async transmitConfirmReceiptById(invoiceId) {
+    async transmitConfirmReceiptById(user, invoiceId) {
         this.logger.log(`Received transmit confirm receipt request for ID: ${invoiceId}`);
+        await this.ensureInvoiceOwnership(invoiceId, user);
         try {
             const result = await this.invoiceService.transmitConfirmReceiptById(invoiceId);
             this.logger.log(`Transmit confirm receipt completed for ID: ${invoiceId}`);
@@ -146,8 +161,9 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
-    async getInvoiceById(invoiceId) {
+    async getInvoiceById(user, invoiceId) {
         this.logger.log(`Received request to get invoice with ID: ${invoiceId}`);
+        await this.ensureInvoiceOwnership(invoiceId, user);
         try {
             const invoice = await this.invoiceService.getInvoiceById(invoiceId);
             this.logger.log(`Successfully retrieved invoice with ID: ${invoiceId}`);
@@ -158,8 +174,9 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
-    async signInvoiceById(invoiceId) {
+    async signInvoiceById(user, invoiceId) {
         this.logger.log(`Received request to sign invoice with ID: ${invoiceId}`);
+        await this.ensureInvoiceOwnership(invoiceId, user);
         try {
             const result = await this.invoiceService.signInvoiceById(invoiceId);
             this.logger.log(`Successfully signed invoice with ID: ${invoiceId}`);
@@ -170,8 +187,9 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
             throw error;
         }
     }
-    async confirmInvoiceById(invoiceId) {
+    async confirmInvoiceById(user, invoiceId) {
         this.logger.log(`Received request to confirm invoice with ID: ${invoiceId}`);
+        await this.ensureInvoiceOwnership(invoiceId, user);
         try {
             const result = await this.invoiceService.confirmInvoiceById(invoiceId);
             this.logger.log(`Successfully confirmed invoice with ID: ${invoiceId}`);
@@ -197,7 +215,6 @@ let InvoiceController = InvoiceController_1 = class InvoiceController {
 };
 exports.InvoiceController = InvoiceController;
 __decorate([
-    (0, decorators_1.Public)(),
     (0, common_1.Get)("entity/:entityId"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
@@ -226,9 +243,10 @@ __decorate([
         status: 500,
         description: "Internal server error",
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dtos_1.GetEntityDto]),
+    __metadata("design:paramtypes", [Object, dtos_1.GetEntityDto]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "getEntityById", null);
 __decorate([
@@ -286,9 +304,10 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, description: "Invoice lookup result" }),
     (0, swagger_1.ApiResponse)({ status: 404, description: "Invoice not found" }),
     (0, swagger_1.ApiResponse)({ status: 500, description: "Internal server error" }),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "transmitLookupById", null);
 __decorate([
@@ -307,9 +326,10 @@ __decorate([
         description: "Transmission temporarily unavailable; retry later",
     }),
     (0, swagger_1.ApiResponse)({ status: 500, description: "Internal server error" }),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "transmitInvoiceById", null);
 __decorate([
@@ -328,9 +348,10 @@ __decorate([
         description: "Transmission temporarily unavailable; retry later",
     }),
     (0, swagger_1.ApiResponse)({ status: 500, description: "Internal server error" }),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "retryTransmitInvoiceById", null);
 __decorate([
@@ -345,9 +366,10 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, description: "Confirm receipt result" }),
     (0, swagger_1.ApiResponse)({ status: 404, description: "Invoice not found" }),
     (0, swagger_1.ApiResponse)({ status: 500, description: "Internal server error" }),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "transmitConfirmReceiptById", null);
 __decorate([
@@ -469,9 +491,10 @@ __decorate([
         status: 500,
         description: "Internal server error",
     }),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "getInvoiceById", null);
 __decorate([
@@ -516,9 +539,10 @@ __decorate([
         status: 500,
         description: "Internal server error",
     }),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "signInvoiceById", null);
 __decorate([
@@ -563,9 +587,10 @@ __decorate([
         status: 500,
         description: "Internal server error",
     }),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], InvoiceController.prototype, "confirmInvoiceById", null);
 __decorate([
