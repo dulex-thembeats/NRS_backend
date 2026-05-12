@@ -6,6 +6,20 @@ export class RateLimitGuard implements CanActivate {
   private readonly WINDOW_MS = 60000; // 1 minute
   private readonly MAX_REQUESTS = 5;
 
+  constructor() {
+    // Periodically clean up old entries to prevent memory leaks
+    setInterval(() => this.cleanup(), this.WINDOW_MS * 2).unref();
+  }
+
+  private cleanup() {
+    const now = Date.now();
+    for (const [ip, record] of this.requests.entries()) {
+      if (now - record.timestamp >= this.WINDOW_MS) {
+        this.requests.delete(ip);
+      }
+    }
+  }
+
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const ip = request.ip || request.connection?.remoteAddress || 'unknown';
