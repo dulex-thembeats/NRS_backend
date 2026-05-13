@@ -6,22 +6,48 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const http_exception_filter_1 = require("./common/filters/http-exception.filter");
 const cookieParser = require("cookie-parser");
+function parseAllowedOrigins(value) {
+    if (!value) {
+        return [];
+    }
+    return value
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean)
+        .map((origin) => {
+        try {
+            return new URL(origin).origin;
+        }
+        catch {
+            return origin.replace(/\/+$/, "");
+        }
+    });
+}
 async function bootstrap() {
+    const logger = new common_1.Logger("Bootstrap");
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         bodyParser: true,
     });
-    const allowedOrigins = [
-        process.env.FRONTEND_URL,
+    const localOrigins = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://localhost:3001",
         "http://localhost:5173",
-    ].filter(Boolean);
+    ];
+    const allowedOrigins = Array.from(new Set([
+        ...parseAllowedOrigins(process.env.FRONTEND_URL),
+        ...parseAllowedOrigins(process.env.CORS_ORIGINS),
+        ...localOrigins,
+    ]));
+    if (process.env.NODE_ENV === "production" &&
+        allowedOrigins.every((origin) => localOrigins.includes(origin))) {
+        logger.warn("No production CORS origin is configured. Set FRONTEND_URL or CORS_ORIGINS to the deployed frontend origin.");
+    }
     app.enableCors({
         origin: allowedOrigins,
         credentials: true,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-        allowedHeaders: "Content-Type, Accept, Authorization, expires, x-requested-with",
+        allowedHeaders: "Content-Type, Accept, Authorization, expires, x-requested-with, x-tenant-key, x-tenant-secret, x-api-key, x-api-secret",
     });
     app.use(cookieParser());
     app.useGlobalFilters(new http_exception_filter_1.AllExceptionsFilter());
