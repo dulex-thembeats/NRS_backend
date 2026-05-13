@@ -28,19 +28,20 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         bodyParser: true,
     });
-    const localOrigins = [
+    const defaultOrigins = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://localhost:3001",
         "http://localhost:5173",
+        "http://162.243.229.65:3001",
     ];
     const allowedOrigins = Array.from(new Set([
         ...parseAllowedOrigins(process.env.FRONTEND_URL),
         ...parseAllowedOrigins(process.env.CORS_ORIGINS),
-        ...localOrigins,
+        ...defaultOrigins,
     ]));
     if (process.env.NODE_ENV === "production" &&
-        allowedOrigins.every((origin) => localOrigins.includes(origin))) {
+        allowedOrigins.every((origin) => defaultOrigins.includes(origin))) {
         logger.warn("No production CORS origin is configured. Set FRONTEND_URL or CORS_ORIGINS to the deployed frontend origin.");
     }
     app.enableCors({
