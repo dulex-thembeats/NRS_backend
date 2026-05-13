@@ -9,8 +9,14 @@ import {
   UseGuards,
   Res,
 } from "@nestjs/common";
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from "@nestjs/swagger";
-import { Response } from "express";
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiBody,
+} from "@nestjs/swagger";
+import { CookieOptions, Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
 import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
@@ -18,6 +24,29 @@ import { Public, CurrentUser } from "../../common/decorators";
 import { EmailService } from "../../shared/email/mail.service";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
 import { RateLimitGuard } from "../../common/guards/rate-limit.guard";
+
+function parseCookieSecure(): boolean {
+  const value = process.env.COOKIE_SECURE;
+
+  if (value === undefined) {
+    return process.env.NODE_ENV === "production";
+  }
+
+  return value.toLowerCase() === "true";
+}
+
+function getAuthCookieOptions(): CookieOptions {
+  const sameSite = (process.env.COOKIE_SAME_SITE || "lax").toLowerCase();
+
+  return {
+    httpOnly: true,
+    sameSite: ["lax", "strict", "none"].includes(sameSite)
+      ? (sameSite as "lax" | "strict" | "none")
+      : "lax",
+    secure: parseCookieSecure(),
+    maxAge: 1000 * 60 * 60 * 24,
+  };
+}
 
 @ApiTags("Authentication")
 @Controller("api/v1/auth")
@@ -33,14 +62,12 @@ export class AuthController {
   @ApiOperation({ summary: "Register a new user (Phase 1)" })
   @ApiResponse({ status: 201, description: "User registered successfully" })
   @ApiResponse({ status: 400, description: "Bad request" })
-  async register(@Body() registerUserDto: RegisterUserDto, @Res({ passthrough: true }) res: Response) {
+  async register(
+    @Body() registerUserDto: RegisterUserDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const result = await this.authService.register(registerUserDto);
-    res.cookie('Authentication', result.access_token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
-    });
+    res.cookie("Authentication", result.access_token, getAuthCookieOptions());
     return result;
   }
 
@@ -59,13 +86,11 @@ export class AuthController {
     @Body() completeProfileDto: CompleteProfileDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const result = await this.authService.completeProfile(req.id, completeProfileDto);
-    res.cookie('Authentication', result.access_token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24,
-    });
+    const result = await this.authService.completeProfile(
+      req.id,
+      completeProfileDto,
+    );
+    res.cookie("Authentication", result.access_token, getAuthCookieOptions());
     return result;
   }
 
@@ -76,14 +101,12 @@ export class AuthController {
   @ApiOperation({ summary: "Login user" })
   @ApiResponse({ status: 200, description: "Login successful" })
   @ApiResponse({ status: 401, description: "Invalid credentials" })
-  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
+  async login(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const result = await this.authService.login(loginDto);
-    res.cookie('Authentication', result.access_token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24,
-    });
+    res.cookie("Authentication", result.access_token, getAuthCookieOptions());
     return result;
   }
 
@@ -111,7 +134,12 @@ export class AuthController {
   @Public()
   @Post("forgot-password")
   @ApiOperation({ summary: "Request password reset" })
-  @ApiBody({ schema: { type: "object", properties: { email: { type: "string", example: "user@example.com" } } } })
+  @ApiBody({
+    schema: {
+      type: "object",
+      properties: { email: { type: "string", example: "user@example.com" } },
+    },
+  })
   @ApiResponse({ status: 200, description: "Reset email sent if user exists" })
   async forgotPassword(@Body("email") email: string) {
     return this.authService.requestPasswordReset(email);
@@ -155,7 +183,7 @@ export class AuthController {
   @ApiOperation({ summary: "Logout user" })
   @ApiResponse({ status: 200, description: "Logged out successfully" })
   async logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('Authentication');
+    res.clearCookie("Authentication", getAuthCookieOptions());
     return { message: "Successfully logged out" };
   }
 

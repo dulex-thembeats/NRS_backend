@@ -17,8 +17,10 @@ export declare class UsersService {
     findUserById(id: number): Promise<User | null>;
     findUserByEmail(email: string): Promise<User | null>;
     updateUser(id: number, updateUserDto: UpdateUserDto): Promise<{
-        id: number;
+        isEmailVerified: boolean;
+        isActive: boolean;
         entityId: string | null;
+        id: number;
         email: string;
         password: string;
         businessName: string | null;
@@ -26,11 +28,9 @@ export declare class UsersService {
         rcNumber: string | null;
         role: import(".prisma/client").$Enums.Role;
         dateOfIncorporation: Date | null;
-        isEmailVerified: boolean;
         emailVerificationToken: string | null;
         emailVerificationExpires: Date | null;
         isProfileComplete: boolean;
-        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
     }>;

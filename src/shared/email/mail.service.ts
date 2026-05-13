@@ -1,10 +1,15 @@
 // src/shared/email/email.service.ts
-import { Injectable, Logger, InternalServerErrorException } from "@nestjs/common";
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import * as nodemailer from "nodemailer";
 import * as handlebars from "handlebars";
 import * as fs from "fs";
 import * as path from "path";
+import axios from "axios";
 import {
   EmailOptions,
   WelcomeEmailContext,
@@ -14,13 +19,21 @@ import {
 
 @Injectable()
 export class EmailService {
-  private transporter: nodemailer.Transporter;
+  private transporter?: nodemailer.Transporter;
   private readonly logger = new Logger(EmailService.name);
 
   constructor(private configService: ConfigService) {
     this.createTransporter();
   }
   private createTransporter() {
+    if (
+      this.configService.get<string>("RESEND_API_KEY") &&
+      this.configService.get<string>("EMAIL_TRANSPORT") !== "smtp"
+    ) {
+      this.logger.log("Email transporter configured for Resend HTTP API");
+      return;
+    }
+
     const config = {
       host: this.configService.get<string>("RESEND_API_KEY")
         ? "smtp.resend.com"
@@ -28,7 +41,9 @@ export class EmailService {
       port: this.configService.get<string>("RESEND_API_KEY")
         ? 465
         : this.configService.get<number>("MAIL_PORT"),
-      secure: this.configService.get<string>("RESEND_API_KEY") ? true : this.configService.get<boolean>("MAIL_SECURE", false),
+      secure: this.configService.get<string>("RESEND_API_KEY")
+        ? true
+        : this.configService.get<boolean>("MAIL_SECURE", false),
       auth: {
         user: this.configService.get<string>("RESEND_API_KEY")
           ? "resend"
@@ -95,12 +110,77 @@ export class EmailService {
         attachments: options.attachments,
       };
 
+      if (
+        this.configService.get<string>("RESEND_API_KEY") &&
+        this.configService.get<string>("EMAIL_TRANSPORT") !== "smtp"
+      ) {
+        await this.sendViaResendApi(mailOptions);
+        return;
+      }
+
+      if (!this.transporter) {
+        throw new InternalServerErrorException(
+          "Email transporter is not configured",
+        );
+      }
+
       const result = await this.transporter.sendMail(mailOptions);
       this.logger.log(
         `Email sent successfully to ${options.to}. Message ID: ${result.messageId}`,
       );
     } catch (error) {
       this.logger.error(`Failed to send email to ${options.to}`, error.stack);
+      throw new InternalServerErrorException("Failed to send email");
+    }
+  }
+
+  private async sendViaResendApi(mailOptions: {
+    from: string;
+    to: string;
+    subject: string;
+    html?: string;
+    text?: string;
+    attachments?: any;
+  }): Promise<void> {
+    const apiKey = this.configService.get<string>("RESEND_API_KEY");
+
+    if (!apiKey) {
+      throw new InternalServerErrorException(
+        "RESEND_API_KEY is not configured",
+      );
+    }
+
+    try {
+      const response = await axios.post(
+        "https://api.resend.com/emails",
+        {
+          from: mailOptions.from,
+          to: mailOptions.to,
+          subject: mailOptions.subject,
+          html: mailOptions.html,
+          text: mailOptions.text,
+          attachments: mailOptions.attachments,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          timeout: 15000,
+        },
+      );
+
+      this.logger.log(
+        `Email sent successfully to ${mailOptions.to}. Message ID: ${response.data?.id ?? "unknown"}`,
+      );
+    } catch (error) {
+      const details = axios.isAxiosError(error)
+        ? JSON.stringify(error.response?.data ?? error.message)
+        : error instanceof Error
+          ? error.message
+          : String(error);
+
+      this.logger.error(`Resend API email send failed: ${details}`);
       throw new InternalServerErrorException("Failed to send email");
     }
   }
@@ -158,7 +238,18 @@ export class EmailService {
 
   // Test email connection
   async testConnection(): Promise<boolean> {
+    if (
+      this.configService.get<string>("RESEND_API_KEY") &&
+      this.configService.get<string>("EMAIL_TRANSPORT") !== "smtp"
+    ) {
+      return true;
+    }
+
     try {
+      if (!this.transporter) {
+        return false;
+      }
+
       await this.transporter.verify();
       this.logger.log("Email connection verified successfully");
       return true;

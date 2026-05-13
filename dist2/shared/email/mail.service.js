@@ -17,6 +17,7 @@ const nodemailer = require("nodemailer");
 const handlebars = require("handlebars");
 const fs = require("fs");
 const path = require("path");
+const axios_1 = require("axios");
 let EmailService = EmailService_1 = class EmailService {
     configService;
     transporter;
@@ -26,6 +27,11 @@ let EmailService = EmailService_1 = class EmailService {
         this.createTransporter();
     }
     createTransporter() {
+        if (this.configService.get("RESEND_API_KEY") &&
+            this.configService.get("EMAIL_TRANSPORT") !== "smtp") {
+            this.logger.log("Email transporter configured for Resend HTTP API");
+            return;
+        }
         const config = {
             host: this.configService.get("RESEND_API_KEY")
                 ? "smtp.resend.com"
@@ -33,7 +39,9 @@ let EmailService = EmailService_1 = class EmailService {
             port: this.configService.get("RESEND_API_KEY")
                 ? 465
                 : this.configService.get("MAIL_PORT"),
-            secure: this.configService.get("RESEND_API_KEY") ? true : this.configService.get("MAIL_SECURE", false),
+            secure: this.configService.get("RESEND_API_KEY")
+                ? true
+                : this.configService.get("MAIL_SECURE", false),
             auth: {
                 user: this.configService.get("RESEND_API_KEY")
                     ? "resend"
@@ -79,11 +87,51 @@ let EmailService = EmailService_1 = class EmailService {
                 text: options.text,
                 attachments: options.attachments,
             };
+            if (this.configService.get("RESEND_API_KEY") &&
+                this.configService.get("EMAIL_TRANSPORT") !== "smtp") {
+                await this.sendViaResendApi(mailOptions);
+                return;
+            }
+            if (!this.transporter) {
+                throw new common_1.InternalServerErrorException("Email transporter is not configured");
+            }
             const result = await this.transporter.sendMail(mailOptions);
             this.logger.log(`Email sent successfully to ${options.to}. Message ID: ${result.messageId}`);
         }
         catch (error) {
             this.logger.error(`Failed to send email to ${options.to}`, error.stack);
+            throw new common_1.InternalServerErrorException("Failed to send email");
+        }
+    }
+    async sendViaResendApi(mailOptions) {
+        const apiKey = this.configService.get("RESEND_API_KEY");
+        if (!apiKey) {
+            throw new common_1.InternalServerErrorException("RESEND_API_KEY is not configured");
+        }
+        try {
+            const response = await axios_1.default.post("https://api.resend.com/emails", {
+                from: mailOptions.from,
+                to: mailOptions.to,
+                subject: mailOptions.subject,
+                html: mailOptions.html,
+                text: mailOptions.text,
+                attachments: mailOptions.attachments,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${apiKey}`,
+                    "Content-Type": "application/json",
+                },
+                timeout: 15000,
+            });
+            this.logger.log(`Email sent successfully to ${mailOptions.to}. Message ID: ${response.data?.id ?? "unknown"}`);
+        }
+        catch (error) {
+            const details = axios_1.default.isAxiosError(error)
+                ? JSON.stringify(error.response?.data ?? error.message)
+                : error instanceof Error
+                    ? error.message
+                    : String(error);
+            this.logger.error(`Resend API email send failed: ${details}`);
             throw new common_1.InternalServerErrorException("Failed to send email");
         }
     }
@@ -120,7 +168,14 @@ let EmailService = EmailService_1 = class EmailService {
         });
     }
     async testConnection() {
+        if (this.configService.get("RESEND_API_KEY") &&
+            this.configService.get("EMAIL_TRANSPORT") !== "smtp") {
+            return true;
+        }
         try {
+            if (!this.transporter) {
+                return false;
+            }
             await this.transporter.verify();
             this.logger.log("Email connection verified successfully");
             return true;

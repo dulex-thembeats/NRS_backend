@@ -13,6 +13,13 @@ exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const public_decorator_1 = require("./common/decorators/public.decorator");
 let AppController = class AppController {
+    getApiRoot() {
+        return {
+            name: "NorthGate E-Invoice API",
+            version: "1.0",
+            status: "ok",
+        };
+    }
     getRoot() {
         return [
             "",
@@ -28,6 +35,13 @@ let AppController = class AppController {
     }
 };
 exports.AppController = AppController;
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)("api/v1"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "getApiRoot", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),

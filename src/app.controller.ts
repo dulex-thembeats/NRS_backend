@@ -4,6 +4,16 @@ import { Public } from "./common/decorators/public.decorator";
 @Controller()
 export class AppController {
   @Public()
+  @Get("api/v1")
+  getApiRoot() {
+    return {
+      name: "NorthGate E-Invoice API",
+      version: "1.0",
+      status: "ok",
+    };
+  }
+
+  @Public()
   @Get()
   @Header("Content-Type", "text/plain; charset=utf-8")
   getRoot(): string {

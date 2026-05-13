@@ -22,6 +22,24 @@ const decorators_1 = require("../../common/decorators");
 const mail_service_1 = require("../../shared/email/mail.service");
 const jwt_auth_guard_1 = require("../auth/guard/jwt-auth.guard");
 const rate_limit_guard_1 = require("../../common/guards/rate-limit.guard");
+function parseCookieSecure() {
+    const value = process.env.COOKIE_SECURE;
+    if (value === undefined) {
+        return process.env.NODE_ENV === "production";
+    }
+    return value.toLowerCase() === "true";
+}
+function getAuthCookieOptions() {
+    const sameSite = (process.env.COOKIE_SAME_SITE || "lax").toLowerCase();
+    return {
+        httpOnly: true,
+        sameSite: ["lax", "strict", "none"].includes(sameSite)
+            ? sameSite
+            : "lax",
+        secure: parseCookieSecure(),
+        maxAge: 1000 * 60 * 60 * 24,
+    };
+}
 let AuthController = class AuthController {
     authService;
     emailService;
@@ -31,32 +49,17 @@ let AuthController = class AuthController {
     }
     async register(registerUserDto, res) {
         const result = await this.authService.register(registerUserDto);
-        res.cookie('Authentication', result.access_token, {
-            httpOnly: true,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24,
-        });
+        res.cookie("Authentication", result.access_token, getAuthCookieOptions());
         return result;
     }
     async completeProfile(req, completeProfileDto, res) {
         const result = await this.authService.completeProfile(req.id, completeProfileDto);
-        res.cookie('Authentication', result.access_token, {
-            httpOnly: true,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24,
-        });
+        res.cookie("Authentication", result.access_token, getAuthCookieOptions());
         return result;
     }
     async login(loginDto, res) {
         const result = await this.authService.login(loginDto);
-        res.cookie('Authentication', result.access_token, {
-            httpOnly: true,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24,
-        });
+        res.cookie("Authentication", result.access_token, getAuthCookieOptions());
         return result;
     }
     async verifyEmail(verifyEmailDto) {
@@ -79,7 +82,7 @@ let AuthController = class AuthController {
         return this.authService.syncEntityBusinesses(req.id);
     }
     async logout(res) {
-        res.clearCookie('Authentication');
+        res.clearCookie("Authentication", getAuthCookieOptions());
         return { message: "Successfully logged out" };
     }
     async testEmail(email) {
@@ -169,7 +172,12 @@ __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("forgot-password"),
     (0, swagger_1.ApiOperation)({ summary: "Request password reset" }),
-    (0, swagger_1.ApiBody)({ schema: { type: "object", properties: { email: { type: "string", example: "user@example.com" } } } }),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            type: "object",
+            properties: { email: { type: "string", example: "user@example.com" } },
+        },
+    }),
     (0, swagger_1.ApiResponse)({ status: 200, description: "Reset email sent if user exists" }),
     __param(0, (0, common_1.Body)("email")),
     __metadata("design:type", Function),
