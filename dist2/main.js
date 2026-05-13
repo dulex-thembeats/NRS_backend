@@ -56,7 +56,7 @@ async function bootstrap() {
             "Cache-Control",
             "Pragma",
             "Expires",
-            "x-requested-with", "x-tenant-key", "x-tenant-secret", "x-api-key", "x-api-secret",
+            "x-requested-with", "x-tenant-key", "x-tenant-secret", "x-api-key", "x-api-secret", "Access-Control-Allow-Origin",
         ],
     });
     app.use(cookieParser());
