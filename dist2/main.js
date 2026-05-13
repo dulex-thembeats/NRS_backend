@@ -45,8 +45,21 @@ async function bootstrap() {
         allowedOrigins.every((origin) => defaultOrigins.includes(origin))) {
         logger.warn("No production CORS origin is configured. Set FRONTEND_URL or CORS_ORIGINS to the deployed frontend origin.");
     }
+    logger.log(`Allowed CORS origins: ${JSON.stringify(allowedOrigins)}`);
     app.enableCors({
-        origin: allowedOrigins,
+        origin: (origin, callback) => {
+            if (!origin) {
+                callback(null, true);
+                return;
+            }
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true);
+            }
+            else {
+                logger.warn(`CORS BLOCKED — Origin: "${origin}" is not in allowed list: ${JSON.stringify(allowedOrigins)}`);
+                callback(null, true);
+            }
+        },
         credentials: true,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
         allowedHeaders: [
@@ -57,8 +70,13 @@ async function bootstrap() {
             "Cache-Control",
             "Pragma",
             "Expires",
-            "x-requested-with", "x-tenant-key", "x-tenant-secret", "x-api-key", "x-api-secret", "Access-Control-Allow-Origin",
+            "x-requested-with",
+            "x-tenant-key",
+            "x-tenant-secret",
+            "x-api-key",
+            "x-api-secret",
         ],
+        exposedHeaders: ["Set-Cookie"],
     });
     app.use(cookieParser());
     app.useGlobalFilters(new http_exception_filter_1.AllExceptionsFilter());

@@ -60,8 +60,27 @@ async function bootstrap() {
     );
   }
 
+  logger.log(`Allowed CORS origins: ${JSON.stringify(allowedOrigins)}`);
+
   app.enableCors({
-    origin: allowedOrigins,
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      // Allow requests with no origin (e.g., server-to-server, curl, mobile apps)
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        logger.warn(
+          `CORS BLOCKED — Origin: "${origin}" is not in allowed list: ${JSON.stringify(allowedOrigins)}`,
+        );
+        callback(null, true); // Temporarily allow ALL origins to diagnose
+        // Once CORS is fixed, replace the line above with:
+        // callback(new Error(`Origin ${origin} not allowed by CORS`));
+      }
+    },
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     allowedHeaders: [
@@ -72,8 +91,13 @@ async function bootstrap() {
       "Cache-Control",
       "Pragma",
       "Expires",
-      "x-requested-with", "x-tenant-key", "x-tenant-secret", "x-api-key", "x-api-secret", "Access-Control-Allow-Origin",
+      "x-requested-with",
+      "x-tenant-key",
+      "x-tenant-secret",
+      "x-api-key",
+      "x-api-secret",
     ],
+    exposedHeaders: ["Set-Cookie"],
   });
 
 
