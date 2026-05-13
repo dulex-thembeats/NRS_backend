@@ -62,9 +62,18 @@ async function bootstrap() {
     origin: allowedOrigins,
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    allowedHeaders:
-      "Content-Type, Accept, Authorization, expires, x-requested-with, x-tenant-key, x-tenant-secret, x-api-key, x-api-secret, Pragma, Cache-Control",
+    allowedHeaders: [
+      "Content-Type",
+      "Accept",
+      "Authorization",
+      "Cache-Control",
+      "Pragma",
+      "Expires",
+      "x-requested-with", "x-tenant-key", "x-tenant-secret", "x-api-key", "x-api-secret",
+    ],
   });
+
+
 
   app.use(cookieParser());
   app.useGlobalFilters(new AllExceptionsFilter());
