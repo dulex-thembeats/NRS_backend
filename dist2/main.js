@@ -8,11 +8,20 @@ const http_exception_filter_1 = require("./common/filters/http-exception.filter"
 const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
-        cors: {
-            origin: process.env.FRONTEND_URL || true,
-            credentials: true,
-        },
         bodyParser: true,
+    });
+    const allowedOrigins = [
+        process.env.FRONTEND_URL,
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://localhost:5173",
+    ].filter(Boolean);
+    app.enableCors({
+        origin: allowedOrigins,
+        credentials: true,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+        allowedHeaders: "Content-Type, Accept, Authorization",
     });
     app.use(cookieParser());
     app.useGlobalFilters(new http_exception_filter_1.AllExceptionsFilter());
