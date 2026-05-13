@@ -63,7 +63,7 @@ async function bootstrap() {
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     allowedHeaders:
-      "Content-Type, Accept, Authorization, expires, x-requested-with, x-tenant-key, x-tenant-secret, x-api-key, x-api-secret",
+      "Content-Type, Accept, Authorization, expires, x-requested-with, x-tenant-key, x-tenant-secret, x-api-key, x-api-secret, Pragma, Cache-Control",
   });
 
   app.use(cookieParser());
