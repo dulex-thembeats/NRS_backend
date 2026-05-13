@@ -101,6 +101,19 @@ export class AuthService {
       const user =
         await this.userService.createUserLightweight(registerUserDto);
 
+      // Send verification email with OTP
+      try {
+        await this.emailService.sendVerificationEmail(user.email, {
+          businessName: user.email, // Fallback since businessName isn't collected yet
+          verificationToken: user.emailVerificationToken ?? "",
+          verificationUrl: "", // No longer used in template
+        });
+      } catch (emailError) {
+        this.logger.error(
+          `Failed to send verification email during registration: ${emailError.message}`,
+        );
+      }
+
       // Generate JWT token
       const payload: JwtPayload = {
         sub: user.id,
@@ -251,7 +264,10 @@ export class AuthService {
   }
 
   async verifyEmail(verifyEmailDto: VerifyEmailDto) {
-    const user = await this.userService.verifyEmail(verifyEmailDto.token);
+    const user = await this.userService.verifyEmail(
+      verifyEmailDto.email,
+      verifyEmailDto.otp,
+    );
     try {
       await this.emailService.sendWelcomeEmail(user.email, {
         businessName: user?.businessName ?? "",
@@ -281,9 +297,9 @@ export class AuthService {
       }
 
       await this.emailService.sendVerificationEmail(user.email, {
-        businessName: user.businessName ?? "",
+        businessName: user.businessName ?? user.email,
         verificationToken,
-        verificationUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/verify-email?token=${verificationToken}`,
+        verificationUrl: "",
       });
 
       return {

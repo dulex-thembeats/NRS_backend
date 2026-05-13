@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
 import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
@@ -6,7 +7,7 @@ export declare class AuthController {
     private readonly authService;
     private readonly emailService;
     constructor(authService: AuthService, emailService: EmailService);
-    register(registerUserDto: RegisterUserDto): Promise<{
+    register(registerUserDto: RegisterUserDto, res: Response): Promise<{
         access_token: string;
         user: {
             id: number;
@@ -18,7 +19,7 @@ export declare class AuthController {
         business_id: null;
         businesses: never[];
     }>;
-    completeProfile(req: any, completeProfileDto: CompleteProfileDto): Promise<{
+    completeProfile(req: any, completeProfileDto: CompleteProfileDto, res: Response): Promise<{
         access_token: string;
         user: {
             id: number;
@@ -36,7 +37,7 @@ export declare class AuthController {
             is_active: boolean;
         }[];
     }>;
-    login(loginDto: LoginDto): Promise<{
+    login(loginDto: LoginDto, res: Response): Promise<{
         access_token: string;
         user: {
             id: number;
@@ -63,7 +64,7 @@ export declare class AuthController {
     }>;
     getProfile(req: any): Promise<any>;
     syncBusinesses(req: any): Promise<any>;
-    logout(): Promise<{
+    logout(res: Response): Promise<{
         message: string;
     }>;
     testEmail(email: string): Promise<{

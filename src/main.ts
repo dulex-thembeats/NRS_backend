@@ -3,13 +3,18 @@ import { AppModule } from "./app.module";
 import { INestApplication, ValidationPipe, ClassSerializerInterceptor } from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { AllExceptionsFilter } from "./common/filters/http-exception.filter";
+import * as cookieParser from "cookie-parser";
 
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule, {
-    cors: true,
+    cors: {
+      origin: process.env.FRONTEND_URL || true,
+      credentials: true,
+    },
     bodyParser: true,
   });
 
+  app.use(cookieParser());
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));

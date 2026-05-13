@@ -7,7 +7,9 @@ import {
   UnauthorizedException,
   Get,
   UseGuards,
+  Res,
 } from "@nestjs/common";
+import { Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
 import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
@@ -26,8 +28,15 @@ export class AuthController {
 
   @Public()
   @Post("register")
-  async register(@Body() registerUserDto: RegisterUserDto) {
-    return this.authService.register(registerUserDto);
+  async register(@Body() registerUserDto: RegisterUserDto, @Res({ passthrough: true }) res: Response) {
+    const result = await this.authService.register(registerUserDto);
+    res.cookie('Authentication', result.access_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    });
+    return result;
   }
 
   /**
@@ -39,16 +48,31 @@ export class AuthController {
   async completeProfile(
     @CurrentUser() req: any,
     @Body() completeProfileDto: CompleteProfileDto,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.authService.completeProfile(req.id, completeProfileDto);
+    const result = await this.authService.completeProfile(req.id, completeProfileDto);
+    res.cookie('Authentication', result.access_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24,
+    });
+    return result;
   }
 
   @Public()
   @UseGuards(RateLimitGuard)
   @HttpCode(HttpStatus.OK)
   @Post("login")
-  async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
+    const result = await this.authService.login(loginDto);
+    res.cookie('Authentication', result.access_token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24,
+    });
+    return result;
   }
 
   @Public()
@@ -100,9 +124,8 @@ export class AuthController {
 
   @Post("logout")
   @HttpCode(HttpStatus.OK)
-  async logout() {
-    // Since JWT is stateless, we don't need to do anything server-side
-    // The client should handle removing the token
+  async logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('Authentication');
     return { message: "Successfully logged out" };
   }
 

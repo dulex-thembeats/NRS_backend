@@ -26,7 +26,13 @@ let JwtStrategy = JwtStrategy_1 = class JwtStrategy extends (0, passport_1.Passp
             throw new Error("JWT_SECRET is not defined in environment variables");
         }
         super({
-            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: (req) => {
+                let token = null;
+                if (req && req.cookies) {
+                    token = req.cookies['Authentication'];
+                }
+                return token || passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+            },
             ignoreExpiration: false,
             secretOrKey: jwtSecret,
         });

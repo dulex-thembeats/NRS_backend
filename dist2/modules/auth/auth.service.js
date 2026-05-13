@@ -67,6 +67,16 @@ let AuthService = AuthService_1 = class AuthService {
                 throw new common_1.UnauthorizedException("User already exists");
             }
             const user = await this.userService.createUserLightweight(registerUserDto);
+            try {
+                await this.emailService.sendVerificationEmail(user.email, {
+                    businessName: user.email,
+                    verificationToken: user.emailVerificationToken ?? "",
+                    verificationUrl: "",
+                });
+            }
+            catch (emailError) {
+                this.logger.error(`Failed to send verification email during registration: ${emailError.message}`);
+            }
             const payload = {
                 sub: user.id,
                 email: user.email,
@@ -174,7 +184,7 @@ let AuthService = AuthService_1 = class AuthService {
         }
     }
     async verifyEmail(verifyEmailDto) {
-        const user = await this.userService.verifyEmail(verifyEmailDto.token);
+        const user = await this.userService.verifyEmail(verifyEmailDto.email, verifyEmailDto.otp);
         try {
             await this.emailService.sendWelcomeEmail(user.email, {
                 businessName: user?.businessName ?? "",
@@ -195,9 +205,9 @@ let AuthService = AuthService_1 = class AuthService {
                 throw new common_1.BadRequestException("User not found");
             }
             await this.emailService.sendVerificationEmail(user.email, {
-                businessName: user.businessName ?? "",
+                businessName: user.businessName ?? user.email,
                 verificationToken,
-                verificationUrl: `${process.env.FRONTEND_URL || "http://localhost:3000"}/verify-email?token=${verificationToken}`,
+                verificationUrl: "",
             });
             return {
                 message: "Verification email sent! Please check your inbox.",

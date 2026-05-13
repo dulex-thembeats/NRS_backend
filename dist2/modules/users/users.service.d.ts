@@ -17,26 +17,26 @@ export declare class UsersService {
     findUserById(id: number): Promise<User | null>;
     findUserByEmail(email: string): Promise<User | null>;
     updateUser(id: number, updateUserDto: UpdateUserDto): Promise<{
-        email: string;
+        id: number;
         entityId: string | null;
+        email: string;
+        password: string;
         businessName: string | null;
         businessAddress: string | null;
         rcNumber: string | null;
         role: import(".prisma/client").$Enums.Role;
-        isActive: boolean;
-        password: string;
         dateOfIncorporation: Date | null;
-        id: number;
         isEmailVerified: boolean;
         emailVerificationToken: string | null;
         emailVerificationExpires: Date | null;
         isProfileComplete: boolean;
+        isActive: boolean;
         createdAt: Date;
         updatedAt: Date;
     }>;
     remove(id: number): Promise<void>;
-    findByVerificationToken(token: string): Promise<User | null>;
-    verifyEmail(token: string): Promise<User>;
+    findByEmailAndOtp(email: string, otp: string): Promise<User | null>;
+    verifyEmail(email: string, otp: string): Promise<User>;
     generateNewVerificationToken(email: string): Promise<string>;
     private mapPrismaUserToEntity;
 }

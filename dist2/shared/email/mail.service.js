@@ -27,12 +27,12 @@ let EmailService = EmailService_1 = class EmailService {
     }
     createTransporter() {
         const config = {
-            host: this.configService.get("MAIL_HOST"),
-            port: this.configService.get("MAIL_PORT"),
+            host: this.configService.get("MAILGUN_SMTP_HOST") || this.configService.get("MAIL_HOST"),
+            port: this.configService.get("MAILGUN_SMTP_PORT") || this.configService.get("MAIL_PORT"),
             secure: this.configService.get("MAIL_SECURE", false),
             auth: {
-                user: this.configService.get("MAIL_USER"),
-                pass: this.configService.get("MAIL_PASS"),
+                user: this.configService.get("MAILGUN_USERNAME") || this.configService.get("MAIL_USER"),
+                pass: this.configService.get("MAILGUN_PASSWORD") || this.configService.get("MAIL_PASS"),
             },
         };
         if (config.host === "smtp.ethereal.email") {

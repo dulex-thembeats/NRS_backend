@@ -22,12 +22,12 @@ export class EmailService {
   }
   private createTransporter() {
     const config = {
-      host: this.configService.get<string>("MAIL_HOST"),
-      port: this.configService.get<number>("MAIL_PORT"),
+      host: this.configService.get<string>("MAILGUN_SMTP_HOST") || this.configService.get<string>("MAIL_HOST"),
+      port: this.configService.get<number>("MAILGUN_SMTP_PORT") || this.configService.get<number>("MAIL_PORT"),
       secure: this.configService.get<boolean>("MAIL_SECURE", false),
       auth: {
-        user: this.configService.get<string>("MAIL_USER"),
-        pass: this.configService.get<string>("MAIL_PASS"),
+        user: this.configService.get<string>("MAILGUN_USERNAME") || this.configService.get<string>("MAIL_USER"),
+        pass: this.configService.get<string>("MAILGUN_PASSWORD") || this.configService.get<string>("MAIL_PASS"),
       },
     };
 

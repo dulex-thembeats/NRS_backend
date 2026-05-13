@@ -28,14 +28,35 @@ let AuthController = class AuthController {
         this.authService = authService;
         this.emailService = emailService;
     }
-    async register(registerUserDto) {
-        return this.authService.register(registerUserDto);
+    async register(registerUserDto, res) {
+        const result = await this.authService.register(registerUserDto);
+        res.cookie('Authentication', result.access_token, {
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 1000 * 60 * 60 * 24,
+        });
+        return result;
     }
-    async completeProfile(req, completeProfileDto) {
-        return this.authService.completeProfile(req.id, completeProfileDto);
+    async completeProfile(req, completeProfileDto, res) {
+        const result = await this.authService.completeProfile(req.id, completeProfileDto);
+        res.cookie('Authentication', result.access_token, {
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 1000 * 60 * 60 * 24,
+        });
+        return result;
     }
-    async login(loginDto) {
-        return this.authService.login(loginDto);
+    async login(loginDto, res) {
+        const result = await this.authService.login(loginDto);
+        res.cookie('Authentication', result.access_token, {
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 1000 * 60 * 60 * 24,
+        });
+        return result;
     }
     async verifyEmail(verifyEmailDto) {
         return this.authService.verifyEmail(verifyEmailDto);
@@ -56,7 +77,8 @@ let AuthController = class AuthController {
     async syncBusinesses(req) {
         return this.authService.syncEntityBusinesses(req.id);
     }
-    async logout() {
+    async logout(res) {
+        res.clearCookie('Authentication');
         return { message: "Successfully logged out" };
     }
     async testEmail(email) {
@@ -83,8 +105,9 @@ __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("register"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dtos_1.RegisterUserDto]),
+    __metadata("design:paramtypes", [dtos_1.RegisterUserDto, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
@@ -92,8 +115,9 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, decorators_1.CurrentUser)()),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, dtos_1.CompleteProfileDto]),
+    __metadata("design:paramtypes", [Object, dtos_1.CompleteProfileDto, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "completeProfile", null);
 __decorate([
@@ -102,8 +126,9 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Post)("login"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dtos_2.LoginDto]),
+    __metadata("design:paramtypes", [dtos_2.LoginDto, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
@@ -150,8 +175,9 @@ __decorate([
 __decorate([
     (0, common_1.Post)("logout"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "logout", null);
 __decorate([

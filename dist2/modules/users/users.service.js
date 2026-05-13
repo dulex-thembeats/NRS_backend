@@ -33,14 +33,14 @@ let UsersService = class UsersService {
         }
         const randomPassword = crypto.randomBytes(12).toString("hex");
         const hashedPassword = await bcrypt.hash(randomPassword, 10);
-        const verificationToken = crypto.randomBytes(32).toString("hex");
+        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
         const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
         const user = await this.prisma.user.create({
             data: {
                 email: createUserDto.email,
                 password: hashedPassword,
                 role: createUserDto.role,
-                isEmailVerified: true,
+                isEmailVerified: false,
                 isProfileComplete: false,
                 emailVerificationToken: verificationToken,
                 emailVerificationExpires: verificationExpires,
@@ -66,14 +66,14 @@ let UsersService = class UsersService {
             throw new common_1.BadRequestException("Only USER or TENANT can self-register");
         }
         const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
-        const verificationToken = crypto.randomBytes(32).toString("hex");
+        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
         const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
         const user = await this.prisma.user.create({
             data: {
                 email: registerUserDto.email,
                 password: hashedPassword,
                 role: role,
-                isEmailVerified: true,
+                isEmailVerified: false,
                 isProfileComplete: false,
                 emailVerificationToken: verificationToken,
                 emailVerificationExpires: verificationExpires,
@@ -185,10 +185,11 @@ let UsersService = class UsersService {
             data: { isActive: false },
         });
     }
-    async findByVerificationToken(token) {
+    async findByEmailAndOtp(email, otp) {
         const user = await this.prisma.user.findFirst({
             where: {
-                emailVerificationToken: token,
+                email: email,
+                emailVerificationToken: otp,
                 emailVerificationExpires: {
                     gt: new Date(),
                 },
@@ -199,10 +200,10 @@ let UsersService = class UsersService {
         }
         return this.mapPrismaUserToEntity(user);
     }
-    async verifyEmail(token) {
-        const user = await this.findByVerificationToken(token);
+    async verifyEmail(email, otp) {
+        const user = await this.findByEmailAndOtp(email, otp);
         if (!user) {
-            throw new common_1.NotFoundException("Invalid or expired verification token");
+            throw new common_1.BadRequestException("Invalid or expired verification OTP");
         }
         const updatedUser = await this.prisma.user.update({
             where: { id: user.id },
@@ -222,7 +223,7 @@ let UsersService = class UsersService {
         if (user.isEmailVerified) {
             throw new common_1.ConflictException("Email is already verified");
         }
-        const verificationToken = crypto.randomBytes(32).toString("hex");
+        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
         const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
         await this.prisma.user.update({
             where: { id: user.id },

@@ -50,8 +50,8 @@ export class UsersService {
     const randomPassword = crypto.randomBytes(12).toString("hex");
     const hashedPassword = await bcrypt.hash(randomPassword, 10);
 
-    // Generate email verification token
-    const verificationToken = crypto.randomBytes(32).toString("hex");
+    // Generate 6-digit OTP
+    const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     // Create new user
@@ -62,7 +62,7 @@ export class UsersService {
         password: hashedPassword,
         // business fields intentionally omitted (nullable)
         role: createUserDto.role as any, // Cast to avoid type conflicts
-        isEmailVerified: true,
+        isEmailVerified: false,
         isProfileComplete: false,
         emailVerificationToken: verificationToken,
         emailVerificationExpires: verificationExpires,
@@ -114,8 +114,8 @@ export class UsersService {
     // Hash the password
     const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
 
-    // Generate email verification token
-    const verificationToken = crypto.randomBytes(32).toString("hex");
+    // Generate 6-digit OTP
+    const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     // Create new user with minimal info
@@ -124,7 +124,7 @@ export class UsersService {
         email: registerUserDto.email,
         password: hashedPassword,
         role: role as any,
-        isEmailVerified: true,
+        isEmailVerified: false,
         isProfileComplete: false,
         emailVerificationToken: verificationToken,
         emailVerificationExpires: verificationExpires,
@@ -269,10 +269,11 @@ export class UsersService {
     });
   }
 
-  async findByVerificationToken(token: string): Promise<User | null> {
+  async findByEmailAndOtp(email: string, otp: string): Promise<User | null> {
     const user = await this.prisma.user.findFirst({
       where: {
-        emailVerificationToken: token,
+        email: email,
+        emailVerificationToken: otp,
         emailVerificationExpires: {
           gt: new Date(),
         },
@@ -285,11 +286,11 @@ export class UsersService {
 
     return this.mapPrismaUserToEntity(user);
   }
-  async verifyEmail(token: string): Promise<User> {
-    const user = await this.findByVerificationToken(token);
+  async verifyEmail(email: string, otp: string): Promise<User> {
+    const user = await this.findByEmailAndOtp(email, otp);
 
     if (!user) {
-      throw new NotFoundException("Invalid or expired verification token");
+      throw new BadRequestException("Invalid or expired verification OTP");
     }
 
     const updatedUser = await this.prisma.user.update({
@@ -315,7 +316,7 @@ export class UsersService {
       throw new ConflictException("Email is already verified");
     }
 
-    const verificationToken = crypto.randomBytes(32).toString("hex");
+    const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     await this.prisma.user.update({
