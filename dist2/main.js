@@ -51,6 +51,7 @@ async function bootstrap() {
             "Content-Type",
             "Accept",
             "Authorization",
+            "Cookie",
             "Cache-Control",
             "Pragma",
             "Expires",
