@@ -62,7 +62,7 @@ exports.AuthModule = AuthModule = __decorate([
             }),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, strategy_1.JwtStrategy, config_1.ConfigService],
+        providers: [auth_service_1.AuthService, strategy_1.JwtStrategy],
         exports: [],
     })
 ], AuthModule);

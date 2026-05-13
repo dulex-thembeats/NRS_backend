@@ -24,9 +24,20 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: (req: Request) => {
         let token = null;
         if (req && req.cookies) {
-          token = req.cookies['Authentication'];
+          token = req.cookies["Authentication"];
         }
-        return token || ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+        const bearerToken = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+        const finalToken = token || bearerToken;
+
+        // Debug logging for production troubleshooting
+        if (process.env.NODE_ENV === "production" || process.env.DEBUG_AUTH === "true") {
+          console.log(`[AuthDebug] Path: ${req.url}`);
+          console.log(`[AuthDebug] Cookie Token: ${token ? "Found" : "Missing"}`);
+          console.log(`[AuthDebug] Bearer Token: ${bearerToken ? "Found" : "Missing"}`);
+          console.log(`[AuthDebug] Final Token extracted: ${finalToken ? "Yes" : "No"}`);
+        }
+
+        return finalToken;
       },
       ignoreExpiration: false,
       secretOrKey: jwtSecret,

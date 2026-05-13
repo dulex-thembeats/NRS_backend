@@ -56,7 +56,7 @@ function parseExpirationToSeconds(value: string): number {
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, ConfigService],
+  providers: [AuthService, JwtStrategy],
   exports: [],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -29,9 +29,17 @@ let JwtStrategy = JwtStrategy_1 = class JwtStrategy extends (0, passport_1.Passp
             jwtFromRequest: (req) => {
                 let token = null;
                 if (req && req.cookies) {
-                    token = req.cookies['Authentication'];
+                    token = req.cookies["Authentication"];
                 }
-                return token || passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+                const bearerToken = passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+                const finalToken = token || bearerToken;
+                if (process.env.NODE_ENV === "production" || process.env.DEBUG_AUTH === "true") {
+                    console.log(`[AuthDebug] Path: ${req.url}`);
+                    console.log(`[AuthDebug] Cookie Token: ${token ? "Found" : "Missing"}`);
+                    console.log(`[AuthDebug] Bearer Token: ${bearerToken ? "Found" : "Missing"}`);
+                    console.log(`[AuthDebug] Final Token extracted: ${finalToken ? "Yes" : "No"}`);
+                }
+                return finalToken;
             },
             ignoreExpiration: false,
             secretOrKey: jwtSecret,
