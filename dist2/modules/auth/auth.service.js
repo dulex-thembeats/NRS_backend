@@ -181,12 +181,44 @@ let AuthService = AuthService_1 = class AuthService {
             if (!user.isActive) {
                 throw new common_1.UnauthorizedException("Account is deactivated");
             }
-            if (!user.isEmailVerified) {
-                throw new common_1.UnauthorizedException("Email is not verified");
-            }
             const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
             if (!isPasswordValid) {
                 throw new common_1.UnauthorizedException("Invalid email or password");
+            }
+            if (!user.isEmailVerified) {
+                try {
+                    const verificationToken = await this.userService.generateNewVerificationToken(user.email);
+                    await this.emailService.sendVerificationEmail(user.email, {
+                        businessName: user.businessName ?? user.email,
+                        verificationToken,
+                        verificationUrl: "",
+                    });
+                }
+                catch (emailError) {
+                    this.logger.error(`Failed to resend verification email during login: ${emailError.message}`);
+                }
+                const payload = {
+                    sub: user.id,
+                    email: user.email,
+                    entityId: user.entityId ?? "",
+                    businessName: user.businessName ?? "",
+                    role: user.role,
+                };
+                return {
+                    access_token: this.jwtService.sign(payload),
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                        role: user.role,
+                        isEmailVerified: false,
+                    },
+                    isEmailVerified: false,
+                    isProfileComplete: user.isProfileComplete ?? false,
+                    entity_id: null,
+                    business_id: null,
+                    businesses: [],
+                    message: "Email not yet verified. A new verification code has been sent to your email.",
+                };
             }
             const payload = {
                 sub: user.id,

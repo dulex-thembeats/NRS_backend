@@ -252,12 +252,7 @@ export class AuthService {
         throw new UnauthorizedException("Account is deactivated");
       }
 
-      // Check if user is email verified
-      if (!user.isEmailVerified) {
-        throw new UnauthorizedException("Email is not verified");
-      }
-
-      // Verify password
+      // Verify password first (before checking email verification)
       const isPasswordValid = await bcrypt.compare(
         loginDto.password,
         user.password,
@@ -266,6 +261,52 @@ export class AuthService {
       if (!isPasswordValid) {
         throw new UnauthorizedException("Invalid email or password");
       }
+
+      // Check if user is email verified — return 200 with verification status
+      // so the frontend can redirect to OTP screen instead of showing an error
+      if (!user.isEmailVerified) {
+        // Auto-resend verification OTP
+        try {
+          const verificationToken =
+            await this.userService.generateNewVerificationToken(user.email);
+
+          await this.emailService.sendVerificationEmail(user.email, {
+            businessName: user.businessName ?? user.email,
+            verificationToken,
+            verificationUrl: "",
+          });
+        } catch (emailError) {
+          this.logger.error(
+            `Failed to resend verification email during login: ${emailError.message}`,
+          );
+        }
+
+        const payload: JwtPayload = {
+          sub: user.id,
+          email: user.email,
+          entityId: user.entityId ?? "",
+          businessName: user.businessName ?? "",
+          role: user.role,
+        };
+
+        return {
+          access_token: this.jwtService.sign(payload),
+          user: {
+            id: user.id,
+            email: user.email,
+            role: user.role,
+            isEmailVerified: false,
+          },
+          isEmailVerified: false,
+          isProfileComplete: user.isProfileComplete ?? false,
+          entity_id: null,
+          business_id: null,
+          businesses: [],
+          message:
+            "Email not yet verified. A new verification code has been sent to your email.",
+        };
+      }
+
 
       // Generate JWT token
       const payload: JwtPayload = {

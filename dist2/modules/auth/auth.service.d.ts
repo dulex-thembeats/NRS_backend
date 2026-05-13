@@ -71,6 +71,21 @@ export declare class AuthService {
         user: {
             id: number;
             email: string;
+            role: any;
+            isEmailVerified: boolean;
+            businessName?: undefined;
+        };
+        isEmailVerified: boolean;
+        isProfileComplete: boolean;
+        entity_id: null;
+        business_id: null;
+        businesses: never[];
+        message: string;
+    } | {
+        access_token: string;
+        user: {
+            id: number;
+            email: string;
             businessName: string | undefined;
             role: any;
             isEmailVerified: true;
@@ -85,6 +100,7 @@ export declare class AuthService {
             tin: string;
             is_active: boolean;
         }[];
+        message?: undefined;
     }>;
     verifyEmail(verifyEmailDto: VerifyEmailDto): Promise<import("../users/entities/user.entity").User>;
     resendVerification(resendVerificationDto: ResendVerificationDto): Promise<{
