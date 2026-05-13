@@ -13,7 +13,9 @@ export declare class AuthController {
             id: number;
             email: string;
             role: any;
+            isEmailVerified: false;
         };
+        isEmailVerified: false;
         isProfileComplete: boolean;
         entity_id: string | null;
         business_id: null;
@@ -25,7 +27,9 @@ export declare class AuthController {
             id: number;
             email: string;
             role: any;
+            isEmailVerified: boolean;
         };
+        isEmailVerified: boolean;
         isProfileComplete: boolean;
         entity_id: null;
         business_id: null;
@@ -39,7 +43,9 @@ export declare class AuthController {
             email: string;
             businessName: string | undefined;
             role: any;
+            isEmailVerified: boolean;
         };
+        isEmailVerified: boolean;
         isProfileComplete: boolean;
         entity_id: string | null;
         business_id: string | null;
@@ -57,7 +63,9 @@ export declare class AuthController {
             email: string;
             businessName: string | undefined;
             role: any;
+            isEmailVerified: true;
         };
+        isEmailVerified: true;
         isProfileComplete: boolean;
         entity_id: string | null;
         business_id: string | null;
