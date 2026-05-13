@@ -40,6 +40,7 @@ async function bootstrap() {
     "http://localhost:3001",
     "http://localhost:5173",
     "http://162.243.229.65:3001",
+    "http://162.243.229.65",
   ];
 
   const allowedOrigins = Array.from(
