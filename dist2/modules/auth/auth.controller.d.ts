@@ -15,9 +15,22 @@ export declare class AuthController {
             role: any;
         };
         isProfileComplete: boolean;
+        entity_id: string | null;
+        business_id: null;
+        businesses: never[];
+        message: string;
+    } | {
+        access_token: string;
+        user: {
+            id: number;
+            email: string;
+            role: any;
+        };
+        isProfileComplete: boolean;
         entity_id: null;
         business_id: null;
         businesses: never[];
+        message?: undefined;
     }>;
     completeProfile(req: any, completeProfileDto: CompleteProfileDto, res: Response): Promise<{
         access_token: string;

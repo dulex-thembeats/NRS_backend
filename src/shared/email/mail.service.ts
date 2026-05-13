@@ -22,12 +22,20 @@ export class EmailService {
   }
   private createTransporter() {
     const config = {
-      host: this.configService.get<string>("MAILGUN_SMTP_HOST") || this.configService.get<string>("MAIL_HOST"),
-      port: this.configService.get<number>("MAILGUN_SMTP_PORT") || this.configService.get<number>("MAIL_PORT"),
-      secure: this.configService.get<boolean>("MAIL_SECURE", false),
+      host: this.configService.get<string>("RESEND_API_KEY")
+        ? "smtp.resend.com"
+        : this.configService.get<string>("MAIL_HOST"),
+      port: this.configService.get<string>("RESEND_API_KEY")
+        ? 465
+        : this.configService.get<number>("MAIL_PORT"),
+      secure: this.configService.get<string>("RESEND_API_KEY") ? true : this.configService.get<boolean>("MAIL_SECURE", false),
       auth: {
-        user: this.configService.get<string>("MAILGUN_USERNAME") || this.configService.get<string>("MAIL_USER"),
-        pass: this.configService.get<string>("MAILGUN_PASSWORD") || this.configService.get<string>("MAIL_PASS"),
+        user: this.configService.get<string>("RESEND_API_KEY")
+          ? "resend"
+          : this.configService.get<string>("MAIL_USER"),
+        pass: this.configService.get<string>("RESEND_API_KEY")
+          ? this.configService.get<string>("RESEND_API_KEY")
+          : this.configService.get<string>("MAIL_PASS"),
       },
     };
 
@@ -68,8 +76,18 @@ export class EmailService {
         html = this.compileTemplate(template, options.context);
       }
 
+      let from =
+        this.configService.get<string>("MAIL_FROM") ||
+        this.configService.get<string>("MAIL_USER") ||
+        "noreply@northgate.com";
+
+      // If 'from' doesn't contain a name/bracket format, wrap it with the brand name
+      if (!from.includes("<")) {
+        from = `"NorthGate" <${from}>`;
+      }
+
       const mailOptions = {
-        from: this.configService.get<string>("MAIL_FROM"),
+        from,
         to: Array.isArray(options.to) ? options.to.join(", ") : options.to,
         subject: options.subject,
         html,

@@ -64,7 +64,40 @@ let AuthService = AuthService_1 = class AuthService {
         try {
             const existingUser = await this.userService.findUserByEmail(registerUserDto.email);
             if (existingUser) {
-                throw new common_1.UnauthorizedException("User already exists");
+                if (existingUser.isEmailVerified) {
+                    throw new common_1.ConflictException("User already exists");
+                }
+                const verificationToken = await this.userService.generateNewVerificationToken(existingUser.email);
+                try {
+                    await this.emailService.sendVerificationEmail(existingUser.email, {
+                        businessName: existingUser.email,
+                        verificationToken,
+                        verificationUrl: "",
+                    });
+                }
+                catch (emailError) {
+                    this.logger.error(`Failed to resend verification email during re-registration: ${emailError.message}`);
+                }
+                const payload = {
+                    sub: existingUser.id,
+                    email: existingUser.email,
+                    entityId: existingUser.entityId ?? "",
+                    businessName: existingUser.businessName ?? "",
+                    role: existingUser.role,
+                };
+                return {
+                    access_token: this.jwtService.sign(payload),
+                    user: {
+                        id: existingUser.id,
+                        email: existingUser.email,
+                        role: existingUser.role,
+                    },
+                    isProfileComplete: existingUser.isProfileComplete ?? false,
+                    entity_id: existingUser.entityId ?? null,
+                    business_id: null,
+                    businesses: [],
+                    message: "Email already registered but unverified. A new OTP has been sent.",
+                };
             }
             const user = await this.userService.createUserLightweight(registerUserDto);
             try {

@@ -9,6 +9,7 @@ import {
   UseGuards,
   Res,
 } from "@nestjs/common";
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from "@nestjs/swagger";
 import { Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
@@ -18,6 +19,7 @@ import { EmailService } from "../../shared/email/mail.service";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
 import { RateLimitGuard } from "../../common/guards/rate-limit.guard";
 
+@ApiTags("Authentication")
 @Controller("api/v1/auth")
 @UseGuards(JwtAuthGuard)
 export class AuthController {
@@ -28,6 +30,9 @@ export class AuthController {
 
   @Public()
   @Post("register")
+  @ApiOperation({ summary: "Register a new user (Phase 1)" })
+  @ApiResponse({ status: 201, description: "User registered successfully" })
+  @ApiResponse({ status: 400, description: "Bad request" })
   async register(@Body() registerUserDto: RegisterUserDto, @Res({ passthrough: true }) res: Response) {
     const result = await this.authService.register(registerUserDto);
     res.cookie('Authentication', result.access_token, {
@@ -43,8 +48,12 @@ export class AuthController {
    * Phase 2: Complete profile with business info and directors.
    * Requires JWT from Phase 1 registration or login.
    */
+  @ApiBearerAuth()
   @Post("complete-profile")
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Complete business profile (Phase 2)" })
+  @ApiResponse({ status: 200, description: "Profile completed successfully" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
   async completeProfile(
     @CurrentUser() req: any,
     @Body() completeProfileDto: CompleteProfileDto,
@@ -64,6 +73,9 @@ export class AuthController {
   @UseGuards(RateLimitGuard)
   @HttpCode(HttpStatus.OK)
   @Post("login")
+  @ApiOperation({ summary: "Login user" })
+  @ApiResponse({ status: 200, description: "Login successful" })
+  @ApiResponse({ status: 401, description: "Invalid credentials" })
   async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
     const result = await this.authService.login(loginDto);
     res.cookie('Authentication', result.access_token, {
@@ -78,6 +90,9 @@ export class AuthController {
   @Public()
   @Post("verify-email")
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Verify user email with 6-digit OTP" })
+  @ApiResponse({ status: 200, description: "Email verified successfully" })
+  @ApiResponse({ status: 400, description: "Invalid or expired OTP" })
   async verifyEmail(@Body() verifyEmailDto: VerifyEmailDto) {
     return this.authService.verifyEmail(verifyEmailDto);
   }
@@ -85,6 +100,8 @@ export class AuthController {
   @Public()
   @Post("resend-verification")
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Resend verification OTP" })
+  @ApiResponse({ status: 200, description: "Verification email sent" })
   async resendVerification(
     @Body() resendVerificationDto: ResendVerificationDto,
   ) {
@@ -93,11 +110,18 @@ export class AuthController {
 
   @Public()
   @Post("forgot-password")
+  @ApiOperation({ summary: "Request password reset" })
+  @ApiBody({ schema: { type: "object", properties: { email: { type: "string", example: "user@example.com" } } } })
+  @ApiResponse({ status: 200, description: "Reset email sent if user exists" })
   async forgotPassword(@Body("email") email: string) {
     return this.authService.requestPasswordReset(email);
   }
 
+  @ApiBearerAuth()
   @Get("profile")
+  @ApiOperation({ summary: "Get current user profile" })
+  @ApiResponse({ status: 200, description: "User profile data" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
   async getProfile(@CurrentUser() req: any) {
     const user = await this.authService.getProfile(req.id);
     if (!user) {
@@ -106,8 +130,11 @@ export class AuthController {
     return user;
   }
 
+  @ApiBearerAuth()
   @Post("sync-businesses")
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Sync businesses from FIRS" })
+  @ApiResponse({ status: 200, description: "Businesses synced successfully" })
   async syncBusinesses(@CurrentUser() req: any) {
     return this.authService.syncEntityBusinesses(req.id);
   }
@@ -122,8 +149,11 @@ export class AuthController {
   //   return this.authService.fetchAndSaveEntityData(entityId, user.id);
   // }
 
+  @ApiBearerAuth()
   @Post("logout")
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Logout user" })
+  @ApiResponse({ status: 200, description: "Logged out successfully" })
   async logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('Authentication');
     return { message: "Successfully logged out" };

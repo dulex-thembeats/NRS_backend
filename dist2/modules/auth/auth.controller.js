@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const auth_service_1 = require("./auth.service");
 const dtos_1 = require("../users/dtos");
 const dtos_2 = require("./dtos");
@@ -104,6 +105,9 @@ exports.AuthController = AuthController;
 __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("register"),
+    (0, swagger_1.ApiOperation)({ summary: "Register a new user (Phase 1)" }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: "User registered successfully" }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: "Bad request" }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
@@ -111,8 +115,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Post)("complete-profile"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: "Complete business profile (Phase 2)" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Profile completed successfully" }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: "Unauthorized" }),
     __param(0, (0, decorators_1.CurrentUser)()),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Res)({ passthrough: true })),
@@ -125,6 +133,9 @@ __decorate([
     (0, common_1.UseGuards)(rate_limit_guard_1.RateLimitGuard),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Post)("login"),
+    (0, swagger_1.ApiOperation)({ summary: "Login user" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Login successful" }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: "Invalid credentials" }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
@@ -135,6 +146,9 @@ __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("verify-email"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: "Verify user email with 6-digit OTP" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Email verified successfully" }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: "Invalid or expired OTP" }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dtos_2.VerifyEmailDto]),
@@ -144,6 +158,8 @@ __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("resend-verification"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: "Resend verification OTP" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Verification email sent" }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dtos_2.ResendVerificationDto]),
@@ -152,29 +168,42 @@ __decorate([
 __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("forgot-password"),
+    (0, swagger_1.ApiOperation)({ summary: "Request password reset" }),
+    (0, swagger_1.ApiBody)({ schema: { type: "object", properties: { email: { type: "string", example: "user@example.com" } } } }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Reset email sent if user exists" }),
     __param(0, (0, common_1.Body)("email")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Get)("profile"),
+    (0, swagger_1.ApiOperation)({ summary: "Get current user profile" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "User profile data" }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: "Unauthorized" }),
     __param(0, (0, decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getProfile", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Post)("sync-businesses"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: "Sync businesses from FIRS" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Businesses synced successfully" }),
     __param(0, (0, decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "syncBusinesses", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Post)("logout"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: "Logout user" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Logged out successfully" }),
     __param(0, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -196,6 +225,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "testEmailConnection", null);
 exports.AuthController = AuthController = __decorate([
+    (0, swagger_1.ApiTags)("Authentication"),
     (0, common_1.Controller)("api/v1/auth"),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [auth_service_1.AuthService,

@@ -27,12 +27,20 @@ let EmailService = EmailService_1 = class EmailService {
     }
     createTransporter() {
         const config = {
-            host: this.configService.get("MAILGUN_SMTP_HOST") || this.configService.get("MAIL_HOST"),
-            port: this.configService.get("MAILGUN_SMTP_PORT") || this.configService.get("MAIL_PORT"),
-            secure: this.configService.get("MAIL_SECURE", false),
+            host: this.configService.get("RESEND_API_KEY")
+                ? "smtp.resend.com"
+                : this.configService.get("MAIL_HOST"),
+            port: this.configService.get("RESEND_API_KEY")
+                ? 465
+                : this.configService.get("MAIL_PORT"),
+            secure: this.configService.get("RESEND_API_KEY") ? true : this.configService.get("MAIL_SECURE", false),
             auth: {
-                user: this.configService.get("MAILGUN_USERNAME") || this.configService.get("MAIL_USER"),
-                pass: this.configService.get("MAILGUN_PASSWORD") || this.configService.get("MAIL_PASS"),
+                user: this.configService.get("RESEND_API_KEY")
+                    ? "resend"
+                    : this.configService.get("MAIL_USER"),
+                pass: this.configService.get("RESEND_API_KEY")
+                    ? this.configService.get("RESEND_API_KEY")
+                    : this.configService.get("MAIL_PASS"),
             },
         };
         if (config.host === "smtp.ethereal.email") {
@@ -57,8 +65,14 @@ let EmailService = EmailService_1 = class EmailService {
                 const template = await this.loadTemplate(options.template);
                 html = this.compileTemplate(template, options.context);
             }
+            let from = this.configService.get("MAIL_FROM") ||
+                this.configService.get("MAIL_USER") ||
+                "noreply@northgate.com";
+            if (!from.includes("<")) {
+                from = `"NorthGate" <${from}>`;
+            }
             const mailOptions = {
-                from: this.configService.get("MAIL_FROM"),
+                from,
                 to: Array.isArray(options.to) ? options.to.join(", ") : options.to,
                 subject: options.subject,
                 html,

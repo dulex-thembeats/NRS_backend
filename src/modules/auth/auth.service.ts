@@ -93,8 +93,53 @@ export class AuthService {
       const existingUser = await this.userService.findUserByEmail(
         registerUserDto.email,
       );
+
       if (existingUser) {
-        throw new UnauthorizedException("User already exists");
+        // If user is already verified, block them (Mass Assignment/Account Discovery protection)
+        if (existingUser.isEmailVerified) {
+          throw new ConflictException("User already exists");
+        }
+
+        // If user exists but is NOT verified, treat this as a "Resend OTP" request
+        // and return a successful registration response to keep the frontend flow smooth.
+        const verificationToken =
+          await this.userService.generateNewVerificationToken(
+            existingUser.email,
+          );
+
+        try {
+          await this.emailService.sendVerificationEmail(existingUser.email, {
+            businessName: existingUser.email,
+            verificationToken,
+            verificationUrl: "",
+          });
+        } catch (emailError) {
+          this.logger.error(
+            `Failed to resend verification email during re-registration: ${emailError.message}`,
+          );
+        }
+
+        const payload: JwtPayload = {
+          sub: existingUser.id,
+          email: existingUser.email,
+          entityId: existingUser.entityId ?? "",
+          businessName: existingUser.businessName ?? "",
+          role: existingUser.role,
+        };
+
+        return {
+          access_token: this.jwtService.sign(payload),
+          user: {
+            id: existingUser.id,
+            email: existingUser.email,
+            role: existingUser.role,
+          },
+          isProfileComplete: existingUser.isProfileComplete ?? false,
+          entity_id: existingUser.entityId ?? null,
+          business_id: null,
+          businesses: [],
+          message: "Email already registered but unverified. A new OTP has been sent.",
+        };
       }
 
       // Create user with just email + password
