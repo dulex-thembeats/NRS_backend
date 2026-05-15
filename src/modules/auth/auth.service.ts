@@ -190,7 +190,7 @@ export class AuthService {
   }
 
   /**
-   * Phase 2: Complete profile with business info and directors.
+   * Phase 2: Complete or update profile with business info and directors.
    * Called from within the dashboard after the user is already authenticated.
    * Returns a fresh JWT with updated business claims.
    */
@@ -206,7 +206,7 @@ export class AuthService {
         await this.fetchAndSaveEntityData(user.entityId, user.id);
       } catch (fetchError) {
         this.logger.warn(
-          `Could not sync entity data during profile completion: ${fetchError.message}. Proceeding anyway.`,
+          `Could not sync entity data while saving profile: ${fetchError.message}. Proceeding anyway.`,
         );
       }
     }

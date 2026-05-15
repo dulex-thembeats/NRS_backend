@@ -135,8 +135,7 @@ export class UsersService {
   }
 
   /**
-   * Phase 2: completes a user's profile with business information and directors.
-   * Can only be called once per user (guarded by isProfileComplete flag).
+   * Phase 2: completes or updates a user's profile with business information and directors.
    */
   async completeProfile(
     userId: number,
@@ -148,10 +147,6 @@ export class UsersService {
 
     if (!user) {
       throw new NotFoundException("User not found");
-    }
-
-    if (user.isProfileComplete) {
-      throw new ConflictException("Profile has already been completed");
     }
 
     // Check entityId uniqueness
@@ -177,6 +172,7 @@ export class UsersService {
           : new Date(),
         isProfileComplete: true,
         directors: {
+          deleteMany: {},
           create: completeProfileDto.directors.map((d) => ({
             firstName: d.firstName,
             lastName: d.lastName,

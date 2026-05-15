@@ -145,7 +145,7 @@ let AuthService = AuthService_1 = class AuthService {
                 await this.fetchAndSaveEntityData(user.entityId, user.id);
             }
             catch (fetchError) {
-                this.logger.warn(`Could not sync entity data during profile completion: ${fetchError.message}. Proceeding anyway.`);
+                this.logger.warn(`Could not sync entity data while saving profile: ${fetchError.message}. Proceeding anyway.`);
             }
         }
         const businessContext = await this.buildBusinessContext(user.id);

@@ -72,14 +72,14 @@ export class AuthController {
   }
 
   /**
-   * Phase 2: Complete profile with business info and directors.
+   * Phase 2: Complete or update profile with business info and directors.
    * Requires JWT from Phase 1 registration or login.
    */
   @ApiBearerAuth()
   @Post("complete-profile")
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: "Complete business profile (Phase 2)" })
-  @ApiResponse({ status: 200, description: "Profile completed successfully" })
+  @ApiOperation({ summary: "Complete or update business profile (Phase 2)" })
+  @ApiResponse({ status: 200, description: "Profile saved successfully" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   async completeProfile(
     @CurrentUser() req: any,

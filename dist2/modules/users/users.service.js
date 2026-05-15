@@ -88,9 +88,6 @@ let UsersService = class UsersService {
         if (!user) {
             throw new common_1.NotFoundException("User not found");
         }
-        if (user.isProfileComplete) {
-            throw new common_1.ConflictException("Profile has already been completed");
-        }
         if (completeProfileDto.entityId) {
             const existingEntity = await this.prisma.user.findUnique({
                 where: { entityId: completeProfileDto.entityId },
@@ -111,6 +108,7 @@ let UsersService = class UsersService {
                     : new Date(),
                 isProfileComplete: true,
                 directors: {
+                    deleteMany: {},
                     create: completeProfileDto.directors.map((d) => ({
                         firstName: d.firstName,
                         lastName: d.lastName,
