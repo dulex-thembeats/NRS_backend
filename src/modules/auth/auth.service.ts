@@ -195,21 +195,16 @@ export class AuthService {
    * Returns a fresh JWT with updated business claims.
    */
   async completeProfile(userId: number, completeProfileDto: CompleteProfileDto) {
+    // Sync with FIRS if entityId is provided to validate existence and prevent Organisation Hijacking (C1)
+    // We do this BEFORE updating the user profile so that a fabricated entityId throws an error and rejects the request.
+    if (completeProfileDto.entityId) {
+      await this.fetchAndSaveEntityData(completeProfileDto.entityId, userId);
+    }
+
     const user = await this.userService.completeProfile(
       userId,
       completeProfileDto,
     );
-
-    // Sync with FIRS if entityId is provided
-    if (user.entityId) {
-      try {
-        await this.fetchAndSaveEntityData(user.entityId, user.id);
-      } catch (fetchError) {
-        this.logger.warn(
-          `Could not sync entity data while saving profile: ${fetchError.message}. Proceeding anyway.`,
-        );
-      }
-    }
 
     const businessContext = await this.buildBusinessContext(user.id);
 

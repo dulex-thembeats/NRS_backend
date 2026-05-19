@@ -139,15 +139,10 @@ let AuthService = AuthService_1 = class AuthService {
         }
     }
     async completeProfile(userId, completeProfileDto) {
-        const user = await this.userService.completeProfile(userId, completeProfileDto);
-        if (user.entityId) {
-            try {
-                await this.fetchAndSaveEntityData(user.entityId, user.id);
-            }
-            catch (fetchError) {
-                this.logger.warn(`Could not sync entity data while saving profile: ${fetchError.message}. Proceeding anyway.`);
-            }
+        if (completeProfileDto.entityId) {
+            await this.fetchAndSaveEntityData(completeProfileDto.entityId, userId);
         }
+        const user = await this.userService.completeProfile(userId, completeProfileDto);
         const businessContext = await this.buildBusinessContext(user.id);
         const payload = {
             sub: user.id,
