@@ -5,5 +5,5 @@ export declare class CompleteProfileDto {
     businessAddress: string;
     rcNumber: string;
     dateOfIncorporation?: string;
-    directors: DirectorDto[];
+    directors?: DirectorDto[];
 }

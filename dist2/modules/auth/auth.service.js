@@ -157,6 +157,7 @@ let AuthService = AuthService_1 = class AuthService {
             lastName: d.lastName,
             email: d.email,
             phoneNumber: d.phoneNumber,
+            nin: d.nin,
         }));
         return {
             access_token: this.jwtService.sign(payload),
@@ -312,6 +313,7 @@ let AuthService = AuthService_1 = class AuthService {
             lastName: d.lastName,
             email: d.email,
             phoneNumber: d.phoneNumber,
+            nin: d.nin,
         }));
         return {
             ...safeUser,

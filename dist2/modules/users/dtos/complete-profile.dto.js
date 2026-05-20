@@ -74,14 +74,14 @@ __decorate([
     __metadata("design:type", String)
 ], CompleteProfileDto.prototype, "dateOfIncorporation", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.ArrayMinSize)(1),
     (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => register_user_dto_1.DirectorDto),
     (0, swagger_1.ApiProperty)({
-        description: "At least one director is required",
+        description: "List of directors (optional)",
         type: [register_user_dto_1.DirectorDto],
-        required: true,
+        required: false,
     }),
     __metadata("design:type", Array)
 ], CompleteProfileDto.prototype, "directors", void 0);

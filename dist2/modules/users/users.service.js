@@ -107,16 +107,18 @@ let UsersService = class UsersService {
                     ? new Date(completeProfileDto.dateOfIncorporation)
                     : new Date(),
                 isProfileComplete: true,
-                directors: {
-                    deleteMany: {},
-                    create: completeProfileDto.directors.map((d) => ({
-                        firstName: d.firstName,
-                        lastName: d.lastName,
-                        email: d.email,
-                        phoneNumber: d.phoneNumber,
-                        nin: d.nin,
-                    })),
-                },
+                ...(completeProfileDto.directors && {
+                    directors: {
+                        deleteMany: {},
+                        create: completeProfileDto.directors.map((d) => ({
+                            firstName: d.firstName,
+                            lastName: d.lastName,
+                            email: d.email,
+                            phoneNumber: d.phoneNumber,
+                            nin: d.nin,
+                        })),
+                    },
+                }),
             },
             include: {
                 directors: true,

@@ -217,13 +217,13 @@ export class AuthService {
       role: user.role,
     };
 
-    // Map directors to a safe shape (exclude NIN)
     const directors = ((user as any).directors ?? []).map((d: any) => ({
       id: d.id,
       firstName: d.firstName,
       lastName: d.lastName,
       email: d.email,
       phoneNumber: d.phoneNumber,
+      nin: d.nin,
     }));
 
     return {
@@ -426,13 +426,13 @@ export class AuthService {
     const businessContext = await this.buildBusinessContext(userId);
     const safeUser = this.sanitizeUserProfile(user);
 
-    // Map directors to a safe shape (exclude NIN)
     const directors = ((user as any).directors ?? []).map((d: any) => ({
       id: d.id,
       firstName: d.firstName,
       lastName: d.lastName,
       email: d.email,
       phoneNumber: d.phoneNumber,
+      nin: d.nin,
     }));
 
     return {

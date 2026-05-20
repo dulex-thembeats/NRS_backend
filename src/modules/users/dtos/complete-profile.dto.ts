@@ -6,7 +6,6 @@ import {
   IsArray,
   ValidateNested,
   IsDateString,
-  ArrayMinSize,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { DirectorDto } from "./register-user.dto";
@@ -57,14 +56,14 @@ export class CompleteProfileDto {
   })
   dateOfIncorporation?: string;
 
+  @IsOptional()
   @IsArray()
-  @ArrayMinSize(1)
   @ValidateNested({ each: true })
   @Type(() => DirectorDto)
   @ApiProperty({
-    description: "At least one director is required",
+    description: "List of directors (optional)",
     type: [DirectorDto],
-    required: true,
+    required: false,
   })
-  directors: DirectorDto[];
+  directors?: DirectorDto[];
 }
