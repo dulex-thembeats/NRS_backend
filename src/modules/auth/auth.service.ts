@@ -217,6 +217,15 @@ export class AuthService {
       role: user.role,
     };
 
+    // Map directors to a safe shape (exclude NIN)
+    const directors = ((user as any).directors ?? []).map((d: any) => ({
+      id: d.id,
+      firstName: d.firstName,
+      lastName: d.lastName,
+      email: d.email,
+      phoneNumber: d.phoneNumber,
+    }));
+
     return {
       access_token: this.jwtService.sign(payload),
       user: {
@@ -231,6 +240,7 @@ export class AuthService {
       entity_id: businessContext.entityId ?? user.entityId ?? null,
       business_id: businessContext.business_id,
       businesses: businessContext.businesses,
+      directors,
     };
   }
 
@@ -416,12 +426,22 @@ export class AuthService {
     const businessContext = await this.buildBusinessContext(userId);
     const safeUser = this.sanitizeUserProfile(user);
 
+    // Map directors to a safe shape (exclude NIN)
+    const directors = ((user as any).directors ?? []).map((d: any) => ({
+      id: d.id,
+      firstName: d.firstName,
+      lastName: d.lastName,
+      email: d.email,
+      phoneNumber: d.phoneNumber,
+    }));
+
     return {
       ...safeUser,
       isProfileComplete: safeUser.isProfileComplete ?? false,
       entityId: businessContext.entityId ?? safeUser.entityId ?? null,
       business_id: businessContext.business_id,
       businesses: businessContext.businesses,
+      directors,
     };
   }
 

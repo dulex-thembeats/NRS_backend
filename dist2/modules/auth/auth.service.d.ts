@@ -65,6 +65,7 @@ export declare class AuthService {
             tin: string;
             is_active: boolean;
         }[];
+        directors: any;
     }>;
     login(loginDto: LoginDto): Promise<{
         access_token: string;

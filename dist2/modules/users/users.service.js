@@ -134,6 +134,7 @@ let UsersService = class UsersService {
         const user = await this.prisma.user.findUnique({
             where: { id },
             include: {
+                directors: true,
                 entity: {
                     include: {
                         businesses: true,

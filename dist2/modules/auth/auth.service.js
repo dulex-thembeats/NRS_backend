@@ -151,6 +151,13 @@ let AuthService = AuthService_1 = class AuthService {
             businessName: user.businessName ?? "",
             role: user.role,
         };
+        const directors = (user.directors ?? []).map((d) => ({
+            id: d.id,
+            firstName: d.firstName,
+            lastName: d.lastName,
+            email: d.email,
+            phoneNumber: d.phoneNumber,
+        }));
         return {
             access_token: this.jwtService.sign(payload),
             user: {
@@ -165,6 +172,7 @@ let AuthService = AuthService_1 = class AuthService {
             entity_id: businessContext.entityId ?? user.entityId ?? null,
             business_id: businessContext.business_id,
             businesses: businessContext.businesses,
+            directors,
         };
     }
     async login(loginDto) {
@@ -298,12 +306,20 @@ let AuthService = AuthService_1 = class AuthService {
         }
         const businessContext = await this.buildBusinessContext(userId);
         const safeUser = this.sanitizeUserProfile(user);
+        const directors = (user.directors ?? []).map((d) => ({
+            id: d.id,
+            firstName: d.firstName,
+            lastName: d.lastName,
+            email: d.email,
+            phoneNumber: d.phoneNumber,
+        }));
         return {
             ...safeUser,
             isProfileComplete: safeUser.isProfileComplete ?? false,
             entityId: businessContext.entityId ?? safeUser.entityId ?? null,
             business_id: businessContext.business_id,
             businesses: businessContext.businesses,
+            directors,
         };
     }
     async syncEntityBusinesses(userId) {

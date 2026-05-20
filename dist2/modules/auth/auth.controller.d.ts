@@ -55,6 +55,7 @@ export declare class AuthController {
             tin: string;
             is_active: boolean;
         }[];
+        directors: any;
     }>;
     login(loginDto: LoginDto, res: Response): Promise<{
         access_token: string;
