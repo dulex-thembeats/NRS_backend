@@ -1,5 +1,5 @@
 # ---------- Build stage ----------
-FROM node:18-bullseye-slim AS build
+FROM node:20-bullseye-slim AS build
 
 WORKDIR /app
 
@@ -26,7 +26,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # ---------- Production stage ----------
-FROM node:18-bullseye-slim AS production
+FROM node:20-bullseye-slim AS production
 
 WORKDIR /app
 
