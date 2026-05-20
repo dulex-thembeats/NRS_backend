@@ -23,4 +23,5 @@ export class User {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
+  directors?: any[];
 }

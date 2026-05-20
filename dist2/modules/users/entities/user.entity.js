@@ -27,6 +27,7 @@ class User {
     isActive;
     createdAt;
     updatedAt;
+    directors;
 }
 exports.User = User;
 __decorate([
