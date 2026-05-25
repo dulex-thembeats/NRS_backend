@@ -35,7 +35,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, class_transformer_1.Exclude)(),
+    (0, class_transformer_1.Exclude)({ toPlainOnly: true }),
     __metadata("design:type", String)
 ], User.prototype, "emailVerificationToken", void 0);
 //# sourceMappingURL=user.entity.js.map

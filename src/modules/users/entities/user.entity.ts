@@ -15,7 +15,7 @@ export class User {
   role: any; // Using any to avoid type conflicts with Prisma's Role enum
   isEmailVerified: boolean;
   
-  @Exclude()
+  @Exclude({ toPlainOnly: true })
   emailVerificationToken?: string;
   
   emailVerificationExpires?: Date;
