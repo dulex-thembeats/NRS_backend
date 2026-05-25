@@ -70,6 +70,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         entityId: payload.entityId,
         businessName: payload.businessName,
         role: user.role,
+        isEmailVerified: user.isEmailVerified,
       };
     } catch (error) {
       if (error instanceof UnauthorizedException) {

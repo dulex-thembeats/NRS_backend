@@ -6,7 +6,7 @@ export class User {
   entityId?: string;
   email: string;
   
-  @Exclude()
+  @Exclude({ toPlainOnly: true })
   password: string;
   
   businessName?: string;

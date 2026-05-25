@@ -69,6 +69,7 @@ let JwtStrategy = JwtStrategy_1 = class JwtStrategy extends (0, passport_1.Passp
                 entityId: payload.entityId,
                 businessName: payload.businessName,
                 role: user.role,
+                isEmailVerified: user.isEmailVerified,
             };
         }
         catch (error) {

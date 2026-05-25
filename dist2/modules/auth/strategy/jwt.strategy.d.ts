@@ -17,6 +17,7 @@ export declare class JwtStrategy extends JwtStrategy_base {
         entityId: string;
         businessName: string;
         role: any;
+        isEmailVerified: boolean;
     }>;
 }
 export {};
