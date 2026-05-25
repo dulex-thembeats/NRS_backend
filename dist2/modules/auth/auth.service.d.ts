@@ -18,33 +18,7 @@ export declare class AuthService {
     private sanitizeUserProfile;
     private extractIrnTemplate;
     register(registerUserDto: RegisterUserDto): Promise<{
-        access_token: string;
-        user: {
-            id: number;
-            email: string;
-            role: any;
-            isEmailVerified: false;
-        };
-        isEmailVerified: false;
-        isProfileComplete: boolean;
-        entity_id: string | null;
-        business_id: null;
-        businesses: never[];
         message: string;
-    } | {
-        access_token: string;
-        user: {
-            id: number;
-            email: string;
-            role: any;
-            isEmailVerified: boolean;
-        };
-        isEmailVerified: boolean;
-        isProfileComplete: boolean;
-        entity_id: null;
-        business_id: null;
-        businesses: never[];
-        message?: undefined;
     }>;
     completeProfile(userId: number, completeProfileDto: CompleteProfileDto): Promise<{
         access_token: string;

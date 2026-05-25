@@ -36,6 +36,9 @@ export class JwtAuthGuard extends AuthGuard("jwt") {
     if (err || !user) {
       throw err || new UnauthorizedException("Invalid or expired token");
     }
+    if (!user.isEmailVerified) {
+      throw new UnauthorizedException("Email not verified");
+    }
     return user;
   }
 }

@@ -119,28 +119,8 @@ export class AuthService {
           );
         }
 
-        const payload: JwtPayload = {
-          sub: existingUser.id,
-          email: existingUser.email,
-          entityId: existingUser.entityId ?? "",
-          businessName: existingUser.businessName ?? "",
-          role: existingUser.role,
-        };
-
         return {
-          access_token: this.jwtService.sign(payload),
-          user: {
-            id: existingUser.id,
-            email: existingUser.email,
-            role: existingUser.role,
-            isEmailVerified: existingUser.isEmailVerified,
-          },
-          isEmailVerified: existingUser.isEmailVerified,
-          isProfileComplete: existingUser.isProfileComplete ?? false,
-          entity_id: existingUser.entityId ?? null,
-          business_id: null,
-          businesses: [],
-          message: "Email already registered but unverified. A new OTP has been sent.",
+          message: "Email already registered but unverified. A new OTP has been sent. Please verify your email.",
         };
       }
 
@@ -161,28 +141,8 @@ export class AuthService {
         );
       }
 
-      // Generate JWT token
-      const payload: JwtPayload = {
-        sub: user.id,
-        email: user.email,
-        entityId: "",
-        businessName: "",
-        role: user.role,
-      };
-
       return {
-        access_token: this.jwtService.sign(payload),
-        user: {
-          id: user.id,
-          email: user.email,
-          role: user.role,
-          isEmailVerified: user.isEmailVerified,
-        },
-        isEmailVerified: user.isEmailVerified,
-        isProfileComplete: false,
-        entity_id: null,
-        business_id: null,
-        businesses: [],
+        message: "Registration successful. Please verify your email to continue.",
       };
     } catch (error) {
       throw error;
@@ -223,7 +183,7 @@ export class AuthService {
       lastName: d.lastName,
       email: d.email,
       phoneNumber: d.phoneNumber,
-      nin: d.nin,
+      nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
     }));
 
     return {
@@ -432,7 +392,7 @@ export class AuthService {
       lastName: d.lastName,
       email: d.email,
       phoneNumber: d.phoneNumber,
-      nin: d.nin,
+      nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
     }));
 
     return {

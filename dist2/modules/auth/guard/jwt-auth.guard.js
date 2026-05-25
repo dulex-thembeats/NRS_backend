@@ -34,6 +34,9 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)("jwt") {
         if (err || !user) {
             throw err || new common_1.UnauthorizedException("Invalid or expired token");
         }
+        if (!user.isEmailVerified) {
+            throw new common_1.UnauthorizedException("Email not verified");
+        }
         return user;
     }
 };

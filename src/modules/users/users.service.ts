@@ -15,6 +15,7 @@ import {
 import * as bcrypt from "bcryptjs";
 import { User } from "./entities/user.entity";
 import * as crypto from "crypto";
+import { plainToInstance } from "class-transformer";
 
 @Injectable()
 export class UsersService {
@@ -330,14 +331,15 @@ export class UsersService {
   }
 
   private mapPrismaUserToEntity(u: any): User {
-    return {
-      ...(u as User),
+    const plain = {
+      ...u,
       businessName: u.businessName ?? undefined,
       businessAddress: u.businessAddress ?? undefined,
       rcNumber: u.rcNumber ?? undefined,
       entityId: u.entityId ?? undefined,
       emailVerificationToken: u.emailVerificationToken ?? undefined,
       emailVerificationExpires: u.emailVerificationExpires ?? undefined,
-    } as User;
+    };
+    return plainToInstance(User, plain);
   }
 }

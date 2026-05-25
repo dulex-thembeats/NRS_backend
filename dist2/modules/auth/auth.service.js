@@ -78,27 +78,8 @@ let AuthService = AuthService_1 = class AuthService {
                 catch (emailError) {
                     this.logger.error(`Failed to resend verification email during re-registration: ${emailError.message}`);
                 }
-                const payload = {
-                    sub: existingUser.id,
-                    email: existingUser.email,
-                    entityId: existingUser.entityId ?? "",
-                    businessName: existingUser.businessName ?? "",
-                    role: existingUser.role,
-                };
                 return {
-                    access_token: this.jwtService.sign(payload),
-                    user: {
-                        id: existingUser.id,
-                        email: existingUser.email,
-                        role: existingUser.role,
-                        isEmailVerified: existingUser.isEmailVerified,
-                    },
-                    isEmailVerified: existingUser.isEmailVerified,
-                    isProfileComplete: existingUser.isProfileComplete ?? false,
-                    entity_id: existingUser.entityId ?? null,
-                    business_id: null,
-                    businesses: [],
-                    message: "Email already registered but unverified. A new OTP has been sent.",
+                    message: "Email already registered but unverified. A new OTP has been sent. Please verify your email.",
                 };
             }
             const user = await this.userService.createUserLightweight(registerUserDto);
@@ -112,26 +93,8 @@ let AuthService = AuthService_1 = class AuthService {
             catch (emailError) {
                 this.logger.error(`Failed to send verification email during registration: ${emailError.message}`);
             }
-            const payload = {
-                sub: user.id,
-                email: user.email,
-                entityId: "",
-                businessName: "",
-                role: user.role,
-            };
             return {
-                access_token: this.jwtService.sign(payload),
-                user: {
-                    id: user.id,
-                    email: user.email,
-                    role: user.role,
-                    isEmailVerified: user.isEmailVerified,
-                },
-                isEmailVerified: user.isEmailVerified,
-                isProfileComplete: false,
-                entity_id: null,
-                business_id: null,
-                businesses: [],
+                message: "Registration successful. Please verify your email to continue.",
             };
         }
         catch (error) {
@@ -157,7 +120,7 @@ let AuthService = AuthService_1 = class AuthService {
             lastName: d.lastName,
             email: d.email,
             phoneNumber: d.phoneNumber,
-            nin: d.nin,
+            nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
         }));
         return {
             access_token: this.jwtService.sign(payload),
@@ -313,7 +276,7 @@ let AuthService = AuthService_1 = class AuthService {
             lastName: d.lastName,
             email: d.email,
             phoneNumber: d.phoneNumber,
-            nin: d.nin,
+            nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
         }));
         return {
             ...safeUser,

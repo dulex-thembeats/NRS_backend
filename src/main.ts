@@ -76,9 +76,7 @@ async function bootstrap() {
         logger.warn(
           `CORS BLOCKED — Origin: "${origin}" is not in allowed list: ${JSON.stringify(allowedOrigins)}`,
         );
-        callback(null, true); // Temporarily allow ALL origins to diagnose
-        // Once CORS is fixed, replace the line above with:
-        // callback(new Error(`Origin ${origin} not allowed by CORS`));
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
       }
     },
     credentials: true,

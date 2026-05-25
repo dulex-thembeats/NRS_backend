@@ -33,7 +33,7 @@ function getAuthCookieOptions() {
     const sameSite = (process.env.COOKIE_SAME_SITE || "lax").toLowerCase();
     return {
         httpOnly: true,
-        sameSite: ["lax", "strict", "none"].includes(sameSite)
+        sameSite: ["strict", "lax"].includes(sameSite)
             ? sameSite
             : "lax",
         secure: parseCookieSecure(),
@@ -47,10 +47,8 @@ let AuthController = class AuthController {
         this.authService = authService;
         this.emailService = emailService;
     }
-    async register(registerUserDto, res) {
-        const result = await this.authService.register(registerUserDto);
-        res.cookie("Authentication", result.access_token, getAuthCookieOptions());
-        return result;
+    async register(registerUserDto) {
+        return this.authService.register(registerUserDto);
     }
     async completeProfile(req, completeProfileDto, res) {
         const result = await this.authService.completeProfile(req.id, completeProfileDto);
@@ -68,8 +66,8 @@ let AuthController = class AuthController {
     async resendVerification(resendVerificationDto) {
         return this.authService.resendVerification(resendVerificationDto);
     }
-    async forgotPassword(email) {
-        return this.authService.requestPasswordReset(email);
+    async forgotPassword(forgotPasswordDto) {
+        return this.authService.requestPasswordReset(forgotPasswordDto.email);
     }
     async getProfile(req) {
         const user = await this.authService.getProfile(req.id);
@@ -108,13 +106,13 @@ exports.AuthController = AuthController;
 __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("register"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     (0, swagger_1.ApiOperation)({ summary: "Register a new user (Phase 1)" }),
-    (0, swagger_1.ApiResponse)({ status: 201, description: "User registered successfully" }),
+    (0, swagger_1.ApiResponse)({ status: 202, description: "User registered successfully" }),
     (0, swagger_1.ApiResponse)({ status: 400, description: "Bad request" }),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dtos_1.RegisterUserDto, Object]),
+    __metadata("design:paramtypes", [dtos_1.RegisterUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
@@ -172,16 +170,10 @@ __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)("forgot-password"),
     (0, swagger_1.ApiOperation)({ summary: "Request password reset" }),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: "object",
-            properties: { email: { type: "string", example: "user@example.com" } },
-        },
-    }),
     (0, swagger_1.ApiResponse)({ status: 200, description: "Reset email sent if user exists" }),
-    __param(0, (0, common_1.Body)("email")),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [dtos_2.ForgotPasswordDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
 __decorate([

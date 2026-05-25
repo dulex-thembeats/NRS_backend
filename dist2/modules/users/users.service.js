@@ -14,7 +14,9 @@ const common_1 = require("@nestjs/common");
 const database_1 = require("../../database");
 const mail_service_1 = require("../../shared/email/mail.service");
 const bcrypt = require("bcryptjs");
+const user_entity_1 = require("./entities/user.entity");
 const crypto = require("crypto");
+const class_transformer_1 = require("class-transformer");
 let UsersService = class UsersService {
     prisma;
     emailService;
@@ -236,7 +238,7 @@ let UsersService = class UsersService {
         return verificationToken;
     }
     mapPrismaUserToEntity(u) {
-        return {
+        const plain = {
             ...u,
             businessName: u.businessName ?? undefined,
             businessAddress: u.businessAddress ?? undefined,
@@ -245,6 +247,7 @@ let UsersService = class UsersService {
             emailVerificationToken: u.emailVerificationToken ?? undefined,
             emailVerificationExpires: u.emailVerificationExpires ?? undefined,
         };
+        return (0, class_transformer_1.plainToInstance)(user_entity_1.User, plain);
     }
 };
 exports.UsersService = UsersService;

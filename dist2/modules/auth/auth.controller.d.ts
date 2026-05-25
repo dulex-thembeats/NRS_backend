@@ -1,40 +1,14 @@
 import { Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
-import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
+import { LoginDto, ResendVerificationDto, VerifyEmailDto, ForgotPasswordDto } from "./dtos";
 import { EmailService } from "../../shared/email/mail.service";
 export declare class AuthController {
     private readonly authService;
     private readonly emailService;
     constructor(authService: AuthService, emailService: EmailService);
-    register(registerUserDto: RegisterUserDto, res: Response): Promise<{
-        access_token: string;
-        user: {
-            id: number;
-            email: string;
-            role: any;
-            isEmailVerified: false;
-        };
-        isEmailVerified: false;
-        isProfileComplete: boolean;
-        entity_id: string | null;
-        business_id: null;
-        businesses: never[];
+    register(registerUserDto: RegisterUserDto): Promise<{
         message: string;
-    } | {
-        access_token: string;
-        user: {
-            id: number;
-            email: string;
-            role: any;
-            isEmailVerified: boolean;
-        };
-        isEmailVerified: boolean;
-        isProfileComplete: boolean;
-        entity_id: null;
-        business_id: null;
-        businesses: never[];
-        message?: undefined;
     }>;
     completeProfile(req: any, completeProfileDto: CompleteProfileDto, res: Response): Promise<{
         access_token: string;
@@ -97,7 +71,7 @@ export declare class AuthController {
     resendVerification(resendVerificationDto: ResendVerificationDto): Promise<{
         message: string;
     }>;
-    forgotPassword(email: string): Promise<{
+    forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<{
         message: string;
     }>;
     getProfile(req: any): Promise<any>;

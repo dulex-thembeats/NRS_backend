@@ -43,7 +43,7 @@ let AllExceptionsFilter = AllExceptionsFilter_1 = class AllExceptionsFilter {
         }
         else if (exception instanceof Error) {
             statusCode = common_1.HttpStatus.INTERNAL_SERVER_ERROR;
-            message = exception.message || "An unexpected error occurred";
+            message = "Internal Server Error";
             error = "Internal Server Error";
             source = this.extractSourceFromStack(exception.stack);
         }

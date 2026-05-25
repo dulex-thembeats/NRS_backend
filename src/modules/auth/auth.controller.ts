@@ -19,7 +19,7 @@ import {
 import { CookieOptions, Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
-import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
+import { LoginDto, ResendVerificationDto, VerifyEmailDto, ForgotPasswordDto } from "./dtos";
 import { Public, CurrentUser } from "../../common/decorators";
 import { EmailService } from "../../shared/email/mail.service";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
@@ -40,8 +40,8 @@ function getAuthCookieOptions(): CookieOptions {
 
   return {
     httpOnly: true,
-    sameSite: ["lax", "strict", "none"].includes(sameSite)
-      ? (sameSite as "lax" | "strict" | "none")
+    sameSite: ["strict", "lax"].includes(sameSite)
+      ? (sameSite as "strict" | "lax")
       : "lax",
     secure: parseCookieSecure(),
     maxAge: 1000 * 60 * 60 * 24,
@@ -59,16 +59,14 @@ export class AuthController {
 
   @Public()
   @Post("register")
+  @HttpCode(HttpStatus.ACCEPTED)
   @ApiOperation({ summary: "Register a new user (Phase 1)" })
-  @ApiResponse({ status: 201, description: "User registered successfully" })
+  @ApiResponse({ status: 202, description: "User registered successfully" })
   @ApiResponse({ status: 400, description: "Bad request" })
   async register(
     @Body() registerUserDto: RegisterUserDto,
-    @Res({ passthrough: true }) res: Response,
   ) {
-    const result = await this.authService.register(registerUserDto);
-    res.cookie("Authentication", result.access_token, getAuthCookieOptions());
-    return result;
+    return this.authService.register(registerUserDto);
   }
 
   /**
@@ -134,15 +132,9 @@ export class AuthController {
   @Public()
   @Post("forgot-password")
   @ApiOperation({ summary: "Request password reset" })
-  @ApiBody({
-    schema: {
-      type: "object",
-      properties: { email: { type: "string", example: "user@example.com" } },
-    },
-  })
   @ApiResponse({ status: 200, description: "Reset email sent if user exists" })
-  async forgotPassword(@Body("email") email: string) {
-    return this.authService.requestPasswordReset(email);
+  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    return this.authService.requestPasswordReset(forgotPasswordDto.email);
   }
 
   @ApiBearerAuth()

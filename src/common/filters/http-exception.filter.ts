@@ -66,7 +66,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       // Plain Error objects — these are the ones that currently become
       // generic "Internal Server Error" with no useful message.
       statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-      message = exception.message || "An unexpected error occurred";
+      message = "Internal Server Error";
       error = "Internal Server Error";
 
       // Try to extract source from the stack trace
