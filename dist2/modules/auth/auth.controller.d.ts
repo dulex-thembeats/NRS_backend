@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
-import { LoginDto, ResendVerificationDto, VerifyEmailDto, ForgotPasswordDto } from "./dtos";
+import { LoginDto, ResendVerificationDto, VerifyEmailDto, ForgotPasswordDto, ResetPasswordDto } from "./dtos";
 import { EmailService } from "../../shared/email/mail.service";
 export declare class AuthController {
     private readonly authService;
@@ -72,6 +72,9 @@ export declare class AuthController {
         message: string;
     }>;
     forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<{
+        message: string;
+    }>;
+    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<{
         message: string;
     }>;
     getProfile(req: any): Promise<any>;

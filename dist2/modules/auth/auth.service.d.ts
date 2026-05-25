@@ -1,7 +1,7 @@
 import { JwtService } from "@nestjs/jwt";
 import { UsersService } from "../users/users.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
-import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
+import { LoginDto, ResendVerificationDto, VerifyEmailDto, ResetPasswordDto } from "./dtos";
 import { EmailService } from "../../shared/email/mail.service";
 import { PrismaService } from "../../database";
 export declare class AuthService {
@@ -85,6 +85,9 @@ export declare class AuthService {
     getProfile(userId: number): Promise<any>;
     syncEntityBusinesses(userId: number): Promise<any>;
     requestPasswordReset(email: string): Promise<{
+        message: string;
+    }>;
+    resetPassword(dto: ResetPasswordDto): Promise<{
         message: string;
     }>;
     fetchAndSaveEntityData(entityId: string, userId: number): Promise<any>;

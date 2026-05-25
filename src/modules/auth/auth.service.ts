@@ -12,7 +12,7 @@ import { UsersService } from "../users/users.service";
 import { JwtPayload } from "./interface/jwt-payload.interface";
 import { compare, hash } from "bcryptjs";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
-import { LoginDto, ResendVerificationDto, VerifyEmailDto } from "./dtos";
+import { LoginDto, ResendVerificationDto, VerifyEmailDto, ResetPasswordDto } from "./dtos";
 import * as bcrypt from "bcryptjs";
 import { EmailService } from "../../shared/email/mail.service";
 import { PrismaService } from "../../database";
@@ -437,9 +437,9 @@ export class AuthService {
       };
     }
 
-    // Generate reset token (in a real app, store this in database with expiration)
+    // Generate reset token with a slice of the current password hash for revocation
     const resetToken = this.jwtService.sign(
-      { sub: user.id, type: "password-reset" },
+      { sub: user.id, type: "password-reset", hash: user.password.substring(0, 10) },
       { expiresIn: "1h" },
     );
 
@@ -460,6 +460,42 @@ export class AuthService {
       message:
         "If an account with that email exists, a password reset link has been sent.",
     };
+  }
+
+  async resetPassword(dto: ResetPasswordDto) {
+    if (dto.newPassword !== dto.confirmNewPassword) {
+      throw new BadRequestException("Passwords do not match");
+    }
+
+    let payload: any;
+    try {
+      payload = await this.jwtService.verifyAsync(dto.token);
+    } catch (error) {
+      throw new BadRequestException("Invalid or expired password reset token");
+    }
+
+    if (payload.type !== "password-reset") {
+      throw new BadRequestException("Invalid token type");
+    }
+
+    const user = await this.userService.findUserById(payload.sub);
+    if (!user) {
+      throw new BadRequestException("Invalid token");
+    }
+
+    // Token Revocation Check: Ensure the token was generated with the CURRENT password.
+    // If the password was changed after the token was generated, the hash slice won't match.
+    if (payload.hash !== user.password.substring(0, 10)) {
+      throw new BadRequestException("This password reset token has already been used or is invalid");
+    }
+
+    const hashedPassword = await bcrypt.hash(dto.newPassword, 10);
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: { password: hashedPassword },
+    });
+
+    return { message: "Password has been successfully reset" };
   }
 
   /**

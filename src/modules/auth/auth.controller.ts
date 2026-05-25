@@ -19,7 +19,7 @@ import {
 import { CookieOptions, Response } from "express";
 import { AuthService } from "./auth.service";
 import { RegisterUserDto, CompleteProfileDto } from "../users/dtos";
-import { LoginDto, ResendVerificationDto, VerifyEmailDto, ForgotPasswordDto } from "./dtos";
+import { LoginDto, ResendVerificationDto, VerifyEmailDto, ForgotPasswordDto, ResetPasswordDto } from "./dtos";
 import { Public, CurrentUser } from "../../common/decorators";
 import { EmailService } from "../../shared/email/mail.service";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
@@ -135,6 +135,16 @@ export class AuthController {
   @ApiResponse({ status: 200, description: "Reset email sent if user exists" })
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     return this.authService.requestPasswordReset(forgotPasswordDto.email);
+  }
+
+  @Public()
+  @Post("reset-password")
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "Reset password using token" })
+  @ApiResponse({ status: 200, description: "Password successfully reset" })
+  @ApiResponse({ status: 400, description: "Invalid token or passwords do not match" })
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    return this.authService.resetPassword(resetPasswordDto);
   }
 
   @ApiBearerAuth()

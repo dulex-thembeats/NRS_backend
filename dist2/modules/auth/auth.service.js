@@ -311,7 +311,7 @@ let AuthService = AuthService_1 = class AuthService {
                 message: "If an account with that email exists, a password reset link has been sent.",
             };
         }
-        const resetToken = this.jwtService.sign({ sub: user.id, type: "password-reset" }, { expiresIn: "1h" });
+        const resetToken = this.jwtService.sign({ sub: user.id, type: "password-reset", hash: user.password.substring(0, 10) }, { expiresIn: "1h" });
         try {
             await this.emailService.sendPasswordResetEmail(user.email, {
                 businessName: user.businessName ?? "",
@@ -327,6 +327,34 @@ let AuthService = AuthService_1 = class AuthService {
         return {
             message: "If an account with that email exists, a password reset link has been sent.",
         };
+    }
+    async resetPassword(dto) {
+        if (dto.newPassword !== dto.confirmNewPassword) {
+            throw new common_1.BadRequestException("Passwords do not match");
+        }
+        let payload;
+        try {
+            payload = await this.jwtService.verifyAsync(dto.token);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException("Invalid or expired password reset token");
+        }
+        if (payload.type !== "password-reset") {
+            throw new common_1.BadRequestException("Invalid token type");
+        }
+        const user = await this.userService.findUserById(payload.sub);
+        if (!user) {
+            throw new common_1.BadRequestException("Invalid token");
+        }
+        if (payload.hash !== user.password.substring(0, 10)) {
+            throw new common_1.BadRequestException("This password reset token has already been used or is invalid");
+        }
+        const hashedPassword = await bcrypt.hash(dto.newPassword, 10);
+        await this.prisma.user.update({
+            where: { id: user.id },
+            data: { password: hashedPassword },
+        });
+        return { message: "Password has been successfully reset" };
     }
     async fetchAndSaveEntityData(entityId, userId) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {

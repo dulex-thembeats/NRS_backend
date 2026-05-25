@@ -69,6 +69,9 @@ let AuthController = class AuthController {
     async forgotPassword(forgotPasswordDto) {
         return this.authService.requestPasswordReset(forgotPasswordDto.email);
     }
+    async resetPassword(resetPasswordDto) {
+        return this.authService.resetPassword(resetPasswordDto);
+    }
     async getProfile(req) {
         const user = await this.authService.getProfile(req.id);
         if (!user) {
@@ -176,6 +179,18 @@ __decorate([
     __metadata("design:paramtypes", [dtos_2.ForgotPasswordDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Post)("reset-password"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: "Reset password using token" }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: "Password successfully reset" }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: "Invalid token or passwords do not match" }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dtos_2.ResetPasswordDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "resetPassword", null);
 __decorate([
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Get)("profile"),
