@@ -15,7 +15,7 @@ export declare class TenantsService {
     }>;
     getKeys(userId: number): Promise<{
         apiKey: string;
-        apiSecret: string;
+        apiSecretMasked: string;
     } | null>;
     proxyValidateInvoice(userId: number, payload: any): Promise<ProxyResult>;
     proxySignInvoice(userId: number, payload: any): Promise<ProxyResult>;
@@ -35,5 +35,6 @@ export declare class TenantsService {
     }>;
     private saveLog;
     private ensureTenant;
+    private verifyIrnOwnership;
     private generateToken;
 }

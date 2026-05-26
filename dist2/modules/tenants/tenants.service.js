@@ -14,6 +14,8 @@ exports.TenantsService = void 0;
 const common_1 = require("@nestjs/common");
 const database_1 = require("../../database");
 const invoice_service_1 = require("../invoice/invoice.service");
+const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 let TenantsService = TenantsService_1 = class TenantsService {
     prisma;
     invoiceService;
@@ -25,22 +27,23 @@ let TenantsService = TenantsService_1 = class TenantsService {
     async createOrRotateKeys(userId) {
         await this.ensureTenant(userId);
         const apiKey = this.generateToken();
-        const apiSecret = this.generateToken();
+        const rawSecret = this.generateToken();
+        const hashedSecret = await bcrypt.hash(rawSecret, 10);
         const existing = await this.prisma.tenantApiCredential.findUnique({
             where: { userId },
         });
         if (existing) {
             await this.prisma.tenantApiCredential.update({
                 where: { userId },
-                data: { apiKey, apiSecret, isActive: true },
+                data: { apiKey, apiSecret: hashedSecret, isActive: true },
             });
         }
         else {
             await this.prisma.tenantApiCredential.create({
-                data: { userId, apiKey, apiSecret },
+                data: { userId, apiKey, apiSecret: hashedSecret },
             });
         }
-        return { apiKey, apiSecret };
+        return { apiKey, apiSecret: rawSecret };
     }
     async getKeys(userId) {
         await this.ensureTenant(userId);
@@ -49,7 +52,8 @@ let TenantsService = TenantsService_1 = class TenantsService {
         });
         if (!cred)
             return null;
-        return { apiKey: cred.apiKey, apiSecret: cred.apiSecret };
+        const maskedSecret = "****" + cred.apiSecret.slice(-4);
+        return { apiKey: cred.apiKey, apiSecretMasked: maskedSecret };
     }
     async proxyValidateInvoice(userId, payload) {
         const endpoint = "/api/v1/invoice/validate";
@@ -65,7 +69,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "POST", endpoint, payload, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to validate invoice: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to validate invoice");
         }
     }
     async proxySignInvoice(userId, payload) {
@@ -82,10 +86,11 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "POST", endpoint, payload, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to sign invoice: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to sign invoice");
         }
     }
     async proxyConfirmInvoice(userId, irn) {
+        await this.verifyIrnOwnership(userId, irn);
         const endpoint = `/api/v1/invoice/confirm/${irn}`;
         try {
             this.logger.log(`Tenant confirm invoice request for IRN: ${irn}`);
@@ -99,7 +104,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to confirm invoice: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to confirm invoice");
         }
     }
     async proxyValidateIrn(userId, payload) {
@@ -116,7 +121,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "POST", endpoint, payload, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to validate IRN: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to validate IRN");
         }
     }
     async proxyTransmitSelfHealthCheck(userId) {
@@ -133,10 +138,11 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to transmit self health check: ${error.message}`);
+            throw new common_1.BadGatewayException("Transmit self health check failed");
         }
     }
     async proxyTransmitLookupIrn(userId, irn) {
+        await this.verifyIrnOwnership(userId, irn);
         const endpoint = `/api/v1/invoice/transmit/lookup/${irn}`;
         try {
             this.logger.log(`Tenant transmit lookup IRN request: ${irn}`);
@@ -150,7 +156,7 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to transmit lookup IRN: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to lookup IRN");
         }
     }
     async proxyTransmitLookupTin(userId, tin) {
@@ -167,10 +173,11 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to transmit lookup TIN: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to lookup TIN");
         }
     }
     async proxyTransmitInvoice(userId, irn) {
+        await this.verifyIrnOwnership(userId, irn);
         const endpoint = `/api/v1/invoice/transmit/${irn}`;
         try {
             this.logger.log(`Tenant transmit invoice request: ${irn}`);
@@ -188,10 +195,11 @@ let TenantsService = TenantsService_1 = class TenantsService {
             if (error instanceof common_1.HttpException) {
                 throw error;
             }
-            throw new common_1.BadGatewayException(`Failed to transmit invoice: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to transmit invoice");
         }
     }
     async proxyTransmitConfirmReceipt(userId, irn) {
+        await this.verifyIrnOwnership(userId, irn);
         const endpoint = `/api/v1/invoice/transmit/${irn}`;
         try {
             this.logger.log(`Tenant transmit confirm receipt request: ${irn}`);
@@ -205,14 +213,14 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "PATCH", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to transmit confirm receipt: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to confirm receipt");
         }
     }
     async proxyTransmitPullInvoice(userId) {
         const endpoint = "/api/v1/invoice/transmit/pull";
         try {
             this.logger.log("Tenant transmit pull invoice request");
-            const result = await this.invoiceService.transmitPullInvoice();
+            const result = await this.invoiceService.transmitPullInvoice(userId);
             await this.saveLog(userId, "GET", endpoint, undefined, 200, result);
             this.logger.log("Tenant transmit pull invoice success");
             return { ok: true, data: result };
@@ -222,11 +230,13 @@ let TenantsService = TenantsService_1 = class TenantsService {
             await this.saveLog(userId, "GET", endpoint, undefined, 500, {
                 message: error.message,
             });
-            throw new common_1.BadGatewayException(`Failed to transmit pull invoice: ${error.message}`);
+            throw new common_1.BadGatewayException("Failed to pull invoices");
         }
     }
     async getLogs(userId, page = 1, limit = 10) {
         await this.ensureTenant(userId);
+        limit = Math.min(Math.max(limit, 1), 100);
+        page = Math.max(page, 1);
         const skip = (page - 1) * limit;
         const [logs, total] = await Promise.all([
             this.prisma.tenantApiLog.findMany({
@@ -257,13 +267,17 @@ let TenantsService = TenantsService_1 = class TenantsService {
             throw new common_1.ForbiddenException("Only tenants may access this resource");
         }
     }
-    generateToken(length = 48) {
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        let token = "";
-        for (let i = 0; i < length; i++) {
-            token += chars.charAt(Math.floor(Math.random() * chars.length));
+    async verifyIrnOwnership(userId, irn) {
+        const invoice = await this.prisma.invoice.findFirst({
+            where: { irn, userId },
+            select: { id: true },
+        });
+        if (!invoice) {
+            throw new common_1.ForbiddenException("You do not have permission to access this invoice");
         }
-        return token;
+    }
+    generateToken(length = 48) {
+        return crypto.randomBytes(length).toString("base64url").slice(0, length);
     }
 };
 exports.TenantsService = TenantsService;

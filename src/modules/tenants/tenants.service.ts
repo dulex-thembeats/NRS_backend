@@ -7,6 +7,8 @@ import {
 } from "@nestjs/common";
 import { PrismaService } from "../../database";
 import { InvoiceService } from "../invoice/invoice.service";
+import * as crypto from "crypto";
+import * as bcrypt from "bcryptjs";
 
 export interface ProxyResult {
   ok: boolean;
@@ -26,7 +28,8 @@ export class TenantsService {
   ): Promise<{ apiKey: string; apiSecret: string }> {
     await this.ensureTenant(userId);
     const apiKey = this.generateToken();
-    const apiSecret = this.generateToken();
+    const rawSecret = this.generateToken();
+    const hashedSecret = await bcrypt.hash(rawSecret, 10);
 
     const existing = await (this.prisma as any).tenantApiCredential.findUnique({
       where: { userId },
@@ -34,25 +37,28 @@ export class TenantsService {
     if (existing) {
       await (this.prisma as any).tenantApiCredential.update({
         where: { userId },
-        data: { apiKey, apiSecret, isActive: true },
+        data: { apiKey, apiSecret: hashedSecret, isActive: true },
       });
     } else {
       await (this.prisma as any).tenantApiCredential.create({
-        data: { userId, apiKey, apiSecret },
+        data: { userId, apiKey, apiSecret: hashedSecret },
       });
     }
-    return { apiKey, apiSecret };
+    // Return plaintext secret only once — it cannot be retrieved again
+    return { apiKey, apiSecret: rawSecret };
   }
 
   async getKeys(
     userId: number,
-  ): Promise<{ apiKey: string; apiSecret: string } | null> {
+  ): Promise<{ apiKey: string; apiSecretMasked: string } | null> {
     await this.ensureTenant(userId);
     const cred = await (this.prisma as any).tenantApiCredential.findUnique({
       where: { userId },
     });
     if (!cred) return null;
-    return { apiKey: cred.apiKey, apiSecret: cred.apiSecret };
+    // Never return the full secret — show masked version only
+    const maskedSecret = "****" + cred.apiSecret.slice(-4);
+    return { apiKey: cred.apiKey, apiSecretMasked: maskedSecret };
   }
 
   async proxyValidateInvoice(
@@ -71,7 +77,7 @@ export class TenantsService {
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to validate invoice: ${error.message}`);
+      throw new BadGatewayException("Failed to validate invoice");
     }
   }
 
@@ -88,11 +94,12 @@ export class TenantsService {
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to sign invoice: ${error.message}`);
+      throw new BadGatewayException("Failed to sign invoice");
     }
   }
 
   async proxyConfirmInvoice(userId: number, irn: string): Promise<ProxyResult> {
+    await this.verifyIrnOwnership(userId, irn);
     const endpoint = `/api/v1/invoice/confirm/${irn}`;
     try {
       this.logger.log(`Tenant confirm invoice request for IRN: ${irn}`);
@@ -108,7 +115,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to confirm invoice: ${error.message}`);
+      throw new BadGatewayException("Failed to confirm invoice");
     }
   }
 
@@ -125,7 +132,7 @@ export class TenantsService {
       await this.saveLog(userId, "POST", endpoint, payload, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to validate IRN: ${error.message}`);
+      throw new BadGatewayException("Failed to validate IRN");
     }
   }
 
@@ -145,7 +152,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to transmit self health check: ${error.message}`);
+      throw new BadGatewayException("Transmit self health check failed");
     }
   }
 
@@ -153,6 +160,7 @@ export class TenantsService {
     userId: number,
     irn: string,
   ): Promise<ProxyResult> {
+    await this.verifyIrnOwnership(userId, irn);
     const endpoint = `/api/v1/invoice/transmit/lookup/${irn}`;
     try {
       this.logger.log(`Tenant transmit lookup IRN request: ${irn}`);
@@ -168,7 +176,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to transmit lookup IRN: ${error.message}`);
+      throw new BadGatewayException("Failed to lookup IRN");
     }
   }
 
@@ -191,7 +199,7 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to transmit lookup TIN: ${error.message}`);
+      throw new BadGatewayException("Failed to lookup TIN");
     }
   }
 
@@ -199,6 +207,7 @@ export class TenantsService {
     userId: number,
     irn: string,
   ): Promise<ProxyResult> {
+    await this.verifyIrnOwnership(userId, irn);
     const endpoint = `/api/v1/invoice/transmit/${irn}`;
     try {
       this.logger.log(`Tenant transmit invoice request: ${irn}`);
@@ -216,7 +225,7 @@ export class TenantsService {
       if (error instanceof HttpException) {
         throw error;
       }
-      throw new BadGatewayException(`Failed to transmit invoice: ${error.message}`);
+      throw new BadGatewayException("Failed to transmit invoice");
     }
   }
 
@@ -224,6 +233,7 @@ export class TenantsService {
     userId: number,
     irn: string,
   ): Promise<ProxyResult> {
+    await this.verifyIrnOwnership(userId, irn);
     const endpoint = `/api/v1/invoice/transmit/${irn}`;
     try {
       this.logger.log(`Tenant transmit confirm receipt request: ${irn}`);
@@ -239,7 +249,7 @@ export class TenantsService {
       await this.saveLog(userId, "PATCH", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to transmit confirm receipt: ${error.message}`);
+      throw new BadGatewayException("Failed to confirm receipt");
     }
   }
 
@@ -247,7 +257,7 @@ export class TenantsService {
     const endpoint = "/api/v1/invoice/transmit/pull";
     try {
       this.logger.log("Tenant transmit pull invoice request");
-      const result = await this.invoiceService.transmitPullInvoice();
+      const result = await this.invoiceService.transmitPullInvoice(userId);
       await this.saveLog(userId, "GET", endpoint, undefined, 200, result);
       this.logger.log("Tenant transmit pull invoice success");
       return { ok: true, data: result };
@@ -256,12 +266,15 @@ export class TenantsService {
       await this.saveLog(userId, "GET", endpoint, undefined, 500, {
         message: error.message,
       });
-      throw new BadGatewayException(`Failed to transmit pull invoice: ${error.message}`);
+      throw new BadGatewayException("Failed to pull invoices");
     }
   }
 
   async getLogs(userId: number, page: number = 1, limit: number = 10) {
     await this.ensureTenant(userId);
+    // Cap limit to prevent abuse
+    limit = Math.min(Math.max(limit, 1), 100);
+    page = Math.max(page, 1);
     const skip = (page - 1) * limit;
     const [logs, total] = await Promise.all([
       (this.prisma as any).tenantApiLog.findMany({
@@ -302,13 +315,27 @@ export class TenantsService {
     }
   }
 
-  private generateToken(length: number = 48): string {
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let token = "";
-    for (let i = 0; i < length; i++) {
-      token += chars.charAt(Math.floor(Math.random() * chars.length));
+  /**
+   * Verifies that the given IRN belongs to an invoice owned by the given user.
+   * Prevents IDOR — tenants cannot operate on other tenants' invoices.
+   */
+  private async verifyIrnOwnership(userId: number, irn: string): Promise<void> {
+    const invoice = await this.prisma.invoice.findFirst({
+      where: { irn, userId },
+      select: { id: true },
+    });
+    if (!invoice) {
+      throw new ForbiddenException(
+        "You do not have permission to access this invoice",
+      );
     }
-    return token;
+  }
+
+  /**
+   * Generates a cryptographically secure random token using crypto.randomBytes().
+   * Used for API keys and secrets — NOT Math.random().
+   */
+  private generateToken(length: number = 48): string {
+    return crypto.randomBytes(length).toString("base64url").slice(0, length);
   }
 }

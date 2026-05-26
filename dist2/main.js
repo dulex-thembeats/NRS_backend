@@ -6,6 +6,7 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const http_exception_filter_1 = require("./common/filters/http-exception.filter");
 const cookieParser = require("cookie-parser");
+const helmet_1 = require("helmet");
 function parseAllowedOrigins(value) {
     if (!value) {
         return [];
@@ -78,6 +79,7 @@ async function bootstrap() {
         ],
         exposedHeaders: ["Set-Cookie"],
     });
+    app.use((0, helmet_1.default)());
     app.use(cookieParser());
     app.useGlobalFilters(new http_exception_filter_1.AllExceptionsFilter());
     app.useGlobalPipes(new common_1.ValidationPipe());

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiKeyAuthGuard = void 0;
 const common_1 = require("@nestjs/common");
 const database_1 = require("../../../database");
+const bcrypt = require("bcryptjs");
 let ApiKeyAuthGuard = class ApiKeyAuthGuard {
     prisma;
     constructor(prisma) {
@@ -25,10 +26,14 @@ let ApiKeyAuthGuard = class ApiKeyAuthGuard {
             throw new common_1.UnauthorizedException("Missing tenant API credentials");
         }
         const cred = await this.prisma.tenantApiCredential.findFirst({
-            where: { apiKey, apiSecret, isActive: true },
+            where: { apiKey, isActive: true },
             include: { user: true },
         });
         if (!cred) {
+            throw new common_1.UnauthorizedException("Invalid tenant API credentials");
+        }
+        const secretValid = await bcrypt.compare(apiSecret, cred.apiSecret);
+        if (!secretValid) {
             throw new common_1.UnauthorizedException("Invalid tenant API credentials");
         }
         if (cred.user.role !== "TENANT") {

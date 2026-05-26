@@ -31,7 +31,7 @@ export declare class InvoiceService {
     transmitInvoiceById(invoiceId: number): Promise<any>;
     retryTransmitInvoiceById(invoiceId: number): Promise<any>;
     transmitConfirmReceiptById(invoiceId: number): Promise<any>;
-    transmitPullInvoice(): Promise<any>;
+    transmitPullInvoice(userId?: number): Promise<any>;
     getInvoiceConfirmation(irn: string): Promise<any>;
     getInvoicesByUserId(userId: number, page?: number, limit?: number): Promise<{
         invoices: any[];

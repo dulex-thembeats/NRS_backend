@@ -402,7 +402,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         }
         return this.transmitConfirmReceipt(invoice.irn);
     }
-    async transmitPullInvoice() {
+    async transmitPullInvoice(userId) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
             throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
@@ -422,11 +422,15 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                     .map((inv) => inv.irn)
                     .filter(Boolean);
                 if (irns.length > 0) {
+                    const whereClause = { irn: { in: irns } };
+                    if (userId) {
+                        whereClause.userId = userId;
+                    }
                     await this.prisma.invoice.updateMany({
-                        where: { irn: { in: irns } },
+                        where: whereClause,
                         data: { status: "TRANSMITTING", updatedAt: new Date() },
                     });
-                    this.logger.log(`Updated ${irns.length} invoices to TRANSMITTING`);
+                    this.logger.log(`Updated invoices to TRANSMITTING for pulled IRNs`);
                 }
             }
             this.logger.log("Transmit pull invoice successful");
@@ -444,7 +448,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
             throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
-        const url = `${this.firsApiUrl}/api/v1/invoice/confirm/${irn}`;
+        const url = `${this.firsApiUrl}/api/v1/invoice/confirm/${encodeURIComponent(irn)}`;
         try {
             this.logger.log(`Getting invoice confirmation for IRN: ${irn}`);
             const response = await axios_1.default.get(url, {

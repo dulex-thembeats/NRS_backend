@@ -33,7 +33,7 @@ let JwtStrategy = JwtStrategy_1 = class JwtStrategy extends (0, passport_1.Passp
                 }
                 const bearerToken = passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken()(req);
                 const finalToken = token || bearerToken;
-                if (process.env.NODE_ENV === "production" || process.env.DEBUG_AUTH === "true") {
+                if (process.env.DEBUG_AUTH === "true") {
                     console.log(`[AuthDebug] Path: ${req.url}`);
                     console.log(`[AuthDebug] Cookie Token: ${token ? "Found" : "Missing"}`);
                     console.log(`[AuthDebug] Bearer Token: ${bearerToken ? "Found" : "Missing"}`);

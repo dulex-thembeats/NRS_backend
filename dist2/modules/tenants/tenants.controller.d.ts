@@ -3,7 +3,7 @@ import { ValidateInvoiceDto, ValidateIrnDto } from "./dtos";
 export declare class TenantsController {
     private readonly tenantsService;
     constructor(tenantsService: TenantsService);
-    validateInvoice(payload: ValidateInvoiceDto, _p: any, _q: any, req: any): Promise<any>;
+    validateInvoice(payload: ValidateInvoiceDto, req: any): Promise<any>;
     signInvoice(payload: ValidateInvoiceDto, req: any): Promise<any>;
     confirmInvoice(irn: string, req: any): Promise<any>;
     transmitSelfHealthCheck(req: any): Promise<any>;
@@ -19,7 +19,7 @@ export declare class TenantsController {
     }>;
     getKeys(req: any): Promise<{
         apiKey: string;
-        apiSecret: string;
+        apiSecretMasked: string;
     } | null>;
     getLogs(page: string | undefined, limit: string | undefined, req: any): Promise<{
         logs: any;

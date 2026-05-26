@@ -6,6 +6,7 @@ import {
   ForbiddenException,
 } from "@nestjs/common";
 import { PrismaService } from "../../../database";
+import * as bcrypt from "bcryptjs";
 
 @Injectable()
 export class ApiKeyAuthGuard implements CanActivate {
@@ -20,12 +21,18 @@ export class ApiKeyAuthGuard implements CanActivate {
       throw new UnauthorizedException("Missing tenant API credentials");
     }
 
+    // Look up by apiKey only, then bcrypt.compare the secret
     const cred = await this.prisma.tenantApiCredential.findFirst({
-      where: { apiKey, apiSecret, isActive: true },
+      where: { apiKey, isActive: true },
       include: { user: true },
     });
 
     if (!cred) {
+      throw new UnauthorizedException("Invalid tenant API credentials");
+    }
+
+    const secretValid = await bcrypt.compare(apiSecret, cred.apiSecret);
+    if (!secretValid) {
       throw new UnauthorizedException("Invalid tenant API credentials");
     }
 

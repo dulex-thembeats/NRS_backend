@@ -16,24 +16,24 @@ import { ApiTags } from "@nestjs/swagger";
 import { TenantsService } from "./tenants.service";
 import { ApiKeyAuthGuard } from "./security/api-key-auth.guard";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
+import { RateLimitGuard } from "../../common/guards/rate-limit.guard";
 import { ValidateInvoiceDto, ValidateIrnDto } from "./dtos";
 import { CurrentUser, Public } from "../../common/decorators";
 
 @ApiTags("Tenants")
 @Controller("api/v1/tenants")
-@UseGuards(JwtAuthGuard)
+@UseGuards(RateLimitGuard)
 export class TenantsController {
   constructor(private readonly tenantsService: TenantsService) {}
 
   // Tenant APIs via API Key/Secret headers
+  @Public()
   @Post("invoice/validate")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
   @UsePipes(new ValidationPipe({ transform: true }))
   async validateInvoice(
     @Body() payload: ValidateInvoiceDto,
-    @Param() _p: any,
-    @Query() _q: any,
     @CurrentUser() req: any,
   ) {
     const userId: number = req.id;
@@ -44,6 +44,7 @@ export class TenantsController {
     return result.data ?? { ok: true };
   }
 
+  @Public()
   @Post("invoice/sign")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -57,6 +58,7 @@ export class TenantsController {
     return result.data ?? { ok: true };
   }
 
+  @Public()
   @Get("invoice/confirm/:irn")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -68,6 +70,7 @@ export class TenantsController {
 
   // --- Exchange E-Invoice Transmit APIs (Tenant) ---
 
+  @Public()
   @Get("invoice/transmit/self-health-check")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -78,6 +81,7 @@ export class TenantsController {
     return result.data;
   }
 
+  @Public()
   @Get("invoice/transmit/lookup/tin/:tin")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -90,6 +94,7 @@ export class TenantsController {
     return result.data;
   }
 
+  @Public()
   @Get("invoice/transmit/lookup/:irn")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -102,6 +107,7 @@ export class TenantsController {
     return result.data;
   }
 
+  @Public()
   @Get("invoice/transmit/pull")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -111,6 +117,7 @@ export class TenantsController {
     return result.data;
   }
 
+  @Public()
   @Post("invoice/transmit/:irn")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -120,6 +127,7 @@ export class TenantsController {
     return result.data;
   }
 
+  @Public()
   @Patch("invoice/transmit/:irn")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -135,6 +143,7 @@ export class TenantsController {
     return result.data;
   }
 
+  @Public()
   @Post("invoice/irn/validate")
   @HttpCode(HttpStatus.OK)
   @UseGuards(ApiKeyAuthGuard)
@@ -149,6 +158,7 @@ export class TenantsController {
   @Post("keys")
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(JwtAuthGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
   async createOrRotateKeys(@CurrentUser() req: any) {
     const userId: number = req.id;
     // Optionally verify role from Users table
@@ -159,6 +169,7 @@ export class TenantsController {
   @Get("keys")
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
   async getKeys(@CurrentUser() req: any) {
     const userId: number = req.id;
     const keys = await this.tenantsService.getKeys(userId);
@@ -168,6 +179,7 @@ export class TenantsController {
   @Get("logs")
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
   async getLogs(
     @Query("page") page: string = "1",
     @Query("limit") limit: string = "10",

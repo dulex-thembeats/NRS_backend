@@ -9,6 +9,7 @@ import {
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { AllExceptionsFilter } from "./common/filters/http-exception.filter";
 import * as cookieParser from "cookie-parser";
+import helmet from "helmet";
 
 function parseAllowedOrigins(value?: string): string[] {
   if (!value) {
@@ -100,6 +101,7 @@ async function bootstrap() {
 
 
 
+  app.use(helmet());
   app.use(cookieParser());
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(new ValidationPipe());

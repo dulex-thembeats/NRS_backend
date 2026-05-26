@@ -29,8 +29,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         const bearerToken = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
         const finalToken = token || bearerToken;
 
-        // Debug logging for production troubleshooting
-        if (process.env.NODE_ENV === "production" || process.env.DEBUG_AUTH === "true") {
+        // Debug logging only when explicitly enabled
+        if (process.env.DEBUG_AUTH === "true") {
           console.log(`[AuthDebug] Path: ${req.url}`);
           console.log(`[AuthDebug] Cookie Token: ${token ? "Found" : "Missing"}`);
           console.log(`[AuthDebug] Bearer Token: ${bearerToken ? "Found" : "Missing"}`);

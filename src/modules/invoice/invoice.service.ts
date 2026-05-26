@@ -584,7 +584,7 @@ export class InvoiceService {
    * Pull invoice - retrieves invoices in transit and updates local status to TRANSMITTING.
    * @returns The pulled invoices and updates local transit invoices to TRANSMITTING.
    */
-  async transmitPullInvoice(): Promise<any> {
+  async transmitPullInvoice(userId?: number): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
@@ -606,11 +606,16 @@ export class InvoiceService {
           .map((inv: { irn?: string }) => inv.irn)
           .filter(Boolean);
         if (irns.length > 0) {
+          // Scope update to the calling user's invoices to prevent cross-tenant mutation
+          const whereClause: any = { irn: { in: irns } };
+          if (userId) {
+            whereClause.userId = userId;
+          }
           await this.prisma.invoice.updateMany({
-            where: { irn: { in: irns } },
+            where: whereClause,
             data: { status: "TRANSMITTING", updatedAt: new Date() },
           });
-          this.logger.log(`Updated ${irns.length} invoices to TRANSMITTING`);
+          this.logger.log(`Updated invoices to TRANSMITTING for pulled IRNs`);
         }
       }
       this.logger.log("Transmit pull invoice successful");
@@ -638,7 +643,7 @@ export class InvoiceService {
       );
     }
 
-    const url = `${this.firsApiUrl}/api/v1/invoice/confirm/${irn}`;
+    const url = `${this.firsApiUrl}/api/v1/invoice/confirm/${encodeURIComponent(irn)}`;
 
     try {
       this.logger.log(`Getting invoice confirmation for IRN: ${irn}`);

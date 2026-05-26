@@ -18,6 +18,7 @@ const swagger_1 = require("@nestjs/swagger");
 const tenants_service_1 = require("./tenants.service");
 const api_key_auth_guard_1 = require("./security/api-key-auth.guard");
 const jwt_auth_guard_1 = require("../auth/guard/jwt-auth.guard");
+const rate_limit_guard_1 = require("../../common/guards/rate-limit.guard");
 const dtos_1 = require("./dtos");
 const decorators_1 = require("../../common/decorators");
 let TenantsController = class TenantsController {
@@ -25,7 +26,7 @@ let TenantsController = class TenantsController {
     constructor(tenantsService) {
         this.tenantsService = tenantsService;
     }
-    async validateInvoice(payload, _p, _q, req) {
+    async validateInvoice(payload, req) {
         const userId = req.id;
         const result = await this.tenantsService.proxyValidateInvoice(userId, payload);
         return result.data ?? { ok: true };
@@ -93,19 +94,19 @@ let TenantsController = class TenantsController {
 };
 exports.TenantsController = TenantsController;
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Post)("invoice/validate"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)()),
-    __param(2, (0, common_1.Query)()),
-    __param(3, (0, decorators_1.CurrentUser)()),
+    __param(1, (0, decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dtos_1.ValidateInvoiceDto, Object, Object, Object]),
+    __metadata("design:paramtypes", [dtos_1.ValidateInvoiceDto, Object]),
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "validateInvoice", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Post)("invoice/sign"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -117,6 +118,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "signInvoice", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Get)("invoice/confirm/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -127,6 +129,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "confirmInvoice", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Get)("invoice/transmit/self-health-check"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -136,6 +139,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "transmitSelfHealthCheck", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Get)("invoice/transmit/lookup/tin/:tin"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -146,6 +150,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "transmitLookupTin", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Get)("invoice/transmit/lookup/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -156,6 +161,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "transmitLookupIrn", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Get)("invoice/transmit/pull"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -165,6 +171,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "transmitPullInvoice", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Post)("invoice/transmit/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -175,6 +182,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "transmitInvoice", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Patch)("invoice/transmit/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -185,6 +193,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "transmitConfirmReceipt", null);
 __decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Post)("invoice/irn/validate"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -199,6 +208,7 @@ __decorate([
     (0, common_1.Post)("keys"),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
     __param(0, (0, decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -208,6 +218,7 @@ __decorate([
     (0, common_1.Get)("keys"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
     __param(0, (0, decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -217,6 +228,7 @@ __decorate([
     (0, common_1.Get)("logs"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
     __param(0, (0, common_1.Query)("page")),
     __param(1, (0, common_1.Query)("limit")),
     __param(2, (0, decorators_1.CurrentUser)()),
@@ -227,7 +239,7 @@ __decorate([
 exports.TenantsController = TenantsController = __decorate([
     (0, swagger_1.ApiTags)("Tenants"),
     (0, common_1.Controller)("api/v1/tenants"),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(rate_limit_guard_1.RateLimitGuard),
     __metadata("design:paramtypes", [tenants_service_1.TenantsService])
 ], TenantsController);
 //# sourceMappingURL=tenants.controller.js.map
