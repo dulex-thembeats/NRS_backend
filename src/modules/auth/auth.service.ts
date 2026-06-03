@@ -177,14 +177,7 @@ export class AuthService {
       role: user.role,
     };
 
-    const directors = ((user as any).directors ?? []).map((d: any) => ({
-      id: d.id,
-      firstName: d.firstName,
-      lastName: d.lastName,
-      email: d.email,
-      phoneNumber: d.phoneNumber,
-      nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
-    }));
+    const directors = (user as any).directors ?? [];
 
     return {
       access_token: this.jwtService.sign(payload),
@@ -386,14 +379,7 @@ export class AuthService {
     const businessContext = await this.buildBusinessContext(userId);
     const safeUser = this.sanitizeUserProfile(user);
 
-    const directors = ((user as any).directors ?? []).map((d: any) => ({
-      id: d.id,
-      firstName: d.firstName,
-      lastName: d.lastName,
-      email: d.email,
-      phoneNumber: d.phoneNumber,
-      nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
-    }));
+    const directors = (user as any).directors ?? [];
 
     return {
       ...safeUser,

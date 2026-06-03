@@ -331,8 +331,17 @@ export class UsersService {
   }
 
   private mapPrismaUserToEntity(u: any): User {
+    let maskedDirectors = u.directors;
+    if (Array.isArray(u.directors)) {
+      maskedDirectors = u.directors.map((d: any) => ({
+        ...d,
+        nin: d.nin ? d.nin.replace(/^\d{7}/, '*******') : null,
+      }));
+    }
+
     const plain = {
       ...u,
+      directors: maskedDirectors,
       businessName: u.businessName ?? undefined,
       businessAddress: u.businessAddress ?? undefined,
       rcNumber: u.rcNumber ?? undefined,

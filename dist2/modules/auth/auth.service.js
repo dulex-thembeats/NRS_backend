@@ -114,14 +114,7 @@ let AuthService = AuthService_1 = class AuthService {
             businessName: user.businessName ?? "",
             role: user.role,
         };
-        const directors = (user.directors ?? []).map((d) => ({
-            id: d.id,
-            firstName: d.firstName,
-            lastName: d.lastName,
-            email: d.email,
-            phoneNumber: d.phoneNumber,
-            nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
-        }));
+        const directors = user.directors ?? [];
         return {
             access_token: this.jwtService.sign(payload),
             user: {
@@ -270,14 +263,7 @@ let AuthService = AuthService_1 = class AuthService {
         }
         const businessContext = await this.buildBusinessContext(userId);
         const safeUser = this.sanitizeUserProfile(user);
-        const directors = (user.directors ?? []).map((d) => ({
-            id: d.id,
-            firstName: d.firstName,
-            lastName: d.lastName,
-            email: d.email,
-            phoneNumber: d.phoneNumber,
-            nin: d.nin ? '*'.repeat(Math.max(0, d.nin.length - 4)) + d.nin.slice(-4) : null,
-        }));
+        const directors = user.directors ?? [];
         return {
             ...safeUser,
             isProfileComplete: safeUser.isProfileComplete ?? false,
