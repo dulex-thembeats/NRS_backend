@@ -16,13 +16,13 @@ import { ApiTags } from "@nestjs/swagger";
 import { TenantsService } from "./tenants.service";
 import { ApiKeyAuthGuard } from "./security/api-key-auth.guard";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
-import { RateLimitGuard } from "../../common/guards/rate-limit.guard";
+import { Throttle } from "@nestjs/throttler";
 import { ValidateInvoiceDto, ValidateIrnDto } from "./dtos";
 import { CurrentUser, Public } from "../../common/decorators";
 
 @ApiTags("Tenants")
 @Controller("api/v1/tenants")
-@UseGuards(RateLimitGuard)
+@Throttle({ default: { limit: 60, ttl: 60000 } })
 export class TenantsController {
   constructor(private readonly tenantsService: TenantsService) {}
 

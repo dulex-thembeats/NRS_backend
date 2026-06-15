@@ -23,6 +23,8 @@ let FirsService = FirsService_1 = class FirsService {
     firsApiUrl = process.env.FIRS_API_URL ?? "";
     firsApiKey = process.env.FIRS_API_KEY ?? "";
     firsApiSecret = process.env.FIRS_API_SECRET ?? "";
+    siApiKey = process.env.SYSTEM_INTEGRATOR_API_KEY ?? "";
+    siApiSecret = process.env.SYSTEM_INTEGRATOR_API_SECRET ?? "";
     async loginTaxpayer(loginDto) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
             throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
@@ -50,16 +52,16 @@ let FirsService = FirsService_1 = class FirsService {
         }
     }
     async getEntityById(entityId) {
-        if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
+        if (!this.firsApiUrl || !this.siApiKey || !this.siApiSecret) {
+            throw new common_1.InternalServerErrorException("SI API credentials are not set in environment variables");
         }
         const url = `${this.firsApiUrl}/api/v1/entity/${entityId}`;
         try {
             const response = await axios_1.default.get(url, {
                 headers: {
                     "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
+                    "x-api-key": this.siApiKey,
+                    "x-api-secret": this.siApiSecret,
                 },
             });
             return response.data;
@@ -72,8 +74,8 @@ let FirsService = FirsService_1 = class FirsService {
         }
     }
     async searchEntitiesByReference(searchParams) {
-        if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
+        if (!this.firsApiUrl || !this.siApiKey || !this.siApiSecret) {
+            throw new common_1.InternalServerErrorException("SI API credentials are not set in environment variables");
         }
         const { size = 20, page = 1, sortBy = "created_at", sortDirectionDesc = true, } = searchParams ?? {};
         const url = `${this.firsApiUrl}/api/v1/entity`;
@@ -88,8 +90,8 @@ let FirsService = FirsService_1 = class FirsService {
             const response = await axios_1.default.get(url, {
                 headers: {
                     "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
+                    "x-api-key": this.siApiKey,
+                    "x-api-secret": this.siApiSecret,
                 },
                 params,
             });

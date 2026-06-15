@@ -3,6 +3,8 @@ declare class SimplePostalAddressDto {
     city_name: string;
     postal_zone: string;
     country?: string;
+    lga: string;
+    state: string;
 }
 declare class SimplePartyDto {
     party_name: string;
@@ -34,6 +36,7 @@ export declare class CreateInvoiceDto {
     due_date?: string;
     issue_time?: string;
     invoice_type_code?: string;
+    invoice_kind?: string;
     payment_status?: string;
     document_currency_code?: string;
     tax_currency_code?: string;

@@ -19,6 +19,8 @@ export class FirsService {
   private readonly firsApiUrl: string = process.env.FIRS_API_URL ?? "";
   private readonly firsApiKey: string = process.env.FIRS_API_KEY ?? "";
   private readonly firsApiSecret: string = process.env.FIRS_API_SECRET ?? "";
+  private readonly siApiKey: string = process.env.SYSTEM_INTEGRATOR_API_KEY ?? "";
+  private readonly siApiSecret: string = process.env.SYSTEM_INTEGRATOR_API_SECRET ?? "";
 
   async loginTaxpayer(loginDto: LoginDto): Promise<FirsLoginResponseEntity> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
@@ -52,9 +54,9 @@ export class FirsService {
 
   //#region Entity
   async getEntityById(entityId: string): Promise<any> {
-    if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
+    if (!this.firsApiUrl || !this.siApiKey || !this.siApiSecret) {
       throw new InternalServerErrorException(
-        "FIRS API credentials are not set in environment variables",
+        "SI API credentials are not set in environment variables",
       );
     }
 
@@ -64,8 +66,8 @@ export class FirsService {
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": this.firsApiKey,
-          "x-api-secret": this.firsApiSecret,
+          "x-api-key": this.siApiKey,
+          "x-api-secret": this.siApiSecret,
         },
       });
       return response.data;
@@ -78,9 +80,9 @@ export class FirsService {
   }
 
   async searchEntitiesByReference(searchParams: SearchEntityDto): Promise<any> {
-    if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
+    if (!this.firsApiUrl || !this.siApiKey || !this.siApiSecret) {
       throw new InternalServerErrorException(
-        "FIRS API credentials are not set in environment variables",
+        "SI API credentials are not set in environment variables",
       );
     }
 
@@ -104,8 +106,8 @@ export class FirsService {
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": this.firsApiKey,
-          "x-api-secret": this.firsApiSecret,
+          "x-api-key": this.siApiKey,
+          "x-api-secret": this.siApiSecret,
         },
         params,
       });

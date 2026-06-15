@@ -76,6 +76,7 @@ model Invoice {
   dueDate              DateTime?
   issueTime            String?
   invoiceTypeCode      String
+  invoiceKind          String    @default("B2B")
   paymentStatus        String    @default("PENDING")
   note                 String?
   taxPointDate         DateTime?
@@ -157,6 +158,8 @@ model PostalAddress {
   cityName        String
   postalZone      String
   country         String
+  lga             String                   @default("")
+  state           String                   @default("")
   supplierPartyId Int?                     @unique
   customerPartyId Int?                     @unique
   supplierParty   AccountingSupplierParty? @relation("SupplierPostalAddress", fields: [supplierPartyId], references: [id])
@@ -375,6 +378,14 @@ model Business {
   updatedAt            DateTime @updatedAt @map("updated_at")
   entityId             String
   entity               Entity   @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  // Per-business FIRS API credentials (encrypted, from the business's FIRS Dashboard)
+  firsApiKey            String?  @map("firs_api_key")
+  firsApiSecret         String?  @map("firs_api_secret")
+
+  // Per-business cryptographic keys (from crypto_keys.txt)
+  firsPublicKeyBase64   String?  @map("firs_public_key_base64")
+  firsCertificateBase64 String?  @map("firs_certificate_base64")
 
   @@map("businesses")
 }

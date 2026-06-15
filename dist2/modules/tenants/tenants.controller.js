@@ -18,7 +18,7 @@ const swagger_1 = require("@nestjs/swagger");
 const tenants_service_1 = require("./tenants.service");
 const api_key_auth_guard_1 = require("./security/api-key-auth.guard");
 const jwt_auth_guard_1 = require("../auth/guard/jwt-auth.guard");
-const rate_limit_guard_1 = require("../../common/guards/rate-limit.guard");
+const throttler_1 = require("@nestjs/throttler");
 const dtos_1 = require("./dtos");
 const decorators_1 = require("../../common/decorators");
 let TenantsController = class TenantsController {
@@ -239,7 +239,7 @@ __decorate([
 exports.TenantsController = TenantsController = __decorate([
     (0, swagger_1.ApiTags)("Tenants"),
     (0, common_1.Controller)("api/v1/tenants"),
-    (0, common_1.UseGuards)(rate_limit_guard_1.RateLimitGuard),
+    (0, throttler_1.Throttle)({ default: { limit: 60, ttl: 60000 } }),
     __metadata("design:paramtypes", [tenants_service_1.TenantsService])
 ], TenantsController);
 //# sourceMappingURL=tenants.controller.js.map

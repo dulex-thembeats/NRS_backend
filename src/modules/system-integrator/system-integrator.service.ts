@@ -77,8 +77,9 @@ export class SystemIntegratorService {
    * @returns The encrypted base64 QR code string.
    */
   async generateQrCode(params: GenerateQrCodeDto): Promise<{ qrCode: string }> {
-    const timestamp = Math.floor(Date.now() / 1000);
-    const irnWithTimestamp = `${params.irn}.${timestamp}`;
+    const now = new Date();
+    const timePart = now.toTimeString().slice(0, 8).replace(/:/g, '') + String(now.getMilliseconds()).padStart(3, '0');
+    const irnWithTimestamp = `${params.irn}.${timePart}`;
 
     let publicKeyBase64 = params.firsPublicKeyBase64;
     let certificateBase64 = params.firsCertificateBase64;

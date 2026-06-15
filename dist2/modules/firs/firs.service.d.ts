@@ -15,6 +15,8 @@ export declare class FirsService {
     private readonly firsApiUrl;
     private readonly firsApiKey;
     private readonly firsApiSecret;
+    private readonly siApiKey;
+    private readonly siApiSecret;
     loginTaxpayer(loginDto: LoginDto): Promise<FirsLoginResponseEntity>;
     getEntityById(entityId: string): Promise<any>;
     searchEntitiesByReference(searchParams: SearchEntityDto): Promise<any>;

@@ -90,5 +90,5 @@ export declare class AuthService {
     resetPassword(dto: ResetPasswordDto): Promise<{
         message: string;
     }>;
-    fetchAndSaveEntityData(entityId: string, userId: number): Promise<any>;
+    fetchAndSaveEntityData(entityId: string, userId: number, dto?: CompleteProfileDto): Promise<any>;
 }

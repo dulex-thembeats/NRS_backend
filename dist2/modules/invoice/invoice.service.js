@@ -15,6 +15,7 @@ const common_1 = require("@nestjs/common");
 const database_1 = require("../../database");
 const axios_1 = require("axios");
 const firs_qr_code_helper_1 = require("../../shared/helpers/firs-qr-code.helper");
+const crypto_util_1 = require("../../shared/helpers/crypto.util");
 let InvoiceService = InvoiceService_1 = class InvoiceService {
     prisma;
     logger = new common_1.Logger(InvoiceService_1.name);
@@ -24,6 +25,19 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
     firsApiUrl = process.env.FIRS_API_URL ?? "";
     firsApiKey = process.env.FIRS_API_KEY ?? "";
     firsApiSecret = process.env.FIRS_API_SECRET ?? "";
+    async getFirsHeadersForBusiness(businessId) {
+        const business = await this.prisma.business.findUnique({
+            where: { id: businessId },
+        });
+        if (!business?.firsApiKey || !business?.firsApiSecret) {
+            throw new common_1.BadRequestException("Business FIRS API credentials not configured. Please update FIRS settings.");
+        }
+        return {
+            "Content-Type": "application/json",
+            "x-api-key": (0, crypto_util_1.decryptCredential)(business.firsApiKey),
+            "x-api-secret": (0, crypto_util_1.decryptCredential)(business.firsApiSecret),
+        };
+    }
     buildFirsHeaders() {
         return {
             "Content-Type": "application/json",
@@ -86,7 +100,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
             ? new common_1.ServiceUnavailableException(response)
             : new common_1.BadGatewayException(response);
     }
-    async sendTransmitInvoiceRequest(irn) {
+    async sendTransmitInvoiceRequest(irn, businessId) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
             throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
@@ -135,9 +149,6 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         }
     }
     async validateIrn(params) {
-        if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
-        }
         const url = `${this.firsApiUrl}/api/v1/invoice/irn/validate`;
         const body = {
             invoice_reference: params.invoice_reference,
@@ -147,11 +158,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         try {
             this.logger.log(`Validating IRN: ${params.irn} for invoice: ${params.invoice_reference}`);
             const response = await axios_1.default.post(url, body, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
-                },
+                headers: await this.getFirsHeadersForBusiness(params.business_id),
             });
             this.logger.log(`Successfully validated IRN: ${params.irn}`);
             if (response.data &&
@@ -177,11 +184,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         try {
             this.logger.log(`Validating invoice with IRN: ${params.irn}`);
             const response = await axios_1.default.post(url, params, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
-                },
+                headers: await this.getFirsHeadersForBusiness(params.business_id),
             });
             this.logger.log(`Successfully validated invoice with IRN: ${params.irn}`);
             if (response.data &&
@@ -207,11 +210,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         try {
             this.logger.log(`Signing invoice with IRN: ${params.irn}`);
             const response = await axios_1.default.post(url, params, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
-                },
+                headers: await this.getFirsHeadersForBusiness(params.business_id),
             });
             this.logger.log(`Successfully signed invoice with IRN: ${params.irn}`);
             if (response.data &&
@@ -307,7 +306,10 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
     async transmitInvoice(irn) {
         try {
             this.logger.log(`Transmit invoice: ${irn}`);
-            const response = await this.sendTransmitInvoiceRequest(irn);
+            const invoiceRec = await this.prisma.invoice.findUnique({ where: { irn } });
+            if (!invoiceRec)
+                throw new common_1.NotFoundException("Invoice not found");
+            const response = await this.sendTransmitInvoiceRequest(irn, invoiceRec.businessId);
             this.logger.log(`Transmit invoice successful: ${irn}`);
             return response;
         }
@@ -321,15 +323,14 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
             throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
+        const invoiceRec = await this.prisma.invoice.findUnique({ where: { irn } });
+        if (!invoiceRec)
+            throw new common_1.NotFoundException("Invoice not found");
         const url = `${this.firsApiUrl}/api/v1/invoice/transmit/${encodeURIComponent(irn)}`;
         try {
             this.logger.log(`Transmit confirm receipt: ${irn}`);
             const response = await axios_1.default.patch(url, {}, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
-                },
+                headers: await this.getFirsHeadersForBusiness(invoiceRec.businessId),
             });
             this.logger.log(`Transmit confirm receipt successful: ${irn}`);
             return response.data;
@@ -355,13 +356,13 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
     async transmitInvoiceById(invoiceId) {
         const invoice = await this.prisma.invoice.findUnique({
             where: { id: invoiceId },
-            select: { id: true, irn: true },
+            select: { id: true, irn: true, businessId: true },
         });
         if (!invoice) {
             throw new common_1.NotFoundException(`Invoice with ID ${invoiceId} not found`);
         }
         try {
-            const result = await this.sendTransmitInvoiceRequest(invoice.irn);
+            const result = await this.sendTransmitInvoiceRequest(invoice.irn, invoice.businessId);
             await this.prisma.invoice.update({
                 where: { id: invoiceId },
                 data: {
@@ -445,9 +446,9 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
         }
     }
     async getInvoiceConfirmation(irn) {
-        if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
-            throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
-        }
+        const invoiceRec = await this.prisma.invoice.findUnique({ where: { irn } });
+        if (!invoiceRec)
+            throw new common_1.NotFoundException("Invoice not found");
         const url = `${this.firsApiUrl}/api/v1/invoice/confirm/${encodeURIComponent(irn)}`;
         try {
             this.logger.log(`Getting invoice confirmation for IRN: ${irn}`);
@@ -582,10 +583,11 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
             }
             let encryptedBase64;
             try {
-                const timestamp = Math.floor(Date.now() / 1000);
-                const irn_id = `${invoice.irn}.${timestamp}`;
-                console.log(irn_id, "irn_id");
-                encryptedBase64 = (0, firs_qr_code_helper_1.generateFirsQrCode)(irn_id);
+                const irn_id = invoice.irn;
+                const business = await this.prisma.business.findUnique({
+                    where: { id: invoice.businessId }
+                });
+                encryptedBase64 = (0, firs_qr_code_helper_1.generateFirsQrCode)(irn_id, business?.firsPublicKeyBase64 ?? undefined, business?.firsCertificateBase64 ?? undefined);
                 this.logger.log(`Successfully generated QR code for invoice with ID: ${invoiceId}`);
             }
             catch (qrError) {
@@ -655,6 +657,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
     }
     convertInvoiceToDto(invoice) {
         return {
+            invoice_kind: invoice.invoiceKind || "B2B",
             business_id: invoice.businessId,
             irn: invoice.irn,
             issue_date: invoice.issueDate.toISOString().split("T")[0],
@@ -698,6 +701,8 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                     city_name: invoice.accountingSupplierParty.postalAddress.cityName,
                     postal_zone: invoice.accountingSupplierParty.postalAddress.postalZone,
                     country: invoice.accountingSupplierParty.postalAddress.country,
+                    lga: invoice.accountingSupplierParty.postalAddress.lga,
+                    state: invoice.accountingSupplierParty.postalAddress.state,
                 },
             },
             accounting_customer_party: {
@@ -711,6 +716,8 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                     city_name: invoice.accountingCustomerParty.postalAddress.cityName,
                     postal_zone: invoice.accountingCustomerParty.postalAddress.postalZone,
                     country: invoice.accountingCustomerParty.postalAddress.country,
+                    lga: invoice.accountingCustomerParty.postalAddress.lga,
+                    state: invoice.accountingCustomerParty.postalAddress.state,
                 },
             },
             billing_reference: invoice.billingReferences?.map((ref) => ({
@@ -881,6 +888,7 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                     dueDate: data.due_date ? new Date(data.due_date) : null,
                     issueTime: data.issue_time,
                     invoiceTypeCode: data.invoice_type_code || "396",
+                    invoiceKind: data.invoice_kind || "B2B",
                     paymentStatus: data.payment_status || "PENDING",
                     note: data.note,
                     documentCurrencyCode: data.document_currency_code || "NGN",
@@ -899,6 +907,8 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                                         cityName: data.supplier.postal_address.city_name,
                                         postalZone: data.supplier.postal_address.postal_zone,
                                         country: data.supplier.postal_address.country ?? "NG",
+                                        lga: data.supplier.postal_address.lga,
+                                        state: data.supplier.postal_address.state,
                                     },
                                 },
                             },
@@ -917,6 +927,8 @@ let InvoiceService = InvoiceService_1 = class InvoiceService {
                                     cityName: data.customer.postal_address.city_name,
                                     postalZone: data.customer.postal_address.postal_zone,
                                     country: data.customer.postal_address.country ?? "NG",
+                                    lga: data.customer.postal_address.lga,
+                                    state: data.customer.postal_address.state,
                                 },
                             },
                         },

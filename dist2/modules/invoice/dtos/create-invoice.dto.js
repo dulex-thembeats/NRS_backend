@@ -18,6 +18,8 @@ class SimplePostalAddressDto {
     city_name;
     postal_zone;
     country = "NG";
+    lga;
+    state;
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ example: "32, owonikoko street" }),
@@ -48,6 +50,20 @@ __decorate([
     (0, class_validator_1.MaxLength)(2),
     __metadata("design:type", String)
 ], SimplePostalAddressDto.prototype, "country", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: "Ikeja" }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(100),
+    __metadata("design:type", String)
+], SimplePostalAddressDto.prototype, "lga", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: "Lagos" }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(100),
+    __metadata("design:type", String)
+], SimplePostalAddressDto.prototype, "state", void 0);
 class SimplePartyDto {
     party_name;
     tin;
@@ -225,6 +241,7 @@ class CreateInvoiceDto {
     due_date;
     issue_time;
     invoice_type_code = "396";
+    invoice_kind = "B2B";
     payment_status = "PENDING";
     document_currency_code = "NGN";
     tax_currency_code;
@@ -282,6 +299,13 @@ __decorate([
     (0, class_validator_1.MaxLength)(10),
     __metadata("design:type", String)
 ], CreateInvoiceDto.prototype, "invoice_type_code", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: "B2B", default: "B2B", enum: ["B2B", "B2C", "B2G"] }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(["B2B", "B2C", "B2G"]),
+    __metadata("design:type", String)
+], CreateInvoiceDto.prototype, "invoice_kind", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         enum: ["PENDING", "PAID", "REJECTED"],

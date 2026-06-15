@@ -5,6 +5,7 @@ import { DatabaseModule } from "./database/database.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { UsersModule } from "./modules/users/users.module";
 import { APP_GUARD } from "@nestjs/core";
+import { ThrottlerModule, ThrottlerGuard } from "@nestjs/throttler";
 import { JwtAuthGuard } from "./modules/auth/guard/jwt-auth.guard";
 import { EmailModule } from "./shared/email/mail.module";
 import { FirsModule } from "./modules/firs/firs.module";
@@ -19,6 +20,9 @@ import { SystemIntegratorModule } from "./modules/system-integrator/system-integ
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ThrottlerModule.forRoot([
+      { name: "default", ttl: 60000, limit: 120 },
+    ]),
     DatabaseModule,
     AuthModule,
     UsersModule,
@@ -32,6 +36,10 @@ import { SystemIntegratorModule } from "./modules/system-integrator/system-integ
   ],
   controllers: [AppController],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,

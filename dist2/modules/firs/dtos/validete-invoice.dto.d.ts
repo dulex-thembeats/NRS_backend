@@ -3,6 +3,8 @@ declare class PostalAddressDto {
     readonly city_name: string;
     readonly postal_zone: string;
     readonly country: string;
+    readonly lga: string;
+    readonly state: string;
 }
 declare class PartyDto {
     readonly party_name: string;
@@ -70,6 +72,7 @@ declare class InvoiceLineDto {
     readonly price: InvoiceLinePriceDto;
 }
 export declare class FirsValidateInvoiceDto {
+    readonly invoice_kind: string;
     readonly business_id: string;
     readonly irn: string;
     readonly issue_date: string;

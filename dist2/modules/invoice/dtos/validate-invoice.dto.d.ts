@@ -12,6 +12,8 @@ export declare class PostalAddressDto {
     city_name: string;
     postal_zone: string;
     country: string;
+    lga: string;
+    state: string;
 }
 export declare class PartyDto {
     party_name: string;
@@ -79,6 +81,7 @@ export declare class InvoiceLineDto {
     price: PriceDto;
 }
 export declare class ValidateInvoiceDto {
+    invoice_kind: string;
     business_id: string;
     irn: string;
     issue_date: string;

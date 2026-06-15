@@ -17,6 +17,8 @@ class PostalAddressDto {
     city_name;
     postal_zone;
     country;
+    lga;
+    state;
 }
 __decorate([
     (0, class_validator_1.IsString)(),
@@ -39,6 +41,16 @@ __decorate([
     (0, class_validator_1.Length)(2, 2),
     __metadata("design:type", String)
 ], PostalAddressDto.prototype, "country", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], PostalAddressDto.prototype, "lga", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], PostalAddressDto.prototype, "state", void 0);
 class PartyDto {
     party_name;
     tin;
@@ -55,6 +67,7 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.Matches)(/^[\d-]+$/, { message: 'TIN must contain only numbers and optional hyphens' }),
     __metadata("design:type", String)
 ], PartyDto.prototype, "tin", void 0);
 __decorate([
@@ -249,6 +262,8 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(5),
     __metadata("design:type", String)
 ], InvoiceLinePriceDto.prototype, "price_unit", void 0);
 class InvoiceLineDto {
@@ -266,6 +281,7 @@ class InvoiceLineDto {
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.Matches)(/^\d{4,10}$/, { message: 'HSN code must be a numeric string between 4 and 10 digits' }),
     __metadata("design:type", String)
 ], InvoiceLineDto.prototype, "hsn_code", void 0);
 __decorate([
@@ -314,6 +330,7 @@ __decorate([
     __metadata("design:type", InvoiceLinePriceDto)
 ], InvoiceLineDto.prototype, "price", void 0);
 class FirsValidateInvoiceDto {
+    invoice_kind;
     business_id;
     irn;
     issue_date;
@@ -348,6 +365,12 @@ class FirsValidateInvoiceDto {
     invoice_line;
 }
 exports.FirsValidateInvoiceDto = FirsValidateInvoiceDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEnum)(['B2B', 'B2C', 'B2G']),
+    __metadata("design:type", String)
+], FirsValidateInvoiceDto.prototype, "invoice_kind", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

@@ -6,4 +6,8 @@ export declare class CompleteProfileDto {
     rcNumber: string;
     dateOfIncorporation?: string;
     directors?: DirectorDto[];
+    firsApiKey: string;
+    firsApiSecret: string;
+    firsPublicKeyBase64: string;
+    firsCertificateBase64: string;
 }

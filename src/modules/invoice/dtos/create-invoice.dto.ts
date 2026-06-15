@@ -41,6 +41,18 @@ class SimplePostalAddressDto {
   @MinLength(2)
   @MaxLength(2)
   country?: string = "NG";
+
+  @ApiProperty({ example: "Ikeja" })
+  @IsString()
+  @MinLength(1)
+  @MaxLength(100)
+  lga: string;
+
+  @ApiProperty({ example: "Lagos" })
+  @IsString()
+  @MinLength(1)
+  @MaxLength(100)
+  state: string;
 }
 
 class SimplePartyDto {
@@ -219,6 +231,12 @@ export class CreateInvoiceDto {
   @IsString()
   @MaxLength(10)
   invoice_type_code?: string = "396";
+
+  @ApiPropertyOptional({ example: "B2B", default: "B2B", enum: ["B2B", "B2C", "B2G"] })
+  @IsOptional()
+  @IsString()
+  @IsIn(["B2B", "B2C", "B2G"])
+  invoice_kind?: string = "B2B";
 
   @ApiPropertyOptional({
     enum: ["PENDING", "PAID", "REJECTED"],

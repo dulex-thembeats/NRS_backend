@@ -14,6 +14,7 @@ const database_module_1 = require("./database/database.module");
 const auth_module_1 = require("./modules/auth/auth.module");
 const users_module_1 = require("./modules/users/users.module");
 const core_1 = require("@nestjs/core");
+const throttler_1 = require("@nestjs/throttler");
 const jwt_auth_guard_1 = require("./modules/auth/guard/jwt-auth.guard");
 const mail_module_1 = require("./shared/email/mail.module");
 const firs_module_1 = require("./modules/firs/firs.module");
@@ -31,6 +32,9 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
+            throttler_1.ThrottlerModule.forRoot([
+                { name: "default", ttl: 60000, limit: 120 },
+            ]),
             database_module_1.DatabaseModule,
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
@@ -44,6 +48,10 @@ exports.AppModule = AppModule = __decorate([
         ],
         controllers: [app_controller_1.AppController],
         providers: [
+            {
+                provide: core_1.APP_GUARD,
+                useClass: throttler_1.ThrottlerGuard,
+            },
             {
                 provide: core_1.APP_GUARD,
                 useClass: jwt_auth_guard_1.JwtAuthGuard,

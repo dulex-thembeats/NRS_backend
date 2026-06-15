@@ -17,20 +17,21 @@ import * as bcrypt from "bcryptjs";
 import { EmailService } from "../../shared/email/mail.service";
 import { PrismaService } from "../../database";
 import axios from "axios";
+import { encryptIfPlaintext } from "../../shared/helpers/crypto.util";
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
   private readonly firsApiUrl: string = process.env.FIRS_API_URL ?? "";
-  private readonly firsApiKey: string = process.env.FIRS_API_KEY ?? "";
-  private readonly firsApiSecret: string = process.env.FIRS_API_SECRET ?? "";
+  private readonly firsApiKey: string = process.env.SYSTEM_INTEGRATOR_API_KEY ?? "";
+  private readonly firsApiSecret: string = process.env.SYSTEM_INTEGRATOR_API_SECRET ?? "";
 
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
     private emailService: EmailService,
     private prisma: PrismaService,
-  ) {}
+  ) { }
 
   private async buildBusinessContext(userId: number): Promise<{
     entityId: string | null;
@@ -158,7 +159,7 @@ export class AuthService {
     // Sync with FIRS if entityId is provided to validate existence and prevent Organisation Hijacking (C1)
     // We do this BEFORE updating the user profile so that a fabricated entityId throws an error and rejects the request.
     if (completeProfileDto.entityId) {
-      await this.fetchAndSaveEntityData(completeProfileDto.entityId, userId);
+      await this.fetchAndSaveEntityData(completeProfileDto.entityId, userId, completeProfileDto);
     }
 
     const user = await this.userService.completeProfile(
@@ -490,7 +491,7 @@ export class AuthService {
    * @param userId - The user ID to associate the entity with.
    * @returns The saved entity data with businesses.
    */
-  async fetchAndSaveEntityData(entityId: string, userId: number): Promise<any> {
+  async fetchAndSaveEntityData(entityId: string, userId: number, dto?: CompleteProfileDto): Promise<any> {
     if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
       throw new InternalServerErrorException(
         "FIRS API credentials are not set in environment variables",
@@ -507,8 +508,8 @@ export class AuthService {
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": this.firsApiKey,
-          "x-api-secret": this.firsApiSecret,
+          "x-api-key": dto?.firsApiKey || this.firsApiKey,
+          "x-api-secret": dto?.firsApiSecret || this.firsApiSecret,
         },
       });
 
@@ -525,6 +526,7 @@ export class AuthService {
       // Check if entity already exists for this user
       const existingEntity = await this.prisma.entity.findFirst({
         where: { userId },
+        include: { businesses: true },
       });
 
       if (existingEntity) {
@@ -554,6 +556,9 @@ export class AuthService {
           where: { entityId: existingEntity.id },
         });
 
+        // Map existing credentials to preserve them
+        const existingBusinessesMap = new Map(existingEntity.businesses.map(b => [b.id, b]));
+
         // Create new businesses
         if (entityData.businesses && entityData.businesses.length > 0) {
           await this.prisma.business.createMany({
@@ -576,6 +581,10 @@ export class AuthService {
               createdAt: new Date(business.created_at),
               updatedAt: new Date(business.updated_at),
               entityId: existingEntity.id,
+              firsApiKey: dto?.firsApiKey ? encryptIfPlaintext(dto.firsApiKey) : existingBusinessesMap.get(business.id)?.firsApiKey,
+              firsApiSecret: dto?.firsApiSecret ? encryptIfPlaintext(dto.firsApiSecret) : existingBusinessesMap.get(business.id)?.firsApiSecret,
+              firsPublicKeyBase64: dto?.firsPublicKeyBase64 ?? existingBusinessesMap.get(business.id)?.firsPublicKeyBase64,
+              firsCertificateBase64: dto?.firsCertificateBase64 ?? existingBusinessesMap.get(business.id)?.firsCertificateBase64,
             })),
           });
         }
@@ -617,6 +626,10 @@ export class AuthService {
                   isActive: business.is_active,
                   createdAt: new Date(business.created_at),
                   updatedAt: new Date(business.updated_at),
+                  firsApiKey: encryptIfPlaintext(dto?.firsApiKey),
+                  firsApiSecret: encryptIfPlaintext(dto?.firsApiSecret),
+                  firsPublicKeyBase64: dto?.firsPublicKeyBase64,
+                  firsCertificateBase64: dto?.firsCertificateBase64,
                 })) || [],
             },
           },

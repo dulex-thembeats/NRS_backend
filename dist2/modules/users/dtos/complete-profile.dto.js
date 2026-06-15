@@ -21,6 +21,10 @@ class CompleteProfileDto {
     rcNumber;
     dateOfIncorporation;
     directors;
+    firsApiKey;
+    firsApiSecret;
+    firsPublicKeyBase64;
+    firsCertificateBase64;
 }
 exports.CompleteProfileDto = CompleteProfileDto;
 __decorate([
@@ -85,4 +89,38 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], CompleteProfileDto.prototype, "directors", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "The FIRS API Key from the business's FIRS Dashboard (Developer Settings → Apps)",
+        example: "2483f0f8-6e72-4c52-b893-f11dc79afce1",
+        required: true,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "firsApiKey", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "The FIRS Client Secret from the business's FIRS Dashboard (Developer Settings → Apps)",
+        example: "zSLuYPWOQD4OsoXUtHb3xz...",
+        required: true,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "firsApiSecret", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "Base64-encoded RSA public key from the crypto_keys.txt file downloaded from FIRS Dashboard → Manage Cryptographic Keys",
+        required: true,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "firsPublicKeyBase64", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "Base64-encoded certificate from the crypto_keys.txt file downloaded from FIRS Dashboard → Manage Cryptographic Keys",
+        required: true,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "firsCertificateBase64", void 0);
 //# sourceMappingURL=complete-profile.dto.js.map

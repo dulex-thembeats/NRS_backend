@@ -17,15 +17,15 @@ export declare class UsersService {
     findUserById(id: number): Promise<User | null>;
     findUserByEmail(email: string): Promise<User | null>;
     updateUser(id: number, updateUserDto: UpdateUserDto): Promise<{
-        id: number;
         entityId: string | null;
-        email: string;
-        password: string;
         businessName: string | null;
         businessAddress: string | null;
         rcNumber: string | null;
-        role: import(".prisma/client").$Enums.Role;
         dateOfIncorporation: Date | null;
+        id: number;
+        email: string;
+        password: string;
+        role: import(".prisma/client").$Enums.Role;
         isEmailVerified: boolean;
         emailVerificationToken: string | null;
         emailVerificationExpires: Date | null;

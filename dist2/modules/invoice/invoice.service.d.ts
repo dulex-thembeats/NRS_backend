@@ -7,6 +7,7 @@ export declare class InvoiceService {
     private readonly firsApiUrl;
     private readonly firsApiKey;
     private readonly firsApiSecret;
+    private getFirsHeadersForBusiness;
     private buildFirsHeaders;
     private parseTransmitError;
     private createTransmitException;

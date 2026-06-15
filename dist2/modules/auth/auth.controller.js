@@ -21,7 +21,7 @@ const dtos_2 = require("./dtos");
 const decorators_1 = require("../../common/decorators");
 const mail_service_1 = require("../../shared/email/mail.service");
 const jwt_auth_guard_1 = require("../auth/guard/jwt-auth.guard");
-const rate_limit_guard_1 = require("../../common/guards/rate-limit.guard");
+const throttler_1 = require("@nestjs/throttler");
 function parseCookieSecure() {
     const value = process.env.COOKIE_SECURE;
     if (value === undefined) {
@@ -108,6 +108,7 @@ let AuthController = class AuthController {
 exports.AuthController = AuthController;
 __decorate([
     (0, decorators_1.Public)(),
+    (0, throttler_1.Throttle)({ default: { limit: 5, ttl: 60000 } }),
     (0, common_1.Post)("register"),
     (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     (0, swagger_1.ApiOperation)({ summary: "Register a new user (Phase 1)" }),
@@ -134,7 +135,7 @@ __decorate([
 ], AuthController.prototype, "completeProfile", null);
 __decorate([
     (0, decorators_1.Public)(),
-    (0, common_1.UseGuards)(rate_limit_guard_1.RateLimitGuard),
+    (0, throttler_1.Throttle)({ default: { limit: 5, ttl: 60000 } }),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Post)("login"),
     (0, swagger_1.ApiOperation)({ summary: "Login user" }),
@@ -171,6 +172,7 @@ __decorate([
 ], AuthController.prototype, "resendVerification", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, throttler_1.Throttle)({ default: { limit: 3, ttl: 60000 } }),
     (0, common_1.Post)("forgot-password"),
     (0, swagger_1.ApiOperation)({ summary: "Request password reset" }),
     (0, swagger_1.ApiResponse)({ status: 200, description: "Reset email sent if user exists" }),
@@ -181,6 +183,7 @@ __decorate([
 ], AuthController.prototype, "forgotPassword", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, throttler_1.Throttle)({ default: { limit: 3, ttl: 60000 } }),
     (0, common_1.Post)("reset-password"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, swagger_1.ApiOperation)({ summary: "Reset password using token" }),

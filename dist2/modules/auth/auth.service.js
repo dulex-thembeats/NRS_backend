@@ -18,6 +18,7 @@ const bcrypt = require("bcryptjs");
 const mail_service_1 = require("../../shared/email/mail.service");
 const database_1 = require("../../database");
 const axios_1 = require("axios");
+const crypto_util_1 = require("../../shared/helpers/crypto.util");
 let AuthService = AuthService_1 = class AuthService {
     userService;
     jwtService;
@@ -25,8 +26,8 @@ let AuthService = AuthService_1 = class AuthService {
     prisma;
     logger = new common_1.Logger(AuthService_1.name);
     firsApiUrl = process.env.FIRS_API_URL ?? "";
-    firsApiKey = process.env.FIRS_API_KEY ?? "";
-    firsApiSecret = process.env.FIRS_API_SECRET ?? "";
+    firsApiKey = process.env.SYSTEM_INTEGRATOR_API_KEY ?? "";
+    firsApiSecret = process.env.SYSTEM_INTEGRATOR_API_SECRET ?? "";
     constructor(userService, jwtService, emailService, prisma) {
         this.userService = userService;
         this.jwtService = jwtService;
@@ -103,7 +104,7 @@ let AuthService = AuthService_1 = class AuthService {
     }
     async completeProfile(userId, completeProfileDto) {
         if (completeProfileDto.entityId) {
-            await this.fetchAndSaveEntityData(completeProfileDto.entityId, userId);
+            await this.fetchAndSaveEntityData(completeProfileDto.entityId, userId, completeProfileDto);
         }
         const user = await this.userService.completeProfile(userId, completeProfileDto);
         const businessContext = await this.buildBusinessContext(user.id);
@@ -342,7 +343,7 @@ let AuthService = AuthService_1 = class AuthService {
         });
         return { message: "Password has been successfully reset" };
     }
-    async fetchAndSaveEntityData(entityId, userId) {
+    async fetchAndSaveEntityData(entityId, userId, dto) {
         if (!this.firsApiUrl || !this.firsApiKey || !this.firsApiSecret) {
             throw new common_1.InternalServerErrorException("FIRS API credentials are not set in environment variables");
         }
@@ -352,8 +353,8 @@ let AuthService = AuthService_1 = class AuthService {
             const response = await axios_1.default.get(url, {
                 headers: {
                     "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
+                    "x-api-key": dto?.firsApiKey || this.firsApiKey,
+                    "x-api-secret": dto?.firsApiSecret || this.firsApiSecret,
                 },
             });
             const entityData = response.data.data;
@@ -363,6 +364,7 @@ let AuthService = AuthService_1 = class AuthService {
             this.logger.log(`Successfully fetched entity data for entityId: ${entityId}`);
             const existingEntity = await this.prisma.entity.findFirst({
                 where: { userId },
+                include: { businesses: true },
             });
             if (existingEntity) {
                 this.logger.log(`Entity already exists for user ${userId}, updating...`);
@@ -384,6 +386,7 @@ let AuthService = AuthService_1 = class AuthService {
                 await this.prisma.business.deleteMany({
                     where: { entityId: existingEntity.id },
                 });
+                const existingBusinessesMap = new Map(existingEntity.businesses.map(b => [b.id, b]));
                 if (entityData.businesses && entityData.businesses.length > 0) {
                     await this.prisma.business.createMany({
                         data: entityData.businesses.map((business) => ({
@@ -405,6 +408,10 @@ let AuthService = AuthService_1 = class AuthService {
                             createdAt: new Date(business.created_at),
                             updatedAt: new Date(business.updated_at),
                             entityId: existingEntity.id,
+                            firsApiKey: dto?.firsApiKey ? (0, crypto_util_1.encryptIfPlaintext)(dto.firsApiKey) : existingBusinessesMap.get(business.id)?.firsApiKey,
+                            firsApiSecret: dto?.firsApiSecret ? (0, crypto_util_1.encryptIfPlaintext)(dto.firsApiSecret) : existingBusinessesMap.get(business.id)?.firsApiSecret,
+                            firsPublicKeyBase64: dto?.firsPublicKeyBase64 ?? existingBusinessesMap.get(business.id)?.firsPublicKeyBase64,
+                            firsCertificateBase64: dto?.firsCertificateBase64 ?? existingBusinessesMap.get(business.id)?.firsCertificateBase64,
                         })),
                     });
                 }
@@ -443,6 +450,10 @@ let AuthService = AuthService_1 = class AuthService {
                                 isActive: business.is_active,
                                 createdAt: new Date(business.created_at),
                                 updatedAt: new Date(business.updated_at),
+                                firsApiKey: (0, crypto_util_1.encryptIfPlaintext)(dto?.firsApiKey),
+                                firsApiSecret: (0, crypto_util_1.encryptIfPlaintext)(dto?.firsApiSecret),
+                                firsPublicKeyBase64: dto?.firsPublicKeyBase64,
+                                firsCertificateBase64: dto?.firsCertificateBase64,
                             })) || [],
                         },
                     },

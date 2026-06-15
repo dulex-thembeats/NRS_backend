@@ -23,8 +23,7 @@ import { LoginDto, ResendVerificationDto, VerifyEmailDto, ForgotPasswordDto, Res
 import { Public, CurrentUser } from "../../common/decorators";
 import { EmailService } from "../../shared/email/mail.service";
 import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
-import { RateLimitGuard } from "../../common/guards/rate-limit.guard";
-
+import { Throttle } from "@nestjs/throttler";
 function parseCookieSecure(): boolean {
   const value = process.env.COOKIE_SECURE;
 
@@ -58,6 +57,7 @@ export class AuthController {
   ) {}
 
   @Public()
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post("register")
   @HttpCode(HttpStatus.ACCEPTED)
   @ApiOperation({ summary: "Register a new user (Phase 1)" })
@@ -93,7 +93,7 @@ export class AuthController {
   }
 
   @Public()
-  @UseGuards(RateLimitGuard)
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @HttpCode(HttpStatus.OK)
   @Post("login")
   @ApiOperation({ summary: "Login user" })
@@ -130,6 +130,7 @@ export class AuthController {
   }
 
   @Public()
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post("forgot-password")
   @ApiOperation({ summary: "Request password reset" })
   @ApiResponse({ status: 200, description: "Reset email sent if user exists" })
@@ -138,6 +139,7 @@ export class AuthController {
   }
 
   @Public()
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post("reset-password")
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Reset password using token" })

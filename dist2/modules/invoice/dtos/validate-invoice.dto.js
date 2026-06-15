@@ -47,6 +47,8 @@ class PostalAddressDto {
     city_name;
     postal_zone;
     country;
+    lga;
+    state;
 }
 exports.PostalAddressDto = PostalAddressDto;
 __decorate([
@@ -85,6 +87,24 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PostalAddressDto.prototype, "country", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Local Government Area',
+        example: 'Ikeja',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], PostalAddressDto.prototype, "lga", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'State',
+        example: 'Lagos',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], PostalAddressDto.prototype, "state", void 0);
 class PartyDto {
     party_name;
     tin;
@@ -105,11 +125,12 @@ __decorate([
 ], PartyDto.prototype, "party_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Tax Identification Number',
-        example: 'TIN-0099990001',
+        description: 'Tax Identification Number (TIN)',
+        example: '33779413-0001',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.Matches)(/^[\d-]+$/, { message: 'TIN must contain only numbers and optional hyphens' }),
     __metadata("design:type", String)
 ], PartyDto.prototype, "tin", void 0);
 __decorate([
@@ -419,10 +440,12 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Price unit',
-        example: 'NGN per 1',
+        example: 'EA',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.MinLength)(1),
+    (0, class_validator_1.MaxLength)(10),
     __metadata("design:type", String)
 ], PriceDto.prototype, "price_unit", void 0);
 class InvoiceLineDto {
@@ -441,10 +464,11 @@ exports.InvoiceLineDto = InvoiceLineDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'HSN code',
-        example: 'CC-001',
+        example: '8523.80.20',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.Matches)(/^[\d\.]{4,15}$/, { message: 'HSN code must be a numeric/dotted string between 4 and 15 characters' }),
     __metadata("design:type", String)
 ], InvoiceLineDto.prototype, "hsn_code", void 0);
 __decorate([
@@ -529,6 +553,7 @@ __decorate([
     __metadata("design:type", PriceDto)
 ], InvoiceLineDto.prototype, "price", void 0);
 class ValidateInvoiceDto {
+    invoice_kind;
     business_id;
     irn;
     issue_date;
@@ -561,6 +586,17 @@ class ValidateInvoiceDto {
     invoice_line;
 }
 exports.ValidateInvoiceDto = ValidateInvoiceDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Invoice kind (B2B, B2C, B2G)',
+        example: 'B2B',
+        enum: ['B2B', 'B2C', 'B2G']
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEnum)(['B2B', 'B2C', 'B2G']),
+    __metadata("design:type", String)
+], ValidateInvoiceDto.prototype, "invoice_kind", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Business ID',

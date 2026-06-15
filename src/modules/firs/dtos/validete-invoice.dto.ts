@@ -14,6 +14,8 @@ import {
   MaxLength,
   ValidateNested,
   ValidateIf,
+  IsEnum,
+  MinLength,
 } from "class-validator";
 import { Type } from "class-transformer";
 
@@ -37,6 +39,14 @@ class PostalAddressDto {
   @IsNotEmpty()
   @Length(2, 2)
   readonly country: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly lga: string;
+
+  @IsString()
+  @IsNotEmpty()
+  readonly state: string;
 }
 
 /**
@@ -49,6 +59,7 @@ class PartyDto {
 
   @IsString()
   @IsNotEmpty()
+  @Matches(/^[\d-]+$/, { message: 'TIN must contain only numbers and optional hyphens' })
   readonly tin: string;
 
   @IsEmail()
@@ -219,6 +230,8 @@ class InvoiceLinePriceDto {
 
   @IsString()
   @IsNotEmpty()
+  @MinLength(1)
+  @MaxLength(5)
   readonly price_unit: string;
 }
 
@@ -228,6 +241,7 @@ class InvoiceLinePriceDto {
 class InvoiceLineDto {
   @IsString()
   @IsNotEmpty()
+  @Matches(/^\d{4,10}$/, { message: 'HSN code must be a numeric string between 4 and 10 digits' })
   readonly hsn_code: string;
 
   @IsString()
@@ -271,6 +285,11 @@ class InvoiceLineDto {
  * Data Transfer Object for validating an invoice.
  */
 export class FirsValidateInvoiceDto {
+  @IsString()
+  @IsNotEmpty()
+  @IsEnum(['B2B', 'B2C', 'B2G'])
+  readonly invoice_kind: string;
+
   @IsString()
   @IsNotEmpty()
   readonly business_id: string;
