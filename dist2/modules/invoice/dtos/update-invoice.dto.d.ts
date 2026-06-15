@@ -1,63 +1,65 @@
-declare class PostalAddressDto {
+declare class UpdatePostalAddressDto {
     street_name: string;
     city_name: string;
     postal_zone: string;
     country: string;
+    lga: string;
+    state: string;
 }
-declare class PartyDto {
+declare class UpdatePartyDto {
     party_name: string;
     tin: string;
     email: string;
     telephone?: string;
     business_description?: string;
-    postal_address?: PostalAddressDto;
+    postal_address?: UpdatePostalAddressDto;
 }
-declare class DocumentReferenceDto {
+declare class UpdateDocumentReferenceDto {
     irn: string;
     issue_date: string;
 }
-declare class InvoiceDeliveryPeriodDto {
+declare class UpdateInvoiceDeliveryPeriodDto {
     start_date: string;
     end_date: string;
 }
-declare class PaymentMeansDto {
+declare class UpdatePaymentMeansDto {
     payment_means_code: string;
     payment_due_date: string;
 }
-declare class AllowanceChargeDto {
+declare class UpdateAllowanceChargeDto {
     charge_indicator: number;
     amount: number;
 }
-declare class TaxCategoryDto {
+declare class UpdateTaxCategoryDto {
     category_id: string;
     percent: number;
 }
-declare class TaxSubtotalDto {
+declare class UpdateTaxSubtotalDto {
     taxable_amount: number;
     tax_amount: number;
-    tax_category?: TaxCategoryDto;
+    tax_category?: UpdateTaxCategoryDto;
 }
-declare class TaxTotalDto {
+declare class UpdateTaxTotalDto {
     tax_amount: number;
-    tax_subtotal?: TaxSubtotalDto[];
+    tax_subtotal?: UpdateTaxSubtotalDto[];
 }
-declare class LegalMonetaryTotalDto {
+declare class UpdateLegalMonetaryTotalDto {
     line_extension_amount: number;
     tax_exclusive_amount: number;
     tax_inclusive_amount: number;
     payable_amount: number;
 }
-declare class ItemDto {
+declare class UpdateItemDto {
     name: string;
     description: string;
     sellers_item_identification?: string;
 }
-declare class PriceDto {
+declare class UpdatePriceDto {
     price_amount: number;
     base_quantity: number;
     price_unit: string;
 }
-declare class InvoiceLineDto {
+declare class UpdateInvoiceLineDto {
     hsn_code: string;
     product_category: string;
     discount_rate: number;
@@ -66,8 +68,8 @@ declare class InvoiceLineDto {
     fee_amount: number;
     invoiced_quantity: number;
     line_extension_amount: number;
-    item: ItemDto;
-    price: PriceDto;
+    item: UpdateItemDto;
+    price: UpdatePriceDto;
 }
 export declare class UpdateInvoiceDto {
     business_id?: string;
@@ -76,6 +78,7 @@ export declare class UpdateInvoiceDto {
     due_date?: string;
     issue_time?: string;
     invoice_type_code?: string;
+    invoice_kind?: string;
     payment_status?: string;
     note?: string;
     tax_point_date?: string;
@@ -84,21 +87,21 @@ export declare class UpdateInvoiceDto {
     accounting_cost?: string;
     buyer_reference?: string;
     order_reference?: string;
-    invoice_delivery_period?: InvoiceDeliveryPeriodDto;
-    billing_reference?: DocumentReferenceDto;
-    dispatch_document_reference?: DocumentReferenceDto;
-    receipt_document_reference?: DocumentReferenceDto;
-    originator_document_reference?: DocumentReferenceDto;
-    contract_document_reference?: DocumentReferenceDto;
-    _document_reference?: DocumentReferenceDto[];
-    accounting_supplier_party?: PartyDto;
-    accounting_customer_party?: PartyDto;
+    invoice_delivery_period?: UpdateInvoiceDeliveryPeriodDto;
+    billing_reference?: UpdateDocumentReferenceDto;
+    dispatch_document_reference?: UpdateDocumentReferenceDto;
+    receipt_document_reference?: UpdateDocumentReferenceDto;
+    originator_document_reference?: UpdateDocumentReferenceDto;
+    contract_document_reference?: UpdateDocumentReferenceDto;
+    _document_reference?: UpdateDocumentReferenceDto[];
+    accounting_supplier_party?: UpdatePartyDto;
+    accounting_customer_party?: UpdatePartyDto;
     actual_delivery_date?: string;
-    payment_means?: PaymentMeansDto[];
+    payment_means?: UpdatePaymentMeansDto[];
     payment_terms_note?: string;
-    allowance_charge?: AllowanceChargeDto[];
-    tax_total?: TaxTotalDto[];
-    legal_monetary_total?: LegalMonetaryTotalDto;
-    invoice_line?: InvoiceLineDto[];
+    allowance_charge?: UpdateAllowanceChargeDto[];
+    tax_total?: UpdateTaxTotalDto[];
+    legal_monetary_total?: UpdateLegalMonetaryTotalDto;
+    invoice_line?: UpdateInvoiceLineDto[];
 }
 export {};

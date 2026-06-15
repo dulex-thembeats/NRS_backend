@@ -95,7 +95,7 @@ export class PostalAddressDto {
 export class PartyDto {
   @ApiProperty({
     description: 'Party name',
-    example: 'Test Pls',
+    example: 'Northgate Digital Services Ltd',
   })
   @IsString()
   @IsNotEmpty()

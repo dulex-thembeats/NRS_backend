@@ -73,14 +73,14 @@ class SimplePartyDto {
     postal_address;
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: "Dangote Group" }),
+    (0, swagger_1.ApiProperty)({ example: "Northgate Digital Services Ltd" }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(1),
     (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], SimplePartyDto.prototype, "party_name", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: "TIN-0099990001" }),
+    (0, swagger_1.ApiProperty)({ example: "33779413-0001" }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(1),
     (0, class_validator_1.MaxLength)(50),
@@ -159,7 +159,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: "HS code for goods. Use this or isic_code for services.",
-        example: "2523.29",
+        example: "8523.80.20",
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -169,7 +169,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: "Product category for goods.",
-        example: "Building Materials",
+        example: "Technology",
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -228,7 +228,7 @@ __decorate([
     __metadata("design:type", Number)
 ], SimpleInvoiceItemDto.prototype, "fee_amount", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ example: "NGN per 1" }),
+    (0, swagger_1.ApiPropertyOptional)({ example: "EA" }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MaxLength)(50),

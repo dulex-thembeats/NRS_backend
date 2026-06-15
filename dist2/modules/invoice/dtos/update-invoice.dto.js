@@ -13,11 +13,13 @@ exports.UpdateInvoiceDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
-class PostalAddressDto {
+class UpdatePostalAddressDto {
     street_name;
     city_name;
     postal_zone;
     country;
+    lga;
+    state;
 }
 __decorate([
     (0, swagger_1.ApiProperty)({
@@ -27,7 +29,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PostalAddressDto.prototype, "street_name", void 0);
+], UpdatePostalAddressDto.prototype, "street_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'City name',
@@ -36,7 +38,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PostalAddressDto.prototype, "city_name", void 0);
+], UpdatePostalAddressDto.prototype, "city_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Postal zone',
@@ -45,7 +47,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PostalAddressDto.prototype, "postal_zone", void 0);
+], UpdatePostalAddressDto.prototype, "postal_zone", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Country',
@@ -54,8 +56,26 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PostalAddressDto.prototype, "country", void 0);
-class PartyDto {
+], UpdatePostalAddressDto.prototype, "country", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Local Government Area',
+        example: 'Ikeja',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UpdatePostalAddressDto.prototype, "lga", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'State',
+        example: 'Lagos',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UpdatePostalAddressDto.prototype, "state", void 0);
+class UpdatePartyDto {
     party_name;
     tin;
     email;
@@ -66,21 +86,21 @@ class PartyDto {
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Party name',
-        example: 'John Doe Limited',
+        example: 'Northgate Digital Services Ltd',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PartyDto.prototype, "party_name", void 0);
+], UpdatePartyDto.prototype, "party_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Tax Identification Number',
-        example: '12345678901',
+        example: '33779413-0001',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PartyDto.prototype, "tin", void 0);
+], UpdatePartyDto.prototype, "tin", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Email address',
@@ -89,7 +109,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PartyDto.prototype, "email", void 0);
+], UpdatePartyDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Telephone number',
@@ -98,7 +118,7 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], PartyDto.prototype, "telephone", void 0);
+], UpdatePartyDto.prototype, "telephone", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Business description',
@@ -107,18 +127,18 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], PartyDto.prototype, "business_description", void 0);
+], UpdatePartyDto.prototype, "business_description", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Postal address',
-        type: PostalAddressDto,
+        type: UpdatePostalAddressDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => PostalAddressDto),
-    __metadata("design:type", PostalAddressDto)
-], PartyDto.prototype, "postal_address", void 0);
-class DocumentReferenceDto {
+    (0, class_transformer_1.Type)(() => UpdatePostalAddressDto),
+    __metadata("design:type", UpdatePostalAddressDto)
+], UpdatePartyDto.prototype, "postal_address", void 0);
+class UpdateDocumentReferenceDto {
     irn;
     issue_date;
 }
@@ -130,7 +150,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], DocumentReferenceDto.prototype, "irn", void 0);
+], UpdateDocumentReferenceDto.prototype, "irn", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Issue date',
@@ -138,8 +158,8 @@ __decorate([
     }),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
-], DocumentReferenceDto.prototype, "issue_date", void 0);
-class InvoiceDeliveryPeriodDto {
+], UpdateDocumentReferenceDto.prototype, "issue_date", void 0);
+class UpdateInvoiceDeliveryPeriodDto {
     start_date;
     end_date;
 }
@@ -150,7 +170,7 @@ __decorate([
     }),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
-], InvoiceDeliveryPeriodDto.prototype, "start_date", void 0);
+], UpdateInvoiceDeliveryPeriodDto.prototype, "start_date", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'End date',
@@ -158,8 +178,8 @@ __decorate([
     }),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
-], InvoiceDeliveryPeriodDto.prototype, "end_date", void 0);
-class PaymentMeansDto {
+], UpdateInvoiceDeliveryPeriodDto.prototype, "end_date", void 0);
+class UpdatePaymentMeansDto {
     payment_means_code;
     payment_due_date;
 }
@@ -171,7 +191,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PaymentMeansDto.prototype, "payment_means_code", void 0);
+], UpdatePaymentMeansDto.prototype, "payment_means_code", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Payment due date',
@@ -179,8 +199,8 @@ __decorate([
     }),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
-], PaymentMeansDto.prototype, "payment_due_date", void 0);
-class AllowanceChargeDto {
+], UpdatePaymentMeansDto.prototype, "payment_due_date", void 0);
+class UpdateAllowanceChargeDto {
     charge_indicator;
     amount;
 }
@@ -191,7 +211,7 @@ __decorate([
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], AllowanceChargeDto.prototype, "charge_indicator", void 0);
+], UpdateAllowanceChargeDto.prototype, "charge_indicator", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Amount',
@@ -200,8 +220,8 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], AllowanceChargeDto.prototype, "amount", void 0);
-class TaxCategoryDto {
+], UpdateAllowanceChargeDto.prototype, "amount", void 0);
+class UpdateTaxCategoryDto {
     category_id;
     percent;
 }
@@ -213,7 +233,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], TaxCategoryDto.prototype, "category_id", void 0);
+], UpdateTaxCategoryDto.prototype, "category_id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Percentage',
@@ -222,8 +242,8 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], TaxCategoryDto.prototype, "percent", void 0);
-class TaxSubtotalDto {
+], UpdateTaxCategoryDto.prototype, "percent", void 0);
+class UpdateTaxSubtotalDto {
     taxable_amount;
     tax_amount;
     tax_category;
@@ -236,7 +256,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], TaxSubtotalDto.prototype, "taxable_amount", void 0);
+], UpdateTaxSubtotalDto.prototype, "taxable_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Tax amount',
@@ -245,18 +265,18 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], TaxSubtotalDto.prototype, "tax_amount", void 0);
+], UpdateTaxSubtotalDto.prototype, "tax_amount", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Tax category',
-        type: TaxCategoryDto,
+        type: UpdateTaxCategoryDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => TaxCategoryDto),
-    __metadata("design:type", TaxCategoryDto)
-], TaxSubtotalDto.prototype, "tax_category", void 0);
-class TaxTotalDto {
+    (0, class_transformer_1.Type)(() => UpdateTaxCategoryDto),
+    __metadata("design:type", UpdateTaxCategoryDto)
+], UpdateTaxSubtotalDto.prototype, "tax_category", void 0);
+class UpdateTaxTotalDto {
     tax_amount;
     tax_subtotal;
 }
@@ -268,19 +288,19 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], TaxTotalDto.prototype, "tax_amount", void 0);
+], UpdateTaxTotalDto.prototype, "tax_amount", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Tax subtotals',
-        type: [TaxSubtotalDto],
+        type: [UpdateTaxSubtotalDto],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
-    (0, class_transformer_1.Type)(() => TaxSubtotalDto),
+    (0, class_transformer_1.Type)(() => UpdateTaxSubtotalDto),
     __metadata("design:type", Array)
-], TaxTotalDto.prototype, "tax_subtotal", void 0);
-class LegalMonetaryTotalDto {
+], UpdateTaxTotalDto.prototype, "tax_subtotal", void 0);
+class UpdateLegalMonetaryTotalDto {
     line_extension_amount;
     tax_exclusive_amount;
     tax_inclusive_amount;
@@ -294,7 +314,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], LegalMonetaryTotalDto.prototype, "line_extension_amount", void 0);
+], UpdateLegalMonetaryTotalDto.prototype, "line_extension_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Tax exclusive amount',
@@ -303,7 +323,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], LegalMonetaryTotalDto.prototype, "tax_exclusive_amount", void 0);
+], UpdateLegalMonetaryTotalDto.prototype, "tax_exclusive_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Tax inclusive amount',
@@ -312,7 +332,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], LegalMonetaryTotalDto.prototype, "tax_inclusive_amount", void 0);
+], UpdateLegalMonetaryTotalDto.prototype, "tax_inclusive_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Payable amount',
@@ -321,8 +341,8 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], LegalMonetaryTotalDto.prototype, "payable_amount", void 0);
-class ItemDto {
+], UpdateLegalMonetaryTotalDto.prototype, "payable_amount", void 0);
+class UpdateItemDto {
     name;
     description;
     sellers_item_identification;
@@ -335,7 +355,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ItemDto.prototype, "name", void 0);
+], UpdateItemDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Item description',
@@ -344,7 +364,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ItemDto.prototype, "description", void 0);
+], UpdateItemDto.prototype, "description", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Sellers item identification',
@@ -353,8 +373,8 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ItemDto.prototype, "sellers_item_identification", void 0);
-class PriceDto {
+], UpdateItemDto.prototype, "sellers_item_identification", void 0);
+class UpdatePriceDto {
     price_amount;
     base_quantity;
     price_unit;
@@ -367,7 +387,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], PriceDto.prototype, "price_amount", void 0);
+], UpdatePriceDto.prototype, "price_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Base quantity',
@@ -376,17 +396,17 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], PriceDto.prototype, "base_quantity", void 0);
+], UpdatePriceDto.prototype, "base_quantity", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Price unit',
-        example: 'Each',
+        example: 'EA',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], PriceDto.prototype, "price_unit", void 0);
-class InvoiceLineDto {
+], UpdatePriceDto.prototype, "price_unit", void 0);
+class UpdateInvoiceLineDto {
     hsn_code;
     product_category;
     discount_rate;
@@ -401,12 +421,12 @@ class InvoiceLineDto {
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'HSN code',
-        example: 'CC-001',
+        example: '8523.80.20',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], InvoiceLineDto.prototype, "hsn_code", void 0);
+], UpdateInvoiceLineDto.prototype, "hsn_code", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Product category',
@@ -415,7 +435,7 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], InvoiceLineDto.prototype, "product_category", void 0);
+], UpdateInvoiceLineDto.prototype, "product_category", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Discount rate',
@@ -424,7 +444,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], InvoiceLineDto.prototype, "discount_rate", void 0);
+], UpdateInvoiceLineDto.prototype, "discount_rate", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Discount amount',
@@ -433,7 +453,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], InvoiceLineDto.prototype, "discount_amount", void 0);
+], UpdateInvoiceLineDto.prototype, "discount_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Fee rate',
@@ -442,7 +462,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], InvoiceLineDto.prototype, "fee_rate", void 0);
+], UpdateInvoiceLineDto.prototype, "fee_rate", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Fee amount',
@@ -451,7 +471,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], InvoiceLineDto.prototype, "fee_amount", void 0);
+], UpdateInvoiceLineDto.prototype, "fee_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Invoiced quantity',
@@ -460,7 +480,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], InvoiceLineDto.prototype, "invoiced_quantity", void 0);
+], UpdateInvoiceLineDto.prototype, "invoiced_quantity", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Line extension amount',
@@ -469,25 +489,25 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], InvoiceLineDto.prototype, "line_extension_amount", void 0);
+], UpdateInvoiceLineDto.prototype, "line_extension_amount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Item details',
-        type: ItemDto,
+        type: UpdateItemDto,
     }),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => ItemDto),
-    __metadata("design:type", ItemDto)
-], InvoiceLineDto.prototype, "item", void 0);
+    (0, class_transformer_1.Type)(() => UpdateItemDto),
+    __metadata("design:type", UpdateItemDto)
+], UpdateInvoiceLineDto.prototype, "item", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Price details',
-        type: PriceDto,
+        type: UpdatePriceDto,
     }),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => PriceDto),
-    __metadata("design:type", PriceDto)
-], InvoiceLineDto.prototype, "price", void 0);
+    (0, class_transformer_1.Type)(() => UpdatePriceDto),
+    __metadata("design:type", UpdatePriceDto)
+], UpdateInvoiceLineDto.prototype, "price", void 0);
 class UpdateInvoiceDto {
     business_id;
     irn;
@@ -495,6 +515,7 @@ class UpdateInvoiceDto {
     due_date;
     issue_time;
     invoice_type_code;
+    invoice_kind;
     payment_status;
     note;
     tax_point_date;
@@ -586,6 +607,17 @@ __decorate([
 ], UpdateInvoiceDto.prototype, "invoice_type_code", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
+        description: 'Invoice kind (B2B, B2C, B2G)',
+        example: 'B2B',
+        enum: ['B2B', 'B2C', 'B2G'],
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(['B2B', 'B2C', 'B2G']),
+    __metadata("design:type", String)
+], UpdateInvoiceDto.prototype, "invoice_kind", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
         description: 'Payment status',
         example: 'PENDING',
         enum: ['PENDING', 'PAID', 'OVERDUE', 'CANCELLED'],
@@ -668,93 +700,93 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Invoice delivery period',
-        type: InvoiceDeliveryPeriodDto,
+        type: UpdateInvoiceDeliveryPeriodDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => InvoiceDeliveryPeriodDto),
-    __metadata("design:type", InvoiceDeliveryPeriodDto)
+    (0, class_transformer_1.Type)(() => UpdateInvoiceDeliveryPeriodDto),
+    __metadata("design:type", UpdateInvoiceDeliveryPeriodDto)
 ], UpdateInvoiceDto.prototype, "invoice_delivery_period", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Billing reference',
-        type: DocumentReferenceDto,
+        type: UpdateDocumentReferenceDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => DocumentReferenceDto),
-    __metadata("design:type", DocumentReferenceDto)
+    (0, class_transformer_1.Type)(() => UpdateDocumentReferenceDto),
+    __metadata("design:type", UpdateDocumentReferenceDto)
 ], UpdateInvoiceDto.prototype, "billing_reference", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Dispatch document reference',
-        type: DocumentReferenceDto,
+        type: UpdateDocumentReferenceDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => DocumentReferenceDto),
-    __metadata("design:type", DocumentReferenceDto)
+    (0, class_transformer_1.Type)(() => UpdateDocumentReferenceDto),
+    __metadata("design:type", UpdateDocumentReferenceDto)
 ], UpdateInvoiceDto.prototype, "dispatch_document_reference", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Receipt document reference',
-        type: DocumentReferenceDto,
+        type: UpdateDocumentReferenceDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => DocumentReferenceDto),
-    __metadata("design:type", DocumentReferenceDto)
+    (0, class_transformer_1.Type)(() => UpdateDocumentReferenceDto),
+    __metadata("design:type", UpdateDocumentReferenceDto)
 ], UpdateInvoiceDto.prototype, "receipt_document_reference", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Originator document reference',
-        type: DocumentReferenceDto,
+        type: UpdateDocumentReferenceDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => DocumentReferenceDto),
-    __metadata("design:type", DocumentReferenceDto)
+    (0, class_transformer_1.Type)(() => UpdateDocumentReferenceDto),
+    __metadata("design:type", UpdateDocumentReferenceDto)
 ], UpdateInvoiceDto.prototype, "originator_document_reference", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Contract document reference',
-        type: DocumentReferenceDto,
+        type: UpdateDocumentReferenceDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => DocumentReferenceDto),
-    __metadata("design:type", DocumentReferenceDto)
+    (0, class_transformer_1.Type)(() => UpdateDocumentReferenceDto),
+    __metadata("design:type", UpdateDocumentReferenceDto)
 ], UpdateInvoiceDto.prototype, "contract_document_reference", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Document references',
-        type: [DocumentReferenceDto],
+        type: [UpdateDocumentReferenceDto],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
-    (0, class_transformer_1.Type)(() => DocumentReferenceDto),
+    (0, class_transformer_1.Type)(() => UpdateDocumentReferenceDto),
     __metadata("design:type", Array)
 ], UpdateInvoiceDto.prototype, "_document_reference", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Accounting supplier party',
-        type: PartyDto,
+        type: UpdatePartyDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => PartyDto),
-    __metadata("design:type", PartyDto)
+    (0, class_transformer_1.Type)(() => UpdatePartyDto),
+    __metadata("design:type", UpdatePartyDto)
 ], UpdateInvoiceDto.prototype, "accounting_supplier_party", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Accounting customer party',
-        type: PartyDto,
+        type: UpdatePartyDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => PartyDto),
-    __metadata("design:type", PartyDto)
+    (0, class_transformer_1.Type)(() => UpdatePartyDto),
+    __metadata("design:type", UpdatePartyDto)
 ], UpdateInvoiceDto.prototype, "accounting_customer_party", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
@@ -768,12 +800,12 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Payment means',
-        type: [PaymentMeansDto],
+        type: [UpdatePaymentMeansDto],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
-    (0, class_transformer_1.Type)(() => PaymentMeansDto),
+    (0, class_transformer_1.Type)(() => UpdatePaymentMeansDto),
     __metadata("design:type", Array)
 ], UpdateInvoiceDto.prototype, "payment_means", void 0);
 __decorate([
@@ -789,44 +821,44 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Allowance charges',
-        type: [AllowanceChargeDto],
+        type: [UpdateAllowanceChargeDto],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
-    (0, class_transformer_1.Type)(() => AllowanceChargeDto),
+    (0, class_transformer_1.Type)(() => UpdateAllowanceChargeDto),
     __metadata("design:type", Array)
 ], UpdateInvoiceDto.prototype, "allowance_charge", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Tax totals',
-        type: [TaxTotalDto],
+        type: [UpdateTaxTotalDto],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
-    (0, class_transformer_1.Type)(() => TaxTotalDto),
+    (0, class_transformer_1.Type)(() => UpdateTaxTotalDto),
     __metadata("design:type", Array)
 ], UpdateInvoiceDto.prototype, "tax_total", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Legal monetary total',
-        type: LegalMonetaryTotalDto,
+        type: UpdateLegalMonetaryTotalDto,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => LegalMonetaryTotalDto),
-    __metadata("design:type", LegalMonetaryTotalDto)
+    (0, class_transformer_1.Type)(() => UpdateLegalMonetaryTotalDto),
+    __metadata("design:type", UpdateLegalMonetaryTotalDto)
 ], UpdateInvoiceDto.prototype, "legal_monetary_total", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'Invoice lines',
-        type: [InvoiceLineDto],
+        type: [UpdateInvoiceLineDto],
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
-    (0, class_transformer_1.Type)(() => InvoiceLineDto),
+    (0, class_transformer_1.Type)(() => UpdateInvoiceLineDto),
     __metadata("design:type", Array)
 ], UpdateInvoiceDto.prototype, "invoice_line", void 0);
 //# sourceMappingURL=update-invoice.dto.js.map

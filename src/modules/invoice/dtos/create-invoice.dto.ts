@@ -56,13 +56,13 @@ class SimplePostalAddressDto {
 }
 
 class SimplePartyDto {
-  @ApiProperty({ example: "Dangote Group" })
+  @ApiProperty({ example: "Northgate Digital Services Ltd" })
   @IsString()
   @MinLength(1)
   @MaxLength(255)
   party_name: string;
 
-  @ApiProperty({ example: "TIN-0099990001" })
+  @ApiProperty({ example: "33779413-0001" })
   @IsString()
   @MinLength(1)
   @MaxLength(50)
@@ -119,7 +119,7 @@ class SimpleInvoiceItemDto {
 
   @ApiPropertyOptional({
     description: "HS code for goods. Use this or isic_code for services.",
-    example: "2523.29",
+    example: "8523.80.20",
   })
   @IsOptional()
   @IsString()
@@ -128,7 +128,7 @@ class SimpleInvoiceItemDto {
 
   @ApiPropertyOptional({
     description: "Product category for goods.",
-    example: "Building Materials",
+    example: "Technology",
   })
   @IsOptional()
   @IsString()
@@ -181,7 +181,7 @@ class SimpleInvoiceItemDto {
   @Type(() => Number)
   fee_amount?: number = 0;
 
-  @ApiPropertyOptional({ example: "NGN per 1" })
+  @ApiPropertyOptional({ example: "EA" })
   @IsOptional()
   @IsString()
   @MaxLength(50)
