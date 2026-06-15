@@ -353,8 +353,8 @@ let AuthService = AuthService_1 = class AuthService {
             const response = await axios_1.default.get(url, {
                 headers: {
                     "Content-Type": "application/json",
-                    "x-api-key": dto?.firsApiKey || this.firsApiKey,
-                    "x-api-secret": dto?.firsApiSecret || this.firsApiSecret,
+                    "x-api-key": this.firsApiKey,
+                    "x-api-secret": this.firsApiSecret,
                 },
             });
             const entityData = response.data.data;

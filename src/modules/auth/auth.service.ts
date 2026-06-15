@@ -508,8 +508,8 @@ export class AuthService {
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": dto?.firsApiKey || this.firsApiKey,
-          "x-api-secret": dto?.firsApiSecret || this.firsApiSecret,
+          "x-api-key": this.firsApiKey,
+          "x-api-secret": this.firsApiSecret,
         },
       });
 
