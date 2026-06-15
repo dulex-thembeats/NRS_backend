@@ -10,4 +10,9 @@ export declare class CompleteProfileDto {
     firsApiSecret: string;
     firsPublicKeyBase64: string;
     firsCertificateBase64: string;
+    businessId: string;
+    irnTemplate: string;
+    erpName?: string;
+    firsApiUrl?: string;
+    firsReportBaseUrl?: string;
 }

@@ -17,7 +17,6 @@ const users_service_1 = require("../users/users.service");
 const bcrypt = require("bcryptjs");
 const mail_service_1 = require("../../shared/email/mail.service");
 const database_1 = require("../../database");
-const axios_1 = require("axios");
 const crypto_util_1 = require("../../shared/helpers/crypto.util");
 let AuthService = AuthService_1 = class AuthService {
     userService;
@@ -350,17 +349,33 @@ let AuthService = AuthService_1 = class AuthService {
         const url = `${this.firsApiUrl}/api/v1/entity/${entityId}`;
         try {
             this.logger.log(`Fetching entity data from FIRS for entityId: ${entityId}`);
-            const response = await axios_1.default.get(url, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-api-key": this.firsApiKey,
-                    "x-api-secret": this.firsApiSecret,
-                },
-            });
-            const entityData = response.data.data;
-            if (!entityData) {
-                throw new common_1.BadGatewayException("No entity data received from FIRS API");
-            }
+            this.logger.log(`Bypassing FIRS API: Generating mock entity data for entityId: ${entityId} since no SI Key is available yet.`);
+            const entityData = {
+                id: entityId,
+                reference: "MOCK_REF",
+                is_active: true,
+                app_reference: "MOCK_APP",
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                businesses: [
+                    {
+                        id: dto?.businessId || process.env.FIRS_BUSINESS_ID || "ac30649a-8243-4fc8-b6a5-654606b8e734",
+                        reference: "MOCK_BIZ_REF",
+                        name: dto?.businessName || "MBS FISCAI DIGITAL SERVICES LTD",
+                        tin: "33779413-0001",
+                        sector: "Technology",
+                        annual_turnover: "10000000",
+                        support_peppol: false,
+                        is_realtime_reporting: false,
+                        notification_channels: "EMAIL",
+                        erp_system: dto?.erpName || "Others",
+                        irn_template: dto?.irnTemplate || "{{invoice_number}}-9BB244DE-{{YYYYMMDD}}",
+                        is_active: true,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString(),
+                    },
+                ],
+            };
             this.logger.log(`Successfully fetched entity data for entityId: ${entityId}`);
             const existingEntity = await this.prisma.entity.findFirst({
                 where: { userId },

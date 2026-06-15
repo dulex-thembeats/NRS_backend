@@ -102,4 +102,47 @@ export class CompleteProfileDto {
     required: true,
   })
   firsCertificateBase64: string;
+
+  @IsString()
+  @ApiProperty({
+    description: "The Business ID (UUID) associated with the entity",
+    example: "ac30649a-8243-4fc8-b6a5-654606b8e734",
+    required: true,
+  })
+  businessId: string;
+
+  @IsString()
+  @ApiProperty({
+    description: "The IRN template assigned to this business",
+    example: "{{invoice_id(e.g:INV00XXX)}}-0AB18243-{{YYYYMMDD(e.g:20260610)}}",
+    required: true,
+  })
+  irnTemplate: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: "The ERP Name",
+    example: "Others",
+    required: false,
+  })
+  erpName?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: "Base URL for the FIRS environment",
+    example: "https://eivc-k6z6d.ondigitalocean.app",
+    required: false,
+  })
+  firsApiUrl?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: "Report Base URL for the FIRS environment",
+    example: "https://api.firsmbs.com",
+    required: false,
+  })
+  firsReportBaseUrl?: string;
 }

@@ -25,6 +25,11 @@ class CompleteProfileDto {
     firsApiSecret;
     firsPublicKeyBase64;
     firsCertificateBase64;
+    businessId;
+    irnTemplate;
+    erpName;
+    firsApiUrl;
+    firsReportBaseUrl;
 }
 exports.CompleteProfileDto = CompleteProfileDto;
 __decorate([
@@ -123,4 +128,52 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], CompleteProfileDto.prototype, "firsCertificateBase64", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "The Business ID (UUID) associated with the entity",
+        example: "ac30649a-8243-4fc8-b6a5-654606b8e734",
+        required: true,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "businessId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "The IRN template assigned to this business",
+        example: "{{invoice_id(e.g:INV00XXX)}}-0AB18243-{{YYYYMMDD(e.g:20260610)}}",
+        required: true,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "irnTemplate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "The ERP Name",
+        example: "Others",
+        required: false,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "erpName", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "Base URL for the FIRS environment",
+        example: "https://eivc-k6z6d.ondigitalocean.app",
+        required: false,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "firsApiUrl", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)({
+        description: "Report Base URL for the FIRS environment",
+        example: "https://api.firsmbs.com",
+        required: false,
+    }),
+    __metadata("design:type", String)
+], CompleteProfileDto.prototype, "firsReportBaseUrl", void 0);
 //# sourceMappingURL=complete-profile.dto.js.map
