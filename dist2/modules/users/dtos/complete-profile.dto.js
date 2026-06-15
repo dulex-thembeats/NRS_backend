@@ -28,8 +28,6 @@ class CompleteProfileDto {
     businessId;
     irnTemplate;
     erpName;
-    firsApiUrl;
-    firsReportBaseUrl;
 }
 exports.CompleteProfileDto = CompleteProfileDto;
 __decorate([
@@ -156,24 +154,4 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], CompleteProfileDto.prototype, "erpName", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    (0, swagger_1.ApiProperty)({
-        description: "Base URL for the FIRS environment",
-        example: "https://eivc-k6z6d.ondigitalocean.app",
-        required: false,
-    }),
-    __metadata("design:type", String)
-], CompleteProfileDto.prototype, "firsApiUrl", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    (0, swagger_1.ApiProperty)({
-        description: "Report Base URL for the FIRS environment",
-        example: "https://api.firsmbs.com",
-        required: false,
-    }),
-    __metadata("design:type", String)
-], CompleteProfileDto.prototype, "firsReportBaseUrl", void 0);
 //# sourceMappingURL=complete-profile.dto.js.map

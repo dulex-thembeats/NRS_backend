@@ -510,7 +510,7 @@ export class AuthService {
       );
 
       // MOCK DATA: Bypassing FIRS API because we don't have an SI key yet.
-      const entityData = {
+      const entityData: any = {
         id: entityId,
         reference: "MOCK_REF",
         is_active: true,

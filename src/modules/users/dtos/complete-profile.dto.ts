@@ -127,22 +127,4 @@ export class CompleteProfileDto {
     required: false,
   })
   erpName?: string;
-
-  @IsOptional()
-  @IsString()
-  @ApiProperty({
-    description: "Base URL for the FIRS environment",
-    example: "https://eivc-k6z6d.ondigitalocean.app",
-    required: false,
-  })
-  firsApiUrl?: string;
-
-  @IsOptional()
-  @IsString()
-  @ApiProperty({
-    description: "Report Base URL for the FIRS environment",
-    example: "https://api.firsmbs.com",
-    required: false,
-  })
-  firsReportBaseUrl?: string;
 }

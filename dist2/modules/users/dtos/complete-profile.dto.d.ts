@@ -13,6 +13,4 @@ export declare class CompleteProfileDto {
     businessId: string;
     irnTemplate: string;
     erpName?: string;
-    firsApiUrl?: string;
-    firsReportBaseUrl?: string;
 }
