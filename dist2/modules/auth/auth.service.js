@@ -187,14 +187,6 @@ let AuthService = AuthService_1 = class AuthService {
                 businessName: user.businessName ?? "",
                 role: user.role,
             };
-            if (user.entityId) {
-                try {
-                    await this.fetchAndSaveEntityData(user.entityId, user.id);
-                }
-                catch (fetchError) {
-                    this.logger.warn(`Could not sync entity data with FIRS during login for user ${user.id}: ${fetchError.message}. Returning last known business records.`);
-                }
-            }
             const businessContext = await this.buildBusinessContext(user.id);
             return {
                 access_token: this.jwtService.sign(payload),
@@ -281,7 +273,6 @@ let AuthService = AuthService_1 = class AuthService {
         if (!user.entityId) {
             throw new common_1.BadRequestException("No entity ID is linked to this user. Register an entity first.");
         }
-        await this.fetchAndSaveEntityData(user.entityId, user.id);
         const businessContext = await this.buildBusinessContext(userId);
         return {
             message: "Entity businesses synced successfully.",

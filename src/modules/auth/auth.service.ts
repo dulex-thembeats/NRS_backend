@@ -276,15 +276,15 @@ export class AuthService {
         role: user.role,
       };
 
-      if (user.entityId) {
-        try {
-          await this.fetchAndSaveEntityData(user.entityId, user.id);
-        } catch (fetchError) {
-          this.logger.warn(
-            `Could not sync entity data with FIRS during login for user ${user.id}: ${fetchError.message}. Returning last known business records.`,
-          );
-        }
-      }
+      // if (user.entityId) {
+      //   try {
+      //     await this.fetchAndSaveEntityData(user.entityId, user.id);
+      //   } catch (fetchError) {
+      //     this.logger.warn(
+      //       `Could not sync entity data with FIRS during login for user ${user.id}: ${fetchError.message}. Returning last known business records.`,
+      //     );
+      //   }
+      // }
 
       const businessContext = await this.buildBusinessContext(user.id);
       // try {
@@ -403,7 +403,7 @@ export class AuthService {
       );
     }
 
-    await this.fetchAndSaveEntityData(user.entityId, user.id);
+    // await this.fetchAndSaveEntityData(user.entityId, user.id);
     const businessContext = await this.buildBusinessContext(userId);
 
     return {
