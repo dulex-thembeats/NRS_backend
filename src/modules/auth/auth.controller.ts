@@ -35,13 +35,13 @@ function parseCookieSecure(): boolean {
 }
 
 function getAuthCookieOptions(): CookieOptions {
-  const sameSite = (process.env.COOKIE_SAME_SITE || "lax").toLowerCase();
+  const sameSite = (process.env.COOKIE_SAME_SITE || "none").toLowerCase();
 
   return {
     httpOnly: true,
-    sameSite: ["strict", "lax"].includes(sameSite)
-      ? (sameSite as "strict" | "lax")
-      : "lax",
+    sameSite: ["strict", "lax", "none"].includes(sameSite)
+      ? (sameSite as "strict" | "lax" | "none")
+      : "none",
     secure: parseCookieSecure(),
     maxAge: 1000 * 60 * 60 * 24,
   };
