@@ -76,6 +76,56 @@ let TenantsController = class TenantsController {
         const result = await this.tenantsService.proxyValidateIrn(userId, payload);
         return result.data ?? { ok: true };
     }
+    async getTaxCategories(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetTaxCategories(userId);
+        return result.data;
+    }
+    async getPaymentMeans(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetPaymentMeans(userId);
+        return result.data;
+    }
+    async getCountries(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetCountries(userId);
+        return result.data;
+    }
+    async getCurrencies(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetCurrencies(userId);
+        return result.data;
+    }
+    async getInvoiceTypes(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetInvoiceTypes(userId);
+        return result.data;
+    }
+    async getServiceCodes(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetServiceCodes(userId);
+        return result.data;
+    }
+    async getVatExemptions(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetVatExemptions(userId);
+        return result.data;
+    }
+    async getHsCodes(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetHsCodes(userId);
+        return result.data;
+    }
+    async getLgas(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetLgas(userId);
+        return result.data;
+    }
+    async getStates(req) {
+        const userId = req.id;
+        const result = await this.tenantsService.proxyGetStates(userId);
+        return result.data;
+    }
     async createOrRotateKeys(req) {
         const userId = req.id;
         const keys = await this.tenantsService.createOrRotateKeys(userId);
@@ -95,6 +145,8 @@ let TenantsController = class TenantsController {
 exports.TenantsController = TenantsController;
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Post)("invoice/validate"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -107,6 +159,8 @@ __decorate([
 ], TenantsController.prototype, "validateInvoice", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Post)("invoice/sign"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -119,6 +173,8 @@ __decorate([
 ], TenantsController.prototype, "signInvoice", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Get)("invoice/confirm/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -130,6 +186,8 @@ __decorate([
 ], TenantsController.prototype, "confirmInvoice", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Get)("invoice/transmit/self-health-check"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -140,6 +198,8 @@ __decorate([
 ], TenantsController.prototype, "transmitSelfHealthCheck", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Get)("invoice/transmit/lookup/tin/:tin"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -151,6 +211,8 @@ __decorate([
 ], TenantsController.prototype, "transmitLookupTin", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Get)("invoice/transmit/lookup/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -162,6 +224,8 @@ __decorate([
 ], TenantsController.prototype, "transmitLookupIrn", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Get)("invoice/transmit/pull"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -172,6 +236,8 @@ __decorate([
 ], TenantsController.prototype, "transmitPullInvoice", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Post)("invoice/transmit/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -183,6 +249,8 @@ __decorate([
 ], TenantsController.prototype, "transmitInvoice", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Patch)("invoice/transmit/:irn"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -194,6 +262,8 @@ __decorate([
 ], TenantsController.prototype, "transmitConfirmReceipt", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
     (0, common_1.Post)("invoice/irn/validate"),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
@@ -205,7 +275,128 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "validateIrn", null);
 __decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/tax-categories"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getTaxCategories", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/payment-means"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getPaymentMeans", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/countries"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getCountries", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/currencies"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getCurrencies", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/invoice-types"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getInvoiceTypes", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/service-codes"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getServiceCodes", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/vat-exemptions"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getVatExemptions", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/hs-codes"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getHsCodes", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/lgas"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getLgas", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-key', required: true, description: 'Tenant API Key' }),
+    (0, swagger_1.ApiHeader)({ name: 'x-api-secret', required: true, description: 'Tenant API Secret' }),
+    (0, common_1.Get)("invoice/resources/states"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(api_key_auth_guard_1.ApiKeyAuthGuard),
+    __param(0, (0, decorators_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "getStates", null);
+__decorate([
     (0, common_1.Post)("keys"),
+    (0, swagger_1.ApiExcludeEndpoint)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
@@ -216,6 +407,7 @@ __decorate([
 ], TenantsController.prototype, "createOrRotateKeys", null);
 __decorate([
     (0, common_1.Get)("keys"),
+    (0, swagger_1.ApiExcludeEndpoint)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
@@ -226,6 +418,7 @@ __decorate([
 ], TenantsController.prototype, "getKeys", null);
 __decorate([
     (0, common_1.Get)("logs"),
+    (0, swagger_1.ApiExcludeEndpoint)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),

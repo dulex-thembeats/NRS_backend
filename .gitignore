@@ -91,5 +91,6 @@ docs/
 .tmp-home/
 DIGITALOCEAN_DROPLET_DEPLOYMENT.md
 VAPT/
+scripts/
 SEEDING.md
 test-masking.js
