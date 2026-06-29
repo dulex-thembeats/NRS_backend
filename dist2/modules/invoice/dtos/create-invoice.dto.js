@@ -159,7 +159,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: "HS code for goods. Use this or isic_code for services.",
-        example: "8523.80.20",
+        example: "8523.80",
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
