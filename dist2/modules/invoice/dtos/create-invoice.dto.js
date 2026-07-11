@@ -73,7 +73,7 @@ class SimplePartyDto {
     postal_address;
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: "Northgate Digital Services Ltd" }),
+    (0, swagger_1.ApiProperty)({ example: "Genius-Excel Digital Services Ltd" }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(1),
     (0, class_validator_1.MaxLength)(255),
@@ -173,7 +173,7 @@ __decorate([
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MaxLength)(100),
+    (0, class_validator_1.MaxLength)(150),
     __metadata("design:type", String)
 ], SimpleInvoiceItemDto.prototype, "product_category", void 0);
 __decorate([
@@ -200,7 +200,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({ example: "STANDARD_VAT", default: "STANDARD_VAT" }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.MaxLength)(50),
+    (0, class_validator_1.MaxLength)(150),
     __metadata("design:type", String)
 ], SimpleInvoiceItemDto.prototype, "tax_category", void 0);
 __decorate([

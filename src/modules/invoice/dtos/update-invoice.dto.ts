@@ -73,7 +73,7 @@ class UpdatePostalAddressDto {
 class UpdatePartyDto {
   @ApiProperty({
     description: 'Party name',
-    example: 'Northgate Digital Services Ltd',
+    example: 'Genius-Excel Digital Services Ltd',
   })
   @IsString()
   @IsNotEmpty()

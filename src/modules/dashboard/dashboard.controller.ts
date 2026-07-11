@@ -19,8 +19,8 @@ export class DashboardController {
   async getSummary(@CurrentUser() user: any) {
     const userRole = user.role;
 
-    if (userRole === "TENANT") {
-      return this.dashboardService.getTenantDashboardSummary(user.id);
+    if (userRole === "CLIENT") {
+      return this.dashboardService.getClientDashboardSummary(user.id);
     } else if (userRole === "ADMIN") {
       return this.dashboardService.getAdminDashboardSummary();
     } else {
@@ -29,15 +29,15 @@ export class DashboardController {
     }
   }
 
-  // @Get('tenant')
-  // @ApiOperation({ summary: 'Get tenant-specific dashboard' })
-  // @ApiResponse({ status: 200, description: 'Tenant dashboard retrieved successfully' })
-  // async getTenantDashboard(@CurrentUser() user: any) {
+  // @Get('client')
+  // @ApiOperation({ summary: 'Get client-specific dashboard' })
+  // @ApiResponse({ status: 200, description: 'Client dashboard retrieved successfully' })
+  // async getClientDashboard(@CurrentUser() user: any) {
   //   const userRole = (user as any).role;
-  //   if (userRole !== 'TENANT') {
-  //     throw new ForbiddenException('Only tenants can access this endpoint');
+  //   if (userRole !== 'CLIENT') {
+  //     throw new ForbiddenException('Only clients can access this endpoint');
   //   }
-  //   return this.dashboardService.getTenantDashboardSummary(user.id);
+  //   return this.dashboardService.getClientDashboardSummary(user.id);
   // }
 
   // @Get('admin')

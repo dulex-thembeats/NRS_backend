@@ -15,7 +15,7 @@ const public_decorator_1 = require("./common/decorators/public.decorator");
 let AppController = class AppController {
     getApiRoot() {
         return {
-            name: "NorthGate E-Invoice API",
+            name: "Genius-Excel E-Invoice API",
             version: "1.0",
             status: "ok",
         };

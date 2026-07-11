@@ -11,14 +11,14 @@ for (const file of filesToFix) {
     let content = fs.readFileSync(file, 'utf8');
     
     // Replace names
-    content = content.replace(/ClientApiCredential/g, 'TenantApiCredential');
-    content = content.replace(/clientApiCredential/g, 'tenantApiCredential');
-    content = content.replace(/ClientApiLog/g, 'TenantApiLog');
-    content = content.replace(/clientApiLog/g, 'tenantApiLog');
+    content = content.replace(/ClientApiCredential/g, 'ClientApiCredential');
+    content = content.replace(/clientApiCredential/g, 'clientApiCredential');
+    content = content.replace(/ClientApiLog/g, 'ClientApiLog');
+    content = content.replace(/clientApiLog/g, 'clientApiLog');
     
     // In index.d.ts there might be literal 'CLIENT' for roles
-    content = content.replace(/'CLIENT'/g, "'TENANT'");
-    content = content.replace(/"CLIENT"/g, '"TENANT"');
+    content = content.replace(/'CLIENT'/g, "'CLIENT'");
+    content = content.replace(/"CLIENT"/g, '"CLIENT"');
     
     fs.writeFileSync(file, content);
     console.log(`Fixed ${file}`);

@@ -21,7 +21,7 @@ const firs_module_1 = require("./modules/firs/firs.module");
 const invoice_module_1 = require("./modules/invoice/invoice.module");
 const configuration_module_1 = require("./modules/configuration/configuration.module");
 const dashboard_module_1 = require("./modules/dashboard/dashboard.module");
-const tenants_module_1 = require("./modules/tenants/tenants.module");
+const clients_module_1 = require("./modules/clients/clients.module");
 const system_integrator_module_1 = require("./modules/system-integrator/system-integrator.module");
 let AppModule = class AppModule {
 };
@@ -43,7 +43,7 @@ exports.AppModule = AppModule = __decorate([
             invoice_module_1.InvoiceModule,
             configuration_module_1.ConfigurationModule,
             dashboard_module_1.DashboardModule,
-            tenants_module_1.TenantsModule,
+            clients_module_1.ClientsModule,
             system_integrator_module_1.SystemIntegratorModule,
         ],
         controllers: [app_controller_1.AppController],

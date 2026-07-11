@@ -11,10 +11,10 @@ export class CreateUserDto {
   })
   email: string;
 
-  @IsIn(["ADMIN", "TENANT"])
+  @IsIn(["ADMIN", "CLIENT"])
   @ApiProperty({
     description: "The role of the user",
-    example: "TENANT",
+    example: "CLIENT",
     required: true,
   })
   role: string;

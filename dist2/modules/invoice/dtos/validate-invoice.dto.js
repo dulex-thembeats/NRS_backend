@@ -117,7 +117,7 @@ exports.PartyDto = PartyDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Party name',
-        example: 'Northgate Digital Services Ltd',
+        example: 'Genius-Excel Digital Services Ltd',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

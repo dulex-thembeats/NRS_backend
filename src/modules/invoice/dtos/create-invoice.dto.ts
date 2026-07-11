@@ -56,7 +56,7 @@ class SimplePostalAddressDto {
 }
 
 class SimplePartyDto {
-  @ApiProperty({ example: "Northgate Digital Services Ltd" })
+  @ApiProperty({ example: "Genius-Excel Digital Services Ltd" })
   @IsString()
   @MinLength(1)
   @MaxLength(255)

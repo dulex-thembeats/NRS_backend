@@ -1,8 +1,8 @@
-# NorthGate – Management Overview
+# Genius-Excel – Management Overview
 
-## What is NorthGate?
+## What is Genius-Excel?
 
-NorthGate is an e-invoicing platform that helps businesses create, sign, and exchange tax-compliant invoices in line with Nigerian FIRS (Federal Inland Revenue Service) requirements. The system supports multiple types of users and integrates with external systems through secure APIs.
+Genius-Excel is an e-invoicing platform that helps businesses create, sign, and exchange tax-compliant invoices in line with Nigerian FIRS (Federal Inland Revenue Service) requirements. The system supports multiple types of users and integrates with external systems through secure APIs.
 
 ---
 
@@ -25,11 +25,11 @@ NorthGate is an e-invoicing platform that helps businesses create, sign, and exc
 
 ### 2. Partners (Integrators)
 
-**Who they are:** Software vendors, ERPs, or accounting systems that connect to NorthGate on behalf of their customers.
+**Who they are:** Software vendors, ERPs, or accounting systems that connect to Genius-Excel on behalf of their customers.
 
 **What they can do:**
 
-- Obtain API keys to integrate with NorthGate
+- Obtain API keys to integrate with Genius-Excel
 - Automate invoice creation, signing, transmission, and confirmation
 - View usage and logs of their API calls
 - See a dashboard with API usage statistics
@@ -106,13 +106,13 @@ When an invoice is transmitted:
 
 ## System Integrator Option
 
-External systems can connect to NorthGate as "System Integrators" to:
+External systems can connect to Genius-Excel as "System Integrators" to:
 
 - Validate invoices
 - Generate QR codes for invoices
 - Store their own FIRS credentials when needed
 
-This supports third-party software and platforms that need to work with NorthGate without going through the web interface.
+This supports third-party software and platforms that need to work with Genius-Excel without going through the web interface.
 
 ---
 

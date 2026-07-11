@@ -609,7 +609,7 @@ export class InvoiceService {
           .map((inv: { irn?: string }) => inv.irn)
           .filter(Boolean);
         if (irns.length > 0) {
-          // Scope update to the calling user's invoices to prevent cross-tenant mutation
+          // Scope update to the calling user's invoices to prevent cross-client mutation
           const whereClause: any = { irn: { in: irns } };
           if (userId) {
             whereClause.userId = userId;

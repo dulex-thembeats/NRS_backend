@@ -12,7 +12,7 @@ import { FirsModule } from "./modules/firs/firs.module";
 import { InvoiceModule } from "./modules/invoice/invoice.module";
 import { ConfigurationModule } from "./modules/configuration/configuration.module";
 import { DashboardModule } from "./modules/dashboard/dashboard.module";
-import { TenantsModule } from "./modules/tenants/tenants.module";
+import { ClientsModule } from "./modules/clients/clients.module";
 import { SystemIntegratorModule } from "./modules/system-integrator/system-integrator.module";
 
 @Module({
@@ -31,7 +31,7 @@ import { SystemIntegratorModule } from "./modules/system-integrator/system-integ
     InvoiceModule,
     ConfigurationModule,
     DashboardModule,
-    TenantsModule,
+    ClientsModule,
     SystemIntegratorModule,
   ],
   controllers: [AppController],

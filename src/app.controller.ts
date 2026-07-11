@@ -7,7 +7,7 @@ export class AppController {
   @Get("api/v1")
   getApiRoot() {
     return {
-      name: "NorthGate E-Invoice API",
+      name: "Genius-Excel E-Invoice API",
       version: "1.0",
       status: "ok",
     };

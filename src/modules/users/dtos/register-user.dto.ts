@@ -76,13 +76,13 @@ export class RegisterUserDto {
   password: string;
 
   @IsOptional()
-  @IsIn(["USER", "TENANT"])
+  @IsIn(["USER", "CLIENT"])
   @ApiProperty({
     description: "The role to assign during public registration",
-    example: "TENANT",
+    example: "CLIENT",
     required: false,
-    enum: ["USER", "TENANT"],
+    enum: ["USER", "CLIENT"],
     default: "USER",
   })
-  role?: "USER" | "TENANT";
+  role?: "USER" | "CLIENT";
 }

@@ -52,18 +52,18 @@ describe("UsersService", () => {
     );
   });
 
-  it("allows TENANT during public registration", async () => {
+  it("allows CLIENT during public registration", async () => {
     const { service, prisma } = buildService();
 
     await service.createUserLightweight({
-      email: "tenant@example.com",
+      email: "client@example.com",
       password: "password123",
-      role: "TENANT",
+      role: "CLIENT",
     });
 
     expect(prisma.user.create).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: expect.objectContaining({ role: "TENANT" }),
+        data: expect.objectContaining({ role: "CLIENT" }),
       }),
     );
   });
@@ -82,7 +82,7 @@ describe("UsersService", () => {
 
   const completeProfileDto: CompleteProfileDto = {
     entityId: "entity-123",
-    businessName: "NorthGate Technology Limited",
+    businessName: "Genius-Excel Technology Limited",
     businessAddress: "123 Main St, Lagos",
     rcNumber: "RC123456",
     dateOfIncorporation: "2020-01-01",
