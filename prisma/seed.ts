@@ -4,9 +4,9 @@ import * as bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@genius-excel.com';
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@northgate.com';
   const adminPassword = process.env.ADMIN_PASSWORD || 'ChangeThis123!';
-  const adminBusinessName = process.env.ADMIN_BUSINESS_NAME || 'Genius-Excel Admin';
+  const adminBusinessName = process.env.ADMIN_BUSINESS_NAME || 'NorthGate Admin';
 
   console.log(`Seeding admin user: ${adminEmail}...`);
 

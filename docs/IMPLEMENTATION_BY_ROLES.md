@@ -1,8 +1,8 @@
-# Byte Invoice – Project Documentation
+# NorthGate – Project Documentation
 
 ## 1. Overview
 
-Byte Invoice is an e-invoicing platform that integrates with FIRS (Federal Inland Revenue Service) for Nigerian tax-compliant invoices. It has role-based access and uses JWT for authentication.
+NorthGate is an e-invoicing platform that integrates with FIRS (Federal Inland Revenue Service) for Nigerian tax-compliant invoices. It has role-based access and uses JWT for authentication.
 
 ---
 

@@ -34,7 +34,7 @@ export class UpdateUserDto {
   rcNumber?: string;
 
   @IsOptional()
-  @IsIn(["USER", "ADMIN", "CLIENT"])
+  @IsIn(["USER", "ADMIN", "TENANT"])
   role?: string;
 
   @IsOptional()

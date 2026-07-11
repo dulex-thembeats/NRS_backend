@@ -63,7 +63,7 @@ try {
   // The official library also generates a QR image - save it
   if (result.qrCodeBuffer) {
     const { writeFile } = await import('fs/promises');
-    await writeFile('/Users/user/Downloads/Genius-ExcelBackendSI/firs-official-qr.png', result.qrCodeBuffer);
+    await writeFile('/Users/user/Downloads/NorthGateBackendSI/firs-official-qr.png', result.qrCodeBuffer);
     console.log("\n✅ Official library QR code saved to: firs-official-qr.png");
     console.log("   Scan THIS with MBS360 to verify the official library works.");
   }

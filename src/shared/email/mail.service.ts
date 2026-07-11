@@ -94,11 +94,11 @@ export class EmailService {
       let from =
         this.configService.get<string>("MAIL_FROM") ||
         this.configService.get<string>("MAIL_USER") ||
-        "noreply@genius-excel.com";
+        "noreply@northgate.com";
 
       // If 'from' doesn't contain a name/bracket format, wrap it with the brand name
       if (!from.includes("<")) {
-        from = `"Genius-Excel" <${from}>`;
+        from = `"NorthGate" <${from}>`;
       }
 
       const mailOptions = {

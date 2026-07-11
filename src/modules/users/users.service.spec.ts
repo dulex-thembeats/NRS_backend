@@ -52,18 +52,18 @@ describe("UsersService", () => {
     );
   });
 
-  it("allows CLIENT during public registration", async () => {
+  it("allows TENANT during public registration", async () => {
     const { service, prisma } = buildService();
 
     await service.createUserLightweight({
-      email: "client@example.com",
+      email: "tenant@example.com",
       password: "password123",
-      role: "CLIENT",
+      role: "TENANT",
     });
 
     expect(prisma.user.create).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: expect.objectContaining({ role: "CLIENT" }),
+        data: expect.objectContaining({ role: "TENANT" }),
       }),
     );
   });
@@ -82,16 +82,10 @@ describe("UsersService", () => {
 
   const completeProfileDto: CompleteProfileDto = {
     entityId: "entity-123",
-    businessName: "Genius-Excel Technology Limited",
+    businessName: "NorthGate Technology Limited",
     businessAddress: "123 Main St, Lagos",
     rcNumber: "RC123456",
     dateOfIncorporation: "2020-01-01",
-    firsApiKey: "mock-key",
-    firsApiSecret: "mock-secret",
-    firsPublicKeyBase64: "mock-pub",
-    firsCertificateBase64: "mock-cert",
-    businessId: "B123",
-    irnTemplate: "TMP1",
     directors: [
       {
         firstName: "Ada",

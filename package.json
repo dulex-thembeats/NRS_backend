@@ -1,8 +1,8 @@
 {
   "name": "backend",
   "version": "0.0.1",
-  "description": "Genius-Excel E-Invoice API",
-  "author": "Genius-Excel",
+  "description": "NorthGate E-Invoice API",
+  "author": "NorthGate",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

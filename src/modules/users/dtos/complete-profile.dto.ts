@@ -24,7 +24,7 @@ export class CompleteProfileDto {
   @MinLength(3)
   @ApiProperty({
     description: "The registered business name",
-    example: "Genius-Excel Technology Limited",
+    example: "NorthGate Technology Limited",
     required: true,
   })
   businessName: string;

@@ -108,8 +108,8 @@ export class UsersService {
     }
 
     const role = registerUserDto.role ?? "USER";
-    if (!["USER", "CLIENT"].includes(role)) {
-      throw new BadRequestException("Only USER or CLIENT can self-register");
+    if (!["USER", "TENANT"].includes(role)) {
+      throw new BadRequestException("Only USER or TENANT can self-register");
     }
 
     // Hash the password

@@ -15,19 +15,19 @@ const public_decorator_1 = require("./common/decorators/public.decorator");
 let AppController = class AppController {
     getApiRoot() {
         return {
-            name: "Genius-Excel E-Invoice API",
+            name: "NorthGate E-Invoice API",
             version: "1.0",
             status: "ok",
         };
     }
     getRoot() {
         return [
-            "   ____           _               _____               _   ",
-            "  / ___| ___ _ __(_)_   _ ___    | ____|_  _____  ___| |  ",
-            " | |  _ / _ \\ '_ \\ | | | / __|   |  _| \\ \\/ / __|/ _ \\ |  ",
-            " | |_| |  __/ | | | | |_| \\__ \\  | |___ >  < (__|  __/ |  ",
-            "  \\____|\\___|_| |_|_|\\__,_|___/__|_____/_/\\_\\___|\\___|_|  ",
-            "                             |_____|                      ",
+            "",
+            "  _   _            _   _      ____       _        ",
+            " | \\ | | ___  _ __| |_| |__  / ___| __ _| |_ ___  ",
+            " |  \\| |/ _ \\| '__| __| '_ \\| |  _ / _` | __/ _ \\ ",
+            " | |\\  | (_) | |  | |_| | | | |_| | (_| | ||  __/ ",
+            " |_| \\_|\\___/|_|   \\__|_| |_|\\____|\\__,_|\\__\\___| ",
             "",
             "  E-Invoice API  |  v1.0  |  /api for Swagger Docs",
             "",
