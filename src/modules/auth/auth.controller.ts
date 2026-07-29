@@ -37,12 +37,18 @@ function parseCookieSecure(): boolean {
 function getAuthCookieOptions(): CookieOptions {
   const sameSite = (process.env.COOKIE_SAME_SITE || "lax").toLowerCase();
 
+  // SameSite=None is required for cross-site cookies (e.g. a Netlify frontend
+  // calling this API on another domain). Browsers only accept None with Secure,
+  // so force Secure on whenever None is used.
+  const isNone = sameSite === "none";
+  const resolvedSameSite = ["strict", "lax", "none"].includes(sameSite)
+    ? (sameSite as "strict" | "lax" | "none")
+    : "lax";
+
   return {
     httpOnly: true,
-    sameSite: ["strict", "lax"].includes(sameSite)
-      ? (sameSite as "strict" | "lax")
-      : "lax",
-    secure: parseCookieSecure(),
+    sameSite: resolvedSameSite,
+    secure: isNone ? true : parseCookieSecure(),
     maxAge: 1000 * 60 * 60 * 24,
   };
 }
